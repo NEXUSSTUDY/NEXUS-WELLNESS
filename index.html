@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | International Online Counseling | Your Path to Clarity</title>
+    <title>Nexus Wellness | International Online Counseling | Find Balance</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,90 +13,118 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        /* --- CORE STYLES (Apple-esque Minimalism) --- */
+        /* --- CORE STYLES (Ultra Premium White Theme) --- */
         :root {
-            --bg-color: #fbfbfd; /* Very subtle off-white like Apple */
-            --text-primary: #1d1d1f; /* Near black */
-            --text-secondary: #86868b;
-            --accent: #0071e3; /* Classic Apple Blue */
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --bg-color: #ffffff; /* Pure, clean white */
+            --bg-secondary: #fbfbfd; /* Subtle off-white for depth like Apple */
+            --text-primary: #1d1d1f; /* Premium dark gray, not pure black */
+            --text-secondary: #6e6e73;
+            --accent: #0071e3; /* Apple Blue for links/CTAs */
+            --border-color: rgba(0,0,0,0.08);
+            --font-main: 'Inter', sans-serif;
             --font-serif: 'Playfair Display', serif;
-            --section-padding: 120px 0;
-            --border-radius: 18px;
+            --section-padding: 160px 0;
+            --border-radius-premium: 24px;
         }
 
-        body, html { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); color: var(--text-primary); background-color: var(--bg-color); -webkit-font-smoothing: antialiased; }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: var(--font-main); color: var(--text-primary); background-color: var(--bg-color); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
         
-        /* --- GLOBAL WRAPPER --- */
-        #smooth-wrapper { width: 100%; height: 100%; overflow: hidden; }
-
         /* --- NAVIGATION --- */
-        .nav { position: fixed; top: 0; width: 100%; height: 52px; background: rgba(251, 251, 253, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; }
-        .logo { font-size: 1.1em; font-weight: 600; letter-spacing: -0.5px; color: var(--text-primary); text-decoration: none; }
-        .nav-links { display: flex; gap: 30px; font-size: 0.85em; list-style: none; padding: 0; margin: 0; }
+        .nav { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; }
+        .logo { font-size: 1.3em; font-weight: 600; letter-spacing: -1px; color: var(--text-primary); text-decoration: none; }
+        .nav-links { display: flex; gap: 40px; font-size: 0.9em; list-style: none; padding: 0; margin: 0; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--text-primary); }
-        .cta-btn-nav { background: var(--text-primary); color: #fff !important; padding: 6px 14px; border-radius: 980px; font-weight: 500; font-size: 0.8em; }
+        .cta-btn-nav { background: var(--text-primary); color: #fff !important; padding: 8px 18px; border-radius: 980px; font-weight: 500; font-size: 0.85em; }
 
         /* --- HERO SECTION --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; background: radial-gradient(circle at 70% 30%, rgba(0,113,227,0.03), rgba(251, 251, 253, 1) 70%); }
-        .hero-title { font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1.05; letter-spacing: -3px; font-weight: 600; margin: 0 0 20px 0; }
-        .hero-title span { color: var(--accent); }
-        .hero-subtitle { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 300; color: var(--text-secondary); max-width: 800px; margin: 0 auto 40px auto; letter-spacing: -0.5px; line-height: 1.3; }
-        .main-cta { display: inline-block; font-size: 1.1em; font-weight: 500; text-decoration: none; color: #fff; background-color: var(--accent); padding: 16px 32px; border-radius: 980px; transition: background 0.3s; }
-        .main-cta:hover { background-color: #0077ed; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 8%; background: radial-gradient(circle at 70% 30%, rgba(0,113,227,0.02), var(--bg-color) 70%); position: relative; overflow: hidden; }
+        .hero-tagline { font-family: var(--font-serif); font-size: 1.4em; color: var(--accent); font-style: italic; margin-bottom: 15px; }
+        .hero-title { font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 1.0; letter-spacing: -4px; font-weight: 700; margin: 0 0 30px 0; }
+        .hero-subtitle { font-size: clamp(1.2rem, 3vw, 1.9rem); font-weight: 300; color: var(--text-secondary); max-width: 900px; margin: 0 auto 50px auto; letter-spacing: -0.5px; line-height: 1.4; }
+        .main-cta { display: inline-block; font-size: 1.15em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--accent); padding: 18px 36px; border-radius: 980px; transition: background 0.3s, transform 0.3s; }
+        .main-cta:hover { background-color: #0077ed; transform: scale(1.02); }
+
+        /* Graphic/Icon for Hero (Optional, can be an image) */
+        .hero-graphic { position: absolute; bottom: -50px; opacity: 0.1; font-size: 15rem; color: var(--accent); }
 
         /* --- KEY INNOVATION: SCROLL-REVEAL TEXT (The "Apple" Effect) --- */
-        .reveal-section { padding: var(--section-padding); position: relative; }
-        .reveal-text-container { max-width: 900px; margin: 0 auto; text-align: center; padding: 0 20px; }
+        .reveal-section { padding: var(--section-padding); position: relative; background: var(--bg-secondary); }
+        .reveal-text-container { max-width: 1000px; margin: 0 auto; text-align: center; padding: 0 20px; }
         
         /* The container for the splitting words */
-        .word-reveal-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
+        .word-reveal-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; }
         
         .word-item { 
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 500;
-            color: rgba(29, 29, 31, 0.1); /* Initially barely visible */
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 600;
+            color: rgba(29, 29, 31, 0.1); /* Initially faint */
             line-height: 1.1;
+            letter-spacing: -2px;
             transition: color 0.1s linear; /* Smooth fill */
         }
 
-        .word-item.visible { color: rgba(29, 29, 31, 1); /* Becomes fully visible on scroll */ }
-
         /* --- COUNSELING TYPES SECTION --- */
-        .counseling-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 60px auto 0 auto; padding: 0 20px; }
-        .counseling-card { background: #fff; padding: 40px; border-radius: var(--border-radius); border: 1px solid rgba(0,0,0,0.03); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .counseling-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
-        .counseling-card h3 { font-size: 1.8em; font-weight: 600; color: var(--text-primary); margin-top: 0; }
-        .counseling-card p { font-size: 1.05em; color: var(--text-secondary); line-height: 1.6; }
-        .icon-circle { width: 60px; height: 60px; border-radius: 50%; background: var(--bg-color); display: flex; align-items: center; justify-content: center; font-size: 1.8em; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.05); }
+        .services-section { padding: var(--section-padding); background: var(--bg-color); }
+        .section-header { text-align: center; max-width: 800px; margin: 0 auto 100px auto; padding: 0 20px; }
+        .section-tagline { font-family: var(--font-serif); font-size: 1.3em; color: var(--accent); font-style: italic; margin-bottom: 15px; }
+        .section-title { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-top: 0; letter-spacing: -3px; }
 
-        /* --- SECTION HEADINGS --- */
-        .section-header { text-align: center; max-width: 800px; margin: 0 auto 80px auto; padding: 0 20px; }
-        .section-tagline { font-family: var(--font-serif); font-size: 1.2em; color: var(--accent); font-style: italic; margin-bottom: 10px; }
-        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; line-height: 1.1; margin-top: 0; letter-spacing: -2px; }
+        .counseling-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+        .counseling-card { background: var(--bg-secondary); padding: 50px; border-radius: var(--border-radius-premium); border: 1px solid var(--border-color); text-align: left; transition: transform 0.4s ease, box-shadow 0.4s ease; cursor: pointer; position: relative; overflow: hidden;}
+        .counseling-card:hover { transform: translateY(-10px) scale(1.01); box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
+        .counseling-card h3 { font-size: 2em; font-weight: 700; color: var(--text-primary); margin: 0 0 20px 0; letter-spacing: -1px;}
+        .counseling-card p { font-size: 1.1em; color: var(--text-secondary); line-height: 1.6; }
+        .icon-premium { font-size: 3rem; margin-bottom: 30px; color: var(--accent); opacity: 0.8;}
+
+        /* --- GRAPHIC ELEMENT SECTION (Visual Break) --- */
+        .graphic-section { height: 60vh; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; padding: 8%; position: relative; overflow: hidden; }
+        .abstract-graphic { width: 100%; height: 100%; border-radius: var(--border-radius-premium); background: radial-gradient(circle at 30% 70%, rgba(0,113,227,0.05), #ffffff 80%); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center;}
+        .abstract-graphic-icon { font-size: 8rem; color: rgba(0,113,227,0.1); }
+
+        /* --- PREMIUM INQUIRY FORM SECTION --- */
+        .form-section { padding: var(--section-padding); background: var(--bg-color); border-top: 1px solid var(--border-color); }
+        .form-container { max-width: 700px; margin: 0 auto; background: var(--bg-secondary); padding: 70px; border-radius: var(--border-radius-premium); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        
+        .form-group { margin-bottom: 30px; text-align: left; }
+        .form-group label { display: block; font-size: 1em; font-weight: 500; color: var(--text-primary); margin-bottom: 10px; }
+        .form-input, .form-textarea, .form-select { width: 100%; padding: 18px 25px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: #fff; font-family: var(--font-main); font-size: 1.05em; color: var(--text-primary); transition: border-color 0.3s; }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--accent); }
+        .form-textarea { height: 150px; resize: vertical; }
+
+        .form-submit-btn { width: 100%; font-size: 1.2em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--text-primary); padding: 20px; border: none; border-radius: 12px; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+        .form-submit-btn:hover { background-color: #000; transform: scale(1.01); }
 
         /* --- CONTACT & SOCIAL SECTION --- */
-        .contact-section { background: #fff; padding: var(--section-padding); text-align: center; position: relative; }
-        .email-link { display: inline-block; font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 500; color: var(--text-primary); text-decoration: none; margin-top: 20px; letter-spacing: -1px; position: relative; }
-        .email-link::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease; }
+        .contact-section { background: var(--bg-secondary); padding: var(--section-padding); text-align: center; border-top: 1px solid var(--border-color); }
+        .email-link { display: inline-block; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; color: var(--text-primary); text-decoration: none; margin-top: 30px; letter-spacing: -2px; position: relative; }
+        .email-link::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 3px; background: var(--accent); transition: width 0.4s ease; }
         .email-link:hover::after { width: 100%; }
 
-        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 60px; }
-        .social-item { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3em; text-decoration: none; color: var(--text-secondary); background: var(--bg-color); border: 1px solid rgba(0,0,0,0.05); transition: background 0.3s, color 0.3s; }
-        .social-item:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 70px; }
+        .social-item { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; text-decoration: none; color: var(--text-secondary); background: #fff; border: 1px solid var(--border-color); transition: background 0.3s, color 0.3s, transform 0.2s; }
+        .social-item:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: scale(1.1); }
 
         /* --- FOOTER --- */
-        .footer { background: var(--bg-color); padding: 60px 5%; font-size: 0.85em; color: var(--text-secondary); text-align: center; border-top: 1px solid rgba(0,0,0,0.05); }
-        .footer p { margin: 5px 0; }
+        .footer { background: var(--bg-color); padding: 80px 8%; font-size: 0.9em; color: var(--text-secondary); text-align: center; border-top: 1px solid var(--border-color); }
+        .footer p { margin: 8px 0; }
 
         /* --- RESPONSIBILITY FIXES --- */
+        @media (max-width: 1024px) {
+            .nav { padding: 0 4%; }
+            .hero-title { font-size: 4rem; letter-spacing: -2px; }
+            .hero-subtitle { font-size: 1.4rem; }
+            .word-item { font-size: 3rem; }
+        }
         @media (max-width: 768px) {
-            .nav { height: auto; flex-direction: column; padding: 15px 5%; gap: 10px; }
-            .nav-links { gap: 15px; }
-            --section-padding: 80px 0;
+            .nav { height: auto; flex-direction: column; padding: 20px; gap: 15px; }
+            .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
+            --section-padding: 100px 0;
             .reveal-text-container { padding: 0 10px; }
-            .word-item { font-size: 1.8rem; line-height: 1.2; }
+            .word-item { font-size: 2rem; line-height: 1.3; }
+            .counseling-grid { padding: 0 20px; }
+            .form-container { padding: 40px 30px; }
         }
     </style>
 </head>
@@ -108,82 +136,136 @@
         <nav class="nav">
             <a href="#" class="logo">NEXUS WELLNESS</a>
             <ul class="nav-links">
-                <li><a href="#about">Our Approach</a></li>
+                <li><a href="#about">Our Philosophy</a></li>
                 <li><a href="#services">Counseling</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#contact" class="cta-btn-nav">Book Now</a></li>
+                <li><a href="#inquiry">Begin</a></li>
+                <li><a href="#inquiry" class="cta-btn-nav">Book Inquiry</a></li>
             </ul>
         </nav>
 
         <section class="hero">
-            <h1 class="hero-title">Your mental. <br>Our focus. <span>Global Clarity.</span></h1>
-            <p class="hero-subtitle">Premium, private online counseling from anywhere in the world. Rediscover balance, find solutions, and achieve well-being.</p>
-            <a href="#contact" class="main-cta">Begin Your Journey</a>
+            <p class="hero-tagline">Your international sanctuary.</p>
+            <h1 class="hero-title">Your mental space, redefined.</h1>
+            <p class="hero-subtitle">Experience private, professional online counseling with global reach. Rediscover balance, clarity, and the strength to thrive.</p>
+            <a href="#inquiry" class="main-cta">Explore Private Care</a>
+            <div class="hero-graphic">🧘‍♂️</div>
         </section>
 
         <section id="about" class="reveal-section">
             <div class="reveal-text-container">
                 <div class="word-reveal-container" id="revealText1">
-                    Our. expert. international. team. of. licensed. professionals. provides. confidential,. compassionate,. and. evidence-based. online. therapy,. guiding. you. towards. a. healthier,. more. fulfilled. life,. regardless. of. boundaries.
+                    At. Nexus. Wellness,. we. believe. mental. health. is. a. spectrum,. not. a. destination.. Our. premier. online. platform. connects. you. with. world-class. professionals. globally,. providing. confidential,. empathetic,. and. personalized. guidance. to. navigate. life's. complexities.. Discover. your. path. to. clarity,. right. from. your. own. space.
                 </div>
             </div>
         </section>
 
-        <section id="services" class="reveal-section">
+        <section id="services" class="services-section">
             <div class="section-header">
-                <p class="section-tagline">Specialized online care.</p>
-                <h2 class="section-title">Support for every dimension of your life.</h2>
+                <p class="section-tagline">Expertise Across Boundaries.</p>
+                <h2 class="section-title">Confidential care for your world.</h2>
             </div>
             
             <div class="counseling-grid">
                 <div class="counseling-card">
-                    <div class="icon-circle">🧘‍♂️</div>
+                    <div class="icon-premium">👤</div>
                     <h3>Individual Counseling</h3>
-                    <p>Navigate anxiety, depression, stress, and personal growth in a safe, private virtual space with our expert therapists.</p>
+                    <p>Navigate anxiety, depression, and personal challenges in a safe, dynamic virtual environment with specialist care.</p>
                 </div>
                 <div class="counseling-card">
-                    <div class="icon-circle">👩‍❤️‍👨</div>
+                    <div class="icon-premium">🤝</div>
                     <h3>Couples & Relationship</h3>
-                    <p>Rebuild trust, improve communication, and find connection with specialized online coaching for partners globally.</p>
+                    <p>Rebuild trust, communication, and emotional intimacy with internationally trained relationship experts online.</p>
                 </div>
                 <div class="counseling-card">
-                    <div class="icon-circle">👨‍👩‍👧</div>
+                    <div class="icon-premium">🏠</div>
                     <h3>Family & Parenting</h3>
-                    <p>Strengthen family bonds and navigate dynamic challenges with online guidance tailored for modern, international families.</p>
+                    <p>Strengthen connections and resolve conflicts with a global perspective on modern family dynamics.</p>
                 </div>
                 <div class="counseling-card">
-                    <div class="icon-circle">💼</div>
+                    <div class="icon-premium">💡</div>
                     <h3>Career & Workplace</h3>
-                    <p>Optimize professional well-being, manage burnout, and unlock performance with globally relevant online coaching.</p>
+                    <p>Optimize your professional well-being, manage burnout, and unlock potential in a globalized career landscape.</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="graphic-section">
+            <div class="abstract-graphic">
+                <div class="abstract-graphic-icon">Nexus</div>
+            </div>
+        </section>
+
+        <section id="inquiry" class="form-section">
+            <div class="section-header">
+                <p class="section-tagline">Begin Your Path.</p>
+                <h2 class="section-title">Confidential Inquiry</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 20px auto 0 auto;">Our team reviews all inquiries with the utmost privacy. We will connect you with the most suitable specialist for your international wellness journey.</p>
+            </div>
+            
+            <div class="form-container">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="e.g., Alex Johnson" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">International Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="alex@global.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Current Location (City/Country)</label>
+                        <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Singapore" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reason">Primary Area of Interest</label>
+                        <select id="reason" name="reason" class="form-select" required>
+                            <option value="" disabled selected>Select an area</option>
+                            <option value="individual">Individual Counseling</option>
+                            <option value="relationship">Relationship/Couples Coaching</option>
+                            <option value="family">Family Dynamics/Parenting</option>
+                            <option value="career">Career/Workplace Wellness</option>
+                            <option value="general">Other / General Inquiry</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Private Message (Optional)</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Briefly share your thoughts..."></textarea>
+                    </div>
+
+                    <button type="submit" class="form-submit-btn">Send Confidential Inquiry</button>
+                </form>
             </div>
         </section>
 
         <section id="contact" class="contact-section">
             <div class="section-header">
-                <p class="section-tagline">Connect with us.</p>
-                <h2 class="section-title">Start your international well-being journey today.</h2>
+                <p class="section-tagline">Connect Globally.</p>
+                <h2 class="section-title">World-class support is just one connection away.</h2>
             </div>
             
-            <a href="mailto:your_email@example.com?subject=Inquiry from Nexus Wellness" class="email-link">contact@nexuswellness.com</a>
+            <a href="mailto:contact@nexuswellness.com?subject=International Wellness Inquiry" class="email-link">contact@nexuswellness.com</a>
             
             <div class="social-links">
-                <a href="#" class="social-item" title="Instagram"><span>📸</span></a>
-                <a href="#" class="social-item" title="LinkedIn"><span>🔗</span></a>
-                <a href="#" class="social-item" title="YouTube"><span>▶️</span></a>
+                <a href="#" class="social-item" title="Instagram">📸</a>
+                <a href="#" class="social-item" title="LinkedIn">🔗</a>
+                <a href="#" class="social-item" title="YouTube">▶️</a>
             </div>
         </section>
 
         <footer class="footer">
-            <p>Nexus Wellness is an international online counseling platform. Our services do not replace crisis intervention. If in immediate danger, please contact local emergency services.</p>
-            <p>&copy; 2024 Nexus Wellness. Private. International. World-Class.</p>
-        </footer
+            <p>Nexus Wellness provides premium, private online counseling. Our global specialists operate independently but adhere to strict international privacy standards.</p>
+            <p>&copy; 2024 Nexus Wellness. Global Clarity. Private.</p>
+        </footer>
 
     </div>
 </div>
 
 <script>
-    // --- ADVANCED APPLE-STYLE SCROLL REVEAL JAVASCRIPT ---
+    // --- ADVANCED APPLE-STYLE SCROLL REVEAL (GSAP) ---
 
     window.onload = function() {
         gsap.registerPlugin(ScrollTrigger);
@@ -196,13 +278,13 @@
             
             container.innerHTML = ''; // Clear original text
 
-            words.forEach(word => {
+            words.forEach((word, index) => {
                 if(word.length > 1) { // Basic split
                     const wordSpan = document.createElement('div');
                     wordSpan.className = 'word-item';
                     wordSpan.innerText = word;
                     container.appendChild(wordSpan);
-                } else { // Keep small items like "." separate
+                } else { // Keep tiny characters (".") separate
                      container.appendChild(document.createTextNode(word + " "));
                 }
             });
@@ -210,21 +292,37 @@
 
         splitTextIntoWords('revealText1');
 
-        // 2. CREATE THE GSAP SCROLL TRIGGER
+        // 2. CREATE THE GSAP SCROLL TRIGGER for the reveal text
+        // This makes the words fade in smoothly as you scroll, like Apple.
         gsap.to(".word-item", {
             scrollTrigger: {
-                trigger: ".reveal-section", // The container that activates it
-                start: "top 80%", // When the top of the container hits 80% of the viewport height
-                end: "bottom 30%", // When the bottom hits 30% of the viewport height
-                scrub: 1, // Smooth "on scroll" effect, not a direct animation, 1 means smoother lag.
-                // markers: true, // Uncomment to see the scroll triggers for debugging
-                toggleClass: {targets: ".word-item", className: "visible"},
+                trigger: ".reveal-section", // The entire container
+                start: "top 75%", // When the top of the container hits 75% viewport height
+                end: "bottom 35%", // Ends when bottom hits 35% height
+                scrub: 1, // Smooth "on scroll" effect - lags slightly behind the mouse/finger
+                markers: false, // Turn on to debug triggers (true)
+                toggleActions: "play none none reverse"
             },
-            // This GSAP property (stagger) creates the sequence:
-            stagger: 0.1, // Small delay between each word becoming visible
-            ease: "none" // Crucial for linear scrub control
+            // The opacity property changes from the CSS faint value to full visibility
+            color: "rgba(29, 29, 31, 1)", 
+            stagger: 0.1, // Small delay between words
+            ease: "none" 
         });
-        
+
+        // --- Premium Card Animations on Scroll ---
+        gsap.from(".counseling-card", {
+            scrollTrigger: {
+                trigger: ".services-section",
+                start: "top 70%",
+                markers: false
+            },
+            y: 80,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            stagger: 0.2 // Cascade effect
+        });
+
         // --- Smooth Section Scrolling Navigation ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
