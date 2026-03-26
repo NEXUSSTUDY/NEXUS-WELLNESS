@@ -49,7 +49,7 @@
         .main-cta { display: inline-block; font-size: 1.15em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--accent); padding: 18px 36px; border-radius: 980px; transition: background 0.3s, transform 0.3s; z-index: 10;}
         .main-cta:hover { background-color: #0077ed; transform: scale(1.02); }
 
-        /* Optional: Hero Image Placeholder */
+        /* Optional: Hero Image Placeholder (If needed, can be counseling photo) */
         .hero-image { position: absolute; bottom: 0; max-width: 1000px; opacity: 0.8; z-index: 5; }
 
         /* --- VIDEO BACKGROUND SECTION (YouTube integration) --- */
@@ -88,11 +88,14 @@
         .counseling-card { background: var(--bg-secondary); padding: 50px; border-radius: var(--border-radius-premium); border: 1px solid var(--border-color); text-align: left; transition: transform 0.4s ease, box-shadow 0.4s ease; cursor: pointer; position: relative; overflow: hidden;}
         .counseling-card:hover { transform: translateY(-10px) scale(1.01); box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
         .counseling-card h3 { font-size: 2em; font-weight: 700; color: var(--text-primary); margin: 0 0 20px 0; letter-spacing: -1px;}
-        .counseling-card p { font-size: 1.1em; color: var(--text-secondary); line-height: 1.6; }
-        .icon-premium { font-size: 3rem; margin-bottom: 30px; color: var(--accent); opacity: 0.8;}
+        .counseling-card p { font-size: 1.1em; color: var(--text-secondary); line-height: 1.6; z-index: 5; position: relative;}
+        .icon-premium { font-size: 3rem; margin-bottom: 30px; color: var(--accent); opacity: 0.8; z-index: 5; position: relative;}
 
-        /* Graphics Overlay for Cards */
-        .card-graphic { position: absolute; bottom: -50px; right: -50px; font-size: 10rem; color: rgba(0,113,227,0.03); z-index: 1;}
+        /* actual photo overlay on card */
+        .card-photo-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.04; background-size: cover; background-position: center;}
+
+        /* actual graphics overlay for cards */
+        .card-graphic { position: absolute; bottom: -50px; right: -50px; font-size: 10rem; color: rgba(0,113,227,0.02); z-index: 1;}
 
         /* --- PREMIUM INDIAN-STYLE FORM SECTION --- */
         .form-section { padding: var(--section-padding); background: var(--bg-secondary); border-top: 1px solid var(--border-color); }
@@ -196,28 +199,32 @@
             
             <div class="counseling-grid">
                 <div class="counseling-card">
+                    <div class="card-photo-overlay" style="background-image: url('https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?q=80&w=1000');"></div>
                     <div class="icon-premium">👤</div>
                     <h3>Individual Counseling</h3>
                     <p>Navigate personal challenges like anxiety, stress, and growth in a safe, dynamic virtual environment with globally trained specialists.</p>
-                    <div class="card-graphic">Nexus</div>
+                    <div class="card-graphic">Mental</div>
                 </div>
                 <div class="counseling-card">
+                    <div class="card-photo-overlay" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=1000');"></div>
                     <div class="icon-premium">🤝</div>
                     <h3>Relationship & Marriage</h3>
                     <p>Rebuild trust, improve communication, and find connection with expert relationship coaching tailored for modern, international partners.</p>
                     <div class="card-graphic">Wellness</div>
                 </div>
                 <div class="counseling-card">
+                    <div class="card-photo-overlay" style="background-image: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1000');"></div>
                     <div class="icon-premium">🏠</div>
                     <h3>Family & Parenting</h3>
                     <p>Strengthen connections and resolve dynamics conflicts with a globally relevant perspective on family wellness and modern support.</p>
                     <div class="card-graphic">Care</div>
                 </div>
                 <div class="counseling-card">
-                    <div class="icon-premium">💼</div>
+                    <div class="card-photo-overlay" style="background-image: url('https://images.unsplash.com/photo-1516534775068-ba3e7458af70?q=80&w=1000');"></div>
+                    <div class="icon-premium">💡</div>
                     <h3>Career & Performance</h3>
-                    <p>Optimize professional well-being, manage burnout, and unlock potential in a globalized career landscape with confidential coaching.</p>
-                    <div class="card-graphic">Focus</div>
+                    <p>Optimize your professional well-being, manage burnout, and unlock potential in a globalized career landscape with confidential coaching.</p>
+                    <div class="card-graphic">Growth</div>
                 </div>
             </div>
         </section>
