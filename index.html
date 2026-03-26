@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | International Online Counseling | Find Balance</title>
+    <title>Nexus Wellness | International Online Counseling | Your Sanctuary for Clarity</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,63 +13,76 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        /* --- CORE STYLES (Ultra Premium White Theme) --- */
+        /* --- CORE STYLES (Ultra Premium Apple-White) --- */
         :root {
             --bg-color: #ffffff; /* Pure, clean white */
-            --bg-secondary: #fbfbfd; /* Subtle off-white for depth like Apple */
-            --text-primary: #1d1d1f; /* Premium dark gray, not pure black */
+            --bg-secondary: #fbfbfd; /* Subtle off-white for depth */
+            --text-primary: #1d1d1f; /* Near black */
             --text-secondary: #6e6e73;
             --accent: #0071e3; /* Apple Blue for links/CTAs */
             --border-color: rgba(0,0,0,0.08);
-            --font-main: 'Inter', sans-serif;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --font-serif: 'Playfair Display', serif;
             --section-padding: 160px 0;
-            --border-radius-premium: 24px;
+            --border-radius-premium: 28px;
         }
 
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; font-family: var(--font-main); color: var(--text-primary); background-color: var(--bg-color); -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
         
+        /* --- GLOBAL WRAPPER (For GSAP Smooth Scrolling) --- */
+        #smooth-wrapper { width: 100%; height: 100%; overflow: hidden; }
+
         /* --- NAVIGATION --- */
         .nav { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; }
-        .logo { font-size: 1.3em; font-weight: 600; letter-spacing: -1px; color: var(--text-primary); text-decoration: none; }
+        .logo { font-size: 1.3em; font-weight: 600; letter-spacing: -1.2px; color: var(--text-primary); text-decoration: none; }
         .nav-links { display: flex; gap: 40px; font-size: 0.9em; list-style: none; padding: 0; margin: 0; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--text-primary); }
         .cta-btn-nav { background: var(--text-primary); color: #fff !important; padding: 8px 18px; border-radius: 980px; font-weight: 500; font-size: 0.85em; }
 
         /* --- HERO SECTION --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 8%; background: radial-gradient(circle at 70% 30%, rgba(0,113,227,0.02), var(--bg-color) 70%); position: relative; overflow: hidden; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 8%; position: relative; overflow: hidden; }
         .hero-tagline { font-family: var(--font-serif); font-size: 1.4em; color: var(--accent); font-style: italic; margin-bottom: 15px; }
-        .hero-title { font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 1.0; letter-spacing: -4px; font-weight: 700; margin: 0 0 30px 0; }
-        .hero-subtitle { font-size: clamp(1.2rem, 3vw, 1.9rem); font-weight: 300; color: var(--text-secondary); max-width: 900px; margin: 0 auto 50px auto; letter-spacing: -0.5px; line-height: 1.4; }
-        .main-cta { display: inline-block; font-size: 1.15em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--accent); padding: 18px 36px; border-radius: 980px; transition: background 0.3s, transform 0.3s; }
+        .hero-title { font-size: clamp(3rem, 8vw, 6.5rem); line-height: 1.0; letter-spacing: -4px; font-weight: 700; margin: 0 0 30px 0; }
+        .hero-subtitle { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 300; color: var(--text-secondary); max-width: 900px; margin: 0 auto 50px auto; letter-spacing: -0.5px; line-height: 1.4; }
+        .main-cta { display: inline-block; font-size: 1.15em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--accent); padding: 18px 36px; border-radius: 980px; transition: background 0.3s, transform 0.3s; z-index: 10;}
         .main-cta:hover { background-color: #0077ed; transform: scale(1.02); }
 
-        /* Graphic/Icon for Hero (Optional, can be an image) */
-        .hero-graphic { position: absolute; bottom: -50px; opacity: 0.1; font-size: 15rem; color: var(--accent); }
+        /* Optional: Hero Image Placeholder */
+        .hero-image { position: absolute; bottom: 0; max-width: 1000px; opacity: 0.8; z-index: 5; }
+
+        /* --- VIDEO BACKGROUND SECTION (YouTube integration) --- */
+        .video-section { height: 80vh; background: var(--bg-color); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0 8%; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .video-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .video-container iframe { width: 100vw; height: 100vh; object-fit: cover; border: none;}
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,1) 100%); z-index: 2; }
+        .video-content { position: relative; z-index: 3; text-align: center; max-width: 800px; }
+        .video-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; margin: 0; letter-spacing: -2.5px;}
+        .video-btn { display: inline-block; margin-top: 40px; color: var(--accent); font-weight: 600; text-decoration: none; font-size: 1.2em;}
+        .video-btn span { margin-left: 8px; font-size: 1.2em;}
 
         /* --- KEY INNOVATION: SCROLL-REVEAL TEXT (The "Apple" Effect) --- */
-        .reveal-section { padding: var(--section-padding); position: relative; background: var(--bg-secondary); }
+        .reveal-section { padding: var(--section-padding); background: var(--bg-secondary); }
         .reveal-text-container { max-width: 1000px; margin: 0 auto; text-align: center; padding: 0 20px; }
         
         /* The container for the splitting words */
         .word-reveal-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 18px; }
         
         .word-item { 
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-size: clamp(2rem, 5vw, 4.5rem);
             font-weight: 600;
-            color: rgba(29, 29, 31, 0.1); /* Initially faint */
+            color: rgba(29, 29, 31, 0.1); /* Initially barely visible */
             line-height: 1.1;
             letter-spacing: -2px;
             transition: color 0.1s linear; /* Smooth fill */
         }
 
-        /* --- COUNSELING TYPES SECTION --- */
+        /* --- COUNSELING SERVICES SECTION --- */
         .services-section { padding: var(--section-padding); background: var(--bg-color); }
         .section-header { text-align: center; max-width: 800px; margin: 0 auto 100px auto; padding: 0 20px; }
         .section-tagline { font-family: var(--font-serif); font-size: 1.3em; color: var(--accent); font-style: italic; margin-bottom: 15px; }
-        .section-title { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-top: 0; letter-spacing: -3px; }
+        .section-title { font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-top: 0; letter-spacing: -3px; }
 
         .counseling-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; padding: 0 30px; }
         .counseling-card { background: var(--bg-secondary); padding: 50px; border-radius: var(--border-radius-premium); border: 1px solid var(--border-color); text-align: left; transition: transform 0.4s ease, box-shadow 0.4s ease; cursor: pointer; position: relative; overflow: hidden;}
@@ -78,53 +91,57 @@
         .counseling-card p { font-size: 1.1em; color: var(--text-secondary); line-height: 1.6; }
         .icon-premium { font-size: 3rem; margin-bottom: 30px; color: var(--accent); opacity: 0.8;}
 
-        /* --- GRAPHIC ELEMENT SECTION (Visual Break) --- */
-        .graphic-section { height: 60vh; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; padding: 8%; position: relative; overflow: hidden; }
-        .abstract-graphic { width: 100%; height: 100%; border-radius: var(--border-radius-premium); background: radial-gradient(circle at 30% 70%, rgba(0,113,227,0.05), #ffffff 80%); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center;}
-        .abstract-graphic-icon { font-size: 8rem; color: rgba(0,113,227,0.1); }
+        /* Graphics Overlay for Cards */
+        .card-graphic { position: absolute; bottom: -50px; right: -50px; font-size: 10rem; color: rgba(0,113,227,0.03); z-index: 1;}
 
-        /* --- PREMIUM INQUIRY FORM SECTION --- */
-        .form-section { padding: var(--section-padding); background: var(--bg-color); border-top: 1px solid var(--border-color); }
-        .form-container { max-width: 700px; margin: 0 auto; background: var(--bg-secondary); padding: 70px; border-radius: var(--border-radius-premium); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        /* --- PREMIUM INDIAN-STYLE FORM SECTION --- */
+        .form-section { padding: var(--section-padding); background: var(--bg-secondary); border-top: 1px solid var(--border-color); }
+        .form-container { max-width: 750px; margin: 0 auto; background: #fff; padding: 80px; border-radius: var(--border-radius-premium); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
         
-        .form-group { margin-bottom: 30px; text-align: left; }
-        .form-group label { display: block; font-size: 1em; font-weight: 500; color: var(--text-primary); margin-bottom: 10px; }
-        .form-input, .form-textarea, .form-select { width: 100%; padding: 18px 25px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: #fff; font-family: var(--font-main); font-size: 1.05em; color: var(--text-primary); transition: border-color 0.3s; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+        .form-group { text-align: left; }
+        .form-group label { display: block; font-size: 1em; font-weight: 500; color: var(--text-primary); margin-bottom: 12px; }
+        .form-input, .form-textarea, .form-select { width: 100%; padding: 18px 25px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.12); background: #fff; font-family: var(--font-main); font-size: 1.1em; color: var(--text-primary); transition: border-color 0.3s; }
         .form-input:focus, .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--accent); }
-        .form-textarea { height: 150px; resize: vertical; }
+        .form-textarea { height: 180px; resize: vertical; }
 
-        .form-submit-btn { width: 100%; font-size: 1.2em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--text-primary); padding: 20px; border: none; border-radius: 12px; cursor: pointer; transition: background 0.3s, transform 0.2s; }
-        .form-submit-btn:hover { background-color: #000; transform: scale(1.01); }
+        .form-submit-btn { width: 100%; font-size: 1.2em; font-weight: 600; text-decoration: none; color: #fff; background-color: var(--accent); padding: 22px; border: none; border-radius: 12px; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+        .form-submit-btn:hover { background-color: #0077ed; transform: scale(1.01); }
+
+        /* Full Width for Message Area */
+        .form-group-full { grid-column: 1 / -1; }
 
         /* --- CONTACT & SOCIAL SECTION --- */
-        .contact-section { background: var(--bg-secondary); padding: var(--section-padding); text-align: center; border-top: 1px solid var(--border-color); }
-        .email-link { display: inline-block; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; color: var(--text-primary); text-decoration: none; margin-top: 30px; letter-spacing: -2px; position: relative; }
+        .contact-section { background: var(--bg-color); padding: var(--section-padding); text-align: center; border-top: 1px solid var(--border-color); }
+        .email-link { display: inline-block; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 600; color: var(--text-primary); text-decoration: none; margin-top: 30px; letter-spacing: -2px; position: relative; }
         .email-link::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 3px; background: var(--accent); transition: width 0.4s ease; }
         .email-link:hover::after { width: 100%; }
 
-        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 70px; }
-        .social-item { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; text-decoration: none; color: var(--text-secondary); background: #fff; border: 1px solid var(--border-color); transition: background 0.3s, color 0.3s, transform 0.2s; }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 80px; }
+        .social-item { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6em; text-decoration: none; color: var(--text-secondary); background: var(--bg-secondary); border: 1px solid var(--border-color); transition: background 0.3s, color 0.3s, transform 0.2s; }
         .social-item:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: scale(1.1); }
 
         /* --- FOOTER --- */
-        .footer { background: var(--bg-color); padding: 80px 8%; font-size: 0.9em; color: var(--text-secondary); text-align: center; border-top: 1px solid var(--border-color); }
-        .footer p { margin: 8px 0; }
+        .footer { background: var(--bg-secondary); padding: 80px 8%; font-size: 0.9em; color: var(--text-secondary); text-align: center; border-top: 1px solid var(--border-color); }
+        .footer p { margin: 10px 0; }
 
         /* --- RESPONSIBILITY FIXES --- */
         @media (max-width: 1024px) {
             .nav { padding: 0 4%; }
             .hero-title { font-size: 4rem; letter-spacing: -2px; }
             .hero-subtitle { font-size: 1.4rem; }
-            .word-item { font-size: 3rem; }
+            .word-item { font-size: 3.2rem; }
+            .video-container iframe { transform: scale(1.5); } /* Zoom to cover mobile */
         }
         @media (max-width: 768px) {
             .nav { height: auto; flex-direction: column; padding: 20px; gap: 15px; }
             .nav-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
             --section-padding: 100px 0;
             .reveal-text-container { padding: 0 10px; }
-            .word-item { font-size: 2rem; line-height: 1.3; }
+            .word-item { font-size: 2.2rem; line-height: 1.3; }
             .counseling-grid { padding: 0 20px; }
-            .form-container { padding: 40px 30px; }
+            .form-grid { grid-template-columns: 1fr; gap: 20px;}
+            .form-container { padding: 50px 30px; }
         }
     </style>
 </head>
@@ -136,114 +153,141 @@
         <nav class="nav">
             <a href="#" class="logo">NEXUS WELLNESS</a>
             <ul class="nav-links">
-                <li><a href="#about">Our Philosophy</a></li>
+                <li><a href="#about">Philosophy</a></li>
                 <li><a href="#services">Counseling</a></li>
                 <li><a href="#inquiry">Begin</a></li>
+                <li><a href="#contact">Contact</a></li>
                 <li><a href="#inquiry" class="cta-btn-nav">Book Inquiry</a></li>
             </ul>
         </nav>
 
         <section class="hero">
-            <p class="hero-tagline">Your international sanctuary.</p>
-            <h1 class="hero-title">Your mental space, redefined.</h1>
-            <p class="hero-subtitle">Experience private, professional online counseling with global reach. Rediscover balance, clarity, and the strength to thrive.</p>
+            <p class="hero-tagline">Global Excellence. Private Space.</p>
+            <h1 class="hero-title">Unlock clarity. Find balance. Rediscover you.</h1>
+            <p class="hero-subtitle">Premium international online counseling. Experience private, professional therapy and achieve wellness from anywhere in the world.</p>
             <a href="#inquiry" class="main-cta">Explore Private Care</a>
-            <div class="hero-graphic">🧘‍♂️</div>
+            </section>
+
+        <section class="video-section">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/aapka_video_id?autoplay=1&mute=1&loop=1&playlist=aapka_video_id&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&controls=0&cc_load_policy=1&fs=0&wmode=transparent" 
+                        allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="video-overlay"></div>
+            <div class="video-content">
+                <h2 class="video-title">A moment of reflection. For your mental well-being.</h2>
+                <a href="#inquiry" class="video-btn">Watch full series &raquo;<span></span></a>
+            </div>
         </section>
 
         <section id="about" class="reveal-section">
             <div class="reveal-text-container">
                 <div class="word-reveal-container" id="revealText1">
-                    At. Nexus. Wellness,. we. believe. mental. health. is. a. spectrum,. not. a. destination.. Our. premier. online. platform. connects. you. with. world-class. professionals. globally,. providing. confidential,. empathetic,. and. personalized. guidance. to. navigate. life's. complexities.. Discover. your. path. to. clarity,. right. from. your. own. space.
+                    At. Nexus. Wellness,. we. believe. mental. health. is. a. sanctuary,. not. a. spectrum.. Our. premier. online. platform. connects. you. with. world-class. professionals. globally,. providing. confidential,. empathetic,. and. personalized. guidance. to. navigate. life's. complexities.. Discover. your. path. to. profound. well-being,. entirely. from. your. own. space,. right. here.
                 </div>
             </div>
         </section>
 
         <section id="services" class="services-section">
             <div class="section-header">
-                <p class="section-tagline">Expertise Across Boundaries.</p>
-                <h2 class="section-title">Confidential care for your world.</h2>
+                <p class="section-tagline">International Care. Indian Understanding.</p>
+                <h2 class="section-title">Confidential care for your dimensions.</h2>
             </div>
             
             <div class="counseling-grid">
                 <div class="counseling-card">
                     <div class="icon-premium">👤</div>
                     <h3>Individual Counseling</h3>
-                    <p>Navigate anxiety, depression, and personal challenges in a safe, dynamic virtual environment with specialist care.</p>
+                    <p>Navigate personal challenges like anxiety, stress, and growth in a safe, dynamic virtual environment with globally trained specialists.</p>
+                    <div class="card-graphic">Nexus</div>
                 </div>
                 <div class="counseling-card">
                     <div class="icon-premium">🤝</div>
-                    <h3>Couples & Relationship</h3>
-                    <p>Rebuild trust, communication, and emotional intimacy with internationally trained relationship experts online.</p>
+                    <h3>Relationship & Marriage</h3>
+                    <p>Rebuild trust, improve communication, and find connection with expert relationship coaching tailored for modern, international partners.</p>
+                    <div class="card-graphic">Wellness</div>
                 </div>
                 <div class="counseling-card">
                     <div class="icon-premium">🏠</div>
                     <h3>Family & Parenting</h3>
-                    <p>Strengthen connections and resolve conflicts with a global perspective on modern family dynamics.</p>
+                    <p>Strengthen connections and resolve dynamics conflicts with a globally relevant perspective on family wellness and modern support.</p>
+                    <div class="card-graphic">Care</div>
                 </div>
                 <div class="counseling-card">
-                    <div class="icon-premium">💡</div>
-                    <h3>Career & Workplace</h3>
-                    <p>Optimize your professional well-being, manage burnout, and unlock potential in a globalized career landscape.</p>
+                    <div class="icon-premium">💼</div>
+                    <h3>Career & Performance</h3>
+                    <p>Optimize professional well-being, manage burnout, and unlock potential in a globalized career landscape with confidential coaching.</p>
+                    <div class="card-graphic">Focus</div>
                 </div>
-            </div>
-        </section>
-
-        <section class="graphic-section">
-            <div class="abstract-graphic">
-                <div class="abstract-graphic-icon">Nexus</div>
             </div>
         </section>
 
         <section id="inquiry" class="form-section">
             <div class="section-header">
-                <p class="section-tagline">Begin Your Path.</p>
-                <h2 class="section-title">Confidential Inquiry</h2>
-                <p style="color: var(--text-secondary); max-width: 600px; margin: 20px auto 0 auto;">Our team reviews all inquiries with the utmost privacy. We will connect you with the most suitable specialist for your international wellness journey.</p>
+                <p class="section-tagline">Begin Your Path. Confidential Care.</p>
+                <h2 class="section-title">Private Patient Inquiry</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 20px auto 0 auto;">Reviewing all inquiries with strict international privacy standards. Let us connect you with the right global specialist.</p>
             </div>
             
             <div class="form-container">
-                <form action="#" method="post">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" class="form-input" placeholder="e.g., Alex Johnson" required>
+                <form action="https://formspree.io/f/aapka_unique_id" method="POST">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="e.g., Vikram Sharma" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">International Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="vikram@nexus.global" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact">Contact Number (Optional)</label>
+                            <input type="tel" id="contact" name="contact" class="form-input" placeholder="+91 98765-43210">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">Location (State/Region)</label>
+                            <select id="state" name="state" class="form-select" required>
+                                <option value="" disabled selected>Select Your State</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Other">Other / International</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-group-full">
+                            <label for="reason">What are you looking for today?</label>
+                            <select id="reason" name="reason" class="form-select" required>
+                                <option value="" disabled selected>Select an area</option>
+                                <option value="individual">Individual Counseling / Therapy</option>
+                                <option value="relationship">Relationship or Couples Coaching</option>
+                                <option value="family">Family or Parenting Guidance</option>
+                                <option value="career">Career/Workplace Wellness</option>
+                                <option value="stress">General Stress / Burnout</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-group-full">
+                            <label for="message">Private Message (Briefly describe your thoughts)</label>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Feel free to share what's on your mind..."></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">International Email Address</label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="alex@global.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="location">Current Location (City/Country)</label>
-                        <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Singapore" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="reason">Primary Area of Interest</label>
-                        <select id="reason" name="reason" class="form-select" required>
-                            <option value="" disabled selected>Select an area</option>
-                            <option value="individual">Individual Counseling</option>
-                            <option value="relationship">Relationship/Couples Coaching</option>
-                            <option value="family">Family Dynamics/Parenting</option>
-                            <option value="career">Career/Workplace Wellness</option>
-                            <option value="general">Other / General Inquiry</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Your Private Message (Optional)</label>
-                        <textarea id="message" name="message" class="form-textarea" placeholder="Briefly share your thoughts..."></textarea>
-                    </div>
-
-                    <button type="submit" class="form-submit-btn">Send Confidential Inquiry</button>
+                    <button type="submit" class="form-submit-btn">Send Confidential Inquiry &raquo;</button>
                 </form>
             </div>
         </section>
 
         <section id="contact" class="contact-section">
             <div class="section-header">
-                <p class="section-tagline">Connect Globally.</p>
+                <p class="section-tagline">Global Connections. Private Support.</p>
                 <h2 class="section-title">World-class support is just one connection away.</h2>
             </div>
             
@@ -258,7 +302,7 @@
 
         <footer class="footer">
             <p>Nexus Wellness provides premium, private online counseling. Our global specialists operate independently but adhere to strict international privacy standards.</p>
-            <p>&copy; 2024 Nexus Wellness. Global Clarity. Private.</p>
+            <p>&copy; 2024 Nexus Wellness. Private. International. Global Clarity.</p>
         </footer>
 
     </div>
@@ -278,29 +322,25 @@
             
             container.innerHTML = ''; // Clear original text
 
-            words.forEach((word, index) => {
-                if(word.length > 1) { // Basic split
-                    const wordSpan = document.createElement('div');
-                    wordSpan.className = 'word-item';
-                    wordSpan.innerText = word;
-                    container.appendChild(wordSpan);
-                } else { // Keep tiny characters (".") separate
-                     container.appendChild(document.createTextNode(word + " "));
-                }
+            words.forEach(word => {
+                const wordSpan = document.createElement('div');
+                wordSpan.className = 'word-item';
+                wordSpan.innerText = word;
+                container.appendChild(wordSpan);
             });
         }
 
         splitTextIntoWords('revealText1');
 
         // 2. CREATE THE GSAP SCROLL TRIGGER for the reveal text
-        // This makes the words fade in smoothly as you scroll, like Apple.
+        // This animates the opacity smoothly, like Apple's "fill-on-scroll" effect.
         gsap.to(".word-item", {
             scrollTrigger: {
                 trigger: ".reveal-section", // The entire container
                 start: "top 75%", // When the top of the container hits 75% viewport height
-                end: "bottom 35%", // Ends when bottom hits 35% height
+                end: "bottom 30%", // Ends when bottom hits 30% height
                 scrub: 1, // Smooth "on scroll" effect - lags slightly behind the mouse/finger
-                markers: false, // Turn on to debug triggers (true)
+                markers: false, // Turn on (true) to debug triggers
                 toggleActions: "play none none reverse"
             },
             // The opacity property changes from the CSS faint value to full visibility
