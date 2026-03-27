@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | International Online Counseling</title>
+    <title>Nexus Wellness | Premium International Counseling</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,25 +14,26 @@
     <style>
         :root {
             --bg-white: #ffffff;
-            --apple-gray: #f5f5f7; /* Signature Apple Background */
+            --apple-gray: #f5f5f7;
             --text-black: #1d1d1f;
             --text-gray: #86868b;
             --accent-blue: #0071e3;
-            --border: rgba(0,0,0,0.1);
+            --border: rgba(0,0,0,0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Inter', -apple-system, sans-serif; 
             background-color: var(--bg-white); 
             color: var(--text-black); 
-            line-height: 1.5;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
             -webkit-font-smoothing: antialiased;
         }
 
         /* --- NAVIGATION --- */
         .nav {
-            position: fixed; top: 0; width: 100%; height: 52px;
+            position: fixed; top: 0; width: 100%; height: 48px;
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             z-index: 1000; border-bottom: 0.5px solid var(--border);
@@ -40,191 +41,177 @@
         }
         .nav a { 
             text-decoration: none; color: var(--text-black); 
-            font-size: 12px; margin: 0 20px; font-weight: 400; opacity: 0.8;
-            letter-spacing: 0.5px;
+            font-size: 12px; margin: 0 15px; font-weight: 400; opacity: 0.8;
+            transition: opacity 0.3s;
         }
+        .nav a:hover { opacity: 1; color: var(--accent-blue); }
 
         /* --- HERO SECTION --- */
         .hero {
-            height: 100vh; display: flex; flex-direction: column;
+            height: 90vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
             padding: 0 20px; background: var(--bg-white);
         }
-        .hero span.tagline { color: var(--accent-blue); font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+        .hero .badge { color: var(--accent-blue); font-weight: 600; font-size: 14px; margin-bottom: 12px; display: block; }
         .hero h1 { 
-            font-size: clamp(40px, 10vw, 80px); font-weight: 700; 
-            letter-spacing: -3px; line-height: 1.05; margin-bottom: 20px; 
+            font-size: clamp(42px, 8vw, 84px); font-weight: 700; 
+            letter-spacing: -0.015em; line-height: 1.07; margin-bottom: 24px; 
         }
         .hero p { 
-            font-size: clamp(18px, 3vw, 24px); color: var(--text-gray); 
-            max-width: 700px; margin-bottom: 40px; font-weight: 400;
+            font-size: clamp(19px, 3vw, 26px); color: var(--text-gray); 
+            max-width: 750px; margin-bottom: 40px; font-weight: 400;
         }
         .btn {
             background: var(--text-black); color: white;
-            padding: 12px 28px; border-radius: 980px;
+            padding: 14px 30px; border-radius: 980px;
             text-decoration: none; font-weight: 500; font-size: 17px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn:hover { transform: scale(1.03); opacity: 0.9; }
+        .btn:hover { transform: scale(1.02); background: #333; }
 
-        /* --- APPLE SCROLL REVEAL (WORDS VISIBLE ON SCROLL) --- */
-        .scroll-section {
-            padding: 160px 10%; background: var(--apple-gray); text-align: center;
+        /* --- SCROLL REVEAL (THE APPLE EXPERIENCE) --- */
+        .scroll-reveal-box {
+            padding: 180px 10%; background: var(--apple-gray); text-align: center;
+            border-top: 1px solid var(--border);
         }
         .reveal-text {
-            font-size: clamp(28px, 5vw, 56px); font-weight: 600;
-            line-height: 1.1; letter-spacing: -2px; max-width: 1100px; margin: 0 auto;
+            font-size: clamp(30px, 6vw, 58px); font-weight: 600;
+            line-height: 1.1; letter-spacing: -0.03em; max-width: 1200px; margin: 0 auto;
         }
-        .reveal-text span { color: var(--text-black); opacity: 0.1; }
+        .reveal-text span { color: var(--text-black); opacity: 0.1; transition: opacity 0.1s; }
 
-        /* --- SERVICES (ULTRA PREMIUM PHOTOS) --- */
-        .services { padding: 100px 8%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .service-card {
-            background: var(--bg-white); border-radius: 22px; overflow: hidden;
-            border: 1px solid var(--border); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* --- PREMIUM IMAGE SECTION --- */
+        .image-banner {
+            width: 100%; height: 70vh; position: relative; overflow: hidden;
+            background-color: var(--bg-white); padding: 40px 0;
         }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .service-card img { width: 100%; height: 280px; object-fit: cover; }
-        .card-body { padding: 32px; }
-        .card-body h3 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
-        .card-body p { color: var(--text-gray); font-size: 16px; line-height: 1.6; }
+        .image-banner img {
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 0;
+        }
 
-        /* --- INDIAN PATIENT INQUIRY FORM --- */
-        .form-container { 
-            padding: 120px 8%; background: var(--apple-gray); 
+        /* --- PREMIUM FORM SECTION --- */
+        .form-area { 
+            padding: 120px 20px; background: var(--bg-white); 
             display: flex; justify-content: center; 
         }
         .form-card {
-            background: var(--bg-white); padding: 60px; border-radius: 30px;
-            width: 100%; max-width: 800px; border: 1px solid var(--border);
+            background: var(--bg-white); padding: 0px; 
+            width: 100%; max-width: 680px; text-align: center;
         }
-        .form-card h2 { font-size: 36px; font-weight: 700; letter-spacing: -1px; margin-bottom: 40px; text-align: center; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .form-card h2 { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+        .form-card p.subtitle { color: var(--text-gray); margin-bottom: 48px; font-size: 18px; }
+        
+        .form-inputs { display: flex; flex-direction: column; gap: 16px; }
         input, select, textarea {
             width: 100%; padding: 18px; border-radius: 12px; 
-            border: 1.5px solid #d2d2d7; background: #fff;
-            font-size: 16px; color: var(--text-black); outline: none;
-            transition: border-color 0.3s;
+            border: 1px solid #d2d2d7; background: #fff;
+            font-size: 17px; color: var(--text-black); outline: none;
+            font-family: inherit;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); }
-        textarea { grid-column: span 2; height: 150px; resize: none; }
-        .full-width { grid-column: span 2; }
+        input:focus, select:focus, textarea:focus { border: 1.5px solid var(--accent-blue); }
+        textarea { height: 160px; resize: none; }
+        
         .submit-btn {
             background: var(--accent-blue); color: #fff; border: none;
-            padding: 20px; border-radius: 14px; font-size: 18px; font-weight: 600;
-            cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s;
+            padding: 18px; border-radius: 12px; font-size: 17px; font-weight: 600;
+            cursor: pointer; width: 100%; margin-top: 12px; transition: 0.3s;
         }
         .submit-btn:hover { background: #0077ed; }
 
         /* --- FOOTER --- */
         footer { 
-            padding: 80px 8%; text-align: center; color: var(--text-gray); 
-            background: var(--bg-white); border-top: 0.5px solid var(--border);
+            padding: 60px 20px; text-align: center; color: var(--text-gray); 
+            background: var(--apple-gray); font-size: 13px;
         }
-        .footer-links { margin-bottom: 30px; }
-        .footer-links a { text-decoration: none; color: var(--text-black); margin: 0 15px; font-size: 14px; font-weight: 500; }
+        .socials { margin-bottom: 24px; }
+        .socials a { text-decoration: none; color: var(--text-black); margin: 0 12px; font-weight: 500; }
 
+        /* --- RESPONSIVE FIXES --- */
         @media (max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            textarea, .full-width { grid-column: span 1; }
-            .hero h1 { font-size: 48px; }
+            .hero h1 { font-size: 44px; }
+            .hero p { font-size: 19px; }
+            .scroll-reveal-box { padding: 100px 20px; }
+            .form-card { padding: 20px; }
+            .nav { height: auto; padding: 10px 0; flex-wrap: wrap; }
+            .nav a { margin: 5px 10px; }
         }
     </style>
 </head>
 <body>
 
     <nav class="nav">
-        <a href="#">Nexus Wellness</a>
-        <a href="#services">Services</a>
-        <a href="#book">Book Session</a>
+        <a href="#">Philosophy</a>
+        <a href="#inquiry">Inquiry</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <section class="hero">
-        <span class="tagline">World-Class Virtual Counseling</span>
-        <h1>Clarity for your mind.<br>Peace for your soul.</h1>
-        <p>Experience private, premium online counseling designed for your modern lifestyle. International standards, Indian empathy.</p>
-        <a href="#book" class="btn">Start Free Inquiry</a>
+        <span class="badge">International Standards</span>
+        <h1>Nexus Wellness. <br>The Private Sanctuary.</h1>
+        <p>Premium online counseling for the global citizen. Experience world-class mental health support in a space that is entirely yours.</p>
+        <a href="#inquiry" class="btn">Begin Your Journey</a>
     </section>
 
-    <section class="scroll-section">
+    <section class="image-banner">
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1600&q=80" alt="Mindfulness">
+    </section>
+
+    <section class="scroll-reveal-box">
         <div class="reveal-text" id="reveal">
-            "Your mental well-being is not a luxury, it is a necessity. At Nexus Wellness, we provide a global sanctuary where your voice is heard, your privacy is guarded, and your journey to healing begins today."
+            "Your mental well-being is not just a priority; it is the foundation of your existence. At Nexus Wellness, we guard your privacy with international rigor while providing the empathetic clarity you deserve to thrive in a complex world."
         </div>
     </section>
 
-    <section class="services" id="services">
-        <div class="service-card">
-            <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=800&q=80" alt="Individual Counseling">
-            <div class="card-body">
-                <h3>Individual Care</h3>
-                <p>Personalized therapy for anxiety, depression, and personal growth with absolute confidentiality.</p>
-            </div>
-        </div>
-        <div class="service-card">
-            <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&w=800&q=80" alt="Relationship Counseling">
-            <div class="card-body">
-                <h3>Relationship Healing</h3>
-                <p>Expert guidance to rebuild trust and communication in your marriage or relationship.</p>
-            </div>
-        </div>
-        <div class="service-card">
-            <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee1?auto=format&fit=crop&w=800&q=80" alt="Career Counseling">
-            <div class="card-body">
-                <h3>Professional Growth</h3>
-                <p>Navigate workplace burnout and career transitions with international standard coaching.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="form-container" id="book">
+    <section class="form-area" id="inquiry">
         <div class="form-card">
-            <h2>Confidential Inquiry Form</h2>
-            <form action="https://formspree.io/f/YOUR_ID" method="POST">
-                <div class="form-grid">
-                    <input type="text" name="Name" placeholder="Patient Full Name" required>
-                    <input type="email" name="Email" placeholder="Email Address" required>
-                    <input type="tel" name="Phone" placeholder="Mobile (+91) Number" required>
-                    <select name="Service" required>
-                        <option value="" disabled selected>Select Counseling Category</option>
-                        <option>Depression & Anxiety</option>
-                        <option>Relationship / Marriage</option>
-                        <option>Career & Workplace Stress</option>
-                        <option>Parenting & Child Psychology</option>
-                        <option>Other</option>
-                    </select>
-                    <textarea name="Message" placeholder="Briefly describe what you're going through (Optional)"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Book My Private Consultation</button>
+            <h2>Connect with us.</h2>
+            <p class="subtitle">Complete our confidential inquiry to speak with a specialist.</p>
+            
+            <form action="https://formspree.io/f/YOUR_ID" method="POST" class="form-inputs">
+                <input type="text" name="Name" placeholder="Full Name" required>
+                <input type="email" name="Email" placeholder="International Email Address" required>
+                <input type="tel" name="Phone" placeholder="Contact Number (+91 / International)">
+                
+                <select name="Category" required>
+                    <option value="" disabled selected>Nature of Inquiry</option>
+                    <option>Individual Counseling</option>
+                    <option>Relationship & Marriage</option>
+                    <option>Career Performance</option>
+                    <option>General Well-being</option>
+                </select>
+                
+                <textarea name="Message" placeholder="How can we help you achieve clarity?"></textarea>
+                
+                <button type="submit" class="submit-btn">Send Private Inquiry</button>
             </form>
         </div>
     </section>
 
     <footer id="contact">
-        <div class="footer-links">
+        <div class="socials">
             <a href="#">Instagram</a>
             <a href="#">YouTube</a>
             <a href="#">LinkedIn</a>
         </div>
-        <p>&copy; 2026 Nexus Wellness International. Private. Global. Professional.</p>
+        <p>&copy; 2026 Nexus Wellness International. All Rights Reserved. Private & Confidential.</p>
     </footer>
 
     <script>
-        // Split text into spans for GSAP animation
+        // Apple Style Scroll Reveal JavaScript
         const textElement = document.getElementById('reveal');
-        const words = textElement.innerText.split(" ");
-        textElement.innerHTML = words.map(word => `<span>${word} </span>`).join("");
+        const content = textElement.innerText.split(" ");
+        textElement.innerHTML = content.map(word => `<span>${word} </span>`).join("");
 
-        // GSAP ScrollTrigger for Word Reveal (Apple Style)
         gsap.to("#reveal span", {
             scrollTrigger: {
-                trigger: ".scroll-section",
-                start: "top 70%",
-                end: "bottom 30%",
-                scrub: 1.5,
+                trigger: ".scroll-reveal-box",
+                start: "top 75%",
+                end: "bottom 25%",
+                scrub: 1,
             },
             opacity: 1,
-            stagger: 0.1,
+            stagger: 0.05,
             ease: "none"
         });
     </script>
