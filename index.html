@@ -3,124 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite Counseling | Global Excellence</title>
+    <title>Veridia Counseling | International Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'veridia': {
+                            50: '#f1fcf1',
+                            100: '#e1f9e1',
+                            200: '#c3f1c3',
+                            300: '#a3e9a3',
+                            400: '#75d875',
+                            500: '#34d399', // Strong, Modern Emerald Green
+                            600: '#10b981', // Richer Teal-Green
+                            700: '#059669', // Deeper Jade
+                            800: '#065f46', // Very Dark Forest
+                            900: '#064e3b', // Deepest Sage
+                        },
+                        'earth': '#4b5563', // Soft Gray
+                        'cream': '#fffbeb', // Off-White
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        html { scroll-behavior: smooth; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(16, 185, 129, 0.9), rgba(6, 78, 59, 0.95)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
-        .hero-gradient {
-            background: radial-gradient(circle at top right, #065f46, #064e3b, #022c22);
+        .btn-green-fill {
+            @apply bg-veridia-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 ease-in-out hover:bg-veridia-800 hover:shadow-lg;
         }
-        .btn-premium {
-            background: linear-gradient(45deg, #10b981, #059669);
-            transition: all 0.3s ease;
-        }
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        .btn-green-outline {
+            @apply border-2 border-veridia-600 text-veridia-700 font-semibold py-3 px-8 rounded-full transition-all duration-300 ease-in-out hover:bg-veridia-50 hover:text-veridia-800;
         }
     </style>
 </head>
-<body class="bg-[#022c22] text-white">
+<body class="font-sans bg-cream text-earth antialiased">
 
-    <nav class="fixed w-full z-50 glass-card px-8 py-4 flex justify-between items-center">
-        <div class="text-2xl font-bold tracking-tighter text-emerald-400">NEXUS <span class="text-white font-light">STUDY</span></div>
-        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest">
-            <a href="#home" class="hover:text-emerald-400 transition">Home</a>
-            <a href="#services" class="hover:text-emerald-400 transition">Services</a>
-            <a href="#about" class="hover:text-emerald-400 transition">About</a>
-            <a href="#contact" class="hover:text-emerald-400 transition">Book Session</a>
+    <nav class="fixed top-0 w-full z-50 bg-white shadow-sm border-b border-veridia-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-serif font-bold text-veridia-800 tracking-tight">Veridia<span class="text-veridia-500 font-light">.Counseling</span></a>
+            <div class="hidden md:flex space-x-10 text-veridia-900 font-medium">
+                <a href="#about" class="hover:text-veridia-600 transition">Our Approach</a>
+                <a href="#services" class="hover:text-veridia-600 transition">Services</a>
+                <a href="#international" class="hover:text-veridia-600 transition">International Expertise</a>
+                <a href="#contact" class="hover:text-veridia-600 transition">Book Session</a>
+            </div>
+            <a href="#contact" class="hidden md:block btn-green-fill">Consult Now</a>
+            <button class="md:hidden text-veridia-800 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </div>
     </nav>
 
-    <section id="home" class="h-screen flex items-center justify-center hero-gradient px-6">
-        <div class="text-center" data-aos="fade-up">
-            <span class="text-emerald-400 tracking-[0.3em] uppercase text-sm mb-4 block">International Standards</span>
-            <h1 class="text-5xl md:text-8xl font-bold mb-6 leading-tight">Elevate Your <br><span class="text-emerald-500 italic">Perspective.</span></h1>
-            <p class="max-w-2xl mx-auto text-gray-300 text-lg mb-10">Professional guidance for mental wellness, career growth, and relationship harmony. Your journey to a balanced life starts here.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#contact" class="btn-premium px-10 py-4 rounded-full font-semibold">Reserve Your Spot</a>
-                <a href="#services" class="border border-emerald-500/30 px-10 py-4 rounded-full hover:bg-emerald-500/10 transition">Explore Services</a>
+    <section id="hero" class="hero-bg min-h-screen flex items-center justify-center text-center pt-24 px-6 text-white">
+        <div class="max-w-4xl" data-aos="fade-up">
+            <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">Empowering Global Minds Towards Holistic <span class="text-white opacity-80 italic">Wellness.</span></h1>
+            <p class="text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto opacity-90">Veridia Counseling delivers world-class, empathetic guidance, connecting you with certified international counselors for unparalleled support, regardless of your borders.</p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#services" class="bg-white text-veridia-800 font-bold py-4 px-10 rounded-full text-lg shadow-md hover:scale-105 transition">Explore Services</a>
+                <a href="#contact" class="border-2 border-white text-white font-semibold py-4 px-10 rounded-full text-lg hover:bg-white/10 transition">Request a Global Counselor</a>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-24 px-8 bg-[#011f18]">
+    <section id="about" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-veridia-900 mb-8 leading-snug">The Veridia Standard of Care</h2>
+                <p class="text-lg text-earth mb-6 leading-relaxed">Our approach is built on international best practices. We blend innovative psychological theories with profound cultural intelligence to ensure your counseling experience is effective, respectful, and transformative. We don't just solve problems; we foster sustainable global wellbeing.</p>
+                <a href="#contact" class="btn-green-outline mt-4 inline-block">Experience the Difference</a>
+            </div>
+            <div data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1582213782179-e0d55f9ccf70?q=80&w=1200&auto=format&fit=crop" alt="Counseling Session" class="rounded-3xl shadow-2xl border-4 border-veridia-100">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-6 bg-veridia-50">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold mb-16 text-center" data-aos="fade-down">Expert Solutions</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card p-10 rounded-3xl hover:border-emerald-500 transition duration-500" data-aos="flip-left">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-center text-veridia-900 mb-16" data-aos="fade-down">Expertise Across All Realms</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="bg-white p-10 rounded-3xl shadow-lg border border-veridia-100 hover:border-veridia-400 hover:-translate-y-2 transition-all duration-300" data-aos="flip-left">
+                    <div class="w-16 h-16 bg-veridia-100 text-veridia-700 rounded-2xl flex items-center justify-center mb-8">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Relationship Counseling</h3>
-                    <p class="text-gray-400 leading-relaxed">Global strategies for building deep connections and resolving complex interpersonal conflicts.</p>
+                    <h3 class="text-2xl font-semibold text-veridia-800 mb-4">International Relationship Counseling</h3>
+                    <p class="text-earth leading-relaxed">Navigating cross-cultural dynamics, expat challenges, and long-distance connectivity with globally validated methods.</p>
                 </div>
-                <div class="glass-card p-10 rounded-3xl hover:border-emerald-500 transition duration-500" data-aos="flip-left" data-aos-delay="100">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <div class="bg-white p-10 rounded-3xl shadow-lg border border-veridia-100 hover:border-veridia-400 hover:-translate-y-2 transition-all duration-300" data-aos="flip-left" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-veridia-100 text-veridia-700 rounded-2xl flex items-center justify-center mb-8">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Career Guidance</h3>
-                    <p class="text-gray-400 leading-relaxed">Mapping your professional future with psychological insights and industry-aligned planning.</p>
+                    <h3 class="text-2xl font-semibold text-veridia-800 mb-4">Global Career & Leadership Guidance</h3>
+                    <p class="text-earth leading-relaxed">Strategic planning for international career shifts, overcoming imposter syndrome in diverse environments, and fostering global leadership resilience.</p>
                 </div>
-                <div class="glass-card p-10 rounded-3xl hover:border-emerald-500 transition duration-500" data-aos="flip-left" data-aos-delay="200">
-                    <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <div class="bg-white p-10 rounded-3xl shadow-lg border border-veridia-100 hover:border-veridia-400 hover:-translate-y-2 transition-all duration-300" data-aos="flip-left" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-veridia-100 text-veridia-700 rounded-2xl flex items-center justify-center mb-8">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-4">Psychological Wellness</h3>
-                    <p class="text-gray-400 leading-relaxed">Evidence-based therapeutic interventions for anxiety, stress, and personal development.</p>
+                    <h3 class="text-2xl font-semibold text-veridia-800 mb-4">Advanced Psychological Wellbeing</h3>
+                    <p class="text-earth leading-relaxed">Evidence-based interventions (CBT, Mindfulness) tailored to manage complex anxiety, depression, and stress with complete confidentiality and international protocols.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-24 px-8">
-        <div class="max-w-4xl mx-auto glass-card rounded-[2rem] p-12" data-aos="zoom-in">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold mb-4">Confidential Consultation</h2>
-                <p class="text-gray-400">Take the first step towards a better you. We respond within 12 hours.</p>
+    <section id="international" class="py-24 px-6 bg-veridia-900 text-white">
+        <div class="max-w-7xl mx-auto text-center" data-aos="zoom-in">
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-veridia-50 mb-10 leading-tight">Global Network. Personal Care.</h2>
+            <p class="text-xl font-light mb-16 max-w-2xl mx-auto opacity-90">Veridia connects you with verified, board-certified counselors located in North America, Europe, and Asia, specializing in multi-lingual support and the intricate nuances of global living.</p>
+            <div class="flex flex-wrap justify-center gap-6 font-semibold text-lg text-veridia-200">
+                <span class="bg-veridia-800/40 px-6 py-3 rounded-full border border-veridia-700">English</span>
+                <span class="bg-veridia-800/40 px-6 py-3 rounded-full border border-veridia-700">Español</span>
+                <span class="bg-veridia-800/40 px-6 py-3 rounded-full border border-veridia-700">Mandarin</span>
+                <span class="bg-veridia-800/40 px-6 py-3 rounded-full border border-veridia-700">Hindi</span>
+                <span class="bg-veridia-800/40 px-6 py-3 rounded-full border border-veridia-700">French</span>
             </div>
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                    <label class="text-xs uppercase tracking-widest text-emerald-400">Full Name</label>
-                    <input type="text" placeholder="John Doe" class="w-full bg-emerald-900/20 border border-emerald-500/20 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition">
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 bg-white">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl p-12 border-4 border-veridia-100 shadow-2xl" data-aos="fade-up">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-veridia-900 mb-5">Book Your Global Consultation</h2>
+                <p class="text-xl text-earth">Secure. Confidential. Expert Guidance.</p>
+            </div>
+            <form class="space-y-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="font-medium text-veridia-900">Full Name</label>
+                        <input type="text" placeholder="Alex Chen" class="w-full border-2 border-veridia-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-veridia-300 focus:border-veridia-500 outline-none transition">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-medium text-veridia-900">Email Address</label>
+                        <input type="email" placeholder="alex@veridia.global" class="w-full border-2 border-veridia-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-veridia-300 focus:border-veridia-500 outline-none transition">
+                    </div>
                 </div>
                 <div class="space-y-2">
-                    <label class="text-xs uppercase tracking-widest text-emerald-400">Email Address</label>
-                    <input type="email" placeholder="john@example.com" class="w-full bg-emerald-900/20 border border-emerald-500/20 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition">
-                </div>
-                <div class="space-y-2 md:col-span-2">
-                    <label class="text-xs uppercase tracking-widest text-emerald-400">Counseling Type</label>
-                    <select class="w-full bg-emerald-900/20 border border-emerald-500/20 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition text-gray-400">
-                        <option>Relationship & Family</option>
-                        <option>Career Planning</option>
-                        <option>General Psychology</option>
+                    <label class="font-medium text-veridia-900">Area of Interest</label>
+                    <select class="w-full border-2 border-veridia-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-veridia-300 focus:border-veridia-500 outline-none transition text-earth">
+                        <option>International Career Planning</option>
+                        <option>Cross-Cultural Relationship Counseling</option>
+                        <option>Expat Anxiety & Adjustment</option>
+                        <option>General International Psychology</option>
                     </select>
                 </div>
-                <div class="space-y-2 md:col-span-2">
-                    <label class="text-xs uppercase tracking-widest text-emerald-400">How can we help?</label>
-                    <textarea rows="4" placeholder="Briefly describe your situation..." class="w-full bg-emerald-900/20 border border-emerald-500/20 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition"></textarea>
+                <div class="space-y-2">
+                    <label class="font-medium text-veridia-900">Preferred Language(s)</label>
+                    <input type="text" placeholder="e.g., English, Español" class="w-full border-2 border-veridia-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-veridia-300 focus:border-veridia-500 outline-none transition">
                 </div>
-                <button type="submit" class="md:col-span-2 btn-premium py-4 rounded-xl font-bold text-lg">Confirm Appointment Request</button>
+                <div class="space-y-2">
+                    <label class="font-medium text-veridia-900">Brief Message / Goals (Confidential)</label>
+                    <textarea rows="5" placeholder="Share briefly what you hope to achieve..." class="w-full border-2 border-veridia-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-veridia-300 focus:border-veridia-500 outline-none transition"></textarea>
+                </div>
+                <button type="submit" class="w-full btn-green-fill text-lg font-bold py-5 rounded-2xl shadow-lg">Confirm International Booking Request</button>
             </form>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-emerald-900/50 text-center">
-        <p class="text-gray-500 text-sm italic mb-4">"Transforming lives through empathy and evidence."</p>
-        <div class="text-emerald-400 font-bold mb-2">Nexus Study Global</div>
-        <p class="text-gray-600 text-xs">© 2026 All Rights Reserved. Confidentiality Guaranteed.</p>
+    <footer class="py-16 px-6 bg-cream border-t border-veridia-100">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 text-veridia-900">
+            <div>
+                <a href="#" class="text-2xl font-serif font-bold text-veridia-800 tracking-tight">Veridia</a>
+                <p class="text-earth text-sm mt-3 leading-relaxed">Global Counseling. Holistic Excellence. Transformative Results.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Explore</h4>
+                <div class="flex flex-col space-y-2 text-sm text-earth">
+                    <a href="#services">Services</a>
+                    <a href="#about">Approach</a>
+                    <a href="#international">Expertise</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Legal</h4>
+                <div class="flex flex-col space-y-2 text-sm text-earth">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Global Terms</a>
+                    <a href="#">Confidentiality</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Contact</h4>
+                <div class="flex flex-col space-y-2 text-sm text-earth">
+                    <span>international@veridia.global</span>
+                    <span>Global Support (UK): +44 20 1234 5678</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-12 text-sm text-veridia-700/80">
+            © 2026 Veridia Counseling. Adhering to International APA Ethics & HIPAA Privacy Protocols.
+        </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({
+            duration: 1000, // Duration of animations (ms)
+            easing: 'ease-in-out', // Easing function
+            once: true, // Whether animation should happen only once
+            anchorPlacement: 'top-bottom', // Defines where animation triggers
+        });
     </script>
 </body>
 </html>
