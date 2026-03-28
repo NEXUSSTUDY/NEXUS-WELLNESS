@@ -26,7 +26,7 @@
     </script>
     <style>
         body { background-color: #ffffff; color: #1d1d1f; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,0.1); z-index: 1000; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.1); z-index: 1000; }
         
         /* Floating WhatsApp */
         .whatsapp-float {
@@ -35,13 +35,6 @@
             font-size: 32px; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.2); z-index: 2000; transition: 0.3s;
         }
         .whatsapp-float:hover { transform: scale(1.1); }
-
-        /* Centered Section Styling */
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
 
         /* Consult Form Background Photo Styling */
         .consult-bg {
@@ -62,7 +55,7 @@
             transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             color: #1d1d1f;
             font-weight: 500;
-            text-align: left; /* Keep text left inside inputs for readability */
+            text-align: center; /* Centered Text in Inputs */
         }
         .premium-input:focus {
             background: rgba(255, 255, 255, 0.9);
@@ -110,69 +103,69 @@
     </nav>
 
     <section id="home" class="relative h-[85vh] flex flex-col items-center justify-center text-center px-6 pt-24 bg-white overflow-hidden">
-        <div class="section-container" data-aos="fade-up">
+        <div class="relative z-10 max-w-5xl mx-auto" data-aos="fade-up">
             <h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-apple-dark mb-8">Clarity. <br><span class="text-apple-gray font-medium">Simplified.</span></h1>
-            <p class="max-w-2xl mx-auto text-apple-gray text-lg md:text-2xl font-normal mb-12 leading-relaxed">
+            <p class="max-w-xl mx-auto text-apple-gray text-lg md:text-2xl font-normal mb-12 leading-relaxed">
                 India’s premier mental wellness boutique. Redefining professional counseling with an aesthetic of peace.
             </p>
-            <div class="flex justify-center gap-8">
+            <div class="flex justify-center">
                 <a href="#contact" class="cta-button px-14 py-4 rounded-full font-bold text-xs uppercase tracking-widest">Book Inquiry</a>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-32 bg-[#fbfbfd] px-6 md:px-20">
-        <div class="section-container">
+    <section id="services" class="py-32 bg-[#fbfbfd] px-6 md:px-20 text-center">
+        <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl md:text-6xl font-bold mb-20 tracking-tight">Our Specialties.</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500 flex flex-col items-center" data-aos="fade-up">
                     <i class="fas fa-users text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Marriage & Family</h3>
-                    <p class="text-sm text-apple-gray text-center leading-relaxed">Navigating complex domestic dynamics with absolute privacy.</p>
+                    <h3 class="font-bold text-xl mb-4">Marriage & Family</h3>
+                    <p class="text-sm text-apple-gray">Navigating complex domestic dynamics with absolute privacy.</p>
                 </div>
-                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500 flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
                     <i class="fas fa-gem text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Executive Growth</h3>
-                    <p class="text-sm text-apple-gray text-center leading-relaxed">Mindset coaching for leaders, founders, and high-achievers.</p>
+                    <h3 class="font-bold text-xl mb-4">Executive Growth</h3>
+                    <p class="text-sm text-apple-gray">Mindset coaching for leaders, founders, and high-achievers.</p>
                 </div>
-                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500 flex flex-col items-center" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-brain text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Clinical Support</h3>
-                    <p class="text-sm text-apple-gray text-center leading-relaxed">Specialized care for clinical anxiety, mood, and stress.</p>
+                    <h3 class="font-bold text-xl mb-4">Clinical Support</h3>
+                    <p class="text-sm text-apple-gray">Specialized care for clinical anxiety, mood, and stress.</p>
                 </div>
-                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl transition duration-500 flex flex-col items-center" data-aos="fade-up" data-aos-delay="300">
                     <i class="fas fa-shield-alt text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Trauma Recovery</h3>
-                    <p class="text-sm text-apple-gray text-center leading-relaxed">Advanced protocols for emotional healing and PTSD support.</p>
+                    <h3 class="font-bold text-xl mb-4">Trauma Recovery</h3>
+                    <p class="text-sm text-apple-gray">Advanced protocols for emotional healing and PTSD support.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-32 px-6 md:px-20 consult-bg flex justify-center">
-        <div class="max-w-4xl w-full" data-aos="zoom-in">
-            <div class="bg-white/40 backdrop-blur-2xl p-10 md:p-20 rounded-[50px] border border-white/40 shadow-2xl">
+    <section id="contact" class="py-32 px-6 md:px-20 consult-bg flex flex-col items-center">
+        <div class="max-w-4xl w-full mx-auto" data-aos="zoom-in">
+            <div class="bg-white/40 backdrop-blur-2xl p-10 md:p-20 rounded-[50px] border border-white/40 shadow-2xl flex flex-col items-center">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-7xl font-bold tracking-tight mb-6">Consult.</h2>
                     <p class="text-apple-dark font-medium text-lg">Private consultations are one request away.</p>
                     <div class="w-16 h-1 bg-apple-blue mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <form class="space-y-8">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="space-y-2 text-left">
-                            <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark ml-2">Full Name</label>
-                            <input type="text" placeholder="e.g. Rahul Sharma" class="premium-input">
+                <form class="space-y-8 w-full flex flex-col items-center">
+                    <div class="grid md:grid-cols-2 gap-8 w-full">
+                        <div class="space-y-2 flex flex-col items-center">
+                            <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark">Full Name</label>
+                            <input type="text" placeholder="e.g. Rahul Sharma" class="premium-input text-center">
                         </div>
-                        <div class="space-y-2 text-left">
-                            <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark ml-2">Email Address</label>
-                            <input type="email" placeholder="e.g. rahul@example.com" class="premium-input">
+                        <div class="space-y-2 flex flex-col items-center">
+                            <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark">Email Address</label>
+                            <input type="email" placeholder="e.g. rahul@example.com" class="premium-input text-center">
                         </div>
                     </div>
 
-                    <div class="space-y-2 text-left">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark ml-2">Type of Counseling</label>
-                        <select class="premium-input appearance-none cursor-pointer">
+                    <div class="space-y-2 w-full flex flex-col items-center">
+                        <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark">Type of Counseling</label>
+                        <select class="premium-input appearance-none cursor-pointer text-center">
                             <option>Marriage & Relationship</option>
                             <option>Executive & Leadership</option>
                             <option>Clinical Wellness (Anxiety/Depression)</option>
@@ -182,12 +175,12 @@
                         </select>
                     </div>
 
-                    <div class="space-y-2 text-left">
-                        <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark ml-2">Message</label>
-                        <textarea rows="4" placeholder="Briefly assist us on how we may help your journey..." class="premium-input"></textarea>
+                    <div class="space-y-2 w-full flex flex-col items-center">
+                        <label class="text-[10px] font-bold tracking-widest uppercase text-apple-dark">Message</label>
+                        <textarea rows="4" placeholder="Briefly assist us on how we may help your journey..." class="premium-input text-center"></textarea>
                     </div>
 
-                    <div class="flex justify-center pt-6">
+                    <div class="flex justify-center w-full pt-6">
                         <button type="submit" class="cta-button w-full md:w-auto px-20 py-5 rounded-full font-bold text-sm tracking-widest uppercase">Send Private Inquiry</button>
                     </div>
                 </form>
@@ -195,9 +188,9 @@
         </div>
     </section>
 
-    <footer class="py-24 bg-white border-t border-gray-100 text-center px-6">
-        <div class="section-container">
-            <div class="flex flex-col items-center justify-center gap-4 mb-12">
+    <footer class="py-24 bg-white border-t border-gray-100 text-center px-6 flex flex-col items-center">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <div class="flex items-center justify-center gap-4 mb-12">
                 <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center font-bold text-white">NW</div>
                 <h3 class="text-2xl font-bold tracking-tight uppercase">Nexus Wellness</h3>
             </div>
