@@ -25,51 +25,70 @@
     </script>
     <style>
         body { background-color: #ffffff; color: #1d1d1f; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.1); z-index: 1000; }
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,0.1); z-index: 1000; }
         
+        /* Centered Layout Utility */
+        .content-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
         /* Floating WhatsApp */
         .whatsapp-float {
             position: fixed; bottom: 40px; right: 40px; background-color: #25D366; color: #FFF;
             border-radius: 50px; width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
             font-size: 32px; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.2); z-index: 2000; transition: 0.3s;
         }
+        .whatsapp-float:hover { transform: scale(1.1); }
 
-        /* Quiet Mind Background Photo */
-        .quiet-mind-bg {
-            background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.85)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2000&auto=format&fit=crop');
+        /* Consult Section with Premium Photo Background */
+        .consult-section {
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            padding: 120px 20px;
+        }
+        .consult-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(5px);
         }
 
+        /* Glass Form Elements */
         .premium-input {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             padding: 1.2rem;
             width: 100%;
-            transition: 0.4s;
+            transition: 0.3s ease;
             text-align: center;
         }
         .premium-input:focus {
             border-color: #0071e3;
-            background: white;
+            box-shadow: 0 0 15px rgba(0, 113, 227, 0.1);
             outline: none;
         }
 
-        .cta-button {
+        .cta-primary {
             background: #0071e3;
             color: white;
-            transition: all 0.4s ease;
+            padding: 18px 60px;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
-        .cta-button:hover { transform: scale(1.02); opacity: 0.9; }
+        .cta-primary:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
 
-        .social-icon { font-size: 24px; transition: 0.4s; color: #86868b; }
+        .social-link { color: #86868b; font-size: 24px; transition: 0.3s; }
         .insta:hover { color: #E1306C; }
-        .linkedin:hover { color: #0077B5; }
-        .youtube:hover { color: #FF0000; }
-        .wa-footer:hover { color: #25D366; }
+        .linked:hover { color: #0077B5; }
+        .tube:hover { color: #FF0000; }
+        .whats:hover { color: #25D366; }
     </style>
 </head>
 <body class="font-sans">
@@ -81,99 +100,111 @@
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
-            <span class="text-lg font-bold tracking-tight uppercase">Nexus Wellness</span>
+            <span class="text-lg font-bold tracking-tighter uppercase">Nexus Wellness</span>
         </div>
-        <div class="hidden lg:flex gap-12 text-[12px] font-semibold text-apple-gray uppercase tracking-widest">
+        <div class="hidden lg:flex gap-10 text-[12px] font-semibold text-apple-gray uppercase tracking-widest">
             <a href="#home" class="text-black">Home</a>
-            <a href="#specialties" class="hover:text-black transition">Specialties</a>
-            <a href="#contact" class="hover:text-black transition">Consult</a>
+            <a href="#services" class="hover:text-black transition">Specialties</a>
+            <a href="#contact" class="hover:text-black transition">Inquiry</a>
         </div>
-        <a href="#contact" class="cta-button px-6 py-2 rounded-full text-[12px] font-bold">Inquire</a>
+        <a href="#contact" class="bg-black text-white px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-apple-blue transition">Contact Us</a>
     </nav>
 
-    <section id="home" class="h-screen flex flex-col items-center justify-center text-center px-6 pt-24 quiet-mind-bg">
-        <div class="max-w-4xl" data-aos="fade-up">
-            <h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-apple-dark mb-8">Quiet Mind. <br><span class="text-apple-gray font-medium text-5xl md:text-8xl">True Serenity.</span></h1>
-            <p class="max-w-xl mx-auto text-apple-dark text-lg md:text-2xl font-normal mb-12 leading-relaxed">
-                India’s premier mental wellness boutique. Redefining professional counseling with an aesthetic of peace.
+    <section id="home" class="h-screen content-center justify-center px-6 pt-20">
+        <div data-aos="fade-up">
+            <h2 class="text-apple-blue font-bold tracking-[0.3em] text-xs uppercase mb-6">India's Premier Psychological Retreat</h2>
+            <h1 class="text-5xl md:text-8xl font-bold tracking-tighter text-apple-dark mb-8 leading-tight">Mastering the <br>Quiet Mind.</h1>
+            <p class="max-w-2xl mx-auto text-apple-gray text-lg md:text-xl font-light mb-12 leading-relaxed">
+                Nexus Wellness offers a bespoke sanctuary for deep psychological transformation. We blend high-fidelity clinical expertise with a boutique experience for total emotional clarity.
             </p>
-            <a href="#contact" class="cta-button px-14 py-4 rounded-full font-bold text-xs uppercase tracking-widest shadow-xl">Start Your Journey</a>
+            <div class="flex justify-center gap-6">
+                <a href="#contact" class="cta-primary shadow-xl">Book Private Consultation</a>
+            </div>
         </div>
     </section>
 
-    <section id="specialties" class="py-32 bg-white px-6 md:px-20">
-        <div class="max-w-7xl mx-auto text-center">
+    <section id="services" class="py-32 bg-[#fbfbfd] px-6">
+        <div class="max-w-7xl mx-auto content-center">
             <h2 class="text-4xl md:text-6xl font-bold mb-20 tracking-tight">Our Specialties.</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
-                <div class="bg-[#f5f5f7] p-12 rounded-[32px] border border-gray-100 flex flex-col items-center" data-aos="fade-up">
-                    <i class="fas fa-users text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Relationship</h3>
-                    <p class="text-sm text-apple-gray text-center">Marriage & family dynamics counseling with absolute privacy.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col items-center" data-aos="fade-up">
+                    <i class="fas fa-hand-holding-heart text-apple-blue text-3xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-4">Interpersonal</h3>
+                    <p class="text-sm text-apple-gray">Marriage mastery and high-profile relationship dynamics.</p>
                 </div>
-                <div class="bg-[#f5f5f7] p-12 rounded-[32px] border border-gray-100 flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
                     <i class="fas fa-gem text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Executive</h3>
-                    <p class="text-sm text-apple-gray text-center">Performance coaching for leaders, founders, and high-achievers.</p>
+                    <h3 class="font-bold text-xl mb-4">Executive</h3>
+                    <p class="text-sm text-apple-gray">Burnout management and mindset coaching for leaders.</p>
                 </div>
-                <div class="bg-[#f5f5f7] p-12 rounded-[32px] border border-gray-100 flex flex-col items-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col items-center" data-aos="fade-up" data-aos-delay="200">
                     <i class="fas fa-brain text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Clinical</h3>
-                    <p class="text-sm text-apple-gray text-center">Professional support for clinical anxiety, mood, and stress.</p>
+                    <h3 class="font-bold text-xl mb-4">Clinical</h3>
+                    <p class="text-sm text-apple-gray">Evidence-based care for anxiety and mood disorders.</p>
                 </div>
-                <div class="bg-[#f5f5f7] p-12 rounded-[32px] border border-gray-100 flex flex-col items-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white p-12 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col items-center" data-aos="fade-up" data-aos-delay="300">
                     <i class="fas fa-shield-alt text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-center">Trauma</h3>
-                    <p class="text-sm text-apple-gray text-center">Advanced protocols for emotional healing and PTSD support.</p>
+                    <h3 class="font-bold text-xl mb-4">Trauma</h3>
+                    <p class="text-sm text-apple-gray">Advanced protocols for emotional healing and PTSD.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-32 px-6 md:px-20 quiet-mind-bg">
-        <div class="max-w-3xl mx-auto flex flex-col items-center text-center" data-aos="zoom-in">
-            <div class="bg-white/50 backdrop-blur-2xl p-10 md:p-16 rounded-[40px] border border-white/40 shadow-2xl w-full">
-                <h2 class="text-4xl md:text-7xl font-bold tracking-tight mb-6">Consult.</h2>
-                <p class="text-apple-dark font-medium text-lg mb-12">Private consultations scheduled upon request.</p>
+    <section id="contact" class="consult-section">
+        <div class="consult-overlay"></div>
+        <div class="max-w-3xl mx-auto relative z-10 content-center" data-aos="zoom-in">
+            <div class="mb-16">
+                <h2 class="text-4xl md:text-7xl font-bold tracking-tight mb-6">Inquiry.</h2>
+                <p class="text-apple-dark text-lg md:text-xl font-medium">Your private transformation begins with a conversation.</p>
+                <div class="w-20 h-1 bg-apple-blue mx-auto mt-6 rounded-full"></div>
+            </div>
 
-                <form class="space-y-6">
+            <form class="space-y-8 w-full">
+                <div class="grid md:grid-cols-2 gap-8">
                     <input type="text" placeholder="Full Name" class="premium-input">
                     <input type="email" placeholder="Email Address" class="premium-input">
-                    <select class="premium-input appearance-none text-center">
-                        <option>Select Area of Focus</option>
-                        <option>Relationship Mastery</option>
-                        <option>Executive Performance</option>
-                        <option>Clinical Wellness</option>
-                        <option>Trauma Recovery</option>
-                    </select>
-                    <textarea rows="4" placeholder="Briefly describe your objectives" class="premium-input"></textarea>
-                    
-                    <button type="submit" class="cta-button w-full py-5 rounded-xl font-bold text-sm tracking-widest uppercase mt-6">Send Request</button>
-                </form>
-            </div>
+                </div>
+                
+                <select class="premium-input appearance-none cursor-pointer">
+                    <option>Select Area of Interest</option>
+                    <option>Marriage & Relationship Mastery</option>
+                    <option>Executive & Leadership Performance</option>
+                    <option>Clinical Wellness (Anxiety/Depression)</option>
+                    <option>Trauma & Emotional Recovery</option>
+                    <option>Adolescent & Child Psychology</option>
+                </select>
+
+                <textarea rows="4" placeholder="How may we assist your journey?" class="premium-input"></textarea>
+
+                <div class="pt-6">
+                    <button type="submit" class="cta-primary w-full md:w-auto uppercase text-xs tracking-[0.2em]">Send Private Request</button>
+                </div>
+            </form>
         </div>
     </section>
 
-    <footer class="py-20 bg-white border-t border-gray-100 text-center px-6">
-        <div class="max-w-7xl mx-auto flex flex-col items-center">
-            <div class="flex items-center gap-3 mb-8">
-                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center font-bold text-white text-[10px]">NW</div>
-                <span class="text-xl font-bold tracking-tighter uppercase">Nexus Wellness</span>
+    <footer class="py-24 bg-white border-t border-gray-100 content-center">
+        <div class="max-w-7xl mx-auto content-center">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center font-bold text-white">NW</div>
+                <h3 class="text-2xl font-bold tracking-tight uppercase">Nexus Wellness</h3>
             </div>
             
-            <div class="mb-12">
-                <p class="text-apple-gray text-xs uppercase tracking-widest mb-2 font-bold">Sanctuary Location</p>
+            <div class="mb-16">
+                <p class="text-apple-gray text-xs uppercase tracking-widest mb-3 font-bold">Primary Sanctuary</p>
                 <p class="text-lg font-semibold text-black">Greater Noida, Uttar Pradesh, India</p>
             </div>
             
-            <div class="flex justify-center gap-10 mb-12">
-                <a href="#" class="social-icon insta"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon wa-footer"><i class="fab fa-whatsapp"></i></a>
+            <div class="flex justify-center gap-14 mb-16">
+                <a href="#" class="social-link insta"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link linked"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link tube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-link whats"><i class="fab fa-whatsapp"></i></a>
             </div>
 
-            <p class="text-apple-gray text-[10px] tracking-[0.4em] font-bold uppercase">
-                © 2026 NEXUS WELLNESS. ALL RIGHTS RESERVED.
+            <p class="text-apple-gray text-[10px] tracking-[0.5em] font-bold uppercase">
+                © 2026 NEXUS WELLNESS. PRIVATE & CONFIDENTIAL.
             </p>
         </div>
     </footer>
