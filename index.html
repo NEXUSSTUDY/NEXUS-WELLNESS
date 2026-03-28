@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | Premium Psychological Excellence | Greater Noida</title>
+    <title>Nexus Wellness | Premium Psychological Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'apple-bg': '#f5f5f7',
-                        'apple-gray': '#86868b',
-                        'apple-text': '#1d1d1f',
-                        'apple-blue': '#0071e3',
+                        'apple-black': '#000000', // Pure Black for all letters
+                        'apple-bg': '#ffffff',    // Pure White background
+                        'apple-silver': '#f5f5f7', // Subtle gray for sections
+                        'apple-blue': '#0071e3',   // System blue for CTAs
                     },
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                 }
@@ -25,204 +25,203 @@
         }
     </script>
     <style>
-        body { background-color: #ffffff; color: #1d1d1f; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.1); z-index: 1000; }
+        body { background-color: #ffffff; color: #000000; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
         
-        /* Floating WhatsApp */
-        .whatsapp-float {
-            position: fixed; bottom: 40px; right: 40px; background-color: #25D366; color: #FFF;
-            border-radius: 50px; width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
-            font-size: 32px; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.2); z-index: 2000; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Force all text to Black */
+        h1, h2, h3, h4, p, span, a, label, input, select, textarea { color: #000000 !important; }
+        
+        .glass-nav { 
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: saturate(180%) blur(20px); 
+            border-bottom: 1px solid #000000; 
+            z-index: 1000; 
         }
-        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0px 15px 30px rgba(37, 211, 102, 0.4); }
-
-        /* Social Icons Natural Colors */
-        .social-btn { font-size: 26px; transition: 0.4s; color: #86868b; }
-        .insta:hover { color: #E1306C; }
-        .linkedin:hover { color: #0077B5; }
-        .youtube:hover { color: #FF0000; }
-        .whatsapp-footer:hover { color: #25D366; }
-
-        /* High-End Design */
-        .premium-card { background: #ffffff; border-radius: 28px; border: 1px solid #d2d2d7; transition: all 0.5s ease; padding: 3rem; }
-        .premium-card:hover { transform: scale(1.02); border-color: #1d1d1f; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-
-        /* Premium Form */
-        .form-input { background: #f5f5f7; border-radius: 14px; padding: 1.2rem; transition: 0.3s; width: 100%; border: 1.5px solid transparent; }
-        .form-input:focus { background: #ffffff; border-color: #0071e3; outline: none; }
         
-        /* Atmospheric Backgrounds */
-        .atm-bg { background-size: cover; background-position: center; background-repeat: no-repeat; }
-        .parallax { background-attachment: fixed; }
-        .dark-overlay { background: rgba(0,0,0,0.5); }
-        .light-overlay { background: rgba(255,255,255,0.9); }
+        .whatsapp-float {
+            position: fixed; bottom: 40px; right: 40px; background-color: #25D366; color: #FFF !important;
+            border-radius: 50px; width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1); z-index: 2000; transition: 0.3s;
+        }
+
+        .social-btn { font-size: 26px; transition: 0.4s; color: #000000 !important; }
+        .insta:hover { color: #E1306C !important; }
+        .linkedin:hover { color: #0077B5 !important; }
+        .youtube:hover { color: #FF0000 !important; }
+        .wa-link:hover { color: #25D366 !important; }
+
+        .premium-card { 
+            background: #ffffff; 
+            border: 1px solid #000000; 
+            border-radius: 0px; /* Sharp Apple edges for ultra premium feel */
+            padding: 3rem; 
+            transition: all 0.4s ease; 
+        }
+        .premium-card:hover { background: #000000; }
+        .premium-card:hover * { color: #ffffff !important; }
+
+        .form-input { 
+            background: #ffffff; 
+            border: 1px solid #000000; 
+            padding: 1.2rem; 
+            width: 100%; 
+            transition: 0.3s; 
+        }
+        .form-input:focus { background: #f5f5f7; outline: none; }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 <body class="font-sans">
 
-    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center transition-all duration-500">
+    <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
-            <span class="text-xl font-bold tracking-tight text-apple-text uppercase">Nexus Wellness</span>
+            <div class="w-9 h-9 bg-black rounded-none flex items-center justify-center font-bold text-white text-xs">NW</div>
+            <span class="text-xl font-extrabold tracking-tighter uppercase">Nexus Wellness</span>
         </div>
-        <div class="hidden lg:flex gap-12 text-[12px] font-semibold text-apple-gray uppercase tracking-widest">
-            <a href="#home" class="text-apple-text">Home</a>
-            <a href="#practices" class="hover:text-apple-text transition">Practices</a>
-            <a href="#voices" class="hover:text-apple-text transition">Voices</a>
-            <a href="#contact" class="hover:text-apple-text transition">Contact</a>
+        <div class="hidden lg:flex gap-12 text-[11px] font-bold uppercase tracking-[0.3em]">
+            <a href="#home" class="hover:opacity-50 transition">Home</a>
+            <a href="#practices" class="hover:opacity-50 transition">Practices</a>
+            <a href="#voices" class="hover:opacity-50 transition">Voices</a>
+            <a href="#contact" class="hover:opacity-50 transition">Contact</a>
         </div>
-        <a href="#contact" class="bg-apple-blue text-white px-6 py-2 rounded-full text-[12px] font-bold tracking-tight hover:opacity-90 transition">Consult</a>
+        <a href="#contact" class="bg-black text-white px-8 py-2 rounded-none text-[11px] font-bold tracking-widest uppercase hover:bg-white hover:text-black border border-black transition duration-500">
+            <span style="color: inherit !important;">Consult</span>
+        </a>
     </nav>
 
-    <section id="home" class="relative h-[90vh] flex flex-col items-center justify-center text-center px-6 pt-24 atm-bg parallax" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2000&auto=format&fit=crop')">
-        <div class="absolute inset-0 dark-overlay"></div>
-        <div class="relative z-10 max-w-5xl" data-aos="fade-up" data-aos-duration="1500">
-            <h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-white mb-8">Clarity. <br><span class="text-apple-gray opacity-80 font-medium">Simplified.</span></h1>
-            <p class="max-w-xl mx-auto text-white text-lg md:text-2xl font-normal mb-12 leading-relaxed opacity-90">
-                A bespoke mental wellness sanctuary. Redefining high-fidelity psychological care for the discerning individual.
+    <section id="home" class="relative h-screen flex flex-col items-center justify-center text-center px-6 parallax-bg" style="background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2000');">
+        <div class="relative z-10 max-w-5xl" data-aos="fade-up">
+            <h1 class="text-7xl md:text-[10rem] font-extrabold tracking-tighter leading-[0.85] mb-8 uppercase">Clarity.</h1>
+            <p class="max-w-xl mx-auto text-xl md:text-3xl font-light mb-12 tracking-tight">
+                India’s bespoke mental sanctuary. Specialized psychological architecture for the modern leader.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-8 mb-20">
-                <a href="#contact" class="bg-white text-black px-12 py-4 rounded-full font-bold text-sm tracking-widest shadow-xl hover:scale-95 transition">Inquire</a>
-                <a href="#practices" class="text-white font-semibold text-lg flex items-center gap-2 hover:underline">Explore practices ></a>
+            <div class="flex flex-col sm:flex-row justify-center gap-8">
+                <a href="#contact" class="bg-black text-white px-14 py-5 font-bold text-xs uppercase tracking-[0.4em] border border-black hover:bg-white hover:text-black transition duration-500">
+                    <span style="color: inherit !important;">Inquiry</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-40 px-6 md:px-20 atm-bg" style="background-image: url('https://images.unsplash.com/photo-1520110300187-5c207a972179?q=80&w=2000&auto=format&fit=crop')">
-        <div class="max-w-7xl mx-auto">
-            <div class="max-w-xl bg-white/70 backdrop-blur-lg p-12 rounded-[40px] shadow-2xl" data-aos="fade-right">
-                <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-apple-text mb-10">The Luxury <br>of Balance.</h2>
-                <p class="text-apple-gray text-xl mb-12 leading-relaxed font-light">
-                    True wellness is not a destination, it is an architectural decision. We architect sustainable emotional resilience in a strictly confidential setting.
+    <section class="py-40 px-6 md:px-20 bg-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-5xl md:text-8xl font-extrabold tracking-tighter mb-10 uppercase">The Quiet Mind.</h2>
+                <p class="text-2xl md:text-3xl font-light mb-12 leading-snug">
+                    We remove the noise. Our Greater Noida sanctuary is designed for absolute anonymity and evidence-based healing.
                 </p>
-                <div class="flex gap-10">
-                    <div class="border-t border-gray-300 pt-8">
-                        <h4 class="text-black font-bold text-3xl mb-2">Elite</h4>
-                        <p class="text-[11px] text-apple-gray font-bold uppercase tracking-widest leading-loose">Certified Specialists</p>
+                <div class="grid grid-cols-2 gap-12 border-t-2 border-black pt-10">
+                    <div>
+                        <h4 class="font-extrabold text-4xl tracking-tighter uppercase">Elite</h4>
+                        <p class="text-xs font-bold uppercase tracking-widest mt-2">Certified Global Specialists</p>
                     </div>
-                    <div class="border-t border-gray-300 pt-8">
-                        <h4 class="text-black font-bold text-3xl mb-2">Private</h4>
-                        <p class="text-[11px] text-apple-gray font-bold uppercase tracking-widest leading-loose">Complete Discretion</p>
+                    <div>
+                        <h4 class="font-extrabold text-4xl tracking-tighter uppercase">Private</h4>
+                        <p class="text-xs font-bold uppercase tracking-widest mt-2">Guaranteed Discretion</p>
                     </div>
                 </div>
             </div>
+            <div class="h-[500px] w-full bg-apple-silver flex items-center justify-center border border-black" data-aos="zoom-in">
+                 <span class="text-xs font-bold tracking-[1em] uppercase opacity-20 italic font-serif">Aesthetic Sanctuary</span>
+            </div>
         </div>
     </section>
 
-    <section id="practices" class="py-40 bg-white px-6 md:px-20">
+    <section id="practices" class="py-40 bg-white px-6 md:px-20 border-t border-black">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl md:text-8xl font-bold tracking-tight mb-24">Practices.</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 class="text-6xl font-extrabold tracking-tighter mb-24 uppercase">Practices.</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-0">
                 <div class="premium-card group" data-aos="fade-up">
-                    <i class="fas fa-users text-apple-blue mb-8 text-3xl transition group-hover:scale-125"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-text">Interpersonal Mastery</h3>
-                    <p class="text-sm text-apple-gray leading-loose">High-fidelity couple and family dynamics counseling.</p>
+                    <h3 class="font-extrabold text-2xl mb-6 uppercase tracking-tighter">Interpersonal</h3>
+                    <p class="text-sm font-medium leading-relaxed">High-fidelity couple and family dynamics counseling.</p>
                 </div>
                 <div class="premium-card group" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-gem text-apple-blue mb-8 text-3xl transition group-hover:scale-125"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-text">Executive Resilience</h3>
-                    <p class="text-sm text-apple-gray leading-loose">Performance coaching for leaders and high-impact entrepreneurs.</p>
+                    <h3 class="font-extrabold text-2xl mb-6 uppercase tracking-tighter">Executive</h3>
+                    <p class="text-sm font-medium leading-relaxed">Performance coaching for leaders and entrepreneurs.</p>
                 </div>
                 <div class="premium-card group" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-brain text-apple-blue mb-8 text-3xl transition group-hover:scale-125"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-text">Clinical Wellness</h3>
-                    <p class="text-sm text-apple-gray leading-loose">Certified therapeutic care for depression, anxiety, and mood disorders.</p>
+                    <h3 class="font-extrabold text-2xl mb-6 uppercase tracking-tighter">Clinical</h3>
+                    <p class="text-sm font-medium leading-relaxed">Certified care for anxiety and mood disorders.</p>
                 </div>
                 <div class="premium-card group" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-shield-alt text-apple-blue mb-8 text-3xl transition group-hover:scale-125"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-text">Trauma Recovery</h3>
-                    <p class="text-sm text-apple-gray leading-loose">Evidence-based protocols for PTSD and profound emotional healing.</p>
+                    <h3 class="font-extrabold text-2xl mb-6 uppercase tracking-tighter">Trauma</h3>
+                    <p class="text-sm font-medium leading-relaxed">Advanced PTSD recovery and emotional healing.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="voices" class="py-40 atm-bg parallax" style="background-image: url('https://images.unsplash.com/photo-1549497538-303791108f94?q=80&w=2000&auto=format&fit=crop')">
-        <div class="absolute inset-0 light-overlay"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10" data-aos="zoom-in">
-            <p class="text-3xl md:text-5xl font-light italic text-apple-text mb-12 leading-tight">
-                "Nexus Wellness redefined my psychological landscape. The absolute privacy and aesthetic calm created the perfect environment for my growth."
+    <section id="voices" class="py-60 parallax-bg flex items-center justify-center text-center" style="background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=2000');">
+        <div class="max-w-5xl px-6" data-aos="zoom-out">
+            <p class="text-4xl md:text-6xl font-extrabold italic tracking-tighter leading-tight uppercase">
+                "Nexus Wellness is the new standard of mental luxury in India."
             </p>
-            <div class="flex flex-col items-center">
-                <div class="w-12 h-1 bg-apple-blue mb-4"></div>
-                <span class="text-[11px] font-bold tracking-[0.4em] uppercase text-apple-gray">Verified Premium Client | New Delhi</span>
+            <div class="mt-12 flex flex-col items-center">
+                <div class="w-20 h-2 bg-black mb-6"></div>
+                <span class="text-sm font-bold tracking-[0.5em] uppercase">Verified Client | Greater Noida</span>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-40 px-6 md:px-20 bg-white">
-        <div class="max-w-4xl mx-auto bg-apple-bg p-12 md:p-20 rounded-[40px] shadow-2xl" data-aos="fade-up">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-7xl font-bold tracking-tight mb-6">Inquiry Suite.</h2>
-                <p class="text-apple-gray text-xl mb-2">Private consultations are one request away.</p>
-                <p class="text-[11px] text-apple-gray uppercase tracking-widest">Confidentiality guaranteed</p>
-            </div>
-            <form class="space-y-10">
-                <div class="grid md:grid-cols-2 gap-10">
-                    <input type="text" placeholder="Full Name" class="form-input">
-                    <input type="email" placeholder="Email Address" class="form-input">
+    <section id="contact" class="py-40 px-6 md:px-20 bg-white border-t border-black">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-6xl md:text-9xl font-extrabold tracking-tighter mb-16 uppercase text-center">Inquire.</h2>
+            <form class="space-y-12" data-aos="fade-up">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <input type="text" placeholder="NAME" class="form-input font-bold tracking-widest text-xs uppercase">
+                    <input type="email" placeholder="EMAIL" class="form-input font-bold tracking-widest text-xs uppercase">
                 </div>
-                <select class="form-input text-apple-gray appearance-none cursor-pointer">
-                    <option>Select Area of Focus</option>
-                    <option>Marriage & Relationship Mastery</option>
-                    <option>Executive Performance</option>
-                    <option>Clinical Depression & Anxiety</option>
-                    <option>Child & Adolescent Psychology</option>
+                <select class="form-input font-bold tracking-widest text-xs uppercase appearance-none cursor-pointer">
+                    <option>MODALITY OF CARE</option>
+                    <option>Individual Performance</option>
+                    <option>Relationship Harmony</option>
+                    <option>Clinical Mental Health</option>
                     <option>Trauma Recovery Services</option>
                 </select>
-                <textarea rows="6" placeholder="Briefly assist us on how we may help your journey" class="form-input"></textarea>
+                <textarea rows="5" placeholder="OBJECTIVES" class="form-input font-bold tracking-widest text-xs uppercase"></textarea>
                 <div class="flex justify-center">
-                    <button class="bg-apple-blue text-white px-16 py-5 rounded-full font-bold text-xs uppercase tracking-[0.3em] shadow-xl hover:scale-95 transition">Send Private Inquiry</button>
+                    <button class="bg-black text-white px-20 py-6 font-bold text-xs uppercase tracking-[0.5em] hover:bg-white hover:text-black border border-black transition duration-500">
+                        <span style="color: inherit !important;">Submit Inquiry</span>
+                    </button>
                 </div>
             </form>
         </div>
     </section>
 
-    <footer class="py-32 bg-apple-bg border-t border-gray-200 px-6 md:px-20 text-center">
-        <div class="max-w-7xl mx-auto flex flex-col items-center">
-            <div class="flex items-center gap-4 mb-16">
-                <div class="w-11 h-11 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm">NW</div>
-                <h3 class="text-2xl font-bold tracking-tight text-black uppercase">Nexus Wellness</h3>
+    <footer class="py-32 bg-white border-t-2 border-black text-center px-6">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-3xl font-extrabold tracking-[0.3em] uppercase mb-16">Nexus Wellness India</h3>
+            
+            <div class="mb-16">
+                <p class="text-xs font-bold tracking-widest uppercase">Primary Sanctuary</p>
+                <p class="text-2xl font-extrabold uppercase mt-2">Greater Noida, Uttar Pradesh</p>
             </div>
             
-            <div class="border-b border-gray-200 w-full max-w-lg mb-16 pb-8">
-                <p class="text-apple-gray text-xs uppercase tracking-widest mb-3">Primary Sanctuary</p>
-                <p class="text-lg text-black font-semibold">Greater Noida, Uttar Pradesh</p>
-            </div>
-            
-            <div class="flex justify-center gap-12 mb-20">
-                <a href="https://instagram.com" class="social-btn insta" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com" class="social-btn linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://youtube.com" class="social-btn youtube" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/91XXXXXXXXXX" class="social-btn whatsapp-footer" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <div class="flex justify-center gap-16 mb-20">
+                <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-btn wa-link"><i class="fab fa-whatsapp"></i></a>
             </div>
 
-            <p class="text-apple-gray text-[10px] tracking-[0.5em] font-bold uppercase leading-loose">
-                © 2026 NEXUS WELLNESS INDIA. <br>
-                ABSOLUTE CONFIDENTIALITY. GLOBAL EXCELLENCE.
+            <p class="text-[10px] tracking-[0.6em] font-extrabold uppercase leading-loose">
+                © 2026 NEXUS WELLNESS. <br>
+                Absolute Confidentiality. Permanent Excellence.
             </p>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200, once: true });
-        
-        // Dynamic Header Shrink
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.paddingTop = '0.8rem';
-                nav.style.paddingBottom = '0.8rem';
-            } else {
-                nav.style.paddingTop = '1rem';
-                nav.style.paddingBottom = '1rem';
-            }
-        });
+        AOS.init({ duration: 1000, once: true });
     </script>
 </body>
 </html>
