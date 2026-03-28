@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | Premium Psychological Excellence</title>
+    <title>Nexus Wellness | Elite Psychological Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
@@ -15,9 +16,7 @@
                     colors: {
                         'apple-black': '#000000',
                         'midnight-green': '#051b17',
-                        'forest-deep': '#0a251f',
                         'apple-gray': '#86868b',
-                        'apple-silver': '#f5f5f7',
                         'accent-green': '#34d399',
                     },
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
@@ -27,177 +26,157 @@
     </script>
     <style>
         body { background-color: #000000; color: #f5f5f7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        .glass-nav { background: rgba(0, 0, 0, 0.8); backdrop-filter: saturate(180%) blur(20px); z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; z-index: -1; }
-        .feature-card { background: #0a251f; border: 1px solid rgba(255,255,255,0.05); transition: all 0.5s ease; }
-        .feature-card:hover { transform: translateY(-10px); border-color: #34d399; }
-        .input-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .input-box:focus { border-color: #34d399; background: rgba(255,255,255,0.08); outline: none; }
+        .glass-nav { background: rgba(0, 0, 0, 0.85); backdrop-filter: saturate(180%) blur(20px); z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
         
-        /* Natural Social Colors */
-        .social-link { transition: 0.3s ease; }
+        .whatsapp-float {
+            position: fixed; bottom: 40px; right: 40px; background-color: #25D366; color: #FFF;
+            border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        .hero-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: 10s linear; }
+        .hero-container:hover .hero-img { transform: scale(1.1); }
+
+        .social-btn { font-size: 24px; transition: 0.4s; color: #86868b; }
         .insta:hover { color: #E1306C; }
-        .linked:hover { color: #0077B5; }
-        .tube:hover { color: #FF0000; }
-        .whats:hover { color: #25D366; }
+        .linkedin:hover { color: #0077B5; }
+        .youtube:hover { color: #FF0000; }
+        
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body class="font-sans">
 
+    <a href="https://wa.me/917830232077" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-gradient-to-br from-accent-green to-midnight-green rounded-lg flex items-center justify-center font-bold text-black text-xs">NW</div>
+            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center font-bold text-black text-xs">NW</div>
             <span class="text-lg font-bold tracking-tighter uppercase">Nexus Wellness</span>
         </div>
-        <div class="hidden lg:flex gap-12 text-[12px] font-medium tracking-widest text-apple-gray uppercase">
-            <a href="#home" class="hover:text-white transition">Home</a>
-            <a href="#philosophy" class="hover:text-white transition">Philosophy</a>
+        <div class="hidden lg:flex gap-12 text-[11px] font-bold tracking-[0.2em] text-apple-gray uppercase">
+            <a href="#home" class="text-white">Home</a>
+            <a href="#process" class="hover:text-white transition">Process</a>
             <a href="#specialties" class="hover:text-white transition">Specialties</a>
-            <a href="#contact" class="hover:text-white transition">Inquiry</a>
+            <a href="#contact" class="hover:text-white transition">Contact Us</a>
         </div>
-        <div class="flex items-center gap-6">
-            <span class="text-[10px] text-accent-green font-bold border border-accent-green/30 px-2 py-1 rounded">EN</span>
-            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full text-xs font-bold hover:bg-accent-green transition duration-300">Contact</a>
-        </div>
+        <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent-green transition duration-300">Book Now</a>
     </nav>
 
-    <section id="home" class="relative h-[90vh] flex items-center justify-center text-center px-6 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?auto=format&fit=crop&q=80&w=2000" class="hero-video-bg" alt="Wellness Background">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black"></div>
-
+    <section id="home" class="relative h-screen flex items-center justify-center text-center px-6 overflow-hidden hero-container">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 hero-img" alt="Deep Wellness">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black"></div>
         <div class="relative z-10 max-w-5xl" data-aos="fade-up">
-            <h2 class="text-accent-green font-bold tracking-[0.4em] uppercase text-sm mb-6">India's Premier Psychological Retreat</h2>
-            <h1 class="text-5xl md:text-[7rem] font-bold tracking-tighter leading-[0.9] mb-10">Modern Healing. <br><span class="text-apple-gray">Pure Serenity.</span></h1>
-            <p class="max-w-2xl mx-auto text-apple-gray text-lg md:text-xl font-light mb-12">
-                Nexus Wellness integrates high-end clinical expertise with a boutique experience. We provide a sanctuary for those seeking profound personal evolution and emotional balance.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="#contact" class="bg-white text-black px-12 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-accent-green transition shadow-2xl">Begin Your Journey</a>
-                <a href="#specialties" class="border border-white/20 text-white px-12 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition">Explore Specialties</a>
-            </div>
+            <h1 class="text-6xl md:text-[9rem] font-bold tracking-tighter leading-[0.9] mb-10">Pure Mind. <br><span class="text-apple-gray text-5xl md:text-[7rem]">Elite Care.</span></h1>
+            <p class="max-w-2xl mx-auto text-apple-gray text-lg md:text-xl font-light mb-12">India's bespoke sanctuary for mental equilibrium. High-fidelity counseling for the modern world.</p>
+            <a href="#contact" class="bg-white text-black px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-accent-green transition">Start Inquiry</a>
         </div>
     </section>
 
-    <section id="philosophy" class="py-32 px-6 md:px-20 bg-black">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-8">Holistic Luxury <br>of the Mind.</h2>
-                <p class="text-apple-gray text-lg mb-8 leading-relaxed">
-                    True wellness is more than the absence of stress; it is the presence of clarity, purpose, and joy. Our practice is built on the pillars of absolute confidentiality and evidence-based results.
-                </p>
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="border-t border-white/10 pt-6">
-                        <span class="text-3xl font-bold text-accent-green block mb-2">Private</span>
-                        <p class="text-xs text-apple-gray uppercase tracking-widest">Ensured Anonymity</p>
-                    </div>
-                    <div class="border-t border-white/10 pt-6">
-                        <span class="text-3xl font-bold text-accent-green block mb-2">Expert</span>
-                        <p class="text-xs text-apple-gray uppercase tracking-widest">Certified Specialists</p>
-                    </div>
-                </div>
-            </div>
-            <div class="relative" data-aos="fade-left">
-                <img src="https://images.unsplash.com/photo-1528712306091-ed0763094c98?auto=format&fit=crop&q=80&w=1200" class="rounded-3xl shadow-2xl opacity-80" alt="Wellness Space">
-                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-accent-green/10 blur-3xl"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="specialties" class="py-32 bg-midnight-green/30 px-6 md:px-20">
+    <section id="process" class="py-32 bg-black px-6 md:px-20">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                <h2 class="text-4xl md:text-6xl font-bold tracking-tight">Clinical & Lifestyle <br>Specializations</h2>
-                <p class="text-apple-gray max-w-sm">A comprehensive collection of modalities designed for complex human needs.</p>
+            <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-20">The Journey.</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div data-aos="fade-up">
+                    <span class="text-accent-green text-5xl font-light mb-6 block">01</span>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-widest">Connect</h3>
+                    <p class="text-apple-gray">A private introduction to assess your unique psychological architecture and goals.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <span class="text-accent-green text-5xl font-light mb-6 block">02</span>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-widest">Calibrate</h3>
+                    <p class="text-apple-gray">Creating a bespoke roadmap using evidence-based global therapeutic standards.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <span class="text-accent-green text-5xl font-light mb-6 block">03</span>
+                    <h3 class="text-xl font-bold mb-4 uppercase tracking-widest">Evolve</h3>
+                    <p class="text-apple-gray">Consistent guidance to ensure sustainable emotional resilience and inner peace.</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Relationship Harmony</h3>
-                    <p class="text-sm text-apple-gray">Couples therapy, pre-marital counseling, and conflict resolution.</p>
+    <section id="specialties" class="py-32 bg-[#05100e] px-6 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-20 text-center">Inquiry Specialties.</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-10 rounded-2xl hover:border-accent-green transition" data-aos="fade-up">
+                    <i class="fas fa-heart text-accent-green mb-6 text-2xl"></i>
+                    <h3 class="font-bold text-lg mb-2">Marriage & Family</h3>
+                    <p class="text-xs text-apple-gray">Navigating complex domestic dynamics with grace.</p>
                 </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Executive Stress</h3>
-                    <p class="text-sm text-apple-gray">Optimizing mental performance for entrepreneurs and leaders.</p>
+                <div class="glass-card p-10 rounded-2xl hover:border-accent-green transition" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-gem text-accent-green mb-6 text-2xl"></i>
+                    <h3 class="font-bold text-lg mb-2">Executive Growth</h3>
+                    <p class="text-xs text-apple-gray">Elite mindset coaching for leaders and founders.</p>
                 </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Child & Adolescent</h3>
-                    <p class="text-sm text-apple-gray">Supporting emotional growth and academic well-being in youth.</p>
+                <div class="glass-card p-10 rounded-2xl hover:border-accent-green transition" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-leaf text-accent-green mb-6 text-2xl"></i>
+                    <h3 class="font-bold text-lg mb-2">Mood Support</h3>
+                    <p class="text-xs text-apple-gray">Clinical guidance for anxiety and depression.</p>
                 </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Trauma Recovery</h3>
-                    <p class="text-sm text-apple-gray">Specialized clinical support for PTSD and emotional healing.</p>
+                <div class="glass-card p-10 rounded-2xl hover:border-accent-green transition" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-child text-accent-green mb-6 text-2xl"></i>
+                    <h3 class="font-bold text-lg mb-2">Adolescent Care</h3>
+                    <p class="text-xs text-apple-gray">Nurturing emotional growth in the next generation.</p>
                 </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Mood Disorders</h3>
-                    <p class="text-sm text-apple-gray">Evidence-based treatment for depression and bipolarity.</p>
-                </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Addiction Support</h3>
-                    <p class="text-sm text-apple-gray">Professional guidance for substance and behavior recovery.</p>
-                </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">Grief Counseling</h3>
-                    <p class="text-sm text-apple-gray">Navigating loss with empathy and clinical insight.</p>
-                </div>
-                <div class="feature-card p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="font-bold text-xl mb-4 text-accent-green">LGBTQ+ Affirmative</h3>
-                    <p class="text-sm text-apple-gray">Safe and supportive counseling for gender and sexual diversity.</p>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 bg-black">
+        <div class="max-w-5xl mx-auto glass-card p-16 rounded-[50px] text-center" data-aos="zoom-in">
+            <p class="text-2xl md:text-4xl italic font-light mb-10 leading-relaxed">
+                "Nexus Wellness provided a level of privacy and sophistication I couldn't find anywhere else. It truly is the Apple of mental healthcare in India."
+            </p>
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-1 bg-accent-green mb-4"></div>
+                <span class="font-bold tracking-widest uppercase text-xs">Verified Client | Mumbai</span>
             </div>
         </div>
     </section>
 
     <section id="contact" class="py-32 px-6 md:px-20 bg-black">
-        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20">
-            <div class="lg:w-1/3" data-aos="fade-right">
-                <h2 class="text-4xl font-bold mb-6">Request Your <br>Private Consult.</h2>
-                <p class="text-apple-gray mb-10">Our admissions team responds within 4 business hours. Your data is encrypted and secure.</p>
-                <div class="space-y-4">
-                    <p class="text-xs tracking-[0.3em] font-bold text-accent-green uppercase">Direct Access</p>
-                    <p class="text-xl">concierge@nexuswellness.in</p>
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Inquiry Suite.</h2>
+                <p class="text-apple-gray tracking-[0.3em] text-[10px] uppercase font-bold">100% Confidential Adherence</p>
+            </div>
+            <form class="space-y-6 glass-card p-10 md:p-16 rounded-[40px]">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <input type="text" placeholder="FULL NAME" class="bg-white/5 border border-white/10 p-5 rounded-xl outline-none focus:border-accent-green transition uppercase text-[10px] tracking-widest">
+                    <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border border-white/10 p-5 rounded-xl outline-none focus:border-accent-green transition uppercase text-[10px] tracking-widest">
                 </div>
-            </div>
-
-            <div class="lg:w-2/3" data-aos="fade-left">
-                <form class="grid md:grid-cols-2 gap-6">
-                    <input type="text" placeholder="Full Name" class="input-box p-5 rounded-xl">
-                    <input type="email" placeholder="Email Address" class="input-box p-5 rounded-xl">
-                    <div class="md:col-span-2">
-                        <select class="input-box p-5 rounded-xl w-full text-apple-gray">
-                            <option>Select Type of Counseling</option>
-                            <option>Individual Therapy</option>
-                            <option>Couples & Marriage Counseling</option>
-                            <option>Career & Executive Coaching</option>
-                            <option>Child & Adolescent Support</option>
-                            <option>Trauma & Recovery</option>
-                            <option>Clinical Mental Health (Depression/Anxiety)</option>
-                            <option>Grief & Loss</option>
-                            <option>LGBTQ+ Affirmative Therapy</option>
-                        </select>
-                    </div>
-                    <textarea placeholder="Tell us how we can help" rows="4" class="md:col-span-2 input-box p-5 rounded-xl"></textarea>
-                    <button class="md:col-span-2 bg-white text-black py-5 rounded-xl font-bold uppercase tracking-widest hover:bg-accent-green transition duration-500">Submit Secure Inquiry</button>
-                </form>
-            </div>
+                <select class="w-full bg-white/5 border border-white/10 p-5 rounded-xl outline-none focus:border-accent-green transition text-apple-gray text-[10px] tracking-widest uppercase">
+                    <option>Select Counseling Focus</option>
+                    <option>Individual Performance</option>
+                    <option>Relationship Harmony</option>
+                    <option>Clinical Wellness</option>
+                    <option>Trauma & PTSD</option>
+                    <option>Executive Burnout</option>
+                    <option>Grief & Transition</option>
+                </select>
+                <textarea placeholder="ADDITIONAL OBJECTIVES" rows="4" class="w-full bg-white/5 border border-white/10 p-5 rounded-xl outline-none focus:border-accent-green transition uppercase text-[10px] tracking-widest"></textarea>
+                <button class="w-full bg-white text-black py-5 rounded-xl font-bold uppercase tracking-[0.3em] text-xs hover:bg-accent-green transition duration-500">Submit Secure Inquiry</button>
+            </form>
         </div>
     </section>
 
-    <footer class="py-20 px-6 border-t border-white/5 bg-black">
-        <div class="max-w-7xl mx-auto flex flex-col items-center">
-            <h3 class="text-2xl font-bold tracking-tighter uppercase mb-12">Nexus Wellness</h3>
-            
-            <div class="flex gap-12 text-sm font-bold tracking-widest mb-16 uppercase">
-                <a href="#" class="social-link insta">Instagram</a>
-                <a href="#" class="social-link linked text-blue-500">LinkedIn</a>
-                <a href="#" class="social-link tube text-red-600">YouTube</a>
-                <a href="#" class="social-link whats text-green-500">WhatsApp</a>
-            </div>
-
-            <p class="text-apple-gray text-[10px] tracking-[0.5em] text-center uppercase leading-loose">
-                © 2026 NEXUS WELLNESS INDIA. <br>
-                HIGH-FIDELITY MENTAL HEALTHCARE. PRIVACY FIRST.
-            </p>
+    <footer class="py-20 bg-black border-t border-white/5 text-center">
+        <h3 class="text-2xl font-bold tracking-tighter uppercase mb-12">Nexus Wellness</h3>
+        <div class="flex justify-center gap-12 mb-16">
+            <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-btn whatsapp-link"><i class="fab fa-whatsapp"></i></a>
         </div>
+        <p class="text-apple-gray text-[10px] tracking-[0.5em] uppercase leading-loose">
+            © 2026 NEXUS WELLNESS. ALL RIGHTS RESERVED. <br>
+            PRIVACY & EXCELLENCE.
+        </p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
