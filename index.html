@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | Elite Psychological Excellence | Greater Noida</title>
+    <title>Nexus Wellness | Premium Psychological Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,7 +17,6 @@
                         'apple-blue': '#0071e3',
                         'apple-gray': '#86868b',
                         'apple-dark': '#1d1d1f',
-                        'whatsapp-green': '#25D366'
                     },
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                 }
@@ -26,9 +25,16 @@
     </script>
     <style>
         body { background-color: #ffffff; color: #1d1d1f; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,0.1); z-index: 1000; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.1); z-index: 1000; }
         
-        /* Floating WhatsApp */
+        /* Hero Section with New Atmospheric Background */
+        .hero-bg {
+            background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
         .whatsapp-float {
             position: fixed; bottom: 40px; right: 40px; background-color: #25D366; color: #FFF;
             border-radius: 50px; width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
@@ -36,57 +42,30 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
-        /* Hero & Quiet Message Background Photo */
-        .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        /* Consult Form Background Photo */
-        .consult-bg {
-            background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.85)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        /* Ultra-Premium Glass Inputs */
         .premium-input {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 12px;
-            padding: 1.2rem;
+            padding: 1.25rem;
             width: 100%;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #1d1d1f;
-            font-weight: 500;
+            transition: 0.3s;
         }
-        .premium-input:focus {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #0071e3;
-            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.1);
-            outline: none;
-        }
+        .premium-input:focus { border-color: #0071e3; background: #ffffff; outline: none; }
 
-        .cta-button {
+        .cta-btn {
             background: #0071e3;
             color: white;
-            transition: all 0.4s ease;
+            transition: 0.4s;
             box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);
         }
-        .cta-button:hover {
-            background: #0077ed;
-            transform: translateY(-2px);
-        }
+        .cta-btn:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        .social-icon { font-size: 26px; transition: 0.4s; color: #86868b; }
+        /* Icon Colors */
         .insta:hover { color: #E1306C; }
         .linkedin:hover { color: #0077B5; }
         .youtube:hover { color: #FF0000; }
-        .wa-footer:hover { color: #25D366; }
+        .wa-foot:hover { color: #25D366; }
     </style>
 </head>
 <body class="font-sans">
@@ -102,79 +81,76 @@
         </div>
         <div class="hidden lg:flex gap-12 text-[12px] font-semibold text-apple-gray uppercase tracking-widest">
             <a href="#home" class="text-black">Home</a>
-            <a href="#philosophy" class="hover:text-black transition">Philosophy</a>
-            <a href="#services" class="hover:text-black transition">Practices</a>
-            <a href="#contact" class="hover:text-black transition">Consult</a>
+            <a href="#services" class="hover:text-black transition">Specialties</a>
+            <a href="#contact" class="hover:text-black transition">Contact</a>
         </div>
-        <a href="#contact" class="cta-button px-7 py-2.5 rounded-full text-[12px] font-bold tracking-tight uppercase">Get Started</a>
+        <a href="#contact" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold">Consult Now</a>
     </nav>
 
-    <section id="home" class="relative h-screen flex flex-col items-center justify-center text-center px-6 pt-24 hero-bg overflow-hidden">
+    <section id="home" class="relative h-screen flex flex-col items-center justify-center text-center px-6 hero-bg overflow-hidden">
         <div class="relative z-10 max-w-5xl" data-aos="fade-up">
-            <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter text-white mb-8">Quiet the Mind. <br><span class="text-white/70 font-medium">Elevate the Soul.</span></h1>
-            <p class="max-w-2xl mx-auto text-white/90 text-lg md:text-2xl font-light mb-12 leading-relaxed">
-                India’s premier mental wellness sanctuary in Greater Noida. Discover a high-fidelity approach to inner balance and emotional excellence.
+            <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter text-apple-dark mb-8 leading-[0.9]">
+                Reclaim Your <br><span class="text-apple-gray font-medium">Inner Peace.</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-apple-dark text-lg md:text-2xl font-normal mb-12 leading-relaxed opacity-80">
+                A sanctuary for the mind in Greater Noida. We offer bespoke psychological strategies to help you navigate life's complexities with grace.
             </p>
             <div class="flex justify-center gap-8">
-                <a href="#contact" class="cta-button px-14 py-5 rounded-full font-bold text-xs uppercase tracking-widest shadow-2xl">Book Private Inquiry</a>
+                <a href="#contact" class="cta-btn px-14 py-4 rounded-full font-bold text-xs uppercase tracking-widest">Start Your Journey</a>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-32 bg-white px-6 md:px-20">
+    <section id="services" class="py-32 bg-[#f5f5f7] px-6 md:px-20">
         <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-20 tracking-tight">Our Practices.</h2>
+            <h2 class="text-4xl md:text-6xl font-bold mb-20 tracking-tight">Our Specialties.</h2>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-apple-bg p-12 rounded-[32px] border border-gray-100 hover:shadow-xl transition duration-500" data-aos="fade-up">
-                    <i class="fas fa-users text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-dark">Marriage Mastery</h3>
-                    <p class="text-sm text-apple-gray">Navigating relationship dynamics with absolute discretion and empathy.</p>
+                <div class="bg-white p-12 rounded-[32px] shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up">
+                    <i class="fas fa-dove text-apple-blue text-3xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-4">Anxiety Care</h3>
+                    <p class="text-sm text-apple-gray">Finding stillness in a chaotic world with certified clinical protocols.</p>
                 </div>
-                <div class="bg-apple-bg p-12 rounded-[32px] border border-gray-100 hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-gem text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-dark">Executive Growth</h3>
-                    <p class="text-sm text-apple-gray">Optimizing mental performance for high-impact leaders and founders.</p>
+                <div class="bg-white p-12 rounded-[32px] shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-infinity text-apple-blue text-3xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-4">Life Transitions</h3>
+                    <p class="text-sm text-apple-gray">Supporting you through career shifts, loss, and major life changes.</p>
                 </div>
-                <div class="bg-apple-bg p-12 rounded-[32px] border border-gray-100 hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-brain text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-dark">Clinical Care</h3>
-                    <p class="text-sm text-apple-gray">Specialized therapeutic intervention for complex mood and anxiety disorders.</p>
+                <div class="bg-white p-12 rounded-[32px] shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-heart text-apple-blue text-3xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-4">Deep Connection</h3>
+                    <p class="text-sm text-apple-gray">Expert relationship counseling for couples and family dynamics.</p>
                 </div>
-                <div class="bg-apple-bg p-12 rounded-[32px] border border-gray-100 hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-shield-alt text-apple-blue text-3xl mb-6"></i>
-                    <h3 class="font-bold text-xl mb-4 text-apple-dark">Trauma Recovery</h3>
-                    <p class="text-sm text-apple-gray">Evidence-based protocols for profound emotional healing and PTSD recovery.</p>
+                <div class="bg-white p-12 rounded-[32px] shadow-sm hover:shadow-xl transition duration-500" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-shield-virus text-apple-blue text-3xl mb-6"></i>
+                    <h3 class="font-bold text-xl mb-4">Trauma Support</h3>
+                    <p class="text-sm text-apple-gray">A safe, confidential space for emotional healing and PTSD recovery.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-32 px-6 md:px-20 consult-bg">
+    <section id="contact" class="py-32 px-6 md:px-20 bg-white">
         <div class="max-w-4xl mx-auto" data-aos="zoom-in">
-            <div class="bg-white/40 backdrop-blur-2xl p-10 md:p-20 rounded-[50px] border border-white/40 shadow-2xl">
+            <div class="bg-[#f5f5f7] p-10 md:p-20 rounded-[50px] shadow-inner border border-gray-100">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-7xl font-bold tracking-tight mb-6">Consult.</h2>
-                    <p class="text-apple-dark font-medium text-lg italic">"A journey of a thousand miles begins with a quiet mind."</p>
+                    <h2 class="text-4xl md:text-7xl font-bold tracking-tight mb-6">Connect.</h2>
+                    <p class="text-apple-gray font-medium text-lg">Every transformation begins with a conversation.</p>
                 </div>
 
                 <form class="space-y-8">
                     <div class="grid md:grid-cols-2 gap-8">
-                        <input type="text" placeholder="FULL NAME" class="premium-input text-xs tracking-widest uppercase">
-                        <input type="email" placeholder="EMAIL ADDRESS" class="premium-input text-xs tracking-widest uppercase">
+                        <input type="text" placeholder="Full Name" class="premium-input">
+                        <input type="email" placeholder="Email Address" class="premium-input">
                     </div>
-                    <select class="premium-input text-xs tracking-widest uppercase appearance-none cursor-pointer">
-                        <option>SELECT MODALITY</option>
-                        <option>Relationship / Marriage Mastery</option>
-                        <option>Executive Performance Coaching</option>
-                        <option>Clinical Wellness (Anxiety/Depression)</option>
-                        <option>Trauma & Recovery Services</option>
-                        <option>LGBTQ+ Affirmative Therapy</option>
+                    <select class="premium-input appearance-none cursor-pointer text-apple-gray">
+                        <option>Select Focus Area</option>
+                        <option>Individual Counseling</option>
+                        <option>Relationship / Marriage</option>
+                        <option>Executive Stress</option>
+                        <option>Clinical Wellness</option>
                     </select>
-                    <textarea rows="4" placeholder="BRIEFLY DESCRIBE YOUR OBJECTIVES" class="premium-input text-xs tracking-widest uppercase"></textarea>
-                    
-                    <div class="flex justify-center pt-6">
-                        <button type="submit" class="cta-button w-full px-20 py-5 rounded-xl font-bold text-xs tracking-widest uppercase">Submit Secure Inquiry</button>
-                    </div>
+                    <textarea rows="4" placeholder="How can we assist your journey?" class="premium-input"></textarea>
+                    <button type="submit" class="cta-btn w-full py-5 rounded-full font-bold text-sm tracking-widest uppercase">Request Consultation</button>
                 </form>
             </div>
         </div>
@@ -182,29 +158,32 @@
 
     <footer class="py-24 bg-white border-t border-gray-100 text-center px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col items-center mb-16">
-                <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white mb-4">NW</div>
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center font-bold text-white">NW</div>
                 <h3 class="text-2xl font-bold tracking-tight uppercase">Nexus Wellness</h3>
-                <p class="text-apple-gray text-xs mt-2 uppercase tracking-widest font-bold">Greater Noida Sanctuary</p>
+            </div>
+            
+            <div class="mb-12">
+                <p class="text-apple-gray text-xs uppercase tracking-widest mb-2 font-bold">Sanctuary Location</p>
+                <p class="text-lg font-semibold text-black">Greater Noida, Uttar Pradesh, India</p>
             </div>
             
             <div class="flex justify-center gap-14 mb-16">
-                <a href="#" class="social-icon insta" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon wa-footer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="text-2xl text-apple-gray insta transition-all"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-2xl text-apple-gray linkedin transition-all"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-2xl text-apple-gray youtube transition-all"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-2xl text-apple-gray wa-foot transition-all"><i class="fab fa-whatsapp"></i></a>
             </div>
 
-            <p class="text-apple-gray text-[10px] tracking-[0.5em] font-bold uppercase leading-loose">
-                © 2026 NEXUS WELLNESS INDIA. <br>
-                ABSOLUTE CONFIDENTIALITY. GLOBAL EXCELLENCE.
+            <p class="text-apple-gray text-[10px] tracking-[0.5em] font-bold uppercase">
+                © 2026 NEXUS WELLNESS. ABSOLUTE CONFIDENTIALITY.
             </p>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200, once: true });
+        AOS.init({ duration: 1000, once: true });
     </script>
 </body>
 </html>
