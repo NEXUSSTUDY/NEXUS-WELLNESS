@@ -27,7 +27,6 @@
         body { background-color: #ffffff; color: #1d1d1f; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
         .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.1); z-index: 1000; }
         
-        /* Hero Section with New Atmospheric Background */
         .hero-bg {
             background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
@@ -60,8 +59,9 @@
             box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);
         }
         .cta-btn:hover { transform: translateY(-2px); opacity: 0.9; }
-
-        /* Icon Colors */
+        
+        /* Added for Logic */
+        .hidden { display: none !important; }
         .insta:hover { color: #E1306C; }
         .linkedin:hover { color: #0077B5; }
         .youtube:hover { color: #FF0000; }
@@ -70,7 +70,7 @@
 </head>
 <body class="font-sans">
 
-    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/91XXXXXXXXXX" id="float-wa" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -137,21 +137,46 @@
                     <p class="text-apple-gray font-medium text-lg">Every transformation begins with a conversation.</p>
                 </div>
 
-                <form class="space-y-8">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <input type="text" placeholder="Full Name" class="premium-input">
-                        <input type="email" placeholder="Email Address" class="premium-input">
+                <div id="booking-flow">
+                    <form id="p-form" class="space-y-8" onsubmit="event.preventDefault(); showPayment();">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <input type="text" id="p-name" placeholder="Full Name" class="premium-input" required>
+                            <input type="email" id="p-email" placeholder="Email Address" class="premium-input" required>
+                        </div>
+                        <select id="p-focus" class="premium-input appearance-none cursor-pointer text-apple-gray" required>
+                            <option value="">Select Focus Area</option>
+                            <option>Individual Counseling</option>
+                            <option>Relationship / Marriage</option>
+                            <option>Executive Stress</option>
+                            <option>Clinical Wellness</option>
+                        </select>
+                        <textarea id="p-concern" rows="4" placeholder="How can we assist your journey?" class="premium-input" required></textarea>
+                        <button type="submit" class="cta-btn w-full py-5 rounded-full font-bold text-sm tracking-widest uppercase">Proceed to Payment</button>
+                    </form>
+
+                    <div id="p-payment" class="hidden text-center space-y-8">
+                        <div class="bg-white p-8 rounded-[40px] shadow-sm inline-block border border-gray-100">
+                            <img id="p-qr" src="" alt="Payment QR" class="mx-auto w-56 h-56 mb-4">
+                            <p id="p-upi-text" class="text-xs font-bold text-apple-blue font-mono tracking-widest"></p>
+                        </div>
+                        <div class="max-w-xs mx-auto">
+                            <label class="block text-[10px] font-bold text-apple-gray mb-3 uppercase tracking-[0.2em]">Enter 12-Digit Transaction (UTR) ID</label>
+                            <input type="text" id="p-utr" maxlength="12" placeholder="0000 0000 0000" class="premium-input text-center font-bold tracking-widest border-2 border-blue-100">
+                        </div>
+                        <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full font-bold text-sm tracking-widest uppercase">Confirm Appointment</button>
                     </div>
-                    <select class="premium-input appearance-none cursor-pointer text-apple-gray">
-                        <option>Select Focus Area</option>
-                        <option>Individual Counseling</option>
-                        <option>Relationship / Marriage</option>
-                        <option>Executive Stress</option>
-                        <option>Clinical Wellness</option>
-                    </select>
-                    <textarea rows="4" placeholder="How can we assist your journey?" class="premium-input"></textarea>
-                    <button type="submit" class="cta-btn w-full py-5 rounded-full font-bold text-sm tracking-widest uppercase">Request Consultation</button>
-                </form>
+
+                    <div id="p-success" class="hidden text-center space-y-8">
+                        <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100">
+                            <i class="fas fa-check-circle text-4xl mb-3"></i><br>
+                            Appointment Request Received!
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <a id="p-meet" href="#" target="_blank" class="block w-full bg-apple-dark text-white py-5 rounded-full font-bold text-sm uppercase tracking-widest">Join Meet Session</a>
+                            <a id="p-wa" href="#" target="_blank" class="block w-full bg-[#25D366] text-white py-5 rounded-full font-bold text-sm uppercase tracking-widest">Chat on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -184,6 +209,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        // --- UPDATE YOUR DETAILS HERE ---
+        const nexusConfig = {
+            waNum: "+91XXXXXXXXXX", // e.g. +919876543210
+            upiId: "yourname@upi",
+            meet: "https://meet.google.com/your-code"
+        };
+
+        // Fix Floating WA Button
+        document.getElementById('float-wa').href = `https://wa.me/${nexusConfig.waNum.replace('+', '')}`;
+
+        function showPayment() {
+            document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
+            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent("upi://pay?pa=" + nexusConfig.upiId + "&pn=Nexus%20Wellness")}`;
+            
+            document.getElementById('p-form').classList.add('hidden');
+            document.getElementById('p-payment').classList.remove('hidden');
+            // Scroll to center form
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function unlockSession() {
+            const utr = document.getElementById('p-utr').value;
+            if(utr.length < 12) {
+                alert("Please enter a valid 12-digit Transaction ID.");
+                return;
+            }
+
+            const name = document.getElementById('p-name').value;
+            const focus = document.getElementById('p-focus').value;
+            const concern = document.getElementById('p-concern').value;
+
+            const summary = `Nexus Wellness Booking!%0A%0AName: ${name}%0AFocus: ${focus}%0AConcern: ${concern}%0AUTR ID: ${utr}`;
+            const finalWaUrl = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=${summary}`;
+
+            document.getElementById('p-meet').href = nexusConfig.meet;
+            document.getElementById('p-wa').href = finalWaUrl;
+
+            document.getElementById('p-payment').classList.add('hidden');
+            document.getElementById('p-success').classList.remove('hidden');
+
+            // Open WA automatically to notify you
+            window.open(finalWaUrl, '_blank');
+        }
     </script>
 </body>
 </html>
