@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | Premium Psychological Counseling</title>
+    <title>Nexus Wellness | Premium Psychological Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -16,86 +16,77 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: #ffffff;
-            color: #1d1d1f;
-            -webkit-font-smoothing: antialiased;
-            scroll-behavior: smooth;
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            background-color: #ffffff; 
+            color: #1d1d1f; 
+            -webkit-font-smoothing: antialiased; 
+            scroll-behavior: smooth; 
         }
         
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: saturate(180%) blur(30px);
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            z-index: 1000;
+        .glass-nav { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: saturate(180%) blur(30px); 
+            border-bottom: 1px solid rgba(0,0,0,0.08); 
+            z-index: 1000; 
         }
         
         /* New Calm Green Hero Background */
-        .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.40)), 
-                              url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        .hero-bg { 
+            background-image: linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.38)), 
+                              url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
         }
         
-        .premium-input {
-            background: #ffffff;
-            border: 1px solid #d1d5db;
-            border-radius: 20px;
-            padding: 18px 22px;
-            width: 100%;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 16px;
+        .premium-input { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(0, 0, 0, 0.1); 
+            border-radius: 16px; 
+            padding: 1.25rem; 
+            width: 100%; 
+            transition: 0.3s; 
         }
         
-        .premium-input:focus {
-            border-color: #0071e3;
-            box-shadow: 0 0 0 5px rgba(0, 113, 227, 0.15);
-            outline: none;
+        .cta-btn { 
+            background: #0071e3; 
+            color: white; 
+            transition: 0.4s; 
+            box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39); 
+            cursor: pointer; 
         }
         
-        .cta-btn {
-            background: #0071e3;
-            color: white;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
-        }
-        
-        .cta-btn:hover {
-            background: #0066cc;
-            transform: translateY(-3px);
-        }
-        
-        #admin-panel {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 420px;
-            height: 100vh;
-            background: white;
-            z-index: 3000;
-            box-shadow: -25px 0 50px rgba(0,0,0,0.18);
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-            overflow-y: auto;
-            padding: 40px 30px;
+        #admin-panel { 
+            position: fixed; 
+            top: 0; 
+            right: 0; 
+            width: 380px; 
+            height: 100%; 
+            background: white; 
+            z-index: 3000; 
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+            transform: translateX(100%); 
+            transition: 0.5s ease; 
+            overflow-y: auto; 
+            padding: 30px; 
         }
         
         #admin-panel.active { transform: translateX(0); }
         
-        .section-title {
-            font-size: 2.85rem;
-            line-height: 1.05;
-            font-weight: 700;
-            letter-spacing: -0.04em;
+        .specialty-card { 
+            background: #1a1a1a; 
+            padding: 40px; 
+            border-radius: 30px; 
+            border: 1px solid #333; 
+            transition: 0.3s; 
         }
     </style>
 </head>
-<body>
+<body class="font-sans">
 
-    <!-- Navigation - Original + New Admin Label -->
+    <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
             <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
@@ -107,12 +98,12 @@
                 <div class="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-100 transition">
                     <i class="fas fa-cog text-gray-700 text-sm"></i>
                 </div>
-                <span class="text-[10px] text-gray-500 font-medium mt-1 tracking-widest">ADMIN PANEL</span>
+                <span class="text-[10px] text-gray-500 font-medium mt-1">ADMIN PANEL</span>
             </button>
         </div>
     </nav>
 
-    <!-- Admin Panel - Updated with your EmailJS -->
+    <!-- Admin Panel -->
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-8">
             <h3 class="font-bold text-xl uppercase">Admin Control</h3>
@@ -128,14 +119,14 @@
             <input type="text" id="admin-otp-input" maxlength="6" placeholder="Enter OTP" class="premium-input text-center text-3xl tracking-widest">
             <button onclick="verifyAdminOTP()" class="cta-btn w-full py-3 rounded-xl font-bold">VERIFY OTP</button>
         </div>
-
+        
         <div id="admin-controls" class="hidden space-y-5">
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input type="text" id="adm-email" class="premium-input text-sm"></div>
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input type="text" id="adm-wa" class="premium-input text-sm"></div>
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input type="text" id="adm-upi" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots (Comma separated)</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
             
-            <!-- Counselor Message Edit -->
+            <!-- Counselor Message -->
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Message</label><textarea id="adm-ceo-message" class="premium-input text-sm h-32"></textarea></div>
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Photo URL</label><input type="text" id="adm-ceo-photo" class="premium-input text-sm"></div>
             
@@ -143,28 +134,48 @@
         </div>
     </div>
 
-    <!-- Hero Section - Updated Background -->
+    <!-- Hero Section - New Green Background -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
         <div data-aos="fade-up">
             <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
-            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">Personalized online counseling for mental wellness in Greater Noida</p>
+            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">A sanctuary for the mind in Greater Noida. Personalized psychological counseling.</p>
             <a href="#booking-section" class="cta-btn px-14 py-4 rounded-full font-bold text-xs uppercase tracking-widest">Start Your Journey</a>
         </div>
     </section>
 
-    <!-- Specialties Section -->
+    <!-- Specialties -->
     <section class="py-32 px-6 md:px-20 bg-black text-white">
         <h2 class="text-5xl md:text-6xl font-bold tracking-tight text-center mb-24" data-aos="fade-up">Our Specialties.</h2>
-        <div class="grid md:grid-cols-4 gap-8" id="specialties-grid"></div>
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="specialty-card" data-aos="fade-up">
+                <i class="fas fa-brain text-3xl mb-8 text-blue-400"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Anxiety Care</h3>
+                <p class="text-gray-400 text-sm">Finding stillness in a chaotic world with clinical protocols.</p>
+            </div>
+            <div class="specialty-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-heart text-3xl mb-8 text-red-400"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Relationships</h3>
+                <p class="text-gray-400 text-sm">Healing emotional bonds with caring counseling.</p>
+            </div>
+            <div class="specialty-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-moon text-3xl mb-8 text-purple-400"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Sleep Problems</h3>
+                <p class="text-gray-400 text-sm">Restorative sleep techniques.</p>
+            </div>
+            <div class="specialty-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-shield-alt text-3xl mb-8 text-green-400"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Trauma Support</h3>
+                <p class="text-gray-400 text-sm">A safe space for emotional healing.</p>
+            </div>
+        </div>
     </section>
 
-    <!-- Booking Section (Original + Improvements) -->
+    <!-- Booking Section (Original) -->
     <section id="booking-section" class="py-32 px-6 bg-[#f5f5f7]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[50px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
                 <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
                     <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
-                    <!-- Your original form fields -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
@@ -197,7 +208,6 @@
                     <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest">Pay & Book</button>
                 </form>
 
-                <!-- Payment and Success sections (your original logic) -->
                 <div id="p-payment" class="hidden text-center space-y-8">
                     <div class="bg-white p-6 rounded-3xl inline-block shadow-sm border">
                         <img id="p-qr" src="" class="w-48 h-48 mx-auto">
@@ -215,7 +225,7 @@
         </div>
     </section>
 
-    <!-- Footer - Original -->
+    <!-- Footer (Original) -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
@@ -250,15 +260,8 @@
 
         let currentOTP = null;
 
-        function updateUI() {
-            // Your original slot logic
-        }
-
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
-            document.getElementById('admin-login').classList.remove('hidden');
-            document.getElementById('admin-login-step2').classList.add('hidden');
-            document.getElementById('admin-controls').classList.add('hidden');
         }
 
         function closeAdmin() {
@@ -276,10 +279,10 @@
                 p_otp: currentOTP,
                 p_concern: "Admin Login OTP"
             }).then(() => {
-                alert(`✅ OTP sent to ${email}`);
+                alert(`✅ OTP ${currentOTP} sent to ${email}`);
                 document.getElementById('admin-login').classList.add('hidden');
                 document.getElementById('admin-login-step2').classList.remove('hidden');
-            }).catch(() => alert("Failed to send OTP. Please check EmailJS."));
+            }).catch(() => alert("Failed to send OTP"));
         }
 
         function verifyAdminOTP() {
@@ -309,17 +312,13 @@
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             localStorage.setItem('extraData', JSON.stringify(extraData));
             
-            document.getElementById('ceo-message-text').innerHTML = extraData.ceoMessage;
-            document.getElementById('ceo-photo').src = extraData.ceoPhoto;
-            
             alert("Saved!");
             closeAdmin();
         }
 
-        // Your original payment functions
         function showPayment() {
             const fee = document.getElementById('p_type').value;
-            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=NexusWellness&am=${fee}&cu=INR`;
+            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus&am=${fee}&cu=INR`;
             document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
             document.getElementById('p-form').classList.add('hidden');
@@ -328,7 +327,7 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value;
-            if (utr.length < 12) return alert("Invalid UTR");
+            if (utr.length < 12) { alert("Invalid UTR"); return; }
             
             const formData = {
                 p_name: document.getElementById('p_name').value,
@@ -340,19 +339,13 @@
             };
             
             emailjs.send("service_w0vxgvf", "template_ch0kf2t", formData).then(() => {
-                const wa = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=Booking Confirmed! Name: ${formData.p_name} UTR: ${utr}`;
+                const wa = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=Booking! Name: ${formData.p_name} UTR: ${utr}`;
                 document.getElementById('p-wa').href = wa;
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
                 window.open(wa, '_blank');
             });
         }
-
-        // Initialize
-        window.onload = function() {
-            document.getElementById('ceo-message-text').innerHTML = extraData.ceoMessage;
-            document.getElementById('ceo-photo').src = extraData.ceoPhoto || "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800";
-        };
     </script>
 </body>
 </html>
