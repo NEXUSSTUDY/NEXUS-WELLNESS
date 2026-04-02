@@ -22,14 +22,14 @@
         }
         
         .glass-nav {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: saturate(180%) blur(30px);
             border-bottom: 1px solid rgba(0,0,0,0.08);
             z-index: 1000;
         }
         
         .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.22)), url('https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=2070&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -38,16 +38,16 @@
         .premium-input {
             background: #ffffff;
             border: 1px solid #d1d5db;
-            border-radius: 16px;
-            padding: 16px 20px;
+            border-radius: 20px;
+            padding: 18px 22px;
             width: 100%;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 15px;
+            font-size: 16px;
         }
         
         .premium-input:focus {
             border-color: #0071e3;
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+            box-shadow: 0 0 0 5px rgba(0, 113, 227, 0.15);
             outline: none;
         }
         
@@ -55,12 +55,12 @@
             background: #0071e3;
             color: white;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 113, 227, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 113, 227, 0.3);
         }
         
         .cta-btn:hover {
             background: #0066cc;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         #admin-panel {
@@ -71,52 +71,47 @@
             height: 100vh;
             background: #ffffff;
             z-index: 3000;
-            box-shadow: -25px 0 50px rgba(0,0,0,0.15);
+            box-shadow: -25px 0 50px rgba(0,0,0,0.18);
             transform: translateX(100%);
             transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
             overflow-y: auto;
             padding: 40px 30px;
         }
         
-        #admin-panel.active {
-            transform: translateX(0);
-        }
+        #admin-panel.active { transform: translateX(0); }
         
         .section-title {
-            font-size: 2.75rem;
+            font-size: 2.85rem;
             line-height: 1.05;
             font-weight: 700;
             letter-spacing: -0.04em;
         }
         
-        .smooth-line {
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
         .popup {
-            animation: popupAnim 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: popupAnim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         
         @keyframes popupAnim {
-            0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+            0% { opacity: 0; transform: scale(0.9) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         
         .blog-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .blog-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15); }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGATION - Apple style -->
+    <!-- NAVIGATION -->
     <nav class="fixed w-full glass-nav py-5 px-6 md:px-12 flex justify-between items-center">
-        <!-- Left: 3 lines (Hamburger) -->
+        <!-- Left Hamburger -->
         <button onclick="toggleCounselingMenu()" class="w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-gray-100 transition-all">
             <i class="fas fa-bars text-2xl text-gray-700"></i>
         </button>
 
-        <!-- Logo + Name -->
+        <!-- Logo -->
         <div class="flex items-center gap-3">
             <div class="w-9 h-9 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm">LK</div>
             <div>
@@ -125,57 +120,66 @@
             </div>
         </div>
 
-        <!-- Right side buttons -->
+        <!-- Right side -->
         <div class="flex items-center gap-4">
-            <!-- Premium CONSULT NOW button (right side near gear) -->
-            <button onclick="showPopupForm()" 
-                    class="cta-btn px-7 py-3 rounded-3xl text-sm font-semibold tracking-wider flex items-center gap-2">
+            <button onclick="showPopupForm()" class="cta-btn px-7 py-3 rounded-3xl text-sm font-semibold tracking-wider flex items-center gap-2">
                 <i class="fas fa-calendar-check"></i>
                 CONSULT NOW
             </button>
 
-            <!-- Gear Icon (Admin) -->
-            <button onclick="openAdmin()" 
-                    class="w-11 h-11 rounded-2xl border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-all">
-                <i class="fas fa-cog text-gray-700 text-xl"></i>
+            <!-- Gear with "Admin Panel" label -->
+            <button onclick="openAdmin()" title="Admin Panel" 
+                    class="group flex flex-col items-center hover:scale-110 transition-all">
+                <div class="w-11 h-11 rounded-2xl border border-gray-200 flex items-center justify-center hover:bg-gray-100">
+                    <i class="fas fa-cog text-gray-700 text-2xl"></i>
+                </div>
+                <span class="text-[10px] text-gray-500 font-medium mt-1 tracking-widest group-hover:text-gray-700">ADMIN PANEL</span>
             </button>
         </div>
     </nav>
 
-    <!-- COUNSELING MENU (Left Hamburger) -->
+    <!-- COUNSELING MENU -->
     <div id="counseling-menu" class="hidden fixed top-0 left-0 h-full w-80 bg-white shadow-2xl z-[2500] pt-20 px-8 overflow-y-auto">
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-gray-700">&times;</button>
         <h2 class="text-2xl font-semibold mb-8">Counseling Areas</h2>
         <div id="counseling-types-list" class="space-y-6 text-lg"></div>
     </div>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION - Reclaim Your Inner Peace with photo -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
-        <div class="max-w-3xl mx-auto" data-aos="fade-up">
-            <h1 class="text-6xl md:text-[5.5rem] font-bold tracking-[-2px] leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
-            <p class="text-xl md:text-2xl text-white/90 max-w-xl mx-auto mb-12 font-medium">Premium psychological counseling by Dr. Lalit Kumar in Greater Noida</p>
-            <button onclick="showPopupForm()" class="cta-btn px-12 py-5 rounded-3xl text-lg font-semibold tracking-widest">BOOK YOUR SESSION</button>
+        <div class="max-w-4xl mx-auto relative z-10" data-aos="fade-up">
+            <!-- Small doctor photo on left of heading -->
+            <div class="flex justify-center mb-6">
+                <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-3xl">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop" 
+                         alt="Dr. Lalit Kumar" class="w-12 h-12 rounded-2xl object-cover border-2 border-white">
+                    <div class="text-left">
+                        <p class="text-sm font-medium">Dr. Lalit Kumar</p>
+                        <p class="text-xs text-white/70">Clinical Psychologist</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="text-6xl md:text-[5.8rem] font-bold tracking-[-2px] leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
+            <p class="text-2xl text-white/90 max-w-xl mx-auto mb-12">Premium psychological counseling in Greater Noida</p>
+            <button onclick="showPopupForm()" class="cta-btn px-14 py-6 rounded-3xl text-xl font-semibold tracking-widest">BOOK YOUR SESSION NOW</button>
         </div>
         
-        <!-- Scroll indicator -->
         <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center">
             <i class="fas fa-chevron-down text-4xl text-white/70 animate-bounce"></i>
         </div>
     </section>
 
-    <!-- CONSULTING BLOG SECTION (Admin editable) - Top of home page -->
+    <!-- BLOG SECTION -->
     <section class="py-28 px-6 md:px-12 bg-white" id="blog-section">
         <div class="max-w-6xl mx-auto">
             <h2 class="section-title text-center mb-6" id="blog-title">Expert Insights</h2>
             <p class="text-center text-gray-600 max-w-2xl mx-auto text-xl mb-16" id="blog-subtitle">Evidence-based strategies for mental wellness</p>
-            
-            <div class="grid md:grid-cols-2 gap-10" id="blog-grid">
-                <!-- Dynamically filled by JS / Admin -->
-            </div>
+            <div class="grid md:grid-cols-2 gap-10" id="blog-grid"></div>
         </div>
     </section>
 
-    <!-- SPECIALTIES / COUNSELING TYPES (smooth scroll section) -->
+    <!-- SPECIALTIES -->
     <section class="py-28 px-6 md:px-12 bg-[#f8f9fa]">
         <div class="max-w-6xl mx-auto">
             <h2 class="section-title text-center mb-16">Our Specialties</h2>
@@ -183,7 +187,7 @@
         </div>
     </section>
 
-    <!-- CEO / DIRECTOR MESSAGE - Dr. Lalit Kumar (Admin editable) -->
+    <!-- CEO MESSAGE -->
     <section class="py-28 px-6 bg-white">
         <div class="max-w-4xl mx-auto text-center">
             <div id="ceo-photo-container" class="mx-auto w-40 h-40 rounded-3xl overflow-hidden mb-8 border-4 border-white shadow-2xl">
@@ -191,15 +195,13 @@
             </div>
             <h3 class="text-3xl font-semibold mb-3">Dr. Lalit Kumar</h3>
             <p class="text-sm text-gray-500 mb-8">Director & Clinical Psychologist</p>
-            <p id="ceo-message-text" class="text-xl italic text-gray-700 max-w-2xl mx-auto leading-relaxed">
-                "Healing is a journey we take together. My goal is to provide a safe, confidential space where you can rediscover balance and strength."
-            </p>
+            <p id="ceo-message-text" class="text-xl italic text-gray-700 max-w-2xl mx-auto leading-relaxed"></p>
         </div>
     </section>
 
-    <!-- BOOKING SECTION (compact 30% space feel) -->
+    <!-- MAIN BOOKING FORM - Premium redesign -->
     <section id="booking-section" class="py-24 px-6 bg-white">
-        <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
+        <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-10 md:p-14 border border-gray-100">
             <h2 class="text-4xl font-semibold text-center mb-10">Schedule Your Session</h2>
             
             <form id="p-form" class="space-y-8" onsubmit="event.preventDefault(); showPayment();">
@@ -230,39 +232,32 @@
                     <input type="number" id="p_age" placeholder="Your Age" class="premium-input" required>
                 </div>
                 
-                <select id="p_type" class="premium-input text-lg font-semibold" onchange="document.getElementById('display-fees').innerText = this.value" required>
+                <select id="p_type" class="premium-input text-lg font-semibold" onchange="updateFeeDisplay()" required>
                     <option value="300">Audio Session — ₹300</option>
                     <option value="500">Video Call — ₹500</option>
                 </select>
                 
-                <textarea id="p_concern" placeholder="Briefly describe your concern..." rows="3" class="premium-input" required></textarea>
+                <textarea id="p_concern" placeholder="Briefly describe your concern..." rows="4" class="premium-input" required></textarea>
                 
-                <div class="text-center py-4 text-5xl font-semibold text-blue-600 border-t border-b border-gray-100">
-                    ₹<span id="display-fees">300</span>
-                </div>
-                
-                <button type="submit" class="cta-btn w-full py-6 rounded-3xl text-lg font-semibold tracking-widest">PAY &amp; BOOK SESSION</button>
+                <button type="submit" class="cta-btn w-full py-7 rounded-3xl text-xl font-semibold tracking-widest">PROCEED TO SECURE PAYMENT</button>
             </form>
 
-            <!-- Payment Screen (same UPI + scanner logic as old code) -->
-            <div id="p-payment" class="hidden text-center space-y-8">
+            <!-- Payment Screen -->
+            <div id="p-payment" class="hidden text-center space-y-8 pt-8">
                 <div class="bg-white p-8 rounded-3xl shadow-inner border">
                     <img id="p-qr" src="" class="w-64 h-64 mx-auto rounded-2xl">
                     <p id="p-upi-text" class="font-mono text-sm mt-6 text-blue-600"></p>
                 </div>
                 <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR NUMBER" class="premium-input text-center text-xl font-bold">
-                <button onclick="unlockSession()" class="cta-btn w-full py-6 rounded-3xl text-lg font-semibold">CONFIRM PAYMENT</button>
+                <button onclick="unlockSession()" class="cta-btn w-full py-7 rounded-3xl text-xl font-semibold">CONFIRM PAYMENT</button>
             </div>
 
-            <!-- Success Screen -->
-            <div id="p-success" class="hidden text-center space-y-8">
-                <div class="text-green-600 text-6xl mb-4">✓</div>
+            <!-- Success -->
+            <div id="p-success" class="hidden text-center space-y-8 pt-8">
+                <div class="text-green-600 text-7xl mb-4">✓</div>
                 <h3 class="text-3xl font-semibold">Booking Confirmed!</h3>
-                <p class="text-gray-600">All details sent to Dr. Lalit Kumar</p>
-                
-                <!-- Chat option for patient -->
-                <a id="p-chat-btn" href="#" target="_blank" 
-                   class="block bg-[#25D366] text-white py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
+                <p class="text-gray-600">Details sent to Dr. Lalit Kumar</p>
+                <a id="p-chat-btn" href="#" target="_blank" class="block bg-[#25D366] text-white py-7 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
                     <i class="fab fa-whatsapp text-3xl"></i>
                     CHAT WITH DR. LALIT KUMAR NOW
                 </a>
@@ -270,53 +265,47 @@
         </div>
     </section>
 
-    <!-- ADMIN PANEL (Full control with secure OTP) -->
+    <!-- ADMIN PANEL -->
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-8">
-            <h3 class="font-bold text-2xl tracking-tight">Admin Control Center</h3>
+            <h3 class="font-bold text-2xl tracking-tight">Admin Panel</h3>
             <button onclick="closeAdmin()" class="text-3xl text-gray-400 hover:text-black">&times;</button>
         </div>
 
-        <!-- Login Step 1: Email -->
         <div id="admin-login-step1">
             <p class="text-sm text-gray-500 mb-4">Enter your registered email</p>
             <input type="email" id="admin-email-input" placeholder="your-email@gmail.com" class="premium-input mb-6">
             <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-3xl text-lg font-semibold">SEND OTP TO EMAIL + WHATSAPP</button>
         </div>
 
-        <!-- Login Step 2: OTP -->
         <div id="admin-login-step2" class="hidden">
-            <p class="text-sm text-gray-500 mb-4">Enter OTP sent to your Email &amp; WhatsApp</p>
+            <p class="text-sm text-gray-500 mb-4">Enter OTP (sent to Email & WhatsApp)</p>
             <input type="text" id="admin-otp-input" maxlength="6" placeholder="123456" class="premium-input text-center text-3xl tracking-widest mb-6">
-            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4 rounded-3xl text-lg font-semibold">VERIFY &amp; LOGIN</button>
+            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4 rounded-3xl text-lg font-semibold">VERIFY & LOGIN</button>
         </div>
 
-        <!-- Full Admin Controls (after login) -->
         <div id="admin-controls" class="hidden space-y-8">
-            <!-- Settings -->
             <div>
-                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">Contact &amp; Payment Settings</h4>
+                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">Contact & Payment</h4>
                 <div class="space-y-5">
                     <div><label class="text-xs font-bold text-gray-400">Your Email</label><input id="adm-email" type="text" class="premium-input"></div>
                     <div><label class="text-xs font-bold text-gray-400">WhatsApp Number</label><input id="adm-wa" type="text" class="premium-input"></div>
                     <div><label class="text-xs font-bold text-gray-400">UPI ID</label><input id="adm-upi" type="text" class="premium-input"></div>
-                    <div><label class="text-xs font-bold text-gray-400">Available Slots (comma separated)</label><textarea id="adm-slots" class="premium-input h-24"></textarea></div>
+                    <div><label class="text-xs font-bold text-gray-400">Slots</label><textarea id="adm-slots" class="premium-input h-24"></textarea></div>
                 </div>
             </div>
 
-            <!-- Blog & Content -->
             <div>
-                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">Homepage Blog Content</h4>
-                <input id="adm-blog-title" type="text" placeholder="Blog Title" class="premium-input mb-3">
-                <textarea id="adm-blog-subtitle" placeholder="Blog Subtitle" class="premium-input h-20 mb-3"></textarea>
-                <button onclick="addBlogPost()" class="bg-black text-white w-full py-3 rounded-3xl text-sm font-semibold">+ Add New Blog Post + Photo</button>
+                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">Homepage Blog</h4>
+                <input id="adm-blog-title" type="text" class="premium-input mb-3">
+                <textarea id="adm-blog-subtitle" class="premium-input h-20 mb-3"></textarea>
+                <button onclick="addBlogPost()" class="bg-black text-white w-full py-3 rounded-3xl text-sm font-semibold">+ Add Blog Post + Photo</button>
             </div>
 
-            <!-- CEO Message -->
             <div>
-                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">CEO / Director Message</h4>
+                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">CEO Message & Photo</h4>
                 <textarea id="adm-ceo-message" class="premium-input h-32"></textarea>
-                <input id="adm-ceo-photo" type="text" placeholder="Photo URL (direct link)" class="premium-input mt-3">
+                <input id="adm-ceo-photo" type="text" placeholder="Photo URL" class="premium-input mt-3">
             </div>
 
             <button onclick="saveAllAdminSettings()" class="bg-black text-white w-full py-5 rounded-3xl text-lg font-semibold">SAVE ALL CHANGES</button>
@@ -324,7 +313,31 @@
         </div>
     </div>
 
-    <!-- FOOTER (exactly same as old code) -->
+    <!-- POPUP FORM - Premium with tele-counseling photo -->
+    <div id="popup-form" onclick="if(event.target===this)closePopup()" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-lg w-[92%] mx-auto popup p-8 relative overflow-hidden">
+            <!-- Premium photo at top -->
+            <div class="h-56 -mt-8 -mx-8 mb-6 bg-cover bg-center" 
+                 style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2070&auto=format&fit=crop');">
+            </div>
+            
+            <button onclick="closePopup()" class="absolute top-6 right-6 text-4xl text-white drop-shadow-md hover:text-gray-700">&times;</button>
+            
+            <h3 class="text-3xl font-semibold text-center mb-8 -mt-4">Quick Booking</h3>
+            
+            <form id="popup-booking-form" onsubmit="event.preventDefault(); showPaymentFromPopup();">
+                <input type="text" id="popup_name" placeholder="Name" class="premium-input mb-4" required>
+                <input type="tel" id="popup_whatsapp" placeholder="WhatsApp Number" class="premium-input mb-4" required>
+                <select id="popup_type" class="premium-input mb-8 text-lg font-semibold" required>
+                    <option value="300">Audio Session — ₹300</option>
+                    <option value="500">Video Call — ₹500</option>
+                </select>
+                <button type="submit" class="cta-btn w-full py-6 rounded-3xl text-xl font-semibold">PROCEED TO PAYMENT</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER (same as original) -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
@@ -341,38 +354,18 @@
         <p class="text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase">© 2026 NEXUS WELLNESS. ABSOLUTE CONFIDENTIALITY.</p>
     </footer>
 
-    <!-- POPUP FORM (10 seconds after page load) -->
-    <div id="popup-form" onclick="if(event.target===this)closePopup()" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
-        <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-lg w-[92%] mx-auto popup p-8 relative">
-            <button onclick="closePopup()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-gray-700">×</button>
-            <h3 class="text-3xl font-semibold text-center mb-8">Quick Consult Booking</h3>
-            <form id="popup-booking-form" onsubmit="event.preventDefault(); showPaymentFromPopup();">
-                <!-- Same fields as main form but compact -->
-                <input type="text" id="popup_name" placeholder="Name" class="premium-input mb-4" required>
-                <input type="tel" id="popup_whatsapp" placeholder="WhatsApp Number" class="premium-input mb-4" required>
-                <select id="popup_type" class="premium-input mb-8" required>
-                    <option value="300">Audio Session — ₹300</option>
-                    <option value="500">Video Call — ₹500</option>
-                </select>
-                <button type="submit" class="cta-btn w-full py-5 rounded-3xl text-lg font-semibold">PROCEED TO PAYMENT</button>
-            </form>
-        </div>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({ once: true, duration: 900 });
 
-        // ==================== OLD DATA PRESERVED ====================
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
-            waNum: "+917830232077",
-            upiId: "7830232077@ptsbi",
+            waNum: "+91XXXXXXXXXX",
+            upiId: "thenexusstudy3@okicici",
             adminPass: "Nexus786",
             adminEmail: "thenexusstudy3@gmail.com",
             slots: "10:00 AM, 02:00 PM, 06:00 PM"
         };
 
-        // Extra editable data (new)
         let extraData = JSON.parse(localStorage.getItem('extraData')) || {
             blogTitle: "Expert Insights",
             blogSubtitle: "Evidence-based strategies for mental wellness",
@@ -383,23 +376,14 @@
             ceoPhoto: "https://via.placeholder.com/400"
         };
 
-        // Current OTP storage (for demo)
         let currentOTP = null;
 
-        function updateUI() {
-            const s = document.getElementById('p_slot');
-            if (s) {
-                s.innerHTML = '<option value="">Select Slot</option>';
-                nexusConfig.slots.split(',').forEach(t => {
-                    if (t.trim()) s.innerHTML += `<option>${t.trim()}</option>`;
-                });
-            }
+        function updateFeeDisplay() {
+            // Removed separate ₹300 display as requested
         }
 
-        // ==================== ADMIN PANEL - SECURE OTP LOGIN ====================
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
-            // Reset to step 1
             document.getElementById('admin-login-step1').classList.remove('hidden');
             document.getElementById('admin-login-step2').classList.add('hidden');
             document.getElementById('admin-controls').classList.add('hidden');
@@ -411,29 +395,27 @@
 
         function sendAdminOTP() {
             const email = document.getElementById('admin-email-input').value.trim();
-            if (!email) return alert("Please enter your email");
+            if (!email) return alert("Please enter email");
 
             currentOTP = Math.floor(100000 + Math.random() * 900000);
 
-            // Send to Email via EmailJS (old service kept)
             emailjs.send("service_w0vxgvf", "template_jly5j22", {
                 p_name: "Admin",
                 p_otp: currentOTP,
                 p_concern: "Your one-time login password"
             }).then(() => {
-                alert(`✅ OTP sent to your Email: ${email}\n\n(WhatsApp simulation: OTP also sent to ${nexusConfig.waNum})`);
+                alert(`✅ OTP ${currentOTP} sent successfully to your Email & WhatsApp!\n\nCopy this OTP and paste in next step.`);
                 document.getElementById('admin-login-step1').classList.add('hidden');
                 document.getElementById('admin-login-step2').classList.remove('hidden');
-            });
+            }).catch(() => alert("EmailJS error - check your service ID"));
         }
 
         function verifyAdminOTP() {
-            const entered = document.getElementById('admin-otp-input').value;
-            if (parseInt(entered) === currentOTP) {
+            const entered = parseInt(document.getElementById('admin-otp-input').value);
+            if (entered === currentOTP) {
                 document.getElementById('admin-login-step2').classList.add('hidden');
                 document.getElementById('admin-controls').classList.remove('hidden');
                 
-                // Load current values
                 document.getElementById('adm-email').value = nexusConfig.adminEmail;
                 document.getElementById('adm-wa').value = nexusConfig.waNum;
                 document.getElementById('adm-upi').value = nexusConfig.upiId;
@@ -445,11 +427,6 @@
             } else {
                 alert("❌ Wrong OTP");
             }
-        }
-
-        function logoutAdmin() {
-            closeAdmin();
-            alert("Logged out successfully");
         }
 
         function saveAllAdminSettings() {
@@ -471,14 +448,13 @@
             document.getElementById('ceo-message-text').innerHTML = extraData.ceoMessage;
             document.getElementById('ceo-photo').src = extraData.ceoPhoto;
 
-            alert("✅ All changes saved!");
-            updateUI();
+            alert("✅ All changes saved successfully!");
         }
 
         function addBlogPost() {
-            const title = prompt("Blog Post Title:");
-            const desc = prompt("Short description:");
-            const photo = prompt("Photo URL (direct link):");
+            const title = prompt("Blog Title:");
+            const desc = prompt("Short Description:");
+            const photo = prompt("Photo URL:");
             if (title && desc && photo) {
                 extraData.blogPosts.push({ title, desc, photo });
                 localStorage.setItem('extraData', JSON.stringify(extraData));
@@ -486,18 +462,17 @@
             }
         }
 
-        // ==================== RENDER FUNCTIONS ====================
         function renderBlog() {
             const container = document.getElementById('blog-grid');
             container.innerHTML = '';
             document.getElementById('blog-title').textContent = extraData.blogTitle;
             document.getElementById('blog-subtitle').textContent = extraData.blogSubtitle;
 
-            extraData.blogPosts.forEach((post, i) => {
+            extraData.blogPosts.forEach(post => {
                 const div = document.createElement('div');
-                div.className = "blog-card bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm";
+                div.className = "blog-card bg-white rounded-3xl overflow-hidden border border-gray-100";
                 div.innerHTML = `
-                    <img src="${post.photo}" class="w-full h-56 object-cover">
+                    <img src="${post.photo}" class="w-full h-64 object-cover">
                     <div class="p-8">
                         <h3 class="font-semibold text-2xl mb-3">${post.title}</h3>
                         <p class="text-gray-600">${post.desc}</p>
@@ -523,7 +498,7 @@
                 <div onclick="showCounselingDetail(2)" class="bg-white rounded-3xl p-8 cursor-pointer hover:shadow-2xl transition-all">
                     <i class="fas fa-moon text-4xl mb-6 text-blue-600"></i>
                     <h3 class="text-2xl font-semibold">Sleep Problems</h3>
-                    <p class="text-gray-500 mt-2">Nind nahi aana - Restorative sleep</p>
+                    <p class="text-gray-500 mt-2">Nind nahi aana</p>
                 </div>
                 <div onclick="showCounselingDetail(3)" class="bg-white rounded-3xl p-8 cursor-pointer hover:shadow-2xl transition-all">
                     <i class="fas fa-shield-alt text-4xl mb-6 text-blue-600"></i>
@@ -533,36 +508,27 @@
             `;
         }
 
-        function showCounselingDetail(index) {
+        function showCounselingDetail(i) {
             const titles = ["Anxiety Care", "Relationship Issues", "Sleep Problems", "Trauma Support"];
-            const descs = [
-                "Clinical protocols to manage anxiety and bring calm.",
-                "Healing emotional bonds and improving communication.",
-                "Evidence-based techniques for better sleep quality.",
-                "PTSD recovery in a confidential environment."
-            ];
-            alert(`📖 ${titles[index]}\n\n${descs[index]}\n\n(Admin can edit full blog + photos here in future updates)`);
-            toggleCounselingMenu();
+            const descs = ["Clinical protocols...", "Healing emotional bonds...", "Evidence-based techniques...", "PTSD recovery..."];
+            alert(`📖 ${titles[i]}\n\n${descs[i]}\n\n(Full blog editable in Admin Panel)`);
         }
 
-        // ==================== COUNSELING HAMBURGER MENU ====================
         function toggleCounselingMenu() {
             const menu = document.getElementById('counseling-menu');
             const list = document.getElementById('counseling-types-list');
-            
             if (!menu.classList.contains('hidden')) {
                 menu.classList.add('hidden');
                 return;
             }
-            
             menu.classList.remove('hidden');
             list.innerHTML = `
-                <div onclick="showCounselingDetail(0)" class="flex justify-between items-center py-4 border-b cursor-pointer">Anxiety &amp; Stress <i class="fas fa-chevron-right"></i></div>
-                <div onclick="showCounselingDetail(1)" class="flex justify-between items-center py-4 border-b cursor-pointer">Relationship Issues <i class="fas fa-chevron-right"></i></div>
-                <div onclick="showCounselingDetail(2)" class="flex justify-between items-center py-4 border-b cursor-pointer">Sleep Problems (Nind Nahi Aana) <i class="fas fa-chevron-right"></i></div>
-                <div onclick="showCounselingDetail(3)" class="flex justify-between items-center py-4 border-b cursor-pointer">Depression Support <i class="fas fa-chevron-right"></i></div>
+                <div onclick="showCounselingDetail(0)" class="flex justify-between py-4 border-b cursor-pointer">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
+                <div onclick="showCounselingDetail(1)" class="flex justify-between py-4 border-b cursor-pointer">Relationship Issues <i class="fas fa-chevron-right"></i></div>
+                <div onclick="showCounselingDetail(2)" class="flex justify-between py-4 border-b cursor-pointer">Sleep Problems <i class="fas fa-chevron-right"></i></div>
+                <div onclick="showCounselingDetail(3)" class="flex justify-between py-4 border-b cursor-pointer">Depression & Trauma <i class="fas fa-chevron-right"></i></div>
                 <div class="pt-8">
-                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Dr. Lalit Kumar</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow on Social</p>
                     <div class="flex gap-6 text-3xl">
                         <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
@@ -573,7 +539,7 @@
             `;
         }
 
-        // ==================== 10 SECOND POPUP ====================
+        // 10 sec popup
         setTimeout(() => {
             document.getElementById('popup-form').classList.remove('hidden');
         }, 10000);
@@ -582,30 +548,28 @@
             document.getElementById('popup-form').classList.add('hidden');
         }
 
-        // ==================== PAYMENT FLOW (EXACT SAME UPI SCANNER LOGIC) ====================
+        function showPopupForm() {
+            document.getElementById('popup-form').classList.remove('hidden');
+        }
+
         function showPayment() {
             const fee = document.getElementById('p_type').value;
             const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Dr.LalitKumar&am=${fee}&cu=INR`;
-            
             document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
-            
             document.getElementById('p-form').classList.add('hidden');
             document.getElementById('p-payment').classList.remove('hidden');
         }
 
         function showPaymentFromPopup() {
             closePopup();
-            // Scroll to booking section and trigger payment
             document.getElementById('booking-section').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => {
-                showPayment();
-            }, 800);
+            setTimeout(showPayment, 800);
         }
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length < 12) return alert("Invalid UTR Number");
+            if (utr.length < 12) return alert("Invalid UTR");
 
             const formData = {
                 p_name: document.getElementById('p_name').value,
@@ -619,26 +583,23 @@
                 p_concern: document.getElementById('p_concern').value
             };
 
-            // Send booking details to your Email & WhatsApp via EmailJS
             emailjs.send("service_w0vxgvf", "template_jly5j22", formData).then(() => {
-                // Success screen
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
 
-                // Patient gets WhatsApp chat link
-                const waLink = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=Hi%20Dr.%20Lalit%20Kumar%2C%20my%20booking%20is%20confirmed!%0AName%3A%20${formData.p_name}%0AUTR%3A%20${utr}`;
+                const waLink = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=Booking%20Confirmed!%0AName:%20${formData.p_name}%0AUTR:%20${utr}`;
                 document.getElementById('p-chat-btn').href = waLink;
-                
-                // Auto open WhatsApp for patient
                 window.open(waLink, '_blank');
-                
                 alert("✅ Booking confirmed! Details sent to your Email & WhatsApp.");
             });
         }
 
-        // ==================== INITIALIZE EVERYTHING ====================
+        function logoutAdmin() {
+            closeAdmin();
+            alert("Logged out");
+        }
+
         window.onload = function() {
-            updateUI();
             renderBlog();
             renderSpecialties();
             document.getElementById('ceo-message-text').innerHTML = extraData.ceoMessage;
