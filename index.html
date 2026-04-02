@@ -30,7 +30,7 @@
             z-index: 1000; 
         }
         
-        /* Fixed: Reclaim text background changed to Green Trees */
+        /* Green Trees Background - Fixed URL */
         .hero-bg { 
             background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45)), 
                               url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop'); 
@@ -295,15 +295,23 @@
     <script>
         AOS.init();
 
+        // FIXED: Explicitly setting the Green Trees image as default
+        const greenTreesUrl = "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop";
+
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
-            // UPDATED: Default image link changed to Green Trees
-            heroBg: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop",
+            heroBg: greenTreesUrl,
             heroTitle: "Reclaim Your Inner Peace",
             heroSubtitle: "Personalized online counseling for mental wellness",
             waNum: "+917830232077",
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com"
         };
+
+        // If localStorage has the old mountain image, force update it to Green Trees
+        if (nexusConfig.heroBg.includes("photo-1540206395-68808572332f")) {
+            nexusConfig.heroBg = greenTreesUrl;
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+        }
 
         let currentOTP = null;
 
