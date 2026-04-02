@@ -30,10 +30,10 @@
             z-index: 1000; 
         }
         
-        /* First Photo Jaisa Hero Background - Mountain above clouds at sunset */
+        /* Fixed: Reclaim text background changed to Green Trees */
         .hero-bg { 
             background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45)), 
-                              url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
+                              url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed; 
@@ -101,7 +101,6 @@
 </head>
 <body class="font-sans">
 
-    <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
             <button onclick="toggleCounselingMenu()" class="w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-gray-100">
@@ -126,7 +125,6 @@
         </div>
     </nav>
 
-    <!-- 3 Lines Menu - First Photo Jaisa -->
     <div id="counseling-menu" class="hidden">
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         
@@ -162,7 +160,6 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-8">
             <h3 class="font-bold text-xl uppercase">Admin Control</h3>
@@ -182,7 +179,7 @@
         <div id="admin-controls" class="hidden space-y-6 text-sm">
             <div>
                 <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Hero Background Image URL</label>
-                <input id="adm-hero-bg" class="premium-input text-sm" value="https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop">
+                <input id="adm-hero-bg" class="premium-input text-sm" value="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop">
             </div>
             <div>
                 <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Hero Title</label>
@@ -197,7 +194,6 @@
         </div>
     </div>
 
-    <!-- Hero Section - First Photo Jaisa -->
     <section id="hero-section" class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
         <div data-aos="fade-up" class="max-w-3xl mx-auto">
             <h1 id="hero-title" class="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
@@ -207,34 +203,26 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Our Specialties Section - 2nd Photo Jaisa with Colors -->
     <section class="py-24 bg-[#0a0a0a] text-white">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-5xl font-bold tracking-tighter text-center mb-16">Our Specialties</h2>
             
             <div class="grid md:grid-cols-4 gap-6">
-                <!-- Anxiety Care - Blue -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-2xl flex items-center justify-center text-4xl">🧠</div>
                     <h3 class="text-2xl font-semibold mb-2">Anxiety Care</h3>
                     <p class="text-gray-400 text-sm">Finding stillness in a chaotic world</p>
                 </div>
-
-                <!-- Relationship Issues - Red Heart -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-red-500/20 rounded-2xl flex items-center justify-center text-4xl">❤️</div>
                     <h3 class="text-2xl font-semibold mb-2">Relationship Issues</h3>
                     <p class="text-gray-400 text-sm">Healing emotional bonds</p>
                 </div>
-
-                <!-- Sleep Problems - Blue Moon -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-2xl flex items-center justify-center text-4xl">🌙</div>
                     <h3 class="text-2xl font-semibold mb-2">Sleep Problems</h3>
                     <p class="text-gray-400 text-sm">Restorative sleep techniques</p>
                 </div>
-
-                <!-- Trauma Support - Blue Shield -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-2xl flex items-center justify-center text-4xl">🛡️</div>
                     <h3 class="text-2xl font-semibold mb-2">Trauma Support</h3>
@@ -244,7 +232,6 @@
         </div>
     </section>
 
-    <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 bg-[#f5f5f7]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[50px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
@@ -288,7 +275,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
@@ -310,7 +296,8 @@
         AOS.init();
 
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
-            heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
+            // UPDATED: Default image link changed to Green Trees
+            heroBg: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop",
             heroTitle: "Reclaim Your Inner Peace",
             heroSubtitle: "Personalized online counseling for mental wellness",
             waNum: "+917830232077",
