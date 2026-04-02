@@ -30,7 +30,7 @@
             z-index: 1000; 
         }
         
-        /* Reclaim Text ke liye Green Trees Background */
+        /* Green Trees Background for Reclaim Text */
         .hero-bg { 
             background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), 
                               url('https://images.unsplash.com/photo-1511499767150-a48a237f008e?q=80&w=2070&auto=format&fit=crop'); 
@@ -72,7 +72,7 @@
         
         #admin-panel.active { transform: translateX(0); }
         
-        /* Counseling Menu - Screenshot jaisa */
+        /* Counseling Menu */
         #counseling-menu {
             position: fixed;
             top: 0;
@@ -118,7 +118,7 @@
         </div>
     </nav>
 
-    <!-- 3 Lines Menu - Bilkul Screenshot Jaisa -->
+    <!-- 3 Lines Menu -->
     <div id="counseling-menu" class="hidden">
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         
@@ -154,7 +154,7 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
+    <!-- Admin Panel - Ab sare text aur photos ka control yahan se -->
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-8">
             <h3 class="font-bold text-xl uppercase">Admin Control</h3>
@@ -171,22 +171,42 @@
             <button onclick="verifyAdminOTP()" class="cta-btn w-full py-3 rounded-xl font-bold">VERIFY OTP</button>
         </div>
         
-        <div id="admin-controls" class="hidden space-y-5">
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input id="adm-email" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input id="adm-wa" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input id="adm-upi" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
+        <div id="admin-controls" class="hidden space-y-6">
+            <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase">Hero Background Image URL (Green Trees)</label>
+                <input id="adm-hero-bg" value="https://images.unsplash.com/photo-1511499767150-a48a237f008e?q=80&w=2070&auto=format&fit=crop" class="premium-input text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase">Hero Title Text</label>
+                <input id="adm-hero-title" value="Reclaim Your Inner Peace." class="premium-input text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase">Hero Subtitle Text</label>
+                <input id="adm-hero-subtitle" value="A sanctuary for the mind in Greater Noida." class="premium-input text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp Number</label>
+                <input id="adm-wa" value="+917830232077" class="premium-input text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label>
+                <input id="adm-upi" value="7830232077@ptsbi" class="premium-input text-sm">
+            </div>
+            <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label>
+                <input id="adm-email" value="thenexusstudy3@gmail.com" class="premium-input text-sm">
+            </div>
             
-            <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-[10px] uppercase">Save Settings</button>
+            <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-[10px] uppercase">Save All Changes</button>
             <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout</button>
         </div>
     </div>
 
-    <!-- Hero Section - Green Trees Background with Reclaim Text -->
-    <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
+    <!-- Hero Section -->
+    <section id="hero-section" class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
         <div data-aos="fade-up">
-            <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
-            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">A sanctuary for the mind in Greater Noida.</p>
+            <h1 id="hero-title" class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
+            <p id="hero-subtitle" class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">A sanctuary for the mind in Greater Noida.</p>
             <a href="#booking-section" class="cta-btn px-14 py-4 rounded-full font-bold text-xs uppercase tracking-widest">Start Your Journey</a>
         </div>
     </section>
@@ -210,7 +230,7 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <select id="p_type" class="premium-input" onchange="document.getElementById('display-fees').innerText = this.value" required>
+                    <select id="p_type" class="premium-input" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
@@ -257,17 +277,32 @@
         AOS.init();
 
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
+            heroBg: "https://images.unsplash.com/photo-1511499767150-a48a237f008e?q=80&w=2070&auto=format&fit=crop",
+            heroTitle: "Reclaim Your Inner Peace.",
+            heroSubtitle: "A sanctuary for the mind in Greater Noida.",
             waNum: "+917830232077",
             upiId: "7830232077@ptsbi",
-            adminEmail: "thenexusstudy3@gmail.com",
-            slots: "10:00 AM, 02:00 PM, 06:00 PM"
+            adminEmail: "thenexusstudy3@gmail.com"
         };
 
         let currentOTP = null;
 
+        // Load saved settings on page load
+        function loadSettings() {
+            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('${nexusConfig.heroBg}')`;
+            document.getElementById('hero-title').innerHTML = nexusConfig.heroTitle.replace(/\n/g, '<br>');
+            document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
+        }
+
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
-            document.getElementById('admin-email-input').value = "";
+            // Pre-fill current values
+            document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
+            document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
+            document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
+            document.getElementById('adm-wa').value = nexusConfig.waNum;
+            document.getElementById('adm-upi').value = nexusConfig.upiId;
+            document.getElementById('adm-email').value = nexusConfig.adminEmail;
         }
 
         function closeAdmin() {
@@ -295,19 +330,26 @@
             if (document.getElementById('admin-otp-input').value == currentOTP) {
                 document.getElementById('admin-login-step2').classList.add('hidden');
                 document.getElementById('admin-controls').classList.remove('hidden');
-                alert("✅ Admin Login Successful!");
+                alert("✅ Admin Login Successful! Now you can change texts and images.");
             } else {
                 alert("Incorrect OTP!");
             }
         }
 
         function saveAdminSettings() {
-            nexusConfig.adminEmail = document.getElementById('adm-email').value;
+            nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
+            nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
+            nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
             nexusConfig.waNum = document.getElementById('adm-wa').value;
             nexusConfig.upiId = document.getElementById('adm-upi').value;
-            nexusConfig.slots = document.getElementById('adm-slots').value;
+            nexusConfig.adminEmail = document.getElementById('adm-email').value;
+
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            alert("Saved!");
+            
+            // Apply changes immediately
+            loadSettings();
+            
+            alert("✅ All changes saved successfully!");
             closeAdmin();
         }
 
@@ -332,8 +374,6 @@
             const formData = {
                 p_name: document.getElementById('p_name').value,
                 p_email: document.getElementById('p_email').value,
-                p_date: document.getElementById('p_date').value,
-                p_slot: document.getElementById('p_slot').value,
                 p_fee: document.getElementById('p_type').value,
                 p_utr: utr, 
                 p_concern: document.getElementById('p_concern').value
@@ -357,6 +397,11 @@
                 menu.classList.remove('active');
             }
         }
+
+        // Initialize
+        window.onload = function() {
+            loadSettings();
+        };
     </script>
 </body>
 </html>
