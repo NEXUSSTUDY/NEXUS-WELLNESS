@@ -30,9 +30,8 @@
             z-index: 1000; 
         }
         
-        /* Calm Green Trees Background for Hero */
         .hero-bg { 
-            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.40)), 
+            background-image: linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.38)), 
                               url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover; 
             background-position: center; 
@@ -40,20 +39,19 @@
         }
         
         .premium-input { 
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(0, 0, 0, 0.1); 
-            border-radius: 16px; 
-            padding: 1.25rem; 
+            background: rgba(255,255,255,0.9); 
+            border: 1px solid rgba(0,0,0,0.1); 
+            border-radius: 20px; 
+            padding: 18px 22px; 
             width: 100%; 
-            transition: 0.3s; 
+            transition: all 0.3s; 
         }
         
         .cta-btn { 
             background: #0071e3; 
             color: white; 
-            transition: 0.4s; 
-            box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39); 
+            transition: all 0.4s; 
+            box-shadow: 0 4px 14px rgba(0,113,227,0.3); 
         }
         
         #admin-panel { 
@@ -64,7 +62,7 @@
             height: 100%; 
             background: white; 
             z-index: 3000; 
-            box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+            box-shadow: -20px 0 40px rgba(0,0,0,0.15); 
             transform: translateX(100%); 
             transition: 0.5s ease; 
             overflow-y: auto; 
@@ -72,71 +70,86 @@
         }
         
         #admin-panel.active { transform: translateX(0); }
+        
+        .hamburger { transition: all 0.4s; }
     </style>
 </head>
 <body>
 
     <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
+        <button onclick="toggleCounselingMenu()" class="hamburger w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-gray-100">
+            <i class="fas fa-bars text-2xl text-gray-700"></i>
+        </button>
         <div class="flex items-center gap-3">
-            <button onclick="toggleCounselingMenu()" class="w-10 h-10 flex items-center justify-center">
-                <i class="fas fa-bars text-2xl text-gray-700"></i>
-            </button>
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
-                <span class="text-xl font-bold tracking-tight uppercase">Nexus Wellness</span>
-            </div>
+            <div class="w-9 h-9 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm">NW</div>
+            <span class="text-xl font-bold tracking-tight uppercase">Nexus Wellness</span>
         </div>
         <div class="flex items-center gap-4">
             <a href="#booking-section" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold uppercase">Book Now</a>
-            <button onclick="openAdmin()" class="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-100 transition">
-                <i class="fas fa-cog text-gray-700 text-sm"></i>
+            <button onclick="openAdmin()" class="group flex flex-col items-center">
+                <div class="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-100 transition">
+                    <i class="fas fa-cog text-gray-700 text-sm"></i>
+                </div>
+                <span class="text-[10px] text-gray-500 font-medium mt-1">ADMIN</span>
             </button>
         </div>
     </nav>
 
-    <!-- 3 Lines Menu (Counseling Types) -->
-    <div id="counseling-menu" class="hidden fixed inset-0 bg-white z-50 pt-20 px-8 overflow-y-auto">
-        <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400">&times;</button>
-        <h3 class="text-xl font-semibold mb-8">Counseling Areas</h3>
+    <!-- 3 Lines Menu (Original Data + Premium Look) -->
+    <div id="counseling-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[2500] pt-20 px-8 overflow-y-auto">
+        <button onclick="toggleCounselingMenu()" class="absolute top-8 right-8 text-4xl text-gray-400 hover:text-black">&times;</button>
+        <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div id="counseling-list" class="space-y-6 text-lg"></div>
+        
+        <!-- Social Media Links (Original Colors) -->
+        <div class="mt-12">
+            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Us</p>
+            <div class="flex gap-8 text-3xl">
+                <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
     </div>
 
     <!-- Admin Panel -->
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-8">
             <h3 class="font-bold text-xl uppercase">Admin Control</h3>
-            <button onclick="closeAdmin()"><i class="fas fa-times"></i></button>
+            <button onclick="closeAdmin()" class="text-3xl text-gray-400 hover:text-black">&times;</button>
         </div>
         
-        <div id="admin-login" class="space-y-4">
-            <input type="email" id="admin-email-input" placeholder="Enter your email" class="premium-input text-sm">
+        <div id="admin-login" class="space-y-4 text-center">
+            <input type="email" id="admin-email-input" placeholder="Your Email" class="premium-input text-sm">
             <button onclick="sendAdminOTP()" class="cta-btn w-full py-3 rounded-xl font-bold">LOGIN</button>
         </div>
         
-        <div id="admin-login-step2" class="hidden space-y-4">
+        <div id="admin-login-step2" class="hidden space-y-4 text-center">
             <input type="text" id="admin-otp-input" maxlength="6" placeholder="Enter OTP" class="premium-input text-center text-3xl tracking-widest">
             <button onclick="verifyAdminOTP()" class="cta-btn w-full py-3 rounded-xl font-bold">VERIFY OTP</button>
         </div>
         
         <div id="admin-controls" class="hidden space-y-5">
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input type="text" id="adm-email" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input type="text" id="adm-wa" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input type="text" id="adm-upi" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input id="adm-email" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input id="adm-wa" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input id="adm-upi" class="premium-input text-sm"></div>
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
             
-            <!-- Hero Background Edit -->
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Hero Background URL</label><input type="text" id="adm-hero-bg" class="premium-input text-sm"></div>
+            <!-- Hero Background -->
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Hero Background URL</label><input id="adm-hero-bg" class="premium-input text-sm"></div>
             
             <!-- Counselor Message -->
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Message</label><textarea id="adm-ceo-message" class="premium-input text-sm h-32"></textarea></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Photo URL</label><input type="text" id="adm-ceo-photo" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Photo URL</label><input id="adm-ceo-photo" class="premium-input text-sm"></div>
             
             <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-[10px] uppercase">Save Settings</button>
+            <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout</button>
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
         <div data-aos="fade-up">
             <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
@@ -145,37 +158,9 @@
         </div>
     </section>
 
-    <!-- Specialties (with colors) -->
-    <section class="py-32 px-6 md:px-20 bg-black text-white">
-        <h2 class="text-5xl md:text-6xl font-bold tracking-tight text-center mb-24" data-aos="fade-up">Our Specialties.</h2>
-        <div class="grid md:grid-cols-4 gap-8">
-            <div class="specialty-card" data-aos="fade-up">
-                <i class="fas fa-brain text-3xl mb-8 text-blue-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Anxiety Care</h3>
-                <p class="text-gray-400 text-sm">Finding stillness in a chaotic world.</p>
-            </div>
-            <div class="specialty-card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-heart text-3xl mb-8 text-red-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Relationships</h3>
-                <p class="text-gray-400 text-sm">Healing emotional bonds.</p>
-            </div>
-            <div class="specialty-card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-moon text-3xl mb-8 text-purple-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Sleep Problems</h3>
-                <p class="text-gray-400 text-sm">Restorative sleep techniques.</p>
-            </div>
-            <div class="specialty-card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-shield-alt text-3xl mb-8 text-green-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Trauma Support</h3>
-                <p class="text-gray-400 text-sm">Safe space for recovery.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section (Original) -->
+    <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 bg-[#f5f5f7]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[50px] border border-gray-100 shadow-xl" data-aos="zoom-in">
-            <!-- Your original booking form code here (kept as is) -->
             <div id="booking-flow">
                 <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
                     <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
@@ -197,7 +182,6 @@
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
                     <textarea id="p_concern" placeholder="Your Concern" class="premium-input" required></textarea>
-                    <div class="text-center py-6 text-4xl font-bold text-blue-600 border-t border-b border-gray-100 mt-6">₹<span id="display-fees">300</span></div>
                     <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest">Pay & Book</button>
                 </form>
 
@@ -248,8 +232,7 @@
 
         let extraData = JSON.parse(localStorage.getItem('extraData')) || {
             ceoMessage: "As your dedicated counselor, I provide a safe and confidential space to help you navigate life's challenges and rediscover inner peace.",
-            ceoPhoto: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800",
-            heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop"
+            ceoPhoto: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800"
         };
 
         let currentOTP = null;
@@ -274,7 +257,7 @@
                 p_otp: currentOTP,
                 p_concern: "Admin Login OTP"
             }).then(() => {
-                alert(`✅ OTP has been sent to your Email: ${email}`);
+                alert(`✅ OTP has been sent to ${email}`);
                 document.getElementById('admin-login').classList.add('hidden');
                 document.getElementById('admin-login-step2').classList.remove('hidden');
             }).catch(() => alert("Failed to send OTP"));
@@ -298,16 +281,17 @@
             
             extraData.ceoMessage = document.getElementById('adm-ceo-message').value;
             extraData.ceoPhoto = document.getElementById('adm-ceo-photo').value;
-            extraData.heroBg = document.getElementById('adm-hero-bg').value;
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             localStorage.setItem('extraData', JSON.stringify(extraData));
             
-            // Apply hero background change
-            document.querySelector('.hero-bg').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.40)), url('${extraData.heroBg}')`;
-            
             alert("Saved!");
             closeAdmin();
+        }
+
+        function logoutAdmin() {
+            closeAdmin();
+            alert("Logged out successfully");
         }
 
         function showPayment() {
@@ -346,10 +330,10 @@
             menu.classList.toggle('hidden');
             if (!menu.classList.contains('hidden')) {
                 document.getElementById('counseling-list').innerHTML = `
-                    <div class="py-4 border-b">Relationship Issues</div>
-                    <div class="py-4 border-b">Sleep Problems (Nind Nahi Aana)</div>
-                    <div class="py-4 border-b">Anxiety & Stress</div>
-                    <div class="py-4 border-b">Depression Support</div>
+                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Relationship Issues')">Relationship Issues <i class="fas fa-chevron-right"></i></div>
+                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Sleep Problems')">Sleep Problems (Nind Nahi Aana) <i class="fas fa-chevron-right"></i></div>
+                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Anxiety')">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
+                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Depression')">Depression Support <i class="fas fa-chevron-right"></i></div>
                 `;
             }
         }
