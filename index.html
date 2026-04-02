@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Lalit Kumar | Premium Psychological Counseling</title>
+    <title>Nexus Wellness | Premium Psychological Counseling</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -29,7 +29,8 @@
         }
         
         .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=2070&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.35)), 
+                              url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -111,12 +112,12 @@
             <i class="fas fa-bars text-2xl text-gray-700"></i>
         </button>
 
-        <!-- Logo -->
+        <!-- Logo - Nexus Wellness -->
         <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm">LK</div>
+            <div class="w-9 h-9 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm">NW</div>
             <div>
-                <span class="text-2xl font-semibold tracking-tighter">Dr. Lalit Kumar</span>
-                <p class="text-xs text-gray-500 -mt-0.5">Clinical Psychologist • Nexus Wellness</p>
+                <span class="text-2xl font-semibold tracking-tighter">Nexus Wellness</span>
+                <p class="text-xs text-gray-500 -mt-0.5">Premium Psychological Counseling</p>
             </div>
         </div>
 
@@ -145,23 +146,11 @@
         <div id="counseling-types-list" class="space-y-6 text-lg"></div>
     </div>
 
-    <!-- HERO SECTION - Reclaim Your Inner Peace with photo -->
+    <!-- HERO SECTION - Calm Green Background -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
         <div class="max-w-4xl mx-auto relative z-10" data-aos="fade-up">
-            <!-- Small doctor photo on left of heading -->
-            <div class="flex justify-center mb-6">
-                <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-3xl">
-                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop" 
-                         alt="Dr. Lalit Kumar" class="w-12 h-12 rounded-2xl object-cover border-2 border-white">
-                    <div class="text-left">
-                        <p class="text-sm font-medium">Dr. Lalit Kumar</p>
-                        <p class="text-xs text-white/70">Clinical Psychologist</p>
-                    </div>
-                </div>
-            </div>
-            
             <h1 class="text-6xl md:text-[5.8rem] font-bold tracking-[-2px] leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
-            <p class="text-2xl text-white/90 max-w-xl mx-auto mb-12">Premium psychological counseling in Greater Noida</p>
+            <p class="text-2xl text-white/90 max-w-xl mx-auto mb-12">Personalized online counseling for mental wellness</p>
             <button onclick="showPopupForm()" class="cta-btn px-14 py-6 rounded-3xl text-xl font-semibold tracking-widest">BOOK YOUR SESSION NOW</button>
         </div>
         
@@ -170,7 +159,7 @@
         </div>
     </section>
 
-    <!-- BLOG SECTION -->
+    <!-- BLOG / EXPERT INSIGHTS SECTION (with sample articles + photos) -->
     <section class="py-28 px-6 md:px-12 bg-white" id="blog-section">
         <div class="max-w-6xl mx-auto">
             <h2 class="section-title text-center mb-6" id="blog-title">Expert Insights</h2>
@@ -187,19 +176,19 @@
         </div>
     </section>
 
-    <!-- CEO MESSAGE -->
+    <!-- DIRECTOR MESSAGE (Counselor focused) -->
     <section class="py-28 px-6 bg-white">
         <div class="max-w-4xl mx-auto text-center">
             <div id="ceo-photo-container" class="mx-auto w-40 h-40 rounded-3xl overflow-hidden mb-8 border-4 border-white shadow-2xl">
-                <img id="ceo-photo" src="https://via.placeholder.com/400" alt="Dr. Lalit Kumar" class="w-full h-full object-cover">
+                <img id="ceo-photo" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop" alt="Counselor" class="w-full h-full object-cover">
             </div>
-            <h3 class="text-3xl font-semibold mb-3">Dr. Lalit Kumar</h3>
-            <p class="text-sm text-gray-500 mb-8">Director & Clinical Psychologist</p>
+            <h3 class="text-3xl font-semibold mb-3">Your Personal Counselor</h3>
+            <p class="text-sm text-gray-500 mb-8">Nexus Wellness</p>
             <p id="ceo-message-text" class="text-xl italic text-gray-700 max-w-2xl mx-auto leading-relaxed"></p>
         </div>
     </section>
 
-    <!-- MAIN BOOKING FORM - Premium redesign -->
+    <!-- MAIN BOOKING FORM -->
     <section id="booking-section" class="py-24 px-6 bg-white">
         <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-10 md:p-14 border border-gray-100">
             <h2 class="text-4xl font-semibold text-center mb-10">Schedule Your Session</h2>
@@ -224,7 +213,7 @@
                     <select id="p_counseling_type" class="premium-input" required>
                         <option value="">Counseling Type</option>
                         <option value="Relationship Issues">Relationship Issues</option>
-                        <option value="Sleep Problems">Sleep Problems (Nind Nahi Aana)</option>
+                        <option value="Sleep Problems">Sleep Problems</option>
                         <option value="Anxiety">Anxiety & Stress</option>
                         <option value="Depression">Depression</option>
                         <option value="Trauma">Trauma Support</option>
@@ -232,7 +221,7 @@
                     <input type="number" id="p_age" placeholder="Your Age" class="premium-input" required>
                 </div>
                 
-                <select id="p_type" class="premium-input text-lg font-semibold" onchange="updateFeeDisplay()" required>
+                <select id="p_type" class="premium-input text-lg font-semibold" required>
                     <option value="300">Audio Session — ₹300</option>
                     <option value="500">Video Call — ₹500</option>
                 </select>
@@ -256,10 +245,10 @@
             <div id="p-success" class="hidden text-center space-y-8 pt-8">
                 <div class="text-green-600 text-7xl mb-4">✓</div>
                 <h3 class="text-3xl font-semibold">Booking Confirmed!</h3>
-                <p class="text-gray-600">Details sent to Dr. Lalit Kumar</p>
+                <p class="text-gray-600">Details sent to Nexus Wellness</p>
                 <a id="p-chat-btn" href="#" target="_blank" class="block bg-[#25D366] text-white py-7 rounded-3xl font-semibold text-xl flex items-center justify-center gap-3">
                     <i class="fab fa-whatsapp text-3xl"></i>
-                    CHAT WITH DR. LALIT KUMAR NOW
+                    CHAT WITH YOUR COUNSELOR NOW
                 </a>
             </div>
         </div>
@@ -274,7 +263,7 @@
 
         <div id="admin-login-step1">
             <p class="text-sm text-gray-500 mb-4">Enter your registered email</p>
-            <input type="email" id="admin-email-input" placeholder="your-email@gmail.com" class="premium-input mb-6">
+            <input type="email" id="admin-email-input" placeholder="thenexusstudy3@gmail.com" class="premium-input mb-6">
             <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-3xl text-lg font-semibold">SEND OTP TO EMAIL + WHATSAPP</button>
         </div>
 
@@ -291,7 +280,7 @@
                     <div><label class="text-xs font-bold text-gray-400">Your Email</label><input id="adm-email" type="text" class="premium-input"></div>
                     <div><label class="text-xs font-bold text-gray-400">WhatsApp Number</label><input id="adm-wa" type="text" class="premium-input"></div>
                     <div><label class="text-xs font-bold text-gray-400">UPI ID</label><input id="adm-upi" type="text" class="premium-input"></div>
-                    <div><label class="text-xs font-bold text-gray-400">Slots</label><textarea id="adm-slots" class="premium-input h-24"></textarea></div>
+                    <div><label class="text-xs font-bold text-gray-400">Slots (comma separated)</label><textarea id="adm-slots" class="premium-input h-24"></textarea></div>
                 </div>
             </div>
 
@@ -303,7 +292,7 @@
             </div>
 
             <div>
-                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">CEO Message & Photo</h4>
+                <h4 class="uppercase text-xs font-bold text-gray-400 mb-3">Counselor Message & Photo</h4>
                 <textarea id="adm-ceo-message" class="premium-input h-32"></textarea>
                 <input id="adm-ceo-photo" type="text" placeholder="Photo URL" class="premium-input mt-3">
             </div>
@@ -313,10 +302,9 @@
         </div>
     </div>
 
-    <!-- POPUP FORM - Premium with tele-counseling photo -->
+    <!-- POPUP FORM -->
     <div id="popup-form" onclick="if(event.target===this)closePopup()" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
         <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-lg w-[92%] mx-auto popup p-8 relative overflow-hidden">
-            <!-- Premium photo at top -->
             <div class="h-56 -mt-8 -mx-8 mb-6 bg-cover bg-center" 
                  style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2070&auto=format&fit=crop');">
             </div>
@@ -337,13 +325,13 @@
         </div>
     </div>
 
-    <!-- FOOTER (same as original) -->
+    <!-- FOOTER -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
         </div>
         <h2 class="text-3xl font-bold tracking-tighter uppercase mb-10">Nexus Wellness</h2>
-        <p class="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase mb-3">Sanctuary Location</p>
+        <p class="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase mb-3">Location</p>
         <p class="text-xl font-medium mb-16">Greater Noida, Uttar Pradesh, India</p>
         <div class="flex justify-center gap-10 text-gray-400 mb-20">
             <a href="#" class="hover:text-black"><i class="fab fa-instagram text-3xl"></i></a>
@@ -359,9 +347,8 @@
         AOS.init({ once: true, duration: 900 });
 
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
-            waNum: "+91XXXXXXXXXX",
-            upiId: "thenexusstudy3@okicici",
-            adminPass: "Nexus786",
+            waNum: "+917830232077",
+            upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
             slots: "10:00 AM, 02:00 PM, 06:00 PM"
         };
@@ -370,17 +357,22 @@
             blogTitle: "Expert Insights",
             blogSubtitle: "Evidence-based strategies for mental wellness",
             blogPosts: [
-                { title: "How to overcome relationship anxiety", desc: "Practical steps backed by clinical research", photo: "https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=800" }
+                { 
+                    title: "Understanding Relationship Anxiety", 
+                    desc: "Learn how to identify and manage anxiety in your personal relationships with proven techniques.", 
+                    photo: "https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=800" 
+                },
+                { 
+                    title: "Improving Sleep Quality", 
+                    desc: "Practical steps to overcome sleepless nights and restore natural sleep patterns.", 
+                    photo: "https://images.unsplash.com/photo-1511296448247-6d8f6d3e8a6f?q=80&w=800" 
+                }
             ],
-            ceoMessage: "Healing is a journey we take together. My goal is to provide a safe, confidential space where you can rediscover balance and strength.",
-            ceoPhoto: "https://via.placeholder.com/400"
+            ceoMessage: "As your dedicated counselor, I provide a safe and confidential space to help you navigate life's challenges and rediscover inner peace.",
+            ceoPhoto: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800"
         };
 
         let currentOTP = null;
-
-        function updateFeeDisplay() {
-            // Removed separate ₹300 display as requested
-        }
 
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
@@ -404,10 +396,10 @@
                 p_otp: currentOTP,
                 p_concern: "Your one-time login password"
             }).then(() => {
-                alert(`✅ OTP ${currentOTP} sent successfully to your Email & WhatsApp!\n\nCopy this OTP and paste in next step.`);
+                alert(`✅ OTP ${currentOTP} sent to your Email (${nexusConfig.adminEmail}) & WhatsApp (${nexusConfig.waNum})`);
                 document.getElementById('admin-login-step1').classList.add('hidden');
                 document.getElementById('admin-login-step2').classList.remove('hidden');
-            }).catch(() => alert("EmailJS error - check your service ID"));
+            });
         }
 
         function verifyAdminOTP() {
@@ -448,7 +440,7 @@
             document.getElementById('ceo-message-text').innerHTML = extraData.ceoMessage;
             document.getElementById('ceo-photo').src = extraData.ceoPhoto;
 
-            alert("✅ All changes saved successfully!");
+            alert("✅ All changes saved!");
         }
 
         function addBlogPost() {
@@ -498,7 +490,7 @@
                 <div onclick="showCounselingDetail(2)" class="bg-white rounded-3xl p-8 cursor-pointer hover:shadow-2xl transition-all">
                     <i class="fas fa-moon text-4xl mb-6 text-blue-600"></i>
                     <h3 class="text-2xl font-semibold">Sleep Problems</h3>
-                    <p class="text-gray-500 mt-2">Nind nahi aana</p>
+                    <p class="text-gray-500 mt-2">Restorative sleep techniques</p>
                 </div>
                 <div onclick="showCounselingDetail(3)" class="bg-white rounded-3xl p-8 cursor-pointer hover:shadow-2xl transition-all">
                     <i class="fas fa-shield-alt text-4xl mb-6 text-blue-600"></i>
@@ -510,8 +502,8 @@
 
         function showCounselingDetail(i) {
             const titles = ["Anxiety Care", "Relationship Issues", "Sleep Problems", "Trauma Support"];
-            const descs = ["Clinical protocols...", "Healing emotional bonds...", "Evidence-based techniques...", "PTSD recovery..."];
-            alert(`📖 ${titles[i]}\n\n${descs[i]}\n\n(Full blog editable in Admin Panel)`);
+            const descs = ["Clinical protocols to manage anxiety...", "Healing emotional bonds...", "Evidence-based techniques for better sleep...", "Safe space for emotional healing..."];
+            alert(`📖 ${titles[i]}\n\n${descs[i]}\n\n(Full articles editable in Admin Panel)`);
         }
 
         function toggleCounselingMenu() {
@@ -526,9 +518,9 @@
                 <div onclick="showCounselingDetail(0)" class="flex justify-between py-4 border-b cursor-pointer">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
                 <div onclick="showCounselingDetail(1)" class="flex justify-between py-4 border-b cursor-pointer">Relationship Issues <i class="fas fa-chevron-right"></i></div>
                 <div onclick="showCounselingDetail(2)" class="flex justify-between py-4 border-b cursor-pointer">Sleep Problems <i class="fas fa-chevron-right"></i></div>
-                <div onclick="showCounselingDetail(3)" class="flex justify-between py-4 border-b cursor-pointer">Depression & Trauma <i class="fas fa-chevron-right"></i></div>
+                <div onclick="showCounselingDetail(3)" class="flex justify-between py-4 border-b cursor-pointer">Trauma Support <i class="fas fa-chevron-right"></i></div>
                 <div class="pt-8">
-                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow on Social</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Nexus Wellness</p>
                     <div class="flex gap-6 text-3xl">
                         <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
@@ -554,7 +546,7 @@
 
         function showPayment() {
             const fee = document.getElementById('p_type').value;
-            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Dr.LalitKumar&am=${fee}&cu=INR`;
+            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=NexusWellness&am=${fee}&cu=INR`;
             document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
             document.getElementById('p-form').classList.add('hidden');
