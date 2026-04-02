@@ -30,13 +30,16 @@
             z-index: 1000; 
         }
         
-        /* Hero Background - First Photo Jaisa (Mountain + Clouds + Sunset) */
+        /* Hero Background - Preloaded to avoid flicker */
         .hero-bg { 
             background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45)), 
                               url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed; 
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
         }
         
         .premium-input { 
@@ -97,9 +100,23 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
         }
+
+        /* Preload the hero image to prevent flicker */
+        #preload-hero {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
     </style>
 </head>
 <body class="font-sans">
+
+    <!-- Preload Hero Image (hidden) -->
+    <div id="preload-hero">
+        <img src="https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop" alt="">
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
@@ -213,28 +230,24 @@
             <h2 class="text-5xl font-bold tracking-tighter text-center mb-16">Our Specialties</h2>
             
             <div class="grid md:grid-cols-4 gap-6">
-                <!-- Anxiety Care - Blue -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-2xl flex items-center justify-center text-4xl">🧠</div>
                     <h3 class="text-2xl font-semibold mb-2">Anxiety Care</h3>
                     <p class="text-gray-400 text-sm">Finding stillness in a chaotic world</p>
                 </div>
 
-                <!-- Relationship Issues - Red Heart -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-red-500/20 rounded-2xl flex items-center justify-center text-4xl">❤️</div>
                     <h3 class="text-2xl font-semibold mb-2">Relationship Issues</h3>
                     <p class="text-gray-400 text-sm">Healing emotional bonds</p>
                 </div>
 
-                <!-- Sleep Problems - Blue Moon -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-2xl flex items-center justify-center text-4xl">🌙</div>
                     <h3 class="text-2xl font-semibold mb-2">Sleep Problems</h3>
                     <p class="text-gray-400 text-sm">Restorative sleep techniques</p>
                 </div>
 
-                <!-- Trauma Support - Blue Shield -->
                 <div class="specialty-card rounded-3xl p-8 text-center">
                     <div class="w-16 h-16 mx-auto mb-6 bg-blue-500/20 rounded-2xl flex items-center justify-center text-4xl">🛡️</div>
                     <h3 class="text-2xl font-semibold mb-2">Trauma Support</h3>
@@ -322,6 +335,7 @@
 
         function loadSettings() {
             const heroSection = document.getElementById('hero-section');
+            // Set background immediately with preloaded image
             heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
@@ -398,9 +412,16 @@
             else menu.classList.remove('active');
         }
 
-        // Initialize on load
+        // Initialize - preload + immediate load
         window.onload = function() {
-            loadSettings();
+            // Force preload
+            const preloadImg = new Image();
+            preloadImg.src = nexusConfig.heroBg;
+            preloadImg.onload = function() {
+                loadSettings();
+            };
+            // Fallback in case onload doesn't fire immediately
+            setTimeout(loadSettings, 100);
         };
     </script>
 </body>
