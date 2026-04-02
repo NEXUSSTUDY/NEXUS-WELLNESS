@@ -45,7 +45,7 @@
             border-radius: 20px; 
             padding: 18px 22px; 
             width: 100%; 
-            transition: all 0.3s; 
+            transition: 0.3s; 
         }
         
         .cta-btn { 
@@ -71,6 +71,35 @@
         }
         
         #admin-panel.active { transform: translateX(0); }
+        
+        /* Premium Left Menu */
+        #counseling-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 2500;
+            color: white;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        
+        #counseling-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-bg h1 {
+                font-size: 3.5rem;
+            }
+            .hero-bg p {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -78,7 +107,7 @@
     <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-3">
-            <button onclick="toggleCounselingMenu()" class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-gray-100">
+            <button onclick="toggleCounselingMenu()" class="w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-gray-100">
                 <i class="fas fa-bars text-2xl text-gray-700"></i>
             </button>
             <div class="flex items-center gap-3">
@@ -97,11 +126,31 @@
         </div>
     </nav>
 
-    <!-- 3 Lines Menu - Exactly like before -->
-    <div id="counseling-menu" class="hidden fixed inset-0 bg-white z-50 pt-20 px-8 overflow-y-auto">
-        <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-black">&times;</button>
-        <h3 class="text-xl font-semibold mb-8">Counseling Areas</h3>
-        <div id="counseling-list" class="space-y-6 text-lg"></div>
+    <!-- 3 Lines Premium Menu -->
+    <div id="counseling-menu">
+        <div class="p-8">
+            <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-white">&times;</button>
+            
+            <h3 class="text-2xl font-semibold mb-10 text-white">Counseling Areas</h3>
+            
+            <div class="space-y-6 text-lg">
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Relationship Issues <i class="fas fa-chevron-right"></i></div>
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Sleep Problems <i class="fas fa-chevron-right"></i></div>
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Trauma Support <i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <!-- Social Media Natural Colors -->
+            <div class="mt-16">
+                <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Nexus Wellness</p>
+                <div class="flex gap-6 text-3xl">
+                    <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Admin Panel -->
@@ -125,14 +174,14 @@
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input id="adm-email" class="premium-input text-sm"></div>
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input id="adm-wa" class="premium-input text-sm"></div>
             <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input id="adm-upi" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots (Comma separated)</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
             
             <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-[10px] uppercase">Save Settings</button>
             <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout</button>
         </div>
     </div>
 
-    <!-- Hero Section - Green Trees Background -->
+    <!-- Hero Section -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
         <div data-aos="fade-up">
             <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
@@ -141,34 +190,7 @@
         </div>
     </section>
 
-    <!-- Specialties -->
-    <section class="py-32 px-6 md:px-20 bg-black text-white">
-        <h2 class="text-5xl md:text-6xl font-bold tracking-tight text-center mb-24" data-aos="fade-up">Our Specialties.</h2>
-        <div class="grid md:grid-cols-4 gap-8">
-            <div class="specialty-card" data-aos="fade-up">
-                <i class="fas fa-brain text-3xl mb-8 text-blue-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Anxiety Care</h3>
-                <p class="text-gray-500 text-sm">Finding stillness in a chaotic world with clinical protocols.</p>
-            </div>
-            <div class="specialty-card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-heart text-3xl mb-8 text-red-500"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Relationships</h3>
-                <p class="text-gray-500 text-sm">Healing emotional bonds with caring counseling.</p>
-            </div>
-            <div class="specialty-card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-moon text-3xl mb-8 text-purple-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Sleep Problems</h3>
-                <p class="text-gray-500 text-sm">Restorative sleep techniques.</p>
-            </div>
-            <div class="specialty-card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-shield-alt text-3xl mb-8 text-green-400"></i>
-                <h3 class="text-xl font-bold mb-4 uppercase">Trauma Support</h3>
-                <p class="text-gray-500 text-sm">A safe space for emotional healing and PTSD recovery.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section - Ultra Premium Form -->
+    <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 bg-[#f5f5f7]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[50px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
@@ -187,15 +209,6 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <!-- Counseling Type (jo missing tha) -->
-                    <select id="p_counseling_type" class="premium-input" required>
-                        <option value="">Select Counseling Type</option>
-                        <option value="Relationship Issues">Relationship Issues</option>
-                        <option value="Sleep Problems">Sleep Problems (Nind Nahi Aana)</option>
-                        <option value="Anxiety">Anxiety & Stress</option>
-                        <option value="Depression">Depression</option>
-                        <option value="Trauma">Trauma Support</option>
-                    </select>
                     <select id="p_type" class="premium-input" onchange="document.getElementById('display-fees').innerText = this.value" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
@@ -230,10 +243,10 @@
         <p class="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase mb-3">Sanctuary Location</p>
         <p class="text-xl font-medium mb-16">Greater Noida, Uttar Pradesh, India</p>
         <div class="flex justify-center gap-10 text-gray-400 mb-20">
-            <a href="#"><i class="fab fa-instagram text-2xl"></i></a>
-            <a href="#"><i class="fab fa-linkedin text-2xl"></i></a>
-            <a href="#"><i class="fab fa-youtube text-2xl"></i></a>
-            <a href="#"><i class="fab fa-whatsapp text-2xl"></i></a>
+            <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram text-2xl"></i></a>
+            <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin text-2xl"></i></a>
+            <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube text-2xl"></i></a>
+            <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp text-2xl"></i></a>
         </div>
         <p class="text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase">© 2026 NEXUS WELLNESS. ABSOLUTE CONFIDENTIALITY.</p>
     </footer>
