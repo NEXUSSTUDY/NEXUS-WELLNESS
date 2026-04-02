@@ -30,7 +30,7 @@
             z-index: 1000; 
         }
         
-        /* Calm Green Trees Background */
+        /* Calm Green Trees Background for Reclaim */
         .hero-bg { 
             background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.40)), 
                               url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
@@ -116,29 +116,20 @@
         </div>
     </nav>
 
-    <!-- 3 Lines Premium Menu -->
-    <div id="counseling-menu">
-        <div class="p-8">
-            <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-white">&times;</button>
-            
-            <h3 class="text-2xl font-semibold mb-10 text-white">Counseling Areas</h3>
-            
-            <div class="space-y-6 text-lg">
-                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
-                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Relationship Issues <i class="fas fa-chevron-right"></i></div>
-                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Sleep Problems <i class="fas fa-chevron-right"></i></div>
-                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer">Trauma Support <i class="fas fa-chevron-right"></i></div>
-            </div>
-
-            <!-- Social Media Original Colors -->
-            <div class="mt-16">
-                <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Nexus Wellness</p>
-                <div class="flex gap-6 text-3xl">
-                    <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
-                </div>
+    <!-- 3 Lines Menu -->
+    <div id="counseling-menu" class="hidden fixed inset-0 bg-white z-50 pt-20 px-8 overflow-y-auto">
+        <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-black">&times;</button>
+        <h3 class="text-xl font-semibold mb-8">Counseling Areas</h3>
+        <div id="counseling-list" class="space-y-6 text-lg"></div>
+        
+        <!-- Social Media Original Colors -->
+        <div class="mt-12">
+            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Nexus Wellness</p>
+            <div class="flex gap-6 text-3xl">
+                <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </div>
@@ -171,7 +162,7 @@
         </div>
     </div>
 
-    <!-- Hero Section - Green Trees Background -->
+    <!-- Hero Section -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
         <div data-aos="fade-up">
             <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
