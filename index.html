@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Wellness | Premium Psychological Counseling</title>
+    <title>Nexus Wellness | Premium Psychological Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -20,6 +20,7 @@
             font-family: 'Inter', system-ui, sans-serif; 
             background-color: #ffffff; 
             color: #1d1d1f; 
+            -webkit-font-smoothing: antialiased; 
             scroll-behavior: smooth; 
         }
         
@@ -30,8 +31,9 @@
             z-index: 1000; 
         }
         
+        /* Calm Plants/Trees Background for Hero */
         .hero-bg { 
-            background-image: linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.38)), 
+            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.40)), 
                               url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover; 
             background-position: center; 
@@ -39,19 +41,21 @@
         }
         
         .premium-input { 
-            background: rgba(255,255,255,0.9); 
-            border: 1px solid rgba(0,0,0,0.1); 
-            border-radius: 20px; 
-            padding: 18px 22px; 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(0, 0, 0, 0.1); 
+            border-radius: 16px; 
+            padding: 1.25rem; 
             width: 100%; 
-            transition: all 0.3s; 
+            transition: 0.3s; 
         }
         
         .cta-btn { 
             background: #0071e3; 
             color: white; 
-            transition: all 0.4s; 
-            box-shadow: 0 4px 14px rgba(0,113,227,0.3); 
+            transition: 0.4s; 
+            box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39); 
+            cursor: pointer; 
         }
         
         #admin-panel { 
@@ -62,7 +66,7 @@
             height: 100%; 
             background: white; 
             z-index: 3000; 
-            box-shadow: -20px 0 40px rgba(0,0,0,0.15); 
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
             transform: translateX(100%); 
             transition: 0.5s ease; 
             overflow-y: auto; 
@@ -71,45 +75,78 @@
         
         #admin-panel.active { transform: translateX(0); }
         
-        .hamburger { transition: all 0.4s; }
+        .specialty-card { 
+            background: #1a1a1a; 
+            padding: 40px; 
+            border-radius: 30px; 
+            border: 1px solid #333; 
+            transition: 0.3s; 
+        }
+        
+        /* Premium Left Menu */
+        #counseling-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 2500;
+            color: white;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        
+        #counseling-menu.active {
+            transform: translateX(0);
+        }
     </style>
 </head>
-<body>
+<body class="font-sans">
 
     <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
-        <button onclick="toggleCounselingMenu()" class="hamburger w-11 h-11 flex items-center justify-center rounded-2xl hover:bg-gray-100">
-            <i class="fas fa-bars text-2xl text-gray-700"></i>
-        </button>
         <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-sm">NW</div>
-            <span class="text-xl font-bold tracking-tight uppercase">Nexus Wellness</span>
+            <button onclick="toggleCounselingMenu()" class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-gray-100">
+                <i class="fas fa-bars text-2xl text-gray-700"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
+                <span class="text-xl font-bold tracking-tight uppercase">Nexus Wellness</span>
+            </div>
         </div>
         <div class="flex items-center gap-4">
             <a href="#booking-section" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold uppercase">Book Now</a>
-            <button onclick="openAdmin()" class="group flex flex-col items-center">
-                <div class="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-100 transition">
-                    <i class="fas fa-cog text-gray-700 text-sm"></i>
-                </div>
-                <span class="text-[10px] text-gray-500 font-medium mt-1">ADMIN</span>
+            <button onclick="openAdmin()" class="w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-100 transition">
+                <i class="fas fa-cog text-gray-700 text-sm"></i>
             </button>
         </div>
     </nav>
 
-    <!-- 3 Lines Menu (Original Data + Premium Look) -->
-    <div id="counseling-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[2500] pt-20 px-8 overflow-y-auto">
-        <button onclick="toggleCounselingMenu()" class="absolute top-8 right-8 text-4xl text-gray-400 hover:text-black">&times;</button>
-        <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
-        <div id="counseling-list" class="space-y-6 text-lg"></div>
-        
-        <!-- Social Media Links (Original Colors) -->
-        <div class="mt-12">
-            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Us</p>
-            <div class="flex gap-8 text-3xl">
-                <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+    <!-- Left 3 Lines Premium Menu -->
+    <div id="counseling-menu">
+        <div class="p-8">
+            <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-white">&times;</button>
+            
+            <h2 class="text-2xl font-semibold mb-10 text-white">Counseling Areas</h2>
+            
+            <div class="space-y-6 text-lg">
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer hover:text-blue-400">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer hover:text-blue-400">Relationship Issues <i class="fas fa-chevron-right"></i></div>
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer hover:text-blue-400">Sleep Problems (Nind Nahi Aana) <i class="fas fa-chevron-right"></i></div>
+                <div class="flex justify-between py-4 border-b border-white/20 cursor-pointer hover:text-blue-400">Trauma Support <i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="mt-16">
+                <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">Follow Nexus Wellness</p>
+                <div class="flex gap-6 text-3xl">
+                    <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
         </div>
     </div>
@@ -118,7 +155,7 @@
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-8">
             <h3 class="font-bold text-xl uppercase">Admin Control</h3>
-            <button onclick="closeAdmin()" class="text-3xl text-gray-400 hover:text-black">&times;</button>
+            <button onclick="closeAdmin()"><i class="fas fa-times"></i></button>
         </div>
         
         <div id="admin-login" class="space-y-4 text-center">
@@ -132,33 +169,53 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-5">
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input id="adm-email" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input id="adm-wa" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input id="adm-upi" class="premium-input text-sm"></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
-            
-            <!-- Hero Background -->
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Hero Background URL</label><input id="adm-hero-bg" class="premium-input text-sm"></div>
-            
-            <!-- Counselor Message -->
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Message</label><textarea id="adm-ceo-message" class="premium-input text-sm h-32"></textarea></div>
-            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Counselor Photo URL</label><input id="adm-ceo-photo" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Admin Email</label><input type="text" id="adm-email" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">WhatsApp No.</label><input type="text" id="adm-wa" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">UPI ID</label><input type="text" id="adm-upi" class="premium-input text-sm"></div>
+            <div><label class="text-[10px] font-bold text-gray-400 uppercase">Slots (Comma separated)</label><textarea id="adm-slots" class="premium-input text-sm"></textarea></div>
             
             <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-[10px] uppercase">Save Settings</button>
             <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout</button>
         </div>
     </div>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white">
         <div data-aos="fade-up">
             <h1 class="text-6xl md:text-[8rem] font-bold tracking-tighter mb-8 leading-[0.9]">Reclaim Your <br>Inner Peace.</h1>
-            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">A sanctuary for the mind in Greater Noida.</p>
+            <p class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">A sanctuary for the mind in Greater Noida. We offer bespoke psychological strategies.</p>
             <a href="#booking-section" class="cta-btn px-14 py-4 rounded-full font-bold text-xs uppercase tracking-widest">Start Your Journey</a>
         </div>
     </section>
 
-    <!-- Booking Section -->
+    <!-- Specialties -->
+    <section class="py-32 px-6 md:px-20 bg-black text-white">
+        <h2 class="text-5xl md:text-6xl font-bold tracking-tight text-center mb-24" data-aos="fade-up">Our Specialties.</h2>
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="specialty-card" data-aos="fade-up">
+                <i class="fas fa-brain text-3xl mb-8"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Anxiety Care</h3>
+                <p class="text-gray-500 text-sm">Finding stillness in a chaotic world with clinical protocols.</p>
+            </div>
+            <div class="specialty-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-infinity text-3xl mb-8"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Transitions</h3>
+                <p class="text-gray-500 text-sm">Career, loss, and major life change support.</p>
+            </div>
+            <div class="specialty-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-heart text-3xl mb-8"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Relationships</h3>
+                <p class="text-gray-500 text-sm">Healing emotional bonds with caring counseling.</p>
+            </div>
+            <div class="specialty-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-shield-alt text-3xl mb-8"></i>
+                <h3 class="text-xl font-bold mb-4 uppercase">Trauma Support</h3>
+                <p class="text-gray-500 text-sm">A safe space for emotional healing and PTSD recovery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section (Original) -->
     <section id="booking-section" class="py-32 px-6 bg-[#f5f5f7]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[50px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
@@ -169,19 +226,15 @@
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
-                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" class="premium-input" required>
-                        <select id="p_gender" class="premium-input" required>
-                            <option value="">Male / Female / Other</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <input type="date" id="p_date" class="premium-input" required>
+                        <select id="p_slot" class="premium-input" required></select>
                     </div>
                     <select id="p_type" class="premium-input" onchange="document.getElementById('display-fees').innerText = this.value" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
                     <textarea id="p_concern" placeholder="Your Concern" class="premium-input" required></textarea>
+                    <div class="text-center py-6 text-4xl font-bold text-blue-600 border-t border-b border-gray-100 mt-6">₹<span id="display-fees">300</span></div>
                     <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest">Pay & Book</button>
                 </form>
 
@@ -191,7 +244,7 @@
                         <p id="p-upi-text" class="text-xs font-mono mt-4 text-blue-600 font-bold"></p>
                     </div>
                     <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
-                    <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
+                    <button onclick="unlockSession()" id="confirm-btn" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
                 </div>
 
                 <div id="p-success" class="hidden text-center space-y-8">
@@ -230,11 +283,6 @@
             slots: "10:00 AM, 02:00 PM, 06:00 PM"
         };
 
-        let extraData = JSON.parse(localStorage.getItem('extraData')) || {
-            ceoMessage: "As your dedicated counselor, I provide a safe and confidential space to help you navigate life's challenges and rediscover inner peace.",
-            ceoPhoto: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800"
-        };
-
         let currentOTP = null;
 
         function openAdmin() {
@@ -257,7 +305,7 @@
                 p_otp: currentOTP,
                 p_concern: "Admin Login OTP"
             }).then(() => {
-                alert(`✅ OTP has been sent to ${email}`);
+                alert(`✅ OTP has been sent to your Email: ${email}`);
                 document.getElementById('admin-login').classList.add('hidden');
                 document.getElementById('admin-login-step2').classList.remove('hidden');
             }).catch(() => alert("Failed to send OTP"));
@@ -278,20 +326,9 @@
             nexusConfig.waNum = document.getElementById('adm-wa').value;
             nexusConfig.upiId = document.getElementById('adm-upi').value;
             nexusConfig.slots = document.getElementById('adm-slots').value;
-            
-            extraData.ceoMessage = document.getElementById('adm-ceo-message').value;
-            extraData.ceoPhoto = document.getElementById('adm-ceo-photo').value;
-
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            localStorage.setItem('extraData', JSON.stringify(extraData));
-            
             alert("Saved!");
             closeAdmin();
-        }
-
-        function logoutAdmin() {
-            closeAdmin();
-            alert("Logged out successfully");
         }
 
         function showPayment() {
@@ -305,19 +342,20 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value;
-            if (utr.length < 12) return alert("Invalid UTR");
+            if (utr.length < 12) { alert("Invalid UTR"); return; }
             
             const formData = {
                 p_name: document.getElementById('p_name').value,
                 p_email: document.getElementById('p_email').value,
-                p_whatsapp: document.getElementById('p_whatsapp').value,
+                p_date: document.getElementById('p_date').value,
+                p_slot: document.getElementById('p_slot').value,
                 p_fee: document.getElementById('p_type').value,
-                p_utr: utr,
+                p_utr: utr, 
                 p_concern: document.getElementById('p_concern').value
             };
             
             emailjs.send("service_w0vxgvf", "template_ch0kf2t", formData).then(() => {
-                const wa = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=Booking Confirmed!`;
+                const wa = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=Booking!%0AName: ${formData.p_name}%0AUTR: ${utr}`;
                 document.getElementById('p-wa').href = wa;
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
@@ -327,15 +365,7 @@
 
         function toggleCounselingMenu() {
             const menu = document.getElementById('counseling-menu');
-            menu.classList.toggle('hidden');
-            if (!menu.classList.contains('hidden')) {
-                document.getElementById('counseling-list').innerHTML = `
-                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Relationship Issues')">Relationship Issues <i class="fas fa-chevron-right"></i></div>
-                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Sleep Problems')">Sleep Problems (Nind Nahi Aana) <i class="fas fa-chevron-right"></i></div>
-                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Anxiety')">Anxiety & Stress <i class="fas fa-chevron-right"></i></div>
-                    <div class="flex justify-between py-4 border-b cursor-pointer" onclick="alert('Depression')">Depression Support <i class="fas fa-chevron-right"></i></div>
-                `;
-            }
+            menu.classList.toggle('active');
         }
     </script>
 </body>
