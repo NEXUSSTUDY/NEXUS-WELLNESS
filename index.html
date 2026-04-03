@@ -325,7 +325,7 @@
 
         function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
 
-        // OTP Email Fix - using clear variable name "otp"
+        // OTP Email - using both common variables for better compatibility
         function sendAdminOTP() {
             const email = document.getElementById('admin-email-input').value.trim();
             if (!email || !email.includes('@')) {
@@ -337,7 +337,8 @@
 
             const templateParams = {
                 to_email: email,
-                otp: currentOTP   // <-- Changed to "otp" so it matches most templates
+                otp: currentOTP,
+                passcode: currentOTP   // Added for templates that use passcode
             };
 
             emailjs.send("service_w0vxgvf", "template_ch0kf2t", templateParams)
@@ -351,7 +352,7 @@
                 })
                 .catch(function(error) {
                     console.error(error);
-                    alert("Failed to send OTP email. Please check EmailJS template has {{otp}} variable.");
+                    alert("Failed to send OTP. Make sure your EmailJS template contains {{otp}} or {{passcode}} variable.");
                 });
         }
 
@@ -365,14 +366,17 @@
             }
         }
 
-        // Image Gallery for Hero Background
+        // Expanded Wellness Image Gallery
         const sampleImages = [
             "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
             "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070",
             "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
             "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
             "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
-            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071"
+            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
+            "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
+            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070",
+            "https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=2070"
         ];
 
         function openImageGallery(targetId) {
