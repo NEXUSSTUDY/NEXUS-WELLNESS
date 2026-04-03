@@ -17,6 +17,12 @@
             background-color: #fbfbfb; 
             color: #1d1d1f; 
             scroll-behavior: smooth; 
+            transition: background-color 0.4s ease;
+        }
+        
+        .dark body { 
+            background-color: #0a0a0a; 
+            color: #f1f1f1; 
         }
         
         .glass-nav { 
@@ -24,6 +30,10 @@
             backdrop-filter: saturate(180%) blur(24px); 
             border-bottom: 1px solid rgba(0,0,0,0.06); 
             z-index: 1000; 
+        }
+        .dark .glass-nav { 
+            background: rgba(10, 10, 10, 0.9); 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
         }
 
         .hero-bg { 
@@ -42,9 +52,10 @@
             width: 100%; 
             transition: all 0.3s; 
         }
-        .premium-input:focus { 
-            border-color: #0071e3; 
-            box-shadow: 0 0 0 4px rgba(0,113,227,0.15); 
+        .dark .premium-input { 
+            background: #1f1f1f; 
+            border-color: #444; 
+            color: white; 
         }
 
         .cta-btn { 
@@ -62,7 +73,6 @@
         .cta-btn:hover { 
             background: #005bb5; 
             transform: translateY(-2px); 
-            box-shadow: 0 15px 35px -10px rgba(0,113,227,0.5); 
         }
 
         #counseling-menu {
@@ -88,6 +98,7 @@
             overflow-y: auto; 
             padding: 40px; 
         }
+        .dark #admin-panel { background: #111; color: white; }
         #admin-panel.active { transform: translateX(0); }
 
         .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
@@ -217,7 +228,7 @@
         </div>
     </div>
 
-    <!-- Hero Section - Original Text Restored -->
+    <!-- Hero Section -->
     <section id="hero-section" class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
         <div data-aos="fade-up" class="max-w-3xl mx-auto">
             <h1 id="hero-title" class="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
@@ -227,7 +238,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Specialties Section -->
+    <!-- Specialties -->
     <section class="py-24 px-6 md:px-20 bg-white">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16" data-aos="fade-up">Our Specialties</h2>
@@ -256,7 +267,7 @@
         </div>
     </section>
 
-    <!-- Booking Section - Updated Form -->
+    <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[40px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
@@ -276,7 +287,6 @@
                         </select>
                     </div>
 
-                    <!-- Updated Counseling Type (Audio, Video, Chat removed) -->
                     <select id="p_counseling_type" class="premium-input" required onchange="handleCounselingTypeChange()">
                         <option value="">Type of Counseling</option>
                         <option value="Anxiety">Anxiety & Stress</option>
@@ -313,18 +323,21 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer with Location -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
         </div>
-        <h2 class="text-3xl font-bold tracking-tighter uppercase mb-10">Nexus Wellness</h2>
+        <h2 class="text-3xl font-bold tracking-tighter uppercase mb-6">Nexus Wellness</h2>
+        <p class="text-sm text-gray-500 mb-10">Greater Noida, Uttar Pradesh, India</p>
+        
         <div class="flex justify-center gap-10 text-4xl mb-12">
             <a href="#" class="social-icon text-[#E1306C]"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social-icon text-[#0A66C2]"><i class="fab fa-linkedin"></i></a>
             <a href="#" class="social-icon text-[#FF0000]"><i class="fab fa-youtube"></i></a>
             <a href="#" class="social-icon text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
         </div>
+        
         <p class="text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase">© 2026 NEXUS WELLNESS. ABSOLUTE CONFIDENTIALITY.</p>
     </footer>
 
@@ -419,9 +432,10 @@
             document.getElementById('admin-panel').classList.remove('active'); 
         }
 
+        // Fixed Dark/Light Mode Function
         function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            alert("Theme changed successfully!");
+            const isDark = document.documentElement.classList.toggle('dark');
+            alert(isDark ? "Dark Mode Enabled" : "Light Mode Enabled");
         }
 
         function sendAdminOTP() {
