@@ -17,12 +17,6 @@
             background-color: #fbfbfb; 
             color: #1d1d1f; 
             scroll-behavior: smooth; 
-            transition: background-color 0.4s ease;
-        }
-        
-        .dark body { 
-            background-color: #0a0a0a; 
-            color: #f1f1f1; 
         }
         
         .glass-nav { 
@@ -30,10 +24,6 @@
             backdrop-filter: saturate(180%) blur(24px); 
             border-bottom: 1px solid rgba(0,0,0,0.06); 
             z-index: 1000; 
-        }
-        .dark .glass-nav { 
-            background: rgba(10, 10, 10, 0.9); 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
         }
 
         .hero-bg { 
@@ -51,11 +41,6 @@
             padding: 18px 22px; 
             width: 100%; 
             transition: all 0.3s; 
-        }
-        .dark .premium-input { 
-            background: #1f1f1f; 
-            border-color: #444; 
-            color: white; 
         }
 
         .cta-btn { 
@@ -98,7 +83,6 @@
             overflow-y: auto; 
             padding: 40px; 
         }
-        .dark #admin-panel { background: #111; color: white; }
         #admin-panel.active { transform: translateX(0); }
 
         .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
@@ -130,13 +114,7 @@
     <div id="counseling-menu">
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
-        <div class="space-y-8 text-[19px]">
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
-            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
-        </div>
+        <div id="menu-items" class="space-y-8 text-[19px]"></div>
 
         <div class="mt-16">
             <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">FOLLOW NEXUS WELLNESS</p>
@@ -169,6 +147,7 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-10 text-sm">
+            <!-- Hero Section -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Hero Section</h4>
                 <div class="space-y-4">
@@ -181,21 +160,23 @@
                 </div>
             </div>
             
+            <!-- Counseling Areas Control -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Specialties</h4>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4"><input id="adm-s1-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s1-d" class="premium-input text-xs" placeholder="Description"></div>
-                    <div class="grid grid-cols-2 gap-4"><input id="adm-s2-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s2-d" class="premium-input text-xs" placeholder="Description"></div>
-                    <div class="grid grid-cols-2 gap-4"><input id="adm-s3-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s3-d" class="premium-input text-xs" placeholder="Description"></div>
-                    <div class="grid grid-cols-2 gap-4"><input id="adm-s4-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s4-d" class="premium-input text-xs" placeholder="Description"></div>
-                </div>
+                <h4 class="font-bold text-lg mb-6">Counseling Areas Control</h4>
+                <div id="counseling-areas-container" class="space-y-8"></div>
+                <button onclick="addNewCounselingArea()" 
+                        class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
+                    + Add New Counseling Area
+                </button>
             </div>
 
+            <!-- Blog Control -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Blog Control</h4>
                 <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
             </div>
 
+            <!-- Contact & Payment -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Contact & Payment</h4>
                 <div class="space-y-4">
@@ -203,11 +184,6 @@
                     <input id="adm-upi-id" class="premium-input text-sm" placeholder="UPI ID">
                     <input id="adm-admin-email" class="premium-input text-sm" placeholder="Admin Email">
                 </div>
-            </div>
-
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Appearance</h4>
-                <button onclick="toggleDarkMode()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-sm">Toggle Dark / Light Mode</button>
             </div>
 
             <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-xs uppercase tracking-wider">SAVE ALL CHANGES</button>
@@ -219,7 +195,7 @@
     <div id="image-gallery-modal" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
         <div class="bg-white rounded-3xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
             <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="font-bold text-xl">Choose Background Image</h3>
+                <h3 class="font-bold text-xl">Choose Image</h3>
                 <button onclick="closeImageGallery()" class="text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 overflow-y-auto" style="max-height: 70vh;">
@@ -238,34 +214,8 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Specialties -->
-    <section class="py-24 px-6 md:px-20 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16" data-aos="fade-up">Our Specialties</h2>
-            <div class="grid md:grid-cols-4 gap-6" data-aos="fade-up">
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-blue-50/50 rounded-2xl border border-blue-100/50 flex items-center justify-center text-4xl">🧠</div>
-                    <h3 id="s1-t" class="text-2xl font-semibold mb-2">Anxiety Care</h3>
-                    <p id="s1-d" class="text-gray-500 text-sm">Finding stillness in a chaotic world</p>
-                </div>
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-pink-50/50 rounded-2xl border border-pink-100/50 flex items-center justify-center text-4xl">❤️</div>
-                    <h3 id="s2-t" class="text-2xl font-semibold mb-2">Relationship Issues</h3>
-                    <p id="s2-d" class="text-gray-500 text-sm">Healing emotional bonds</p>
-                </div>
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-purple-50/50 rounded-2xl border border-purple-100/50 flex items-center justify-center text-4xl">🌙</div>
-                    <h3 id="s3-t" class="text-2xl font-semibold mb-2">Sleep Problems</h3>
-                    <p id="s3-d" class="text-gray-500 text-sm">Restorative sleep techniques</p>
-                </div>
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-green-50/50 rounded-2xl border border-green-100/50 flex items-center justify-center text-4xl">🛡️</div>
-                    <h3 id="s4-t" class="text-2xl font-semibold mb-2">Trauma Support</h3>
-                    <p id="s4-d" class="text-gray-400 text-sm">Safe space for recovery</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Dynamic Counseling Area Content -->
+    <div id="counseling-content"></div>
 
     <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
@@ -323,7 +273,7 @@
         </div>
     </section>
 
-    <!-- Footer with Location -->
+    <!-- Footer -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
@@ -349,93 +299,239 @@
             heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
             heroTitle: "Reclaim Your Inner Peace",
             heroSubtitle: "Personalized online counseling for mental wellness",
-            s1: { t: "Anxiety Care", d: "Finding stillness in a chaotic world" },
-            s2: { t: "Relationship Issues", d: "Healing emotional bonds" },
-            s3: { t: "Sleep Problems", d: "Restorative sleep techniques" },
-            s4: { t: "Trauma Support", d: "Safe space for recovery" },
             waNum: "+917830232077",
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
-            blogUrl: "#"
+            blogUrl: "#",
+            counselingAreas: [
+                { 
+                    id: 1, 
+                    title: "Anxiety & Stress", 
+                    description: "Finding stillness in a chaotic world. Our experts help you manage anxiety and build resilience.", 
+                    emoji: "🧠", 
+                    image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070" 
+                },
+                { 
+                    id: 2, 
+                    title: "Relationship Issues", 
+                    description: "Healing emotional bonds and improving communication in your relationships.", 
+                    emoji: "❤️", 
+                    image: "" 
+                },
+                { 
+                    id: 3, 
+                    title: "Sleep Problems", 
+                    description: "Restorative sleep techniques to help you achieve deep, peaceful rest.", 
+                    emoji: "🌙", 
+                    image: "" 
+                },
+                { 
+                    id: 4, 
+                    title: "Trauma Support", 
+                    description: "A safe space for trauma recovery and emotional healing.", 
+                    emoji: "🛡️", 
+                    image: "" 
+                },
+                { 
+                    id: 5, 
+                    title: "Blog", 
+                    description: "Insightful articles and resources on mental wellness.", 
+                    emoji: "📖", 
+                    image: "" 
+                }
+            ]
         };
 
         let currentOTP = null;
+        let currentImageTarget = null;
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
         function loadSettings() {
+            // Hero Section
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-            document.getElementById('s1-t').textContent = nexusConfig.s1.t;
-            document.getElementById('s1-d').textContent = nexusConfig.s1.d;
-            document.getElementById('s2-t').textContent = nexusConfig.s2.t;
-            document.getElementById('s2-d').textContent = nexusConfig.s2.d;
-            document.getElementById('s3-t').textContent = nexusConfig.s3.t;
-            document.getElementById('s3-d').textContent = nexusConfig.s3.d;
-            document.getElementById('s4-t').textContent = nexusConfig.s4.t;
-            document.getElementById('s4-d').textContent = nexusConfig.s4.d;
+
+            renderMenuItems();
+        }
+
+        function renderMenuItems() {
+            const container = document.getElementById('menu-items');
+            container.innerHTML = '';
+
+            nexusConfig.counselingAreas.forEach(area => {
+                const div = document.createElement('div');
+                div.className = "menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition";
+                div.innerHTML = `<span>${area.title}</span><span class="text-2xl">›</span>`;
+                div.onclick = () => showCounselingArea(area);
+                container.appendChild(div);
+            });
+        }
+
+        function showCounselingArea(area) {
+            toggleCounselingMenu();
+            
+            const contentDiv = document.getElementById('counseling-content');
+            contentDiv.innerHTML = `
+                <section class="py-24 px-6 md:px-20 bg-white">
+                    <div class="max-w-5xl mx-auto">
+                        ${area.image ? 
+                            `<img src="${area.image}" class="w-full rounded-3xl shadow-2xl mb-12 object-cover max-h-[500px]" alt="${area.title}">` : ''}
+                        <div class="text-center">
+                            <div class="text-8xl mb-8">${area.emoji}</div>
+                            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8">${area.title}</h1>
+                            <div class="prose prose-lg max-w-3xl mx-auto text-gray-700 leading-relaxed">
+                                ${area.description}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            contentDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
         function toggleCounselingMenu() { 
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
 
-        function showCounselingAlert() {
-            alert("Our team will contact you shortly to discuss your concerns.\n\nYou can also book a session directly from the website.");
-            toggleCounselingMenu();
-        }
-
-        function openBlog() {
-            if (nexusConfig.blogUrl && nexusConfig.blogUrl !== "#") {
-                window.open(nexusConfig.blogUrl, '_blank');
-            } else {
-                alert("Our Blog section is coming soon.\n\nWe will be sharing insightful articles on mental wellness.");
-            }
-            toggleCounselingMenu();
-        }
-
-        function handleCounselingTypeChange() {
-            const select = document.getElementById('p_counseling_type');
-            const otherField = document.getElementById('p_other_type');
-            if (select.value === "Other") {
-                otherField.classList.remove('hidden');
-                otherField.required = true;
-            } else {
-                otherField.classList.add('hidden');
-                otherField.required = false;
-            }
-        }
-
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
+            
+            // Load hero values
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
             document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
             document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
-            document.getElementById('adm-s1-t').value = nexusConfig.s1.t;
-            document.getElementById('adm-s1-d').value = nexusConfig.s1.d;
-            document.getElementById('adm-s2-t').value = nexusConfig.s2.t;
-            document.getElementById('adm-s2-d').value = nexusConfig.s2.d;
-            document.getElementById('adm-s3-t').value = nexusConfig.s3.t;
-            document.getElementById('adm-s3-d').value = nexusConfig.s3.d;
-            document.getElementById('adm-s4-t').value = nexusConfig.s4.t;
-            document.getElementById('adm-s4-d').value = nexusConfig.s4.d;
             document.getElementById('adm-wa-num').value = nexusConfig.waNum;
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
+
+            renderAdminCounselingAreas();
         }
 
-        function closeAdmin() { 
-            document.getElementById('admin-panel').classList.remove('active'); 
+        function renderAdminCounselingAreas() {
+            const container = document.getElementById('counseling-areas-container');
+            container.innerHTML = '';
+
+            nexusConfig.counselingAreas.forEach((area, index) => {
+                const div = document.createElement('div');
+                div.className = "border rounded-3xl p-6 bg-gray-50";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h5 class="font-semibold text-base">Area ${index + 1}</h5>
+                        <button onclick="removeCounselingArea(${index})" class="text-red-500 hover:text-red-700 text-sm">Remove</button>
+                    </div>
+                    <div class="space-y-4">
+                        <input id="area-title-${index}" value="${area.title}" class="premium-input text-sm" placeholder="Title">
+                        <textarea id="area-desc-${index}" class="premium-input text-sm h-24 resize-y">${area.description}</textarea>
+                        <input id="area-emoji-${index}" value="${area.emoji}" class="premium-input text-sm" placeholder="Emoji">
+                        <div class="flex gap-2">
+                            <input id="area-image-${index}" value="${area.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL (optional)">
+                            <button onclick="openImageGalleryForArea(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium whitespace-nowrap">Gallery</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
         }
 
-        // Fixed Dark/Light Mode Function
-        function toggleDarkMode() {
-            const isDark = document.documentElement.classList.toggle('dark');
-            alert(isDark ? "Dark Mode Enabled" : "Light Mode Enabled");
+        function addNewCounselingArea() {
+            nexusConfig.counselingAreas.push({
+                id: Date.now(),
+                title: "New Area",
+                description: "Add detailed description here...",
+                emoji: "🌟",
+                image: ""
+            });
+            renderAdminCounselingAreas();
+        }
+
+        function removeCounselingArea(index) {
+            if (confirm("Delete this counseling area?")) {
+                nexusConfig.counselingAreas.splice(index, 1);
+                renderAdminCounselingAreas();
+            }
+        }
+
+        function openImageGalleryForArea(index) {
+            currentImageTarget = { type: 'area', index: index };
+            openImageGallery(null);
+        }
+
+        function openImageGallery(targetId) {
+            const modal = document.getElementById('image-gallery-modal');
+            const container = document.getElementById('gallery-images');
+            container.innerHTML = '';
+
+            const sampleImages = [
+                "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
+                "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070",
+                "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
+                "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
+                "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
+                "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
+                "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
+                "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070"
+            ];
+
+            sampleImages.forEach(url => {
+                const div = document.createElement('div');
+                div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
+                div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
+                div.onclick = () => {
+                    if (currentImageTarget && currentImageTarget.type === 'area') {
+                        document.getElementById(`area-image-${currentImageTarget.index}`).value = url;
+                        currentImageTarget = null;
+                    } else if (targetId) {
+                        document.getElementById(targetId).value = url;
+                    }
+                    closeImageGallery();
+                };
+                container.appendChild(div);
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeImageGallery() {
+            const modal = document.getElementById('image-gallery-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveAdminSettings() {
+            nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
+            nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
+            nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
+
+            nexusConfig.counselingAreas.forEach((area, index) => {
+                area.title = document.getElementById(`area-title-${index}`).value;
+                area.description = document.getElementById(`area-desc-${index}`).value;
+                area.emoji = document.getElementById(`area-emoji-${index}`).value;
+                area.image = document.getElementById(`area-image-${index}`).value;
+            });
+
+            nexusConfig.waNum = document.getElementById('adm-wa-num').value;
+            nexusConfig.upiId = document.getElementById('adm-upi-id').value;
+            nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
+            nexusConfig.blogUrl = document.getElementById('adm-blog-url').value || "#";
+
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+            loadSettings();
+            alert("All changes saved successfully!");
+            closeAdmin();
+        }
+
+        function logoutAdmin() {
+            document.getElementById('admin-controls').classList.add('hidden');
+            document.getElementById('admin-login').classList.remove('hidden');
+            document.getElementById('admin-email-input').value = '';
+            document.getElementById('admin-otp-input').value = '';
+            currentOTP = null;
         }
 
         function sendAdminOTP() {
@@ -463,7 +559,7 @@
                 })
                 .catch((error) => {
                     console.error(error);
-                    alert("Failed to send OTP. Please check your EmailJS settings.");
+                    alert("Failed to send OTP. Please check EmailJS settings.");
                 });
         }
 
@@ -478,70 +574,16 @@
             }
         }
 
-        const sampleImages = [
-            "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
-            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070",
-            "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
-            "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
-            "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
-            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
-            "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
-            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070"
-        ];
-
-        function openImageGallery(targetId) {
-            const modal = document.getElementById('image-gallery-modal');
-            const container = document.getElementById('gallery-images');
-            container.innerHTML = '';
-            sampleImages.forEach(url => {
-                const div = document.createElement('div');
-                div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
-                div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
-                div.onclick = () => {
-                    document.getElementById(targetId).value = url;
-                    closeImageGallery();
-                };
-                container.appendChild(div);
-            });
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeImageGallery() {
-            const modal = document.getElementById('image-gallery-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function saveAdminSettings() {
-            nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
-            nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
-            nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
-            nexusConfig.s1.t = document.getElementById('adm-s1-t').value;
-            nexusConfig.s1.d = document.getElementById('adm-s1-d').value;
-            nexusConfig.s2.t = document.getElementById('adm-s2-t').value;
-            nexusConfig.s2.d = document.getElementById('adm-s2-d').value;
-            nexusConfig.s3.t = document.getElementById('adm-s3-t').value;
-            nexusConfig.s3.d = document.getElementById('adm-s3-d').value;
-            nexusConfig.s4.t = document.getElementById('adm-s4-t').value;
-            nexusConfig.s4.d = document.getElementById('adm-s4-d').value;
-            nexusConfig.waNum = document.getElementById('adm-wa-num').value;
-            nexusConfig.upiId = document.getElementById('adm-upi-id').value;
-            nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
-            nexusConfig.blogUrl = document.getElementById('adm-blog-url').value || "#";
-
-            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            loadSettings();
-            alert("All changes saved successfully!");
-            closeAdmin();
-        }
-
-        function logoutAdmin() {
-            document.getElementById('admin-controls').classList.add('hidden');
-            document.getElementById('admin-login').classList.remove('hidden');
-            document.getElementById('admin-email-input').value = '';
-            document.getElementById('admin-otp-input').value = '';
-            currentOTP = null;
+        function handleCounselingTypeChange() {
+            const select = document.getElementById('p_counseling_type');
+            const otherField = document.getElementById('p_other_type');
+            if (select.value === "Other") {
+                otherField.classList.remove('hidden');
+                otherField.required = true;
+            } else {
+                otherField.classList.add('hidden');
+                otherField.required = false;
+            }
         }
 
         function showPayment() {
@@ -561,11 +603,7 @@
             }
 
             const name = document.getElementById('p_name').value;
-            const email = document.getElementById('p_email').value;
-            const whatsapp = document.getElementById('p_whatsapp').value;
-            const concern = document.getElementById('p_concern').value;
             const counselingType = document.getElementById('p_counseling_type').value;
-            const fee = document.getElementById('p_type').value;
 
             const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
             const wa = `https://wa.me/${waNum}?text=Hi, Payment Done (UTR: ${utr}). Name: ${name} | Type: ${counselingType}`;
@@ -575,6 +613,11 @@
             window.open(wa, '_blank');
         }
 
+        function closeAdmin() { 
+            document.getElementById('admin-panel').classList.remove('active'); 
+        }
+
+        // Initialize
         window.onload = loadSettings;
     </script>
 </body>
