@@ -125,7 +125,7 @@
         </div>
         
         <div id="admin-login" class="space-y-6 text-center">
-            <input type="email" id="admin-email-input" placeholder="thenexusstudy3@gmail.com" class="premium-input text-sm" value="thenexusstudy3@gmail.com" disabled>
+            <input type="email" id="admin-email-input" placeholder="Enter your email" class="premium-input text-sm" value="">
             <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">SEND OTP</button>
             <div id="otp-notification" class="notification text-sm text-green-600 font-medium">OTP SENT TO YOUR EMAIL</div>
         </div>
@@ -292,7 +292,7 @@
 
         // ==================== EMAILJS CONFIGURATION ====================
         (function() {
-            emailjs.init("jH5TwO1sLcWFwHHzu");   // Public Key
+            emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
         // ============================================================
 
@@ -333,20 +333,46 @@
             document.getElementById('admin-panel').classList.remove('active');
         }
 
+        // --- OTP via EmailJS ---
         function sendAdminOTP() {
+            const email = document.getElementById('admin-email-input').value.trim();
+            
+            if (!email || !email.includes('@')) {
+                alert("Please enter a valid email address");
+                return;
+            }
+
             currentOTP = Math.floor(100000 + Math.random() * 900000);
 
-            document.getElementById('otp-notification').classList.add('visible');
+            // Send OTP using EmailJS
+            const templateParams = {
+                to_email: email,
+                otp: currentOTP,
+                subject: "Nexus Wellness Admin OTP"
+            };
 
-            setTimeout(() => {
-                document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('admin-login-step2').classList.remove('hidden');
-                document.getElementById('otp-notification').classList.remove('visible');
-            }, 1500);
+            emailjs.send("service_w0vxgvf", "template_ch0kf2t", templateParams)
+                .then(function(response) {
+                    console.log("OTP Email Sent Successfully!", response.status, response.text);
+                    document.getElementById('otp-notification').classList.add('visible');
+                    
+                    // Hide login step and show OTP input after short delay
+                    setTimeout(() => {
+                        document.getElementById('admin-login').classList.add('hidden');
+                        document.getElementById('admin-login-step2').classList.remove('hidden');
+                        document.getElementById('otp-notification').classList.remove('visible');
+                    }, 1200);
+                })
+                .catch(function(error) {
+                    console.log("Failed to send OTP email:", error);
+                    alert("Failed to send OTP. Please check your EmailJS setup or try again.");
+                });
         }
 
         function verifyAdminOTP() {
-            if (document.getElementById('admin-otp-input').value == currentOTP || document.getElementById('admin-otp-input').value == '123456') {
+            const enteredOTP = document.getElementById('admin-otp-input').value.trim();
+            
+            if (enteredOTP == currentOTP || enteredOTP == '123456') {
                 document.getElementById('admin-login-step2').classList.add('hidden');
                 document.getElementById('admin-controls').classList.remove('hidden');
                 document.getElementById('verify-notification').classList.remove('visible');
@@ -377,6 +403,7 @@
         function logoutAdmin() {
             document.getElementById('admin-controls').classList.add('hidden');
             document.getElementById('admin-login').classList.remove('hidden');
+            document.getElementById('admin-email-input').value = '';
             document.getElementById('admin-otp-input').value = '';
             currentOTP = null;
         }
@@ -404,7 +431,6 @@
             const concern = document.getElementById('p_concern').value;
             const fee = document.getElementById('p_type').value;
 
-            // Send Email via EmailJS
             const templateParams = {
                 to_email: email,
                 user_name: name,
@@ -424,7 +450,6 @@
                     console.log("Email sending failed:", error);
                 });
 
-            // WhatsApp Redirect
             const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
             const wa = `https://wa.me/${waNum}?text=Hi, I have completed payment (UTR: ${utr}). Name: ${name}`;
             document.getElementById('p-wa').href = wa;
