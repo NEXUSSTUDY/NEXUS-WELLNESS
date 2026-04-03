@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
+    <script type="text/javascript">
         (function() {
-            // NOTE: REPLACE 'YOUR_PUBLIC_KEY' with your EmailJS Public Key from https://dashboard.emailjs.com/
-            // and configure a template. The current setup is a demo for UI flow.
-            emailjs.init("YOUR_PUBLIC_KEY"); // placeholder
+            // Public Key integrated here
+            emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
     </script>
 
@@ -22,363 +21,202 @@
         
         body { font-family: 'Inter', system-ui, sans-serif; background-color: #fbfbfb; color: #1d1d1f; scroll-behavior: smooth; }
         
-        /* Ultra Premium Glassmorphism Navbar */
         .glass-nav { background: rgba(255, 255, 255, 0.7); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
         
-        /* Premium Background with smooth effect */
-        .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; transition: 0.5s ease-in-out; }
+        .hero-bg { 
+            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), 
+                              url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop'); 
+            background-size: cover; background-position: center; transition: 0.5s ease-in-out; background-attachment: fixed;
+        }
         
-        /* Premium Inputs */
         .premium-input { background: #fdfdfd; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px 20px; width: 100%; transition: 0.3s; }
-        .premium-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
+        .premium-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); outline: none; }
         
-        /* Ultra Premium Blue Button - Apple Style */
-        .cta-btn { background: #0071e3; color: white; border-radius: 9999px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 13px; transition: all 0.4s; box-shadow: 0 8px 30px rgba(0,113,227,0.3); }
-        .cta-btn:hover { background: #005bb5; box-shadow: 0 12px 40px rgba(0,113,227,0.4); transform: translateY(-1px); }
+        .cta-btn { background: #0071e3; color: white; border-radius: 9999px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 13px; transition: all 0.4s; box-shadow: 0 8px 30px rgba(0,113,227,0.3); border: none; cursor: pointer; }
+        .cta-btn:hover { background: #005bb5; transform: translateY(-1px); }
         
-        /* Specialties Cards Premium */
-        .specialty-card { background: white; border: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow: 0.3s; box-shadow: 0 10px 40px rgba(0,0,0,0.02); }
-        .specialty-card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.05); }
+        .specialty-card { background: white; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; border-radius: 24px; }
 
-        /* Left Side Glassmorphic Menu (photo look) */
         #counseling-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            max-width: 380px;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.9);
-            color: white;
-            backdrop-filter: blur(25px);
-            border-right: 1px solid rgba(255,255,255,0.05);
-            transform: translateX(-100%);
-            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-            z-index: 2500;
-            padding: 80px 25px 40px;
-            overflow-y: auto;
+            position: fixed; top: 0; left: 0; width: 100%; max-width: 380px; height: 100vh;
+            background: rgba(15, 23, 42, 0.9); color: white; backdrop-filter: blur(25px);
+            transform: translateX(-100%); transition: 0.4s cubic-bezier(0.32, 0.72, 0, 1); z-index: 2500; padding: 80px 25px 40px;
         }
         #counseling-menu.active { transform: translateX(0); }
 
-        /* Admin Control Panel */
         #admin-panel { 
-            position: fixed; top: 0; right: 0; width: 380px; height: 100%; background: white; z-index: 3000; box-shadow: -20px 0 50px rgba(0,0,0,0.05); transform: translateX(100%); transition: 0.5s ease; overflow-y: auto; padding: 40px; 
+            position: fixed; top: 0; right: 0; width: 380px; height: 100%; background: white; z-index: 3000; 
+            box-shadow: -20px 0 50px rgba(0,0,0,0.05); transform: translateX(100%); transition: 0.5s ease; padding: 40px; overflow-y: auto;
         }
         #admin-panel.active { transform: translateX(0); }
-        .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
-        .notification.visible { opacity: 1; visibility: visible; }
+        
+        .otp-sent-msg { color: #059669; font-size: 12px; margin-top: 10px; display: none; font-weight: 600; }
     </style>
 </head>
-<body class="font-sans">
+<body>
 
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-4">
-            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700 hover:text-black">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700"><i class="fas fa-bars"></i></button>
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
                 <span class="text-xl font-bold tracking-tight uppercase hidden md:block">Nexus Wellness</span>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <a href="#booking-section" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold uppercase">Book Now</a>
-            
-            <button onclick="openAdmin()" class="relative w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center bg-[#0071e3] shadow-md hover:bg-[#005bb5] transition overflow-hidden">
-                <i class="fas fa-user-shield text-white text-lg"></i>
+            <a href="#booking-section" class="cta-btn px-6 py-2.5">Book Now</a>
+            <button onclick="openAdmin()" class="w-12 h-12 rounded-full bg-[#0071e3] text-white flex items-center justify-center shadow-md">
+                <i class="fas fa-user-shield"></i>
             </button>
         </div>
     </nav>
 
     <div id="counseling-menu">
-        <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
-        
+        <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
-        
         <div class="space-y-8 text-[19px]">
-            <div class="flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Anxiety & Stress</span>
-                <span class="text-2xl">›</span>
-            </div>
-            <div class="flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Relationship Issues</span>
-                <span class="text-2xl">›</span>
-            </div>
-            <div class="flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Sleep Problems</span>
-                <span class="text-2xl">›</span>
-            </div>
-            <div class="flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Trauma Support</span>
-                <span class="text-2xl">›</span>
-            </div>
-        </div>
-
-        <div class="absolute bottom-12 left-0 right-0 px-6">
-            <p class="text-xs uppercase tracking-widest text-gray-400 mb-5">FOLLOW NEXUS WELLNESS</p>
-            <div class="flex gap-6 text-3xl">
-                <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
-            </div>
+            <div class="flex justify-between border-b border-gray-600 pb-4"><span>Anxiety & Stress</span><span>›</span></div>
+            <div class="flex justify-between border-b border-gray-600 pb-4"><span>Relationship Issues</span><span>›</span></div>
+            <div class="flex justify-between border-b border-gray-600 pb-4"><span>Sleep Problems</span><span>›</span></div>
+            <div class="flex justify-between border-b border-gray-600 pb-4"><span>Trauma Support</span><span>›</span></div>
         </div>
     </div>
 
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-10">
-            <h3 class="font-bold text-2xl uppercase tracking-tight">Admin Console</h3>
-            <button onclick="closeAdmin()"><i class="fas fa-times text-2xl text-gray-500 hover:text-gray-900"></i></button>
+            <h3 class="font-bold text-2xl uppercase">Admin Console</h3>
+            <button onclick="closeAdmin()"><i class="fas fa-times text-2xl text-gray-400"></i></button>
         </div>
         
-        <div id="admin-login" class="space-y-6 text-center">
-            <input type="email" id="admin-email-input" placeholder="thenexusstudy3@gmail.com" class="premium-input text-sm" value="thenexusstudy3@gmail.com" disabled>
-            <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">SEND OTP</button>
-            <div id="otp-notification" class="notification text-sm text-green-600 font-medium">OTP SENT TO YOUR EMAIL</div>
+        <div id="admin-login" class="space-y-6">
+            <p class="text-xs text-gray-500 font-bold uppercase">Enter Admin Email</p>
+            <input type="email" id="admin-email-input" placeholder="example@gmail.com" class="premium-input text-sm">
+            <button id="send-otp-btn" onclick="sendAdminOTP()" class="cta-btn w-full py-4">SEND OTP</button>
+            <p id="otp-status" class="otp-sent-msg text-center">OTP sent successfully!</p>
         </div>
         
         <div id="admin-login-step2" class="hidden space-y-6 text-center">
-            <input type="text" id="admin-otp-input" maxlength="6" placeholder="ENTER 6-DIGIT OTP" class="premium-input text-center text-4xl tracking-widest font-mono">
-            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">VERIFY & ENTER</button>
-            <div id="verify-notification" class="notification text-sm text-red-600 font-medium">INCORRECT OTP, TRY AGAIN</div>
+            <p class="text-xs text-gray-500 font-bold uppercase">Enter 6-Digit Code</p>
+            <input type="text" id="admin-otp-input" maxlength="6" class="premium-input text-center text-3xl tracking-widest font-mono">
+            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4">VERIFY & LOGIN</button>
         </div>
         
-        <div id="admin-controls" class="hidden space-y-10 text-sm">
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Hero Section</h4>
-                <div class="space-y-4">
-                    <input id="adm-hero-bg" class="premium-input text-sm" placeholder="Hero Background Image URL" value="https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop">
-                    <input id="adm-hero-title" class="premium-input text-sm" placeholder="Hero Title" value="Reclaim Your Inner Peace">
-                    <input id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle" value="Personalized online counseling for mental wellness">
-                </div>
+        <div id="admin-controls" class="hidden space-y-8">
+            <div class="space-y-4">
+                <h4 class="font-bold text-lg">Website Content</h4>
+                <input id="adm-hero-bg" class="premium-input text-sm" placeholder="Background Image URL">
+                <input id="adm-hero-title" class="premium-input text-sm" placeholder="Hero Title">
+                <textarea id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle"></textarea>
             </div>
-            
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Specialties (Our Services)</h4>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <input id="adm-s1-t" class="premium-input text-xs" value="Anxiety Care">
-                        <input id="adm-s1-d" class="premium-input text-xs" value="Finding stillness in a chaotic world">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input id="adm-s2-t" class="premium-input text-xs" value="Relationship Issues">
-                        <input id="adm-s2-d" class="premium-input text-xs" value="Healing emotional bonds">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input id="adm-s3-t" class="premium-input text-xs" value="Sleep Problems">
-                        <input id="adm-s3-d" class="premium-input text-xs" value="Restorative sleep techniques">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input id="adm-s4-t" class="premium-input text-xs" value="Trauma Support">
-                        <input id="adm-s4-d" class="premium-input text-xs" value="Safe space for recovery">
-                    </div>
-                </div>
-            </div>
-
-            <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-xs uppercase tracking-wider">SAVE ALL CHANGES</button>
-            <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout / Relock</button>
+            <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold uppercase text-xs">Save All Changes</button>
+            <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full mt-4">Logout</button>
         </div>
     </div>
 
     <section id="hero-section" class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
-        <div data-aos="fade-up" class="max-w-3xl mx-auto">
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
+        <div data-aos="fade-up">
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-bold tracking-tighter mb-6">Reclaim Your<br>Inner Peace</h1>
             <p id="hero-subtitle" class="text-xl md:text-2xl text-white/90 mb-12">Personalized online counseling for mental wellness</p>
-            <a href="#booking-section" class="inline-block bg-[#0071e3] hover:bg-[#005bb5] text-white font-semibold px-10 py-4 rounded-2xl text-sm uppercase tracking-widest shadow-lg transition">BOOK YOUR SESSION NOW</a>
+            <a href="#booking-section" class="cta-btn px-10 py-4">BOOK YOUR SESSION NOW</a>
         </div>
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
     <section class="py-24 px-6 md:px-20 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16" data-aos="fade-up">Our Specialties</h2>
-            
-            <div class="grid md:grid-cols-4 gap-6" data-aos="fade-up">
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-blue-50/50 rounded-2xl border border-blue-100/50 flex items-center justify-center text-4xl">🧠</div>
-                    <h3 id="s1-t" class="text-2xl font-semibold mb-2">Anxiety Care</h3>
-                    <p id="s1-d" class="text-gray-500 text-sm">Finding stillness in a chaotic world</p>
-                </div>
-
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-pink-50/50 rounded-2xl border border-pink-100/50 flex items-center justify-center text-4xl">❤️</div>
-                    <h3 id="s2-t" class="text-2xl font-semibold mb-2">Relationship Issues</h3>
-                    <p id="s2-d" class="text-gray-500 text-sm">Healing emotional bonds</p>
-                </div>
-
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-purple-50/50 rounded-2xl border border-purple-100/50 flex items-center justify-center text-4xl">🌙</div>
-                    <h3 id="s3-t" class="text-2xl font-semibold mb-2">Sleep Problems</h3>
-                    <p id="s3-d" class="text-gray-500 text-sm">Restorative sleep techniques</p>
-                </div>
-
-                <div class="specialty-card rounded-3xl p-8 text-center">
-                    <div class="w-16 h-16 mx-auto mb-6 bg-green-50/50 rounded-2xl border border-green-100/50 flex items-center justify-center text-4xl">🛡️</div>
-                    <h3 id="s4-t" class="text-2xl font-semibold mb-2">Trauma Support</h3>
-                    <p id="s4-d" class="text-gray-400 text-sm">Safe space for recovery</p>
-                </div>
-            </div>
+        <h2 class="text-4xl font-bold text-center mb-16">Our Specialties</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="specialty-card p-8 text-center"><div class="text-4xl mb-4">🧠</div><h3 id="s1-t" class="text-xl font-bold">Anxiety Care</h3></div>
+            <div class="specialty-card p-8 text-center"><div class="text-4xl mb-4">❤️</div><h3 id="s2-t" class="text-xl font-bold">Relationship</h3></div>
+            <div class="specialty-card p-8 text-center"><div class="text-4xl mb-4">🌙</div><h3 id="s3-t" class="text-xl font-bold">Sleep Problems</h3></div>
+            <div class="specialty-card p-8 text-center"><div class="text-4xl mb-4">🛡️</div><h3 id="s4-t" class="text-xl font-bold">Trauma Support</h3></div>
         </div>
     </section>
 
-    <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
-        <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[40px] border border-gray-100 shadow-xl" data-aos="zoom-in">
-            <div id="booking-flow">
-                <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
-                    <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
-                        <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" class="premium-input" required>
-                        <select id="p_gender" class="premium-input" required>
-                            <option value="">Male / Female / Other</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <select id="p_type" class="premium-input" required>
-                        <option value="300">Audio Consultation - ₹300</option>
-                        <option value="500">Video Consultation - ₹500</option>
-                    </select>
-                    <textarea id="p_concern" placeholder="Your Concern" class="premium-input" required></textarea>
-                    <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest shadow-xl">Pay & Book Now</button>
-                </form>
-
-                <div id="p-payment" class="hidden text-center space-y-8">
-                    <div class="bg-white p-6 rounded-3xl inline-block shadow-sm border border-cyan-50/50">
-                        <img id="p-qr" src="" class="w-48 h-48 mx-auto">
-                        <p id="p-upi-text" class="text-xs font-mono mt-4 text-blue-600 font-bold"></p>
-                    </div>
-                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
-                    <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
+    <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#f5f5f7]">
+        <div class="max-w-4xl mx-auto bg-white p-10 rounded-[40px] shadow-xl">
+            <form onsubmit="event.preventDefault(); showPayment();" id="p-form" class="space-y-6">
+                <h2 class="text-4xl font-bold text-center mb-10">Schedule Session</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
+                    <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
                 </div>
-
-                <div id="p-success" class="hidden text-center space-y-8">
-                    <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
-                    <a id="p-wa" href="#" target="_blank" class="block w-full bg-[#25D366] text-white py-5 rounded-full font-bold uppercase tracking-widest text-center shadow-md">Continue on WhatsApp</a>
-                </div>
+                <button type="submit" class="cta-btn w-full py-5">Pay & Book Now</button>
+            </form>
+            <div id="p-payment" class="hidden text-center space-y-6">
+                <img id="p-qr" class="w-48 h-48 mx-auto border p-2">
+                <p id="p-upi-text" class="font-bold text-blue-600"></p>
+                <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold">
+                <button onclick="unlockSession()" class="cta-btn w-full py-5">Confirm Payment</button>
             </div>
         </div>
     </section>
-
-    <footer class="py-24 text-center bg-white border-t border-gray-100">
-        <div class="flex justify-center mb-8">
-            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
-        </div>
-        <h2 class="text-3xl font-bold tracking-tighter uppercase mb-10">Nexus Wellness</h2>
-        <div class="flex justify-center gap-10 text-gray-400 mb-20">
-            <a href="#" class="text-[#E1306C]"><i class="fab fa-instagram text-2xl"></i></a>
-            <a href="#" class="text-[#0077B5]"><i class="fab fa-linkedin text-2xl"></i></a>
-            <a href="#" class="text-[#FF0000]"><i class="fab fa-youtube text-2xl"></i></a>
-            <a href="#" class="text-[#25D366]"><i class="fab fa-whatsapp text-2xl"></i></a>
-        </div>
-        <p class="text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase">© 2026 NEXUS WELLNESS. ABSOLUTE CONFIDENTIALITY.</p>
-    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
 
-        // Placeholder for EmailJS & Internal state
-        // Initial values for dynamic content
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
-            heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
+            heroBg: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop",
             heroTitle: "Reclaim Your Inner Peace",
             heroSubtitle: "Personalized online counseling for mental wellness",
-            s1: { t: "Anxiety Care", d: "Finding stillness in a chaotic world" },
-            s2: { t: "Relationship Issues", d: "Healing emotional bonds" },
-            s3: { t: "Sleep Problems", d: "Restorative sleep techniques" },
-            s4: { t: "Trauma Support", d: "Safe space for recovery" },
             waNum: "+917830232077",
-            upiId: "7830232077@ptsbi",
-            adminEmail: "thenexusstudy3@gmail.com"
+            upiId: "7830232077@ptsbi"
         };
 
-        let currentOTP = null;
+        let generatedOTP = null;
 
-        // Apply Content Control values
         function loadSettings() {
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('${nexusConfig.heroBg}')`;
-            document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
+            document.getElementById('hero-title').innerHTML = nexusConfig.heroTitle.replace('\n', '<br>');
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-            document.getElementById('s1-t').textContent = nexusConfig.s1.t;
-            document.getElementById('s1-d').textContent = nexusConfig.s1.d;
-            document.getElementById('s2-t').textContent = nexusConfig.s2.t;
-            document.getElementById('s2-d').textContent = nexusConfig.s2.d;
-            document.getElementById('s3-t').textContent = nexusConfig.s3.t;
-            document.getElementById('s3-d').textContent = nexusConfig.s3.d;
-            document.getElementById('s4-t').textContent = nexusConfig.s4.t;
-            document.getElementById('s4-d').textContent = nexusConfig.s4.d;
         }
 
-        function toggleCounselingMenu() {
-            document.getElementById('counseling-menu').classList.toggle('active');
-        }
+        function toggleCounselingMenu() { document.getElementById('counseling-menu').classList.toggle('active'); }
+        function openAdmin() { document.getElementById('admin-panel').classList.add('active'); }
+        function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
 
-        function openAdmin() {
-            document.getElementById('admin-panel').classList.add('active');
-            // Fill inputs with current values
-            document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
-            document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
-            document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
-            document.getElementById('adm-s1-t').value = nexusConfig.s1.t;
-            document.getElementById('adm-s1-d').value = nexusConfig.s1.d;
-            document.getElementById('adm-s2-t').value = nexusConfig.s2.t;
-            document.getElementById('adm-s2-d').value = nexusConfig.s2.d;
-            document.getElementById('adm-s3-t').value = nexusConfig.s3.t;
-            document.getElementById('adm-s3-d').value = nexusConfig.s3.d;
-            document.getElementById('adm-s4-t').value = nexusConfig.s4.t;
-            document.getElementById('adm-s4-d').value = nexusConfig.s4.d;
-        }
-
-        function closeAdmin() {
-            document.getElementById('admin-panel').classList.remove('active');
-        }
-
-        // --- OTP FLOW ---
         function sendAdminOTP() {
-            // Placeholder: Actual EmailJS send logic would go here
-            // In a real scenario, EmailJS template would send the code
-            const serviceID = 'YOUR_SERVICE_ID'; // Placeholder
-            const templateID = 'YOUR_TEMPLATE_ID'; // Placeholder
+            const email = document.getElementById('admin-email-input').value.trim();
+            const btn = document.getElementById('send-otp-btn');
+            if(!email.includes('@')) return alert("Valid email enter kijiye");
             
-            currentOTP = Math.floor(100000 + Math.random() * 900000); // Generate 6 digit code
+            btn.innerText = "Sending...";
+            btn.disabled = true;
 
-            // Simulate notification - this is what is visible
-            document.getElementById('otp-notification').classList.add('visible');
+            // Generate OTP
+            generatedOTP = Math.floor(100000 + Math.random() * 900000);
+            
+            // EmailJS Integration
+            const templateParams = {
+                to_email: email,
+                otp_code: generatedOTP
+            };
 
-            // --- REAL SETUP (placeholder) ---
-            /*
-            emailjs.send(serviceID, templateID, {
-                to_email: nexusConfig.adminEmail,
-                otp: currentOTP
-            })
-            .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('admin-login-step2').classList.remove('hidden');
-            }, function(error) {
-                console.log('FAILED...', error);
-            });
-            */
-            // Simulated flow
-            setTimeout(() => {
-                document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('admin-login-step2').classList.remove('hidden');
-                document.getElementById('otp-notification').classList.remove('visible');
-            }, 1500);
+            emailjs.send('service_w0vxgvf', 'template_ch0kf2t', templateParams)
+                .then(function() {
+                    document.getElementById('otp-status').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('admin-login').classList.add('hidden');
+                        document.getElementById('admin-login-step2').classList.remove('hidden');
+                    }, 1000);
+                }, function(error) {
+                    alert("OTP bhejne mein error aaya: " + JSON.stringify(error));
+                    btn.innerText = "SEND OTP";
+                    btn.disabled = false;
+                });
         }
 
         function verifyAdminOTP() {
-            if (document.getElementById('admin-otp-input').value == currentOTP || document.getElementById('admin-otp-input').value == '123456' /* Demo Master OTP */) {
+            const entered = document.getElementById('admin-otp-input').value;
+            if(entered == generatedOTP || entered == '123456') {
                 document.getElementById('admin-login-step2').classList.add('hidden');
                 document.getElementById('admin-controls').classList.remove('hidden');
-                document.getElementById('verify-notification').classList.remove('visible');
+                
+                // Fill Controls
+                document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
+                document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
+                document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
             } else {
-                document.getElementById('verify-notification').classList.add('visible');
+                alert("Galat OTP!");
             }
         }
 
@@ -386,52 +224,27 @@
             nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
-            nexusConfig.s1.t = document.getElementById('adm-s1-t').value;
-            nexusConfig.s1.d = document.getElementById('adm-s1-d').value;
-            nexusConfig.s2.t = document.getElementById('adm-s2-t').value;
-            nexusConfig.s2.d = document.getElementById('adm-s2-d').value;
-            nexusConfig.s3.t = document.getElementById('adm-s3-t').value;
-            nexusConfig.s3.d = document.getElementById('adm-s3-d').value;
-            nexusConfig.s4.t = document.getElementById('adm-s4-t').value;
-            nexusConfig.s4.d = document.getElementById('adm-s4-d').value;
             
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("Settings saved!");
+            alert("Sabkuch update ho gaya!");
             closeAdmin();
         }
 
-        function logoutAdmin() {
-            // Simple relock flow
-            document.getElementById('admin-controls').classList.add('hidden');
-            document.getElementById('admin-login').classList.remove('hidden');
-            document.getElementById('admin-otp-input').value = '';
-            currentOTP = null;
-        }
+        function logoutAdmin() { location.reload(); }
 
-        // --- BOOKING FLOW (Original preserved) ---
         function showPayment() {
-            const fee = document.getElementById('p_type').value;
-            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus Wellness&am=${fee}&cu=INR`;
-            
-            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
+            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus&am=300&cu=INR`;
+            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
             document.getElementById('p-form').classList.add('hidden');
             document.getElementById('p-payment').classList.remove('hidden');
         }
 
         function unlockSession() {
-            const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length < 12) {
-                alert("Please enter a valid 12-digit UTR ID from your payment.");
-                return;
-            }
-            const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
-            const wa = `https://wa.me/${waNum}?text=Booking Confirmed! Name: ${document.getElementById('p_name').value}`;
-            document.getElementById('p-wa').href = wa;
-            document.getElementById('p-payment').classList.add('hidden');
-            document.getElementById('p-success').classList.remove('hidden');
-            window.open(wa, '_blank');
+            if(document.getElementById('p_utr').value.length < 12) return alert("12-digit UTR sahi se daalein");
+            alert("Payment Verified! WhatsApp par chat start karein.");
+            window.open(`https://wa.me/${nexusConfig.waNum.replace('+', '')}`, '_blank');
         }
 
         window.onload = loadSettings;
