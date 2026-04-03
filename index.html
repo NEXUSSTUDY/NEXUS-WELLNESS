@@ -17,7 +17,16 @@
         
         .glass-nav { background: rgba(255, 255, 255, 0.7); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
         
-        .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; transition: 0.5s ease-in-out; }
+        .hero-bg { 
+            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), 
+                              url('https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover; 
+            background-position: center; 
+            transition: 0.5s ease-in-out; 
+            background-attachment: fixed;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
         
         .premium-input { background: #fdfdfd; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px 20px; width: 100%; transition: 0.3s; }
         .premium-input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
@@ -152,7 +161,7 @@
         </div>
     </div>
 
-    <!-- Simple Image Gallery Modal -->
+    <!-- Image Gallery Modal -->
     <div id="image-gallery-modal" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
         <div class="bg-white rounded-3xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
             <div class="p-6 border-b flex justify-between items-center">
@@ -160,9 +169,7 @@
                 <button onclick="closeImageGallery()" class="text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 overflow-y-auto" style="max-height: 70vh;">
-                <div class="grid grid-cols-2 gap-4" id="gallery-images">
-                    <!-- Images loaded by JS -->
-                </div>
+                <div class="grid grid-cols-2 gap-4" id="gallery-images"></div>
             </div>
             <div class="p-6 border-t text-xs text-gray-500">
                 Click any image to select. You can also paste any direct image URL manually.
@@ -212,10 +219,12 @@
             <div id="booking-flow">
                 <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
                     <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
+                    
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
                     </div>
+                    
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" class="premium-input" required>
                         <select id="p_gender" class="premium-input" required>
@@ -225,10 +234,19 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
+
+                    <select id="p_counseling_type" class="premium-input" required>
+                        <option value="">Type of Counseling</option>
+                        <option value="Audio">Audio Consultation</option>
+                        <option value="Video">Video Consultation</option>
+                        <option value="Chat">Chat Counseling</option>
+                    </select>
+
                     <select id="p_type" class="premium-input" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
+                    
                     <textarea id="p_concern" placeholder="Your Concern" class="premium-input" required></textarea>
                     <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest shadow-xl">Pay & Book Now</button>
                 </form>
@@ -284,13 +302,13 @@
         let currentOTP = null;
         let currentTargetInput = null;
 
-        // EmailJS Init
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
         function loadSettings() {
-            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('${nexusConfig.heroBg}')`;
+            const hero = document.getElementById('hero-section');
+            hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
             document.getElementById('s1-t').textContent = nexusConfig.s1.t;
@@ -325,7 +343,7 @@
 
         function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
 
-        // OTP Email - using both common variables for better compatibility
+        // OTP Fix - Using most common variable names from EmailJS OTP templates
         function sendAdminOTP() {
             const email = document.getElementById('admin-email-input').value.trim();
             if (!email || !email.includes('@')) {
@@ -337,12 +355,14 @@
 
             const templateParams = {
                 to_email: email,
+                passcode: currentOTP,     // Most common in EmailJS OTP templates
                 otp: currentOTP,
-                passcode: currentOTP   // Added for templates that use passcode
+                code: currentOTP
             };
 
             emailjs.send("service_w0vxgvf", "template_ch0kf2t", templateParams)
-                .then(function() {
+                .then(function(response) {
+                    console.log("OTP Email Sent!", response.status, response.text);
                     document.getElementById('otp-notification').classList.add('visible');
                     setTimeout(() => {
                         document.getElementById('admin-login').classList.add('hidden');
@@ -351,8 +371,8 @@
                     }, 1200);
                 })
                 .catch(function(error) {
-                    console.error(error);
-                    alert("Failed to send OTP. Make sure your EmailJS template contains {{otp}} or {{passcode}} variable.");
+                    console.error("EmailJS Error:", error);
+                    alert("Failed to send OTP email.\n\nPlease check:\n1. Your EmailJS template contains {{passcode}} or {{otp}}\n2. Service ID and Template ID are correct.");
                 });
         }
 
@@ -366,7 +386,6 @@
             }
         }
 
-        // Expanded Wellness Image Gallery
         const sampleImages = [
             "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
             "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070",
@@ -375,8 +394,7 @@
             "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
             "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
             "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
-            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070",
-            "https://images.unsplash.com/photo-1559757148-5e995136c87b?q=80&w=2070"
+            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070"
         ];
 
         function openImageGallery(targetId) {
@@ -456,6 +474,7 @@
             const email = document.getElementById('p_email').value;
             const whatsapp = document.getElementById('p_whatsapp').value;
             const concern = document.getElementById('p_concern').value;
+            const counselingType = document.getElementById('p_counseling_type').value;
             const fee = document.getElementById('p_type').value;
 
             const templateParams = {
@@ -464,6 +483,7 @@
                 user_email: email,
                 user_whatsapp: whatsapp,
                 user_concern: concern,
+                counseling_type: counselingType,
                 session_fee: "₹" + fee,
                 utr_id: utr,
                 message: "Thank you for your payment. Our team will contact you shortly on WhatsApp."
@@ -474,7 +494,7 @@
                 .catch(err => console.log("Email failed", err));
 
             const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
-            const wa = `https://wa.me/${waNum}?text=Hi, I have completed payment (UTR: ${utr}). Name: ${name}`;
+            const wa = `https://wa.me/${waNum}?text=Hi, Payment Done (UTR: ${utr}). Name: ${name} | Type: ${counselingType}`;
             document.getElementById('p-wa').href = wa;
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
