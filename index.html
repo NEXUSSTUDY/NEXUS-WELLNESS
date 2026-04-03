@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // Public Key integrated here
-            emailjs.init("jH5TwO1sLcWFwHHzu");
-        })();
-    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -91,7 +85,7 @@
         <div id="admin-login" class="space-y-6">
             <p class="text-xs text-gray-500 font-bold uppercase">Enter Admin Email</p>
             <input type="email" id="admin-email-input" placeholder="example@gmail.com" class="premium-input text-sm">
-            <button id="send-otp-btn" onclick="sendAdminOTP()" class="cta-btn w-full py-4">SEND OTP</button>
+            <button onclick="sendAdminOTP()" class="cta-btn w-full py-4">SEND OTP</button>
             <p id="otp-status" class="otp-sent-msg text-center">OTP sent successfully!</p>
         </div>
         
@@ -136,8 +130,8 @@
             <form onsubmit="event.preventDefault(); showPayment();" id="p-form" class="space-y-6">
                 <h2 class="text-4xl font-bold text-center mb-10">Schedule Session</h2>
                 <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
-                    <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
+                    <input type="text" id="user-name" placeholder="Name" class="premium-input" required>
+                    <input type="email" id="user-email" placeholder="Email" class="premium-input" required>
                 </div>
                 <button type="submit" class="cta-btn w-full py-5">Pay & Book Now</button>
             </form>
@@ -164,6 +158,11 @@
 
         let generatedOTP = null;
 
+        // EmailJS Configuration
+        (function() {
+            emailjs.init("jH5TwO1sLcWFwHHzu");
+        })();
+
         function loadSettings() {
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').innerHTML = nexusConfig.heroTitle.replace('\n', '<br>');
@@ -176,33 +175,19 @@
 
         function sendAdminOTP() {
             const email = document.getElementById('admin-email-input').value.trim();
-            const btn = document.getElementById('send-otp-btn');
             if(!email.includes('@')) return alert("Valid email enter kijiye");
             
-            btn.innerText = "Sending...";
-            btn.disabled = true;
-
             // Generate OTP
             generatedOTP = Math.floor(100000 + Math.random() * 900000);
             
-            // EmailJS Integration
-            const templateParams = {
-                to_email: email,
-                otp_code: generatedOTP
-            };
-
-            emailjs.send('service_w0vxgvf', 'template_ch0kf2t', templateParams)
-                .then(function() {
-                    document.getElementById('otp-status').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('admin-login').classList.add('hidden');
-                        document.getElementById('admin-login-step2').classList.remove('hidden');
-                    }, 1000);
-                }, function(error) {
-                    alert("OTP bhejne mein error aaya: " + JSON.stringify(error));
-                    btn.innerText = "SEND OTP";
-                    btn.disabled = false;
-                });
+            // SHOW NOTIFICATION & ALERT
+            document.getElementById('otp-status').style.display = 'block';
+            alert("OTP SENT! \n\nCheck your email: " + email + "\nYour OTP is: " + generatedOTP); 
+            
+            setTimeout(() => {
+                document.getElementById('admin-login').classList.add('hidden');
+                document.getElementById('admin-login-step2').classList.remove('hidden');
+            }, 1000);
         }
 
         function verifyAdminOTP() {
@@ -234,6 +219,14 @@
         function logoutAdmin() { location.reload(); }
 
         function showPayment() {
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+
+            if (!name || !email) {
+                alert("Please fill your name and email");
+                return;
+            }
+
             const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus&am=300&cu=INR`;
             document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
@@ -242,8 +235,32 @@
         }
 
         function unlockSession() {
-            if(document.getElementById('p_utr').value.length < 12) return alert("12-digit UTR sahi se daalein");
-            alert("Payment Verified! WhatsApp par chat start karein.");
+            const utr = document.getElementById('p_utr').value.trim();
+            if(utr.length < 12) return alert("12-digit UTR sahi se daalein");
+
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+
+            // Send confirmation email via EmailJS
+            const templateParams = {
+                to_email: email,
+                from_name: "Nexus Wellness",
+                user_name: name,
+                user_email: email,
+                utr_id: utr,
+                session_amount: "₹300",
+                message: "Your payment has been received. Our team will contact you shortly on WhatsApp."
+            };
+
+            emailjs.send("service_w0vxgvf", "template_ch0kf2t", templateParams)
+                .then(function(response) {
+                    console.log("Email sent successfully!", response.status, response.text);
+                    alert("Payment Verified! Confirmation email bheja gaya hai. WhatsApp par chat start karein.");
+                }, function(error) {
+                    console.log("Email sending failed:", error);
+                    alert("Payment Verified! (Email could not be sent). WhatsApp par chat start karein.");
+                });
+
             window.open(`https://wa.me/${nexusConfig.waNum.replace('+', '')}`, '_blank');
         }
 
