@@ -162,7 +162,7 @@
             
             <!-- Counseling Areas Control -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Counseling Areas Control</h4>
+                <h4 class="font-bold text-lg mb-6">Counseling Areas Control (5 Areas)</h4>
                 <div id="counseling-areas-container" class="space-y-8"></div>
                 <button onclick="addNewCounselingArea()" 
                         class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
@@ -195,7 +195,7 @@
     <div id="image-gallery-modal" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
         <div class="bg-white rounded-3xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
             <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="font-bold text-xl">Choose Image</h3>
+                <h3 class="font-bold text-xl">Choose Background Image</h3>
                 <button onclick="closeImageGallery()" class="text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 overflow-y-auto" style="max-height: 70vh;">
@@ -214,7 +214,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Dynamic Counseling Area Content -->
+    <!-- Dynamic Counseling Content -->
     <div id="counseling-content"></div>
 
     <!-- Booking Section -->
@@ -273,7 +273,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer with Location -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
             <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
@@ -307,35 +307,35 @@
                 { 
                     id: 1, 
                     title: "Anxiety & Stress", 
-                    description: "Finding stillness in a chaotic world. Our experts help you manage anxiety and build resilience.", 
+                    description: "Finding stillness in a chaotic world. Our experts help you manage anxiety with proven techniques.", 
                     emoji: "🧠", 
                     image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070" 
                 },
                 { 
                     id: 2, 
                     title: "Relationship Issues", 
-                    description: "Healing emotional bonds and improving communication in your relationships.", 
+                    description: "Healing emotional bonds and improving communication in your personal relationships.", 
                     emoji: "❤️", 
                     image: "" 
                 },
                 { 
                     id: 3, 
                     title: "Sleep Problems", 
-                    description: "Restorative sleep techniques to help you achieve deep, peaceful rest.", 
+                    description: "Restorative sleep techniques to help you achieve deep and peaceful rest every night.", 
                     emoji: "🌙", 
                     image: "" 
                 },
                 { 
                     id: 4, 
                     title: "Trauma Support", 
-                    description: "A safe space for trauma recovery and emotional healing.", 
+                    description: "A safe and confidential space for trauma recovery and emotional healing.", 
                     emoji: "🛡️", 
                     image: "" 
                 },
                 { 
                     id: 5, 
                     title: "Blog", 
-                    description: "Insightful articles and resources on mental wellness.", 
+                    description: "Read insightful articles and expert advice on mental wellness and self-care.", 
                     emoji: "📖", 
                     image: "" 
                 }
@@ -350,19 +350,16 @@
         })();
 
         function loadSettings() {
-            // Hero Section
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-
             renderMenuItems();
         }
 
         function renderMenuItems() {
             const container = document.getElementById('menu-items');
             container.innerHTML = '';
-
-            nexusConfig.counselingAreas.forEach(area => {
+            nexusConfig.counselingAreas.forEach((area) => {
                 const div = document.createElement('div');
                 div.className = "menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition";
                 div.innerHTML = `<span>${area.title}</span><span class="text-2xl">›</span>`;
@@ -373,24 +370,20 @@
 
         function showCounselingArea(area) {
             toggleCounselingMenu();
-            
             const contentDiv = document.getElementById('counseling-content');
             contentDiv.innerHTML = `
                 <section class="py-24 px-6 md:px-20 bg-white">
                     <div class="max-w-5xl mx-auto">
-                        ${area.image ? 
-                            `<img src="${area.image}" class="w-full rounded-3xl shadow-2xl mb-12 object-cover max-h-[500px]" alt="${area.title}">` : ''}
+                        ${area.image ? `<img src="${area.image}" class="w-full rounded-3xl shadow-2xl mb-12 object-cover" style="max-height: 520px;" alt="${area.title}">` : ''}
                         <div class="text-center">
                             <div class="text-8xl mb-8">${area.emoji}</div>
-                            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8">${area.title}</h1>
-                            <div class="prose prose-lg max-w-3xl mx-auto text-gray-700 leading-relaxed">
-                                ${area.description}
-                            </div>
+                            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-10">${area.title}</h1>
+                            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">${area.description}</p>
                         </div>
                     </div>
                 </section>
             `;
-            contentDiv.scrollIntoView({ behavior: 'smooth' });
+            contentDiv.scrollIntoView({ behavior: "smooth" });
         }
 
         function toggleCounselingMenu() { 
@@ -399,8 +392,6 @@
 
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
-            
-            // Load hero values
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
             document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
             document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
@@ -408,29 +399,27 @@
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
-
             renderAdminCounselingAreas();
         }
 
         function renderAdminCounselingAreas() {
             const container = document.getElementById('counseling-areas-container');
             container.innerHTML = '';
-
             nexusConfig.counselingAreas.forEach((area, index) => {
                 const div = document.createElement('div');
                 div.className = "border rounded-3xl p-6 bg-gray-50";
                 div.innerHTML = `
-                    <div class="flex justify-between items-center mb-4">
-                        <h5 class="font-semibold text-base">Area ${index + 1}</h5>
-                        <button onclick="removeCounselingArea(${index})" class="text-red-500 hover:text-red-700 text-sm">Remove</button>
+                    <div class="flex justify-between mb-4">
+                        <h5 class="font-semibold">Area ${index + 1}</h5>
+                        <button onclick="removeCounselingArea(${index})" class="text-red-500 text-sm hover:text-red-700">Remove</button>
                     </div>
                     <div class="space-y-4">
                         <input id="area-title-${index}" value="${area.title}" class="premium-input text-sm" placeholder="Title">
-                        <textarea id="area-desc-${index}" class="premium-input text-sm h-24 resize-y">${area.description}</textarea>
+                        <textarea id="area-desc-${index}" class="premium-input text-sm h-24">${area.description}</textarea>
                         <input id="area-emoji-${index}" value="${area.emoji}" class="premium-input text-sm" placeholder="Emoji">
                         <div class="flex gap-2">
                             <input id="area-image-${index}" value="${area.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL (optional)">
-                            <button onclick="openImageGalleryForArea(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium whitespace-nowrap">Gallery</button>
+                            <button onclick="openImageGalleryForArea(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
                         </div>
                     </div>
                 `;
@@ -441,23 +430,23 @@
         function addNewCounselingArea() {
             nexusConfig.counselingAreas.push({
                 id: Date.now(),
-                title: "New Area",
-                description: "Add detailed description here...",
-                emoji: "🌟",
+                title: "New Counseling Area",
+                description: "Add your description here...",
+                emoji: "✨",
                 image: ""
             });
             renderAdminCounselingAreas();
         }
 
         function removeCounselingArea(index) {
-            if (confirm("Delete this counseling area?")) {
+            if (confirm("Are you sure you want to delete this area?")) {
                 nexusConfig.counselingAreas.splice(index, 1);
                 renderAdminCounselingAreas();
             }
         }
 
         function openImageGalleryForArea(index) {
-            currentImageTarget = { type: 'area', index: index };
+            currentImageTarget = { type: "area", index: index };
             openImageGallery(null);
         }
 
@@ -482,7 +471,7 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget && currentImageTarget.type === 'area') {
+                    if (currentImageTarget && currentImageTarget.type === "area") {
                         document.getElementById(`area-image-${currentImageTarget.index}`).value = url;
                         currentImageTarget = null;
                     } else if (targetId) {
@@ -492,7 +481,6 @@
                 };
                 container.appendChild(div);
             });
-
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
@@ -540,14 +528,8 @@
                 alert("Please enter a valid email address");
                 return;
             }
-
             currentOTP = Math.floor(100000 + Math.random() * 900000);
-
-            const templateParams = {
-                to_email: email,
-                otp: currentOTP
-            };
-
+            const templateParams = { to_email: email, otp: currentOTP };
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
                     document.getElementById('otp-notification').classList.add('visible');
@@ -557,10 +539,7 @@
                         document.getElementById('otp-notification').classList.remove('visible');
                     }, 1500);
                 })
-                .catch((error) => {
-                    console.error(error);
-                    alert("Failed to send OTP. Please check EmailJS settings.");
-                });
+                .catch(() => alert("Failed to send OTP."));
         }
 
         function verifyAdminOTP() {
@@ -601,10 +580,8 @@
                 alert("Please enter a valid 12-digit UTR ID from your payment.");
                 return;
             }
-
             const name = document.getElementById('p_name').value;
             const counselingType = document.getElementById('p_counseling_type').value;
-
             const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
             const wa = `https://wa.me/${waNum}?text=Hi, Payment Done (UTR: ${utr}). Name: ${name} | Type: ${counselingType}`;
             document.getElementById('p-wa').href = wa;
@@ -617,7 +594,6 @@
             document.getElementById('admin-panel').classList.remove('active'); 
         }
 
-        // Initialize
         window.onload = loadSettings;
     </script>
 </body>
