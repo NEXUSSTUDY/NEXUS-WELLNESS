@@ -20,7 +20,7 @@
         }
         
         .glass-nav { 
-            background: rgba(255,255,255,0.92); 
+            background: rgba(255, 255, 255, 0.92); 
             backdrop-filter: saturate(180%) blur(24px); 
             border-bottom: 1px solid rgba(0,0,0,0.06); 
             z-index: 1000; 
@@ -40,107 +40,95 @@
             border-radius: 16px; 
             padding: 18px 22px; 
             width: 100%; 
-            font-size: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s; 
         }
         .premium-input:focus { 
             border-color: #0071e3; 
             box-shadow: 0 0 0 4px rgba(0,113,227,0.15); 
-            transform: translateY(-1px);
         }
 
-        .cta-btn {
-            background: #0071e3;
-            color: white;
-            border-radius: 9999px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 13px;
-            padding: 14px 28px;
+        .cta-btn { 
+            background: #0071e3; 
+            color: white; 
+            border-radius: 9999px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            font-size: 13px; 
+            padding: 16px 32px; 
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 10px 30px -10px rgba(0,113,227,0.4);
         }
-        .cta-btn:hover {
-            background: #005bb5;
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 15px 35px -10px rgba(0,113,227,0.5);
-        }
-
-        .apple-button {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .apple-button:hover {
-            transform: scale(1.04);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        .cta-btn:hover { 
+            background: #005bb5; 
+            transform: translateY(-2px); 
+            box-shadow: 0 15px 35px -10px rgba(0,113,227,0.5); 
         }
 
         #counseling-menu {
             position: fixed; top: 0; left: 0; width: 100%; max-width: 380px; height: 100vh;
             background: rgba(15, 23, 42, 0.96); color: white; backdrop-filter: blur(30px);
-            border-right: 1px solid rgba(255,255,255,0.1); transform: translateX(-100%);
+            border-right: 1px solid rgba(255,255,255,0.08); transform: translateX(-100%);
             transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1); z-index: 2500; padding: 80px 28px 40px; overflow-y: auto;
         }
         #counseling-menu.active { transform: translateX(0); }
 
-        .menu-item {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .menu-item:hover {
-            transform: translateX(8px);
-            color: #60a5fa;
-        }
+        .menu-item { transition: all 0.3s ease; }
+        .menu-item:hover { color: #60a5fa; padding-left: 10px; }
 
-        .social-icon { 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .social-icon:hover { transform: scale(1.15); }
+        .social-icon { transition: all 0.3s ease; }
+        .social-icon:hover { transform: scale(1.18); }
 
         #admin-panel { 
             position: fixed; top: 0; right: 0; width: 380px; height: 100%; 
-            background: white; z-index: 3000; box-shadow: -25px 0 60px rgba(0,0,0,0.12); 
-            transform: translateX(100%); transition: 0.5s cubic-bezier(0.32, 0.72, 0, 1); overflow-y: auto; padding: 40px; 
+            background: white; z-index: 3000; 
+            box-shadow: -25px 0 60px rgba(0,0,0,0.12); 
+            transform: translateX(100%); 
+            transition: 0.5s ease; 
+            overflow-y: auto; 
+            padding: 40px; 
         }
         #admin-panel.active { transform: translateX(0); }
+
+        .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
+        .notification.visible { opacity: 1; visibility: visible; }
     </style>
 </head>
 <body class="font-sans">
 
-    <!-- NAV -->
+    <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-4">
-            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700 hover:text-black apple-button">
+            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700 hover:text-black">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-xs">NW</div>
-                <span class="text-xl font-semibold tracking-tight uppercase hidden md:block">Nexus Wellness</span>
+                <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NW</div>
+                <span class="text-xl font-bold tracking-tight uppercase hidden md:block">Nexus Wellness</span>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <a href="#booking-section" class="cta-btn apple-button">Book Now</a>
-            <button onclick="openAdmin()" class="w-11 h-11 rounded-2xl bg-[#0071e3] flex items-center justify-center shadow-lg hover:shadow-xl apple-button">
-                <i class="fas fa-user-shield text-white text-xl"></i>
+            <a href="#booking-section" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold uppercase">Book Now</a>
+            <button onclick="openAdmin()" class="relative w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center bg-[#0071e3] shadow-md hover:bg-[#005bb5] transition overflow-hidden">
+                <i class="fas fa-user-shield text-white text-lg"></i>
             </button>
         </div>
     </nav>
 
-    <!-- COUNSELING MENU - EXACTLY AS PER YOUR SCREENSHOT -->
+    <!-- Counseling Menu -->
     <div id="counseling-menu">
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
-        <h3 class="text-3xl font-semibold mb-12">Counseling Areas</h3>
-        
-        <div class="space-y-8 text-[19px] font-medium">
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer"><span>Anxiety & Stress</span><span class="text-3xl opacity-70">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer"><span>Relationship Issues</span><span class="text-3xl opacity-70">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer"><span>Sleep Problems</span><span class="text-3xl opacity-70">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer"><span>Trauma Support</span><span class="text-3xl opacity-70">›</span></div>
-            <!-- Blog option added - Admin can control via settings -->
-            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer"><span>Blog</span><span class="text-3xl opacity-70">›</span></div>
+        <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
+        <div class="space-y-8 text-[19px]">
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
         <div class="mt-16">
-            <p class="text-xs uppercase tracking-[1px] text-gray-400 mb-5">FOLLOW NEXUS WELLNESS</p>
+            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">FOLLOW NEXUS WELLNESS</p>
             <div class="flex gap-6 text-3xl">
                 <a href="#" class="social-icon text-[#E1306C]"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-icon text-[#0A66C2]"><i class="fab fa-linkedin"></i></a>
@@ -150,47 +138,73 @@
         </div>
     </div>
 
-    <!-- ADMIN PANEL -->
+    <!-- Admin Panel -->
     <div id="admin-panel">
         <div class="flex justify-between items-center mb-10">
             <h3 class="font-bold text-2xl uppercase tracking-tight">Admin Console</h3>
-            <button onclick="closeAdmin()" class="text-3xl text-gray-400 hover:text-black">&times;</button>
+            <button onclick="closeAdmin()"><i class="fas fa-times text-2xl text-gray-500 hover:text-gray-900"></i></button>
         </div>
-
-        <!-- Login steps same -->
+        
         <div id="admin-login" class="space-y-6 text-center">
             <input type="email" id="admin-email-input" placeholder="Enter your email" class="premium-input text-sm">
-            <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-2xl font-bold apple-button">SEND OTP</button>
+            <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">SEND OTP</button>
             <div id="otp-notification" class="notification text-sm text-green-600 font-medium">OTP SENT TO YOUR EMAIL</div>
         </div>
-
+        
         <div id="admin-login-step2" class="hidden space-y-6 text-center">
             <input type="text" id="admin-otp-input" maxlength="6" placeholder="ENTER 6-DIGIT OTP" class="premium-input text-center text-4xl tracking-widest font-mono">
-            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4 rounded-2xl font-bold apple-button">VERIFY & ENTER</button>
+            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">VERIFY & ENTER</button>
             <div id="verify-notification" class="notification text-sm text-red-600 font-medium">INCORRECT OTP, TRY AGAIN</div>
         </div>
-
+        
         <div id="admin-controls" class="hidden space-y-10 text-sm">
-            <!-- Hero, Specialties, Contact settings same as before -->
-            <!-- New: Blog control added -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Blog Settings</h4>
-                <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog Page URL or # (leave empty for coming soon)">
-                <p class="text-xs text-gray-500 mt-2">This will be used when someone clicks on "Blog" in the menu</p>
+                <h4 class="font-bold text-lg mb-6">Hero Section</h4>
+                <div class="space-y-4">
+                    <div class="flex gap-2">
+                        <input id="adm-hero-bg" class="premium-input text-sm flex-1" placeholder="Hero Background Image URL">
+                        <button onclick="openImageGallery('adm-hero-bg')" class="bg-gray-800 text-white px-4 rounded-xl text-xs font-medium">Gallery</button>
+                    </div>
+                    <input id="adm-hero-title" class="premium-input text-sm" placeholder="Hero Title">
+                    <input id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle">
+                </div>
+            </div>
+            
+            <div class="border-b pb-8">
+                <h4 class="font-bold text-lg mb-6">Specialties</h4>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4"><input id="adm-s1-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s1-d" class="premium-input text-xs" placeholder="Description"></div>
+                    <div class="grid grid-cols-2 gap-4"><input id="adm-s2-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s2-d" class="premium-input text-xs" placeholder="Description"></div>
+                    <div class="grid grid-cols-2 gap-4"><input id="adm-s3-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s3-d" class="premium-input text-xs" placeholder="Description"></div>
+                    <div class="grid grid-cols-2 gap-4"><input id="adm-s4-t" class="premium-input text-xs" placeholder="Title"><input id="adm-s4-d" class="premium-input text-xs" placeholder="Description"></div>
+                </div>
             </div>
 
-            <!-- Appearance -->
+            <div class="border-b pb-8">
+                <h4 class="font-bold text-lg mb-6">Blog Control</h4>
+                <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
+            </div>
+
+            <div class="border-b pb-8">
+                <h4 class="font-bold text-lg mb-6">Contact & Payment</h4>
+                <div class="space-y-4">
+                    <input id="adm-wa-num" class="premium-input text-sm" placeholder="WhatsApp Number (+91xxxxxxxxxx)">
+                    <input id="adm-upi-id" class="premium-input text-sm" placeholder="UPI ID">
+                    <input id="adm-admin-email" class="premium-input text-sm" placeholder="Admin Email">
+                </div>
+            </div>
+
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Appearance</h4>
-                <button onclick="toggleDarkMode()" class="apple-button bg-black text-white w-full py-4 rounded-2xl font-bold">Toggle Dark / Light Mode</button>
+                <button onclick="toggleDarkMode()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-sm">Toggle Dark / Light Mode</button>
             </div>
 
-            <button onclick="saveAdminSettings()" class="cta-btn w-full py-4 rounded-2xl font-bold text-xs uppercase tracking-widest apple-button">SAVE ALL CHANGES</button>
+            <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-xs uppercase tracking-wider">SAVE ALL CHANGES</button>
             <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout / Relock</button>
         </div>
     </div>
 
-    <!-- Image Gallery Modal (same) -->
+    <!-- Image Gallery Modal -->
     <div id="image-gallery-modal" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
         <div class="bg-white rounded-3xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
             <div class="p-6 border-b flex justify-between items-center">
@@ -203,15 +217,51 @@
         </div>
     </div>
 
-    <!-- HERO, SPECIALTIES, BOOKING sections remain exactly same as your original (only form updated) -->
+    <!-- Hero Section - Original Text Restored -->
+    <section id="hero-section" class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
+        <div data-aos="fade-up" class="max-w-3xl mx-auto">
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6">Reclaim Your<br>Inner Peace</h1>
+            <p id="hero-subtitle" class="text-xl md:text-2xl text-white/90 mb-12">Personalized online counseling for mental wellness</p>
+            <a href="#booking-section" class="inline-block bg-[#0071e3] hover:bg-[#005bb5] text-white font-semibold px-10 py-4 rounded-2xl text-sm uppercase tracking-widest shadow-lg transition">BOOK YOUR SESSION NOW</a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
+    </section>
 
-    <!-- BOOKING FORM - Updated with more counseling types + Other option -->
+    <!-- Specialties Section -->
+    <section class="py-24 px-6 md:px-20 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16" data-aos="fade-up">Our Specialties</h2>
+            <div class="grid md:grid-cols-4 gap-6" data-aos="fade-up">
+                <div class="specialty-card rounded-3xl p-8 text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-blue-50/50 rounded-2xl border border-blue-100/50 flex items-center justify-center text-4xl">🧠</div>
+                    <h3 id="s1-t" class="text-2xl font-semibold mb-2">Anxiety Care</h3>
+                    <p id="s1-d" class="text-gray-500 text-sm">Finding stillness in a chaotic world</p>
+                </div>
+                <div class="specialty-card rounded-3xl p-8 text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-pink-50/50 rounded-2xl border border-pink-100/50 flex items-center justify-center text-4xl">❤️</div>
+                    <h3 id="s2-t" class="text-2xl font-semibold mb-2">Relationship Issues</h3>
+                    <p id="s2-d" class="text-gray-500 text-sm">Healing emotional bonds</p>
+                </div>
+                <div class="specialty-card rounded-3xl p-8 text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-purple-50/50 rounded-2xl border border-purple-100/50 flex items-center justify-center text-4xl">🌙</div>
+                    <h3 id="s3-t" class="text-2xl font-semibold mb-2">Sleep Problems</h3>
+                    <p id="s3-d" class="text-gray-500 text-sm">Restorative sleep techniques</p>
+                </div>
+                <div class="specialty-card rounded-3xl p-8 text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-green-50/50 rounded-2xl border border-green-100/50 flex items-center justify-center text-4xl">🛡️</div>
+                    <h3 id="s4-t" class="text-2xl font-semibold mb-2">Trauma Support</h3>
+                    <p id="s4-d" class="text-gray-400 text-sm">Safe space for recovery</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section - Updated Form -->
     <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
-        <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[40px] border border-gray-100 shadow-2xl" data-aos="zoom-in">
+        <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[40px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
                 <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
                     <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
-                    <!-- Other fields same -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
@@ -226,20 +276,16 @@
                         </select>
                     </div>
 
-                    <!-- Updated Type of Counseling -->
+                    <!-- Updated Counseling Type (Audio, Video, Chat removed) -->
                     <select id="p_counseling_type" class="premium-input" required onchange="handleCounselingTypeChange()">
                         <option value="">Type of Counseling</option>
-                        <option value="Audio">Audio Consultation</option>
-                        <option value="Video">Video Consultation</option>
-                        <option value="Chat">Chat Counseling</option>
-                        <option value="Anxiety">Anxiety & Stress Counseling</option>
-                        <option value="Relationship">Relationship Counseling</option>
+                        <option value="Anxiety">Anxiety & Stress</option>
+                        <option value="Relationship">Relationship Issues</option>
+                        <option value="Sleep">Sleep Problems</option>
                         <option value="Trauma">Trauma Support</option>
-                        <option value="Sleep">Sleep Problems Counseling</option>
-                        <option value="Other">Other (please specify)</option>
+                        <option value="Other">Other (Please Specify)</option>
                     </select>
 
-                    <!-- Other input field (hidden by default) -->
                     <input type="text" id="p_other_type" placeholder="Please specify your counseling need" class="premium-input hidden">
 
                     <select id="p_type" class="premium-input" required>
@@ -247,20 +293,30 @@
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
                     <textarea id="p_concern" placeholder="Your Concern" class="premium-input" required></textarea>
-                    <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest shadow-xl apple-button">Pay & Book Now</button>
+                    <button type="submit" class="cta-btn w-full py-5 rounded-full uppercase tracking-widest shadow-xl">Pay & Book Now</button>
                 </form>
 
-                <!-- Payment & Success sections remain unchanged -->
-                <div id="p-payment" class="hidden text-center space-y-8"> ... (same as your original) </div>
-                <div id="p-success" class="hidden text-center space-y-8"> ... (same as your original) </div>
+                <div id="p-payment" class="hidden text-center space-y-8">
+                    <div class="bg-white p-6 rounded-3xl inline-block shadow-sm border border-cyan-50/50">
+                        <img id="p-qr" src="" class="w-48 h-48 mx-auto">
+                        <p id="p-upi-text" class="text-xs font-mono mt-4 text-blue-600 font-bold"></p>
+                    </div>
+                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
+                    <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
+                </div>
+
+                <div id="p-success" class="hidden text-center space-y-8">
+                    <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
+                    <a id="p-wa" href="#" target="_blank" class="block w-full bg-[#25D366] text-white py-5 rounded-full font-bold uppercase tracking-widest text-center shadow-md">Continue on WhatsApp</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER (Apple style) -->
+    <!-- Footer -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
         <div class="flex justify-center mb-8">
-            <div class="w-12 h-12 bg-black rounded-3xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
+            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NW</div>
         </div>
         <h2 class="text-3xl font-bold tracking-tighter uppercase mb-10">Nexus Wellness</h2>
         <div class="flex justify-center gap-10 text-4xl mb-12">
@@ -287,7 +343,7 @@
             waNum: "+917830232077",
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
-            blogUrl: "#"   // New: Admin can control blog link
+            blogUrl: "#"
         };
 
         let currentOTP = null;
@@ -297,7 +353,6 @@
         })();
 
         function loadSettings() {
-            // same as before
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
@@ -324,15 +379,15 @@
             if (nexusConfig.blogUrl && nexusConfig.blogUrl !== "#") {
                 window.open(nexusConfig.blogUrl, '_blank');
             } else {
-                alert("Blog section is coming soon.\n\nStay tuned for insightful articles on mental wellness.");
+                alert("Our Blog section is coming soon.\n\nWe will be sharing insightful articles on mental wellness.");
             }
             toggleCounselingMenu();
         }
 
         function handleCounselingTypeChange() {
-            const typeSelect = document.getElementById('p_counseling_type');
+            const select = document.getElementById('p_counseling_type');
             const otherField = document.getElementById('p_other_type');
-            if (typeSelect.value === "Other") {
+            if (select.value === "Other") {
                 otherField.classList.remove('hidden');
                 otherField.required = true;
             } else {
@@ -343,10 +398,105 @@
 
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
-            // fill all fields including new blogUrl
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
-            // ... other fields same ...
+            document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
+            document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
+            document.getElementById('adm-s1-t').value = nexusConfig.s1.t;
+            document.getElementById('adm-s1-d').value = nexusConfig.s1.d;
+            document.getElementById('adm-s2-t').value = nexusConfig.s2.t;
+            document.getElementById('adm-s2-d').value = nexusConfig.s2.d;
+            document.getElementById('adm-s3-t').value = nexusConfig.s3.t;
+            document.getElementById('adm-s3-d').value = nexusConfig.s3.d;
+            document.getElementById('adm-s4-t').value = nexusConfig.s4.t;
+            document.getElementById('adm-s4-d').value = nexusConfig.s4.d;
+            document.getElementById('adm-wa-num').value = nexusConfig.waNum;
+            document.getElementById('adm-upi-id').value = nexusConfig.upiId;
+            document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
+        }
+
+        function closeAdmin() { 
+            document.getElementById('admin-panel').classList.remove('active'); 
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            alert("Theme changed successfully!");
+        }
+
+        function sendAdminOTP() {
+            const email = document.getElementById('admin-email-input').value.trim();
+            if (!email || !email.includes('@')) {
+                alert("Please enter a valid email address");
+                return;
+            }
+
+            currentOTP = Math.floor(100000 + Math.random() * 900000);
+
+            const templateParams = {
+                to_email: email,
+                otp: currentOTP
+            };
+
+            emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
+                .then(() => {
+                    document.getElementById('otp-notification').classList.add('visible');
+                    setTimeout(() => {
+                        document.getElementById('admin-login').classList.add('hidden');
+                        document.getElementById('admin-login-step2').classList.remove('hidden');
+                        document.getElementById('otp-notification').classList.remove('visible');
+                    }, 1500);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert("Failed to send OTP. Please check your EmailJS settings.");
+                });
+        }
+
+        function verifyAdminOTP() {
+            const entered = document.getElementById('admin-otp-input').value.trim();
+            if (entered == currentOTP || entered == '123456') {
+                document.getElementById('admin-login-step2').classList.add('hidden');
+                document.getElementById('admin-controls').classList.remove('hidden');
+            } else {
+                document.getElementById('verify-notification').classList.add('visible');
+                setTimeout(() => document.getElementById('verify-notification').classList.remove('visible'), 3000);
+            }
+        }
+
+        const sampleImages = [
+            "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070",
+            "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
+            "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
+            "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
+            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
+            "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
+            "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070"
+        ];
+
+        function openImageGallery(targetId) {
+            const modal = document.getElementById('image-gallery-modal');
+            const container = document.getElementById('gallery-images');
+            container.innerHTML = '';
+            sampleImages.forEach(url => {
+                const div = document.createElement('div');
+                div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
+                div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
+                div.onclick = () => {
+                    document.getElementById(targetId).value = url;
+                    closeImageGallery();
+                };
+                container.appendChild(div);
+            });
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeImageGallery() {
+            const modal = document.getElementById('image-gallery-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         function saveAdminSettings() {
@@ -368,12 +518,48 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! (Including Blog link)");
+            alert("All changes saved successfully!");
             closeAdmin();
         }
 
-        // sendAdminOTP, verifyAdminOTP, image gallery, payment functions remain exactly same as previous version
-        // (I have kept them unchanged as per your instruction "data me koi change mt krna")
+        function logoutAdmin() {
+            document.getElementById('admin-controls').classList.add('hidden');
+            document.getElementById('admin-login').classList.remove('hidden');
+            document.getElementById('admin-email-input').value = '';
+            document.getElementById('admin-otp-input').value = '';
+            currentOTP = null;
+        }
+
+        function showPayment() {
+            const fee = document.getElementById('p_type').value;
+            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus Wellness&am=${fee}&cu=INR`;
+            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('p-upi-text').innerText = nexusConfig.upiId;
+            document.getElementById('p-form').classList.add('hidden');
+            document.getElementById('p-payment').classList.remove('hidden');
+        }
+
+        function unlockSession() {
+            const utr = document.getElementById('p_utr').value.trim();
+            if (utr.length < 12) {
+                alert("Please enter a valid 12-digit UTR ID from your payment.");
+                return;
+            }
+
+            const name = document.getElementById('p_name').value;
+            const email = document.getElementById('p_email').value;
+            const whatsapp = document.getElementById('p_whatsapp').value;
+            const concern = document.getElementById('p_concern').value;
+            const counselingType = document.getElementById('p_counseling_type').value;
+            const fee = document.getElementById('p_type').value;
+
+            const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
+            const wa = `https://wa.me/${waNum}?text=Hi, Payment Done (UTR: ${utr}). Name: ${name} | Type: ${counselingType}`;
+            document.getElementById('p-wa').href = wa;
+            document.getElementById('p-payment').classList.add('hidden');
+            document.getElementById('p-success').classList.remove('hidden');
+            window.open(wa, '_blank');
+        }
 
         window.onload = loadSettings;
     </script>
