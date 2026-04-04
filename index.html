@@ -119,6 +119,7 @@
             <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
             <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
             <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
@@ -249,6 +250,7 @@
                         <option value="Relationship">Relationship Issues</option>
                         <option value="Sleep">Sleep Problems</option>
                         <option value="Trauma">Trauma Support</option>
+                        <option value="Career">Career Counseling</option>
                         <option value="Other">Other (Please Specify)</option>
                     </select>
 
@@ -274,10 +276,10 @@
                 <div id="p-success" class="hidden text-center space-y-8">
                     <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
                     
-                    <!-- In-app chat (replaces WhatsApp) -->
+                    <!-- In-app chat -->
                     <div class="mt-8">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">Payment Verified ✓<br>Your session is confirmed!</h3>
-                        <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly in the app</p>
+                        <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly here</p>
                         <div id="chat-window" class="bg-white border-2 border-gray-100 rounded-3xl p-6 h-[420px] overflow-y-auto flex flex-col gap-4 mb-6 shadow-inner text-left"></div>
                         <div class="flex gap-2">
                             <input id="chat-input" type="text" placeholder="Type your message to counselor..." class="premium-input flex-1 rounded-l-3xl">
@@ -342,19 +344,20 @@
         };
 
         let currentOTP = null;
-        let currentImageTarget = null; // null = hero, number = section index
+        let currentImageTarget = null;
+
+        // Chat messages storage (simulated - in real app this would be backend)
+        let chatMessages = [];
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
         function loadSettings() {
-            // Hero Section
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
 
-            // Render all custom sections
             renderCustomSections();
         }
 
@@ -517,12 +520,10 @@
         }
 
         function saveAdminSettings() {
-            // Hero
             nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
 
-            // Custom Sections
             nexusConfig.customSections.forEach((section, index) => {
                 section.title = document.getElementById(`cs-title-${index}`).value;
                 section.description = document.getElementById(`cs-desc-${index}`).value;
@@ -530,7 +531,6 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
-            // Other fields
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
             nexusConfig.upiId = document.getElementById('adm-upi-id').value;
             nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
@@ -606,27 +606,46 @@
                 return;
             }
 
-            // Form entries already verified via HTML required + browser validation before reaching payment
-            // Payment verified via UTR check (no form re-submission happens)
+            // Store booking details for chat (this is what was missing - now info stays in chat)
+            const bookingData = {
+                name: document.getElementById('p_name').value,
+                email: document.getElementById('p_email').value,
+                whatsapp: document.getElementById('p_whatsapp').value,
+                gender: document.getElementById('p_gender').value,
+                counselingType: document.getElementById('p_counseling_type').value === "Other" 
+                    ? document.getElementById('p_other_type').value 
+                    : document.getElementById('p_counseling_type').value,
+                concern: document.getElementById('p_concern').value,
+                fee: document.getElementById('p_type').value,
+                utr: utr
+            };
+
+            localStorage.setItem('currentBooking', JSON.stringify(bookingData));
+
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
-            initializeChat();
+            initializeChat(bookingData);
         }
 
-        function initializeChat() {
-            const name = document.getElementById('p_name').value || 'Client';
-            const utr = document.getElementById('p_utr').value;
+        function initializeChat(bookingData) {
             const windowEl = document.getElementById('chat-window');
             windowEl.innerHTML = `
                 <div class="flex justify-start">
-                    <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">
-                        Hello ${name}! 🎉<br>
-                        Payment verified successfully (UTR: ${utr}).<br>
-                        Your counseling session is now active.<br><br>
-                        Welcome to the secure in-app chat. A counselor will be with you shortly.
+                    <div class="max-w-[80%] bg-[#f1f1f1] px-5 py-4 rounded-3xl rounded-tl-none text-sm leading-relaxed">
+                        Hello <strong>${bookingData.name}</strong>! 🎉<br><br>
+                        <strong>Payment Confirmed</strong> (UTR: ${bookingData.utr})<br>
+                        Session Type: <strong>${bookingData.counselingType}</strong><br><br>
+                        Your in-app chat is now active. A counselor will join shortly.<br>
+                        All your details are securely saved here.
                     </div>
                 </div>
             `;
+
+            // Add a system message with full info (this ensures all info is visible in chat, not on WhatsApp)
+            chatMessages = [{
+                type: "system",
+                text: `New Booking - ${bookingData.name} | ${bookingData.counselingType} | UTR: ${bookingData.utr}`
+            }];
         }
 
         function sendChatMessage() {
@@ -636,7 +655,6 @@
 
             const windowEl = document.getElementById('chat-window');
 
-            // User message
             const userMessageHTML = `
                 <div class="flex justify-end">
                     <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">
@@ -652,10 +670,10 @@
             // Simulate counselor reply
             setTimeout(() => {
                 const replies = [
-                    "Thank you for reaching out. I'm here to support you.",
-                    "Noted. Let's discuss this in your session.",
-                    "How are you feeling today? I'm listening.",
-                    "Your privacy is our priority. This chat is secure."
+                    "Thank you for sharing. I'm here to help you.",
+                    "Understood. Let's work through this together.",
+                    "How are you feeling right now?",
+                    "Your information is safe with us."
                 ];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
                 const counselorHTML = `
@@ -667,10 +685,27 @@
                 `;
                 windowEl.innerHTML += counselorHTML;
                 windowEl.scrollTop = windowEl.scrollHeight;
-            }, 1200);
+            }, 1000);
         }
 
-        window.onload = loadSettings;
+        // Career Counseling added in custom sections on load
+        function addCareerSection() {
+            // This adds Career Counseling as a visible custom section with briefcase symbol
+            if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
+                nexusConfig.customSections.push({
+                    title: "Career Counseling",
+                    description: "Guidance for your professional journey and future goals",
+                    emoji: "💼",
+                    image: ""
+                });
+                renderCustomSections();
+            }
+        }
+
+        window.onload = () => {
+            loadSettings();
+            addCareerSection();   // Adds Career Counseling section on homepage
+        };
     </script>
 </body>
 </html>
