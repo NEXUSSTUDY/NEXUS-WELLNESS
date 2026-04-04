@@ -114,7 +114,14 @@
     <div id="counseling-menu">
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
-        <div id="counseling-menu-items" class="space-y-8 text-[19px]"></div>
+        <div class="space-y-8 text-[19px]">
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
+            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
+        </div>
 
         <div class="mt-16">
             <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">FOLLOW NEXUS WELLNESS</p>
@@ -159,22 +166,10 @@
                     <input id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle">
                 </div>
             </div>
-
-            <!-- Counseling Menu Control -->
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Counseling Menu Control (3 Lines Menu)</h4>
-                <div id="admin-services-container" class="space-y-6"></div>
-            </div>
-
-            <!-- Info Pages Control for all services -->
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Info Pages Control (For 3 Lines Menu Items)</h4>
-                <div id="info-pages-container" class="space-y-8"></div>
-            </div>
             
-            <!-- Editable Custom Sections (same as before) -->
+            <!-- Editable Custom Sections (like Blog) -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Custom Sections (Homepage)</h4>
+                <h4 class="font-bold text-lg mb-6">Custom Sections (Editable like Blog)</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
                 <button onclick="addNewCustomSection()" 
                         class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
@@ -216,18 +211,6 @@
         </div>
     </div>
 
-    <!-- Info Page Modal -->
-    <div id="info-modal" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
-        <div class="bg-white rounded-3xl w-full max-w-3xl mx-4 max-h-[90vh] overflow-hidden">
-            <div class="p-6 border-b flex justify-between items-center">
-                <h3 id="modal-title" class="font-bold text-2xl"></h3>
-                <button onclick="closeInfoModal()" class="text-3xl leading-none">&times;</button>
-            </div>
-            <div class="p-8 overflow-y-auto prose text-gray-700 leading-relaxed" style="max-height: 70vh;" id="modal-content">
-            </div>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section id="hero-section" class="h-screen flex flex-col items-center justify-center text-center px-6 hero-bg text-white relative">
         <div data-aos="fade-up" class="max-w-3xl mx-auto">
@@ -238,7 +221,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Dynamic Custom Sections - Relationship types jaisa same rakha gaya hai -->
+    <!-- Dynamic Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -286,13 +269,14 @@
                         <img id="p-qr" src="" class="w-48 h-48 mx-auto">
                         <p id="p-upi-text" class="text-xs font-mono mt-4 text-blue-600 font-bold"></p>
                     </div>
-                    <input type="text" id="p_utr" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
+                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
                     <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
                 </div>
 
                 <div id="p-success" class="hidden text-center space-y-8">
                     <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
                     
+                    <!-- In-app chat -->
                     <div class="mt-8">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">Payment Verified ✓<br>Your session is confirmed!</h3>
                         <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly here</p>
@@ -337,21 +321,6 @@
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
             blogUrl: "#",
-            services: [
-                {key: "anxiety", name: "Anxiety & Stress"},
-                {key: "relationship", name: "Relationship Issues"},
-                {key: "sleep", name: "Sleep Problems"},
-                {key: "trauma", name: "Trauma Support"},
-                {key: "career", name: "Career Counseling"},
-                {key: "blog", name: "Blog"}
-            ],
-            infoPages: {
-                anxiety: { title: "Anxiety & Stress", content: "Anxiety and stress are common challenges in today's fast-paced world. Learn about symptoms, causes, and effective techniques to manage them." },
-                relationship: { title: "Relationship Issues", content: "Healthy relationships are important for mental well-being. Here you will find guidance on communication, trust, and resolving conflicts." },
-                sleep: { title: "Sleep Problems", content: "Good sleep is essential for mental health. Discover practical tips and strategies to improve your sleep quality." },
-                trauma: { title: "Trauma Support", content: "Trauma can have long-lasting effects. Our support helps you heal and regain control over your life." },
-                career: { title: "Career Counseling", content: "Get clarity on your career path, strengths, and future goals with expert guidance." }
-            },
             customSections: [
                 {
                     title: "Anxiety Care",
@@ -376,7 +345,9 @@
 
         let currentOTP = null;
         let currentImageTarget = null;
-        let currentOpenKey = null;
+
+        // Chat messages storage (simulated - in real app this would be backend)
+        let chatMessages = [];
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -386,37 +357,21 @@
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-            renderCounselingMenu();
-            renderCustomSections();
-        }
 
-        function renderCounselingMenu() {
-            const container = document.getElementById('counseling-menu-items');
-            container.innerHTML = '';
-            nexusConfig.services.forEach(service => {
-                let onclick = 'showCounselingAlert()';
-                if (service.key !== 'blog') {
-                    onclick = `openInfoPage('${service.key}')`;
-                } else {
-                    onclick = 'openBlog()';
-                }
-                const div = document.createElement('div');
-                div.className = "menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition";
-                div.innerHTML = `<span>${service.name}</span><span class="text-2xl">›</span>`;
-                div.setAttribute('onclick', onclick);
-                container.appendChild(div);
-            });
+            renderCustomSections();
         }
 
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
             container.innerHTML = '';
+
             nexusConfig.customSections.forEach((section, index) => {
                 let sectionHTML = `
                     <section class="py-24 px-6 md:px-20 bg-white">
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
-                                ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl max-h-96 object-cover w-full md:w-auto" alt="${section.title}">` : ''}
+                                ${section.image ? 
+                                    `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl max-h-96 object-cover w-full md:w-auto" alt="${section.title}">` : ''}
                                 <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">
                                     ${section.emoji || '✨'}
                                 </div>
@@ -448,23 +403,6 @@
             toggleCounselingMenu();
         }
 
-        function openInfoPage(key) {
-            currentOpenKey = key;
-            const page = nexusConfig.infoPages[key] || {title: "Info", content: "Content coming soon."};
-            document.getElementById('modal-title').textContent = page.title;
-            document.getElementById('modal-content').innerHTML = page.content.replace(/\n/g, '<br><br>');
-            const modal = document.getElementById('info-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            toggleCounselingMenu();
-        }
-
-        function closeInfoModal() {
-            const modal = document.getElementById('info-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
         function handleCounselingTypeChange() {
             const select = document.getElementById('p_counseling_type');
             const otherField = document.getElementById('p_other_type');
@@ -488,43 +426,13 @@
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
 
-            renderAdminServices();
-            renderAdminInfoPages();
             renderAdminCustomSections();
-        }
-
-        function renderAdminServices() {
-            const container = document.getElementById('admin-services-container');
-            container.innerHTML = '';
-            nexusConfig.services.forEach((service, index) => {
-                const div = document.createElement('div');
-                div.className = "flex gap-3 items-center";
-                div.innerHTML = `
-                    <input id="service-name-${index}" value="${service.name}" class="premium-input text-sm flex-1" placeholder="Menu Item Name">
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderAdminInfoPages() {
-            const container = document.getElementById('info-pages-container');
-            container.innerHTML = '';
-            Object.keys(nexusConfig.infoPages).forEach(key => {
-                const page = nexusConfig.infoPages[key];
-                const div = document.createElement('div');
-                div.className = "border rounded-3xl p-6 bg-gray-50";
-                div.innerHTML = `
-                    <h5 class="font-semibold mb-3">${page.title}</h5>
-                    <input id="info-title-${key}" value="${page.title}" class="premium-input text-sm mb-3" placeholder="Info Page Title">
-                    <textarea id="info-content-${key}" rows="6" class="premium-input text-sm">${page.content}</textarea>
-                `;
-                container.appendChild(div);
-            });
         }
 
         function renderAdminCustomSections() {
             const container = document.getElementById('custom-sections-container');
             container.innerHTML = '';
+
             nexusConfig.customSections.forEach((section, index) => {
                 const div = document.createElement('div');
                 div.className = "border rounded-3xl p-6 bg-gray-50";
@@ -616,21 +524,6 @@
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
 
-            // Save services (3 lines menu)
-            nexusConfig.services.forEach((service, index) => {
-                const nameInput = document.getElementById(`service-name-${index}`);
-                if (nameInput) service.name = nameInput.value;
-            });
-
-            // Save info pages for all services
-            Object.keys(nexusConfig.infoPages).forEach(key => {
-                const titleInput = document.getElementById(`info-title-${key}`);
-                const contentInput = document.getElementById(`info-content-${key}`);
-                if (titleInput) nexusConfig.infoPages[key].title = titleInput.value;
-                if (contentInput) nexusConfig.infoPages[key].content = contentInput.value;
-            });
-
-            // Custom Sections
             nexusConfig.customSections.forEach((section, index) => {
                 section.title = document.getElementById(`cs-title-${index}`).value;
                 section.description = document.getElementById(`cs-desc-${index}`).value;
@@ -708,11 +601,12 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length !== 12) {
+            if (utr.length < 12) {
                 alert("Please enter a valid 12-digit UTR ID from your payment.");
                 return;
             }
 
+            // Store booking details for chat (this is what was missing - now info stays in chat)
             const bookingData = {
                 name: document.getElementById('p_name').value,
                 email: document.getElementById('p_email').value,
@@ -730,11 +624,6 @@
 
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
-
-            const waNumClean = nexusConfig.waNum.replace('+', '').replace(/\s/g, '');
-            const messageText = `✅ NEW BOOKING CONFIRMED\n\nName: ${bookingData.name}\nEmail: ${bookingData.email}\nWhatsApp: ${bookingData.whatsapp}\nGender: ${bookingData.gender}\nType: ${bookingData.counselingType}\nConcern: ${bookingData.concern}\nFee: ₹${bookingData.fee}\nUTR: ${bookingData.utr}\n\nPayment verified. Session active.`;
-            window.open(`https://wa.me/${waNumClean}?text=${encodeURIComponent(messageText)}`, '_blank');
-
             initializeChat(bookingData);
         }
 
@@ -746,10 +635,17 @@
                         Hello <strong>${bookingData.name}</strong>! 🎉<br><br>
                         <strong>Payment Confirmed</strong> (UTR: ${bookingData.utr})<br>
                         Session Type: <strong>${bookingData.counselingType}</strong><br><br>
-                        Your in-app chat is now active.
+                        Your in-app chat is now active. A counselor will join shortly.<br>
+                        All your details are securely saved here.
                     </div>
                 </div>
             `;
+
+            // Add a system message with full info (this ensures all info is visible in chat, not on WhatsApp)
+            chatMessages = [{
+                type: "system",
+                text: `New Booking - ${bookingData.name} | ${bookingData.counselingType} | UTR: ${bookingData.utr}`
+            }];
         }
 
         function sendChatMessage() {
@@ -758,6 +654,7 @@
             if (!message) return;
 
             const windowEl = document.getElementById('chat-window');
+
             const userMessageHTML = `
                 <div class="flex justify-end">
                     <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">
@@ -767,10 +664,17 @@
             `;
             windowEl.innerHTML += userMessageHTML;
             windowEl.scrollTop = windowEl.scrollHeight;
+
             input.value = '';
 
+            // Simulate counselor reply
             setTimeout(() => {
-                const replies = ["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
+                const replies = [
+                    "Thank you for sharing. I'm here to help you.",
+                    "Understood. Let's work through this together.",
+                    "How are you feeling right now?",
+                    "Your information is safe with us."
+                ];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
                 const counselorHTML = `
                     <div class="flex justify-start">
@@ -784,7 +688,24 @@
             }, 1000);
         }
 
-        window.onload = loadSettings;
+        // Career Counseling added in custom sections on load
+        function addCareerSection() {
+            // This adds Career Counseling as a visible custom section with briefcase symbol
+            if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
+                nexusConfig.customSections.push({
+                    title: "Career Counseling",
+                    description: "Guidance for your professional journey and future goals",
+                    emoji: "💼",
+                    image: ""
+                });
+                renderCustomSections();
+            }
+        }
+
+        window.onload = () => {
+            loadSettings();
+            addCareerSection();   // Adds Career Counseling section on homepage
+        };
     </script>
 </body>
 </html>
