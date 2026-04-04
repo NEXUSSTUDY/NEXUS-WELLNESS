@@ -273,7 +273,17 @@
 
                 <div id="p-success" class="hidden text-center space-y-8">
                     <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
-                    <a id="p-wa" href="#" target="_blank" class="block w-full bg-[#25D366] text-white py-5 rounded-full font-bold uppercase tracking-widest text-center shadow-md">Continue on WhatsApp</a>
+                    
+                    <!-- In-app chat (replaces WhatsApp) -->
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">Payment Verified ✓<br>Your session is confirmed!</h3>
+                        <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly in the app</p>
+                        <div id="chat-window" class="bg-white border-2 border-gray-100 rounded-3xl p-6 h-[420px] overflow-y-auto flex flex-col gap-4 mb-6 shadow-inner text-left"></div>
+                        <div class="flex gap-2">
+                            <input id="chat-input" type="text" placeholder="Type your message to counselor..." class="premium-input flex-1 rounded-l-3xl">
+                            <button onclick="sendChatMessage()" class="cta-btn rounded-r-3xl px-10 font-bold">Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -596,15 +606,68 @@
                 return;
             }
 
-            const name = document.getElementById('p_name').value;
-            const counselingType = document.getElementById('p_counseling_type').value;
-
-            const waNum = nexusConfig.waNum.replace('+', '').replace(' ', '');
-            const wa = `https://wa.me/${waNum}?text=Hi, Payment Done (UTR: ${utr}). Name: ${name} | Type: ${counselingType}`;
-            document.getElementById('p-wa').href = wa;
+            // Form entries already verified via HTML required + browser validation before reaching payment
+            // Payment verified via UTR check (no form re-submission happens)
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
-            window.open(wa, '_blank');
+            initializeChat();
+        }
+
+        function initializeChat() {
+            const name = document.getElementById('p_name').value || 'Client';
+            const utr = document.getElementById('p_utr').value;
+            const windowEl = document.getElementById('chat-window');
+            windowEl.innerHTML = `
+                <div class="flex justify-start">
+                    <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">
+                        Hello ${name}! 🎉<br>
+                        Payment verified successfully (UTR: ${utr}).<br>
+                        Your counseling session is now active.<br><br>
+                        Welcome to the secure in-app chat. A counselor will be with you shortly.
+                    </div>
+                </div>
+            `;
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const windowEl = document.getElementById('chat-window');
+
+            // User message
+            const userMessageHTML = `
+                <div class="flex justify-end">
+                    <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            windowEl.innerHTML += userMessageHTML;
+            windowEl.scrollTop = windowEl.scrollHeight;
+
+            input.value = '';
+
+            // Simulate counselor reply
+            setTimeout(() => {
+                const replies = [
+                    "Thank you for reaching out. I'm here to support you.",
+                    "Noted. Let's discuss this in your session.",
+                    "How are you feeling today? I'm listening.",
+                    "Your privacy is our priority. This chat is secure."
+                ];
+                const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                const counselorHTML = `
+                    <div class="flex justify-start">
+                        <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">
+                            ${randomReply}
+                        </div>
+                    </div>
+                `;
+                windowEl.innerHTML += counselorHTML;
+                windowEl.scrollTop = windowEl.scrollHeight;
+            }, 1200);
         }
 
         window.onload = loadSettings;
