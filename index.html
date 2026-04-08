@@ -169,8 +169,7 @@
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Custom Sections</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
-                <button onclick="addNewCustomSection()" 
-                        class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
+                <button onclick="addNewCustomSection()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
                     + Add New Custom Section
                 </button>
             </div>
@@ -217,7 +216,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections -->
+    <!-- ==================== CUSTOM SECTIONS ==================== -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -331,17 +330,20 @@
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
+        // ==================== MAIN FUNCTION TO SHOW SECTIONS ====================
         function loadSettings() {
+            // Hero Section
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
+
+            // Custom Sections
             renderCustomSections();
         }
 
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
-            if (!container) return;
-            container.innerHTML = '';
+            container.innerHTML = '';   // Clear pehle
 
             nexusConfig.customSections.forEach((section) => {
                 const html = `
@@ -360,6 +362,7 @@
             });
         }
 
+        // Baaki functions (same as before)
         function toggleCounselingMenu() { 
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
@@ -390,6 +393,7 @@
             }
         }
 
+        // Admin functions (shortened for brevity, but complete)
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
@@ -677,6 +681,7 @@
             }
         }
 
+        // Load everything
         window.onload = () => {
             loadSettings();
             addCareerSection();
