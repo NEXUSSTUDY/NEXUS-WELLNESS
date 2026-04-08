@@ -235,7 +235,12 @@
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
-                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" class="premium-input" required>
+                        <div class="relative">
+                            <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 font-medium">+91</span>
+                            <input type="tel" id="p_whatsapp" placeholder="xxxxxxxxxx" maxlength="10" 
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);" 
+                                   class="premium-input pl-14" required>
+                        </div>
                         <select id="p_gender" class="premium-input" required>
                             <option value="">Male / Female / Other</option>
                             <option value="Male">Male</option>
@@ -599,6 +604,112 @@
             document.getElementById('p-payment').classList.remove('hidden');
         }
 
+        // Function to create booking summary image using canvas
+        function createBookingImage(bookingData) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 800;
+                canvas.height = 600;
+                const ctx = canvas.getContext('2d');
+
+                // Background
+                ctx.fillStyle = '#f8fafc';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Header
+                ctx.fillStyle = '#0071e3';
+                ctx.fillRect(0, 0, canvas.width, 120);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 36px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Nexus Wellness', canvas.width / 2, 60);
+
+                ctx.font = '20px Inter, sans-serif';
+                ctx.fillText('Booking Confirmation', canvas.width / 2, 95);
+
+                // Content
+                ctx.fillStyle = '#1d1d1f';
+                ctx.font = 'bold 24px Inter, sans-serif';
+                ctx.textAlign = 'left';
+
+                let y = 180;
+                ctx.fillText('Patient Details', 60, y);
+                y += 40;
+
+                ctx.font = '18px Inter, sans-serif';
+                ctx.fillText(`Name: ${bookingData.name}`, 60, y);
+                y += 35;
+                ctx.fillText(`Email: ${bookingData.email}`, 60, y);
+                y += 35;
+                ctx.fillText(`WhatsApp: +91${bookingData.whatsapp}`, 60, y);
+                y += 35;
+                ctx.fillText(`Gender: ${bookingData.gender}`, 60, y);
+                y += 35;
+                ctx.fillText(`Counseling Type: ${bookingData.counselingType}`, 60, y);
+                y += 35;
+                ctx.fillText(`Session Fee: ₹${bookingData.fee}`, 60, y);
+                y += 35;
+                ctx.fillText(`UTR: ${bookingData.utr}`, 60, y);
+                y += 50;
+
+                ctx.font = 'bold 20px Inter, sans-serif';
+                ctx.fillText('Concern:', 60, y);
+                y += 35;
+
+                ctx.font = '18px Inter, sans-serif';
+                const words = bookingData.concern.split(' ');
+                let line = '';
+                for (let word of words) {
+                    if ((line + word).length > 60) {
+                        ctx.fillText(line, 60, y);
+                        y += 30;
+                        line = word + ' ';
+                    } else {
+                        line += word + ' ';
+                    }
+                }
+                ctx.fillText(line, 60, y);
+
+                // Footer
+                ctx.fillStyle = '#64748b';
+                ctx.font = '14px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('© 2026 Nexus Wellness | All details are confidential', canvas.width / 2, canvas.height - 40);
+
+                // Convert to base64
+                const dataURL = canvas.toDataURL('image/png');
+                resolve(dataURL);
+            });
+        }
+
+        async function sendBookingToEmail(bookingData) {
+            try {
+                const imageBase64 = await createBookingImage(bookingData);
+
+                const templateParams = {
+                    to_email: nexusConfig.adminEmail || "thenexusstudy3@gmail.com",
+                    from_name: bookingData.name,
+                    from_email: bookingData.email,
+                    whatsapp: "+91" + bookingData.whatsapp,
+                    gender: bookingData.gender,
+                    counseling_type: bookingData.counselingType,
+                    fee: "₹" + bookingData.fee,
+                    utr: bookingData.utr,
+                    concern: bookingData.concern,
+                    booking_image: imageBase64  // This will be sent as attachment if template supports
+                };
+
+                // Send email with booking details + image
+                await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);  // Replace template ID if you have a dedicated one for bookings
+
+                console.log("Booking details sent to admin email successfully with image.");
+            } catch (error) {
+                console.error("Failed to send booking email:", error);
+                // Fallback: still alert but continue
+            }
+        }
+
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
             if (utr.length < 12) {
@@ -606,7 +717,6 @@
                 return;
             }
 
-            // Store booking details for chat (this is what was missing - now info stays in chat)
             const bookingData = {
                 name: document.getElementById('p_name').value,
                 email: document.getElementById('p_email').value,
@@ -621,6 +731,9 @@
             };
 
             localStorage.setItem('currentBooking', JSON.stringify(bookingData));
+
+            // Send booking data to your email as image + details
+            sendBookingToEmail(bookingData);
 
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
@@ -641,7 +754,6 @@
                 </div>
             `;
 
-            // Add a system message with full info (this ensures all info is visible in chat, not on WhatsApp)
             chatMessages = [{
                 type: "system",
                 text: `New Booking - ${bookingData.name} | ${bookingData.counselingType} | UTR: ${bookingData.utr}`
@@ -688,9 +800,7 @@
             }, 1000);
         }
 
-        // Career Counseling added in custom sections on load
         function addCareerSection() {
-            // This adds Career Counseling as a visible custom section with briefcase symbol
             if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
                 nexusConfig.customSections.push({
                     title: "Career Counseling",
@@ -702,10 +812,25 @@
             }
         }
 
+        // Close admin panel when clicking outside (optional improvement)
+        document.getElementById('admin-panel').addEventListener('click', function(e) {
+            if (e.target === this) closeAdmin();
+        });
+
         window.onload = () => {
             loadSettings();
-            addCareerSection();   // Adds Career Counseling section on homepage
+            addCareerSection();
         };
+
+        // Close admin on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const adminPanel = document.getElementById('admin-panel');
+                if (adminPanel.classList.contains('active')) {
+                    closeAdmin();
+                }
+            }
+        });
     </script>
 </body>
 </html>
