@@ -228,7 +228,7 @@
     <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[40px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
+                <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); handleBookingSubmit();">
                     <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
@@ -345,9 +345,7 @@
 
         let currentOTP = null;
         let currentImageTarget = null;
-
-        // Chat messages storage (simulated - in real app this would be backend)
-        let chatMessages = [];
+        let currentBookingData = null;
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -594,6 +592,49 @@
             }
         }
 
+        // Form Submit → Automatic Email to Admin (No WhatsApp)
+        async function handleBookingSubmit() {
+            const bookingData = {
+                name: document.getElementById('p_name').value.trim(),
+                email: document.getElementById('p_email').value.trim(),
+                whatsapp: document.getElementById('p_whatsapp').value.trim(),
+                gender: document.getElementById('p_gender').value,
+                counselingType: document.getElementById('p_counseling_type').value === "Other" 
+                    ? document.getElementById('p_other_type').value.trim() 
+                    : document.getElementById('p_counseling_type').value,
+                concern: document.getElementById('p_concern').value.trim(),
+                fee: document.getElementById('p_type').value
+            };
+
+            if (!bookingData.name || !bookingData.email || !bookingData.whatsapp || !bookingData.counselingType || !bookingData.concern) {
+                alert("Please fill all required fields.");
+                return;
+            }
+
+            try {
+                const templateParams = {
+                    to_email: nexusConfig.adminEmail,
+                    from_name: bookingData.name,
+                    from_email: bookingData.email,
+                    whatsapp: bookingData.whatsapp,
+                    gender: bookingData.gender,
+                    counseling_type: bookingData.counselingType,
+                    concern: bookingData.concern,
+                    fee: bookingData.fee,
+                    message: `New Booking Request`
+                };
+
+                await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
+
+                alert("Your booking request has been sent successfully to our team!\n\nPlease complete the payment below to confirm your session.");
+                currentBookingData = bookingData;
+                showPayment();
+            } catch (error) {
+                console.error(error);
+                alert("Failed to send booking details. Please try again.");
+            }
+        }
+
         function showPayment() {
             const fee = document.getElementById('p_type').value;
             const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus Wellness&am=${fee}&cu=INR`;
@@ -610,40 +651,14 @@
                 return;
             }
 
-            // Store booking details for chat (this is what was missing - now info stays in chat)
-            const bookingData = {
-                name: document.getElementById('p_name').value,
-                email: document.getElementById('p_email').value,
-                whatsapp: document.getElementById('p_whatsapp').value,
-                gender: document.getElementById('p_gender').value,
-                counselingType: document.getElementById('p_counseling_type').value === "Other" 
-                    ? document.getElementById('p_other_type').value 
-                    : document.getElementById('p_counseling_type').value,
-                concern: document.getElementById('p_concern').value,
-                fee: document.getElementById('p_type').value,
-                utr: utr
-            };
+            if (!currentBookingData) return;
 
-            localStorage.setItem('currentBooking', JSON.stringify(bookingData));
+            currentBookingData.utr = utr;
+            localStorage.setItem('currentBooking', JSON.stringify(currentBookingData));
 
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
-            initializeChat(bookingData);
-
-            // Patient ka data direct WhatsApp par bhejna (admin ke number par)
-            const waNumber = nexusConfig.waNum.replace('+', '');
-            const message = `New Patient Booking - Nexus Wellness\n\n` +
-                            `Name: ${bookingData.name}\n` +
-                            `Email: ${bookingData.email}\n` +
-                            `WhatsApp: ${bookingData.whatsapp}\n` +
-                            `Gender: ${bookingData.gender}\n` +
-                            `Counseling Type: ${bookingData.counselingType}\n` +
-                            `Concern: ${bookingData.concern}\n` +
-                            `Session Fee: ₹${bookingData.fee}\n` +
-                            `UTR: ${bookingData.utr}\n\n` +
-                            `Please connect with the patient soon.`;
-            const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
-            window.open(waLink, '_blank');
+            initializeChat(currentBookingData);
         }
 
         function initializeChat(bookingData) {
@@ -659,12 +674,6 @@
                     </div>
                 </div>
             `;
-
-            // Add a system message with full info (this ensures all info is visible in chat, not on WhatsApp)
-            chatMessages = [{
-                type: "system",
-                text: `New Booking - ${bookingData.name} | ${bookingData.counselingType} | UTR: ${bookingData.utr}`
-            }];
         }
 
         function sendChatMessage() {
@@ -707,9 +716,7 @@
             }, 1000);
         }
 
-        // Career Counseling added in custom sections on load
         function addCareerSection() {
-            // This adds Career Counseling as a visible custom section with briefcase symbol
             if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
                 nexusConfig.customSections.push({
                     title: "Career Counseling",
@@ -723,7 +730,7 @@
 
         window.onload = () => {
             loadSettings();
-            addCareerSection();   // Adds Career Counseling section on homepage
+            addCareerSection();
         };
     </script>
 </body>
