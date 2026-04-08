@@ -221,7 +221,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Dynamic Custom Sections (Yeh wapas add kiye gaye hain jaise pehle the) -->
+    <!-- Dynamic Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -321,24 +321,9 @@
             adminEmail: "thenexusstudy3@gmail.com",
             blogUrl: "#",
             customSections: [
-                {
-                    title: "Anxiety Care",
-                    description: "Finding stillness in a chaotic world",
-                    emoji: "🧠",
-                    image: ""
-                },
-                {
-                    title: "Relationship Issues",
-                    description: "Healing emotional bonds",
-                    emoji: "❤️",
-                    image: ""
-                },
-                {
-                    title: "Sleep Problems",
-                    description: "Restorative sleep techniques",
-                    emoji: "🌙",
-                    image: ""
-                }
+                { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
+                { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
+                { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ]
         };
 
@@ -354,7 +339,6 @@
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-
             renderCustomSections();
         }
 
@@ -362,16 +346,13 @@
             const container = document.getElementById('custom-sections');
             container.innerHTML = '';
 
-            nexusConfig.customSections.forEach((section, index) => {
+            nexusConfig.customSections.forEach((section) => {
                 let sectionHTML = `
                     <section class="py-24 px-6 md:px-20 bg-white">
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
-                                ${section.image ? 
-                                    `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl max-h-96 object-cover w-full md:w-auto" alt="${section.title}">` : ''}
-                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">
-                                    ${section.emoji || '✨'}
-                                </div>
+                                ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
+                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">${section.emoji || '✨'}</div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
                             </div>
@@ -383,8 +364,7 @@
         }
 
         function toggleCounselingMenu() { 
-            const menu = document.getElementById('counseling-menu');
-            menu.classList.toggle('active'); 
+            document.getElementById('counseling-menu').classList.toggle('active'); 
         }
 
         function showCounselingAlert() {
@@ -415,7 +395,6 @@
 
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
-            
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
             document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
             document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
@@ -423,7 +402,6 @@
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
-
             renderAdminCustomSections();
         }
 
@@ -434,7 +412,6 @@
         function renderAdminCustomSections() {
             const container = document.getElementById('custom-sections-container');
             container.innerHTML = '';
-
             nexusConfig.customSections.forEach((section, index) => {
                 const div = document.createElement('div');
                 div.className = "border rounded-3xl p-6 bg-gray-50";
@@ -592,7 +569,6 @@
             }
         }
 
-        // Form Submit → Patient Details Email to Admin
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) {
