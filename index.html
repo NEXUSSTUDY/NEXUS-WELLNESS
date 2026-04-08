@@ -235,7 +235,7 @@
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
-                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" class="premium-input" required>
+                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" value="+91" maxlength="13" class="premium-input" required>
                         <select id="p_gender" class="premium-input" required>
                             <option value="">Male / Female / Other</option>
                             <option value="Male">Male</option>
@@ -269,7 +269,7 @@
                         <img id="p-qr" src="" class="w-48 h-48 mx-auto">
                         <p id="p-upi-text" class="text-xs font-mono mt-4 text-blue-600 font-bold"></p>
                     </div>
-                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
+                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
                     <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
                 </div>
 
@@ -592,12 +592,21 @@
             }
         }
 
-        // Form Submit → Automatic Email to Admin (No WhatsApp)
+        // Form Submit → Patient Details Email to Admin
         async function handleBookingSubmit() {
+            let whatsapp = document.getElementById('p_whatsapp').value.trim();
+            if (!whatsapp.startsWith('+91')) {
+                whatsapp = '+91' + whatsapp.replace('+91', '');
+            }
+            if (whatsapp.length !== 13) {
+                alert("WhatsApp number must be 10 digits after +91");
+                return;
+            }
+
             const bookingData = {
                 name: document.getElementById('p_name').value.trim(),
                 email: document.getElementById('p_email').value.trim(),
-                whatsapp: document.getElementById('p_whatsapp').value.trim(),
+                whatsapp: whatsapp,
                 gender: document.getElementById('p_gender').value,
                 counselingType: document.getElementById('p_counseling_type').value === "Other" 
                     ? document.getElementById('p_other_type').value.trim() 
@@ -621,17 +630,17 @@
                     counseling_type: bookingData.counselingType,
                     concern: bookingData.concern,
                     fee: bookingData.fee,
-                    message: `New Booking Request`
+                    message: `New Booking Request - Nexus Wellness`
                 };
 
                 await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
 
-                alert("Your booking request has been sent successfully to our team!\n\nPlease complete the payment below to confirm your session.");
+                alert("Your details have been sent successfully!\n\nPlease complete the payment to confirm your session.");
                 currentBookingData = bookingData;
                 showPayment();
             } catch (error) {
                 console.error(error);
-                alert("Failed to send booking details. Please try again.");
+                alert("Failed to send your details. Please try again.");
             }
         }
 
@@ -646,8 +655,8 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length < 12) {
-                alert("Please enter a valid 12-digit UTR ID from your payment.");
+            if (utr.length !== 12) {
+                alert("UTR ID must be exactly 12 digits.");
                 return;
             }
 
