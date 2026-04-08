@@ -217,7 +217,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections (Yeh wala part fix kiya gaya hai) -->
+    <!-- Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -340,6 +340,7 @@
 
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
+            if (!container) return;
             container.innerHTML = '';
 
             nexusConfig.customSections.forEach((section) => {
