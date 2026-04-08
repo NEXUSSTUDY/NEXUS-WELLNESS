@@ -122,16 +122,6 @@
             <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
-
-        <div class="mt-16">
-            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">FOLLOW NEXUS WELLNESS</p>
-            <div class="flex gap-6 text-3xl">
-                <a href="#" class="social-icon text-[#E1306C]"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon text-[#0A66C2]"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="social-icon text-[#FF0000]"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
-            </div>
-        </div>
     </div>
 
     <!-- Admin Panel -->
@@ -216,7 +206,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- ==================== CUSTOM SECTIONS ==================== -->
+    <!-- Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -307,6 +297,7 @@
     <script>
         AOS.init();
 
+        // Safe nexusConfig initialization
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
             heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
             heroTitle: "Reclaim Your Inner Peace",
@@ -322,6 +313,15 @@
             ]
         };
 
+        // Ensure customSections is always an array
+        if (!nexusConfig.customSections || !Array.isArray(nexusConfig.customSections)) {
+            nexusConfig.customSections = [
+                { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
+                { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
+                { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
+            ];
+        }
+
         let currentOTP = null;
         let currentImageTarget = null;
         let currentBookingData = null;
@@ -330,20 +330,18 @@
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
-        // ==================== MAIN FUNCTION TO SHOW SECTIONS ====================
         function loadSettings() {
-            // Hero Section
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-
-            // Custom Sections
             renderCustomSections();
         }
 
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
-            container.innerHTML = '';   // Clear pehle
+            if (!container) return;
+            
+            container.innerHTML = '';
 
             nexusConfig.customSections.forEach((section) => {
                 const html = `
@@ -362,7 +360,6 @@
             });
         }
 
-        // Baaki functions (same as before)
         function toggleCounselingMenu() { 
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
@@ -393,7 +390,6 @@
             }
         }
 
-        // Admin functions (shortened for brevity, but complete)
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
@@ -681,7 +677,7 @@
             }
         }
 
-        // Load everything
+        // Final Load with error protection
         window.onload = () => {
             loadSettings();
             addCareerSection();
