@@ -429,6 +429,10 @@
             renderAdminCustomSections();
         }
 
+        function closeAdmin() {
+            document.getElementById('admin-panel').classList.remove('active');
+        }
+
         function renderAdminCustomSections() {
             const container = document.getElementById('custom-sections-container');
             container.innerHTML = '';
@@ -625,6 +629,21 @@
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
             initializeChat(bookingData);
+
+            // Patient ka data direct WhatsApp par bhejna (admin ke number par)
+            const waNumber = nexusConfig.waNum.replace('+', '');
+            const message = `New Patient Booking - Nexus Wellness\n\n` +
+                            `Name: ${bookingData.name}\n` +
+                            `Email: ${bookingData.email}\n` +
+                            `WhatsApp: ${bookingData.whatsapp}\n` +
+                            `Gender: ${bookingData.gender}\n` +
+                            `Counseling Type: ${bookingData.counselingType}\n` +
+                            `Concern: ${bookingData.concern}\n` +
+                            `Session Fee: ₹${bookingData.fee}\n` +
+                            `UTR: ${bookingData.utr}\n\n` +
+                            `Please connect with the patient soon.`;
+            const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
         }
 
         function initializeChat(bookingData) {
