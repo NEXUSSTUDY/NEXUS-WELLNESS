@@ -384,7 +384,8 @@
         }
 
         function toggleCounselingMenu() { 
-            document.getElementById('counseling-menu').classList.toggle('active'); 
+            const menu = document.getElementById('counseling-menu');
+            menu.classList.toggle('active'); 
         }
 
         function showCounselingAlert() {
@@ -596,7 +597,7 @@
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) {
-                whatsapp = '+91' + whatsapp.replace('+91', '');
+                whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
             }
             if (whatsapp.length !== 13) {
                 alert("WhatsApp number must be 10 digits after +91");
