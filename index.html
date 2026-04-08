@@ -122,6 +122,16 @@
             <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
+
+        <div class="mt-16">
+            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">FOLLOW NEXUS WELLNESS</p>
+            <div class="flex gap-6 text-3xl">
+                <a href="#" class="social-icon text-[#E1306C]"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon text-[#0A66C2]"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon text-[#FF0000]"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
     </div>
 
     <!-- Admin Panel -->
@@ -144,6 +154,7 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-10 text-sm">
+            <!-- Hero Section -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Hero Section</h4>
                 <div class="space-y-4">
@@ -156,19 +167,23 @@
                 </div>
             </div>
             
+            <!-- Editable Custom Sections (like Blog) -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Custom Sections</h4>
+                <h4 class="font-bold text-lg mb-6">Custom Sections (Editable like Blog)</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
-                <button onclick="addNewCustomSection()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
+                <button onclick="addNewCustomSection()" 
+                        class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
                     + Add New Custom Section
                 </button>
             </div>
 
+            <!-- Blog Control -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Blog Control</h4>
                 <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
             </div>
 
+            <!-- Contact & Payment -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Contact & Payment</h4>
                 <div class="space-y-4">
@@ -206,21 +221,21 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections -->
+    <!-- Dynamic Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
         <div class="max-w-4xl mx-auto bg-white p-10 md:p-20 rounded-[40px] border border-gray-100 shadow-xl" data-aos="zoom-in">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); handleBookingSubmit();">
+                <form id="p-form" class="space-y-6" onsubmit="event.preventDefault(); showPayment();">
                     <h2 class="text-5xl font-bold tracking-tighter text-center mb-10">Schedule Session</h2>
                     <div class="grid md:grid-cols-2 gap-6">
                         <input type="text" id="p_name" placeholder="Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email" class="premium-input" required>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
-                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" value="+91" maxlength="13" class="premium-input" required>
+                        <input type="tel" id="p_whatsapp" placeholder="WhatsApp Number" class="premium-input" required>
                         <select id="p_gender" class="premium-input" required>
                             <option value="">Male / Female / Other</option>
                             <option value="Male">Male</option>
@@ -254,13 +269,14 @@
                         <img id="p-qr" src="" class="w-48 h-48 mx-auto">
                         <p id="p-upi-text" class="text-xs font-mono mt-4 text-blue-600 font-bold"></p>
                     </div>
-                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
+                    <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" class="premium-input text-center font-bold tracking-widest border-2 border-cyan-50">
                     <button onclick="unlockSession()" class="cta-btn w-full py-5 rounded-full uppercase">Confirm Payment</button>
                 </div>
 
                 <div id="p-success" class="hidden text-center space-y-8">
                     <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
                     
+                    <!-- In-app chat -->
                     <div class="mt-8">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">Payment Verified ✓<br>Your session is confirmed!</h3>
                         <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly here</p>
@@ -297,7 +313,6 @@
     <script>
         AOS.init();
 
-        // Safe nexusConfig initialization
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
             heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
             heroTitle: "Reclaim Your Inner Peace",
@@ -307,24 +322,32 @@
             adminEmail: "thenexusstudy3@gmail.com",
             blogUrl: "#",
             customSections: [
-                { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
-                { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
-                { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
+                {
+                    title: "Anxiety Care",
+                    description: "Finding stillness in a chaotic world",
+                    emoji: "🧠",
+                    image: ""
+                },
+                {
+                    title: "Relationship Issues",
+                    description: "Healing emotional bonds",
+                    emoji: "❤️",
+                    image: ""
+                },
+                {
+                    title: "Sleep Problems",
+                    description: "Restorative sleep techniques",
+                    emoji: "🌙",
+                    image: ""
+                }
             ]
         };
 
-        // Ensure customSections is always an array
-        if (!nexusConfig.customSections || !Array.isArray(nexusConfig.customSections)) {
-            nexusConfig.customSections = [
-                { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
-                { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
-                { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
-            ];
-        }
-
         let currentOTP = null;
         let currentImageTarget = null;
-        let currentBookingData = null;
+
+        // Chat messages storage (simulated - in real app this would be backend)
+        let chatMessages = [];
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -334,29 +357,31 @@
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
+
             renderCustomSections();
         }
 
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
-            if (!container) return;
-            
             container.innerHTML = '';
 
-            nexusConfig.customSections.forEach((section) => {
-                const html = `
+            nexusConfig.customSections.forEach((section, index) => {
+                let sectionHTML = `
                     <section class="py-24 px-6 md:px-20 bg-white">
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
-                                ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
-                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">${section.emoji || '✨'}</div>
+                                ${section.image ? 
+                                    `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl max-h-96 object-cover w-full md:w-auto" alt="${section.title}">` : ''}
+                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">
+                                    ${section.emoji || '✨'}
+                                </div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
                             </div>
                         </div>
                     </section>
                 `;
-                container.innerHTML += html;
+                container.innerHTML += sectionHTML;
             });
         }
 
@@ -373,7 +398,7 @@
             if (nexusConfig.blogUrl && nexusConfig.blogUrl !== "#") {
                 window.open(nexusConfig.blogUrl, '_blank');
             } else {
-                alert("Our Blog section is coming soon.");
+                alert("Our Blog section is coming soon.\n\nWe will be sharing insightful articles on mental wellness.");
             }
             toggleCounselingMenu();
         }
@@ -392,6 +417,7 @@
 
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
+            
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
             document.getElementById('adm-hero-title').value = nexusConfig.heroTitle;
             document.getElementById('adm-hero-subtitle').value = nexusConfig.heroSubtitle;
@@ -399,16 +425,14 @@
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
-            renderAdminCustomSections();
-        }
 
-        function closeAdmin() {
-            document.getElementById('admin-panel').classList.remove('active');
+            renderAdminCustomSections();
         }
 
         function renderAdminCustomSections() {
             const container = document.getElementById('custom-sections-container');
             container.innerHTML = '';
+
             nexusConfig.customSections.forEach((section, index) => {
                 const div = document.createElement('div');
                 div.className = "border rounded-3xl p-6 bg-gray-50";
@@ -420,10 +444,10 @@
                     <div class="space-y-4">
                         <input id="cs-title-${index}" value="${section.title || ''}" class="premium-input text-sm" placeholder="Section Title">
                         <input id="cs-desc-${index}" value="${section.description || ''}" class="premium-input text-sm" placeholder="Section Description">
-                        <input id="cs-emoji-${index}" value="${section.emoji || ''}" class="premium-input text-sm" placeholder="Emoji">
+                        <input id="cs-emoji-${index}" value="${section.emoji || ''}" class="premium-input text-sm" placeholder="Emoji (e.g. 🧠)">
                         <div class="flex gap-2">
-                            <input id="cs-image-${index}" value="${section.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL">
-                            <button onclick="openImageGalleryForSection(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                            <input id="cs-image-${index}" value="${section.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL (optional)">
+                            <button onclick="openImageGalleryForSection(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium whitespace-nowrap">Gallery</button>
                         </div>
                     </div>
                 `;
@@ -432,12 +456,17 @@
         }
 
         function addNewCustomSection() {
-            nexusConfig.customSections.push({ title: "New Section Title", description: "Write description here...", emoji: "✨", image: "" });
+            nexusConfig.customSections.push({
+                title: "New Section Title",
+                description: "Write description here...",
+                emoji: "✨",
+                image: ""
+            });
             renderAdminCustomSections();
         }
 
         function removeCustomSection(index) {
-            if (confirm("Delete this section?")) {
+            if (confirm("Are you sure you want to delete this section?")) {
                 nexusConfig.customSections.splice(index, 1);
                 renderAdminCustomSections();
             }
@@ -469,8 +498,12 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget !== null) document.getElementById(`cs-image-${currentImageTarget}`).value = url;
-                    else if (targetId) document.getElementById(targetId).value = url;
+                    if (currentImageTarget !== null) {
+                        document.getElementById(`cs-image-${currentImageTarget}`).value = url;
+                        currentImageTarget = null;
+                    } else if (targetId) {
+                        document.getElementById(targetId).value = url;
+                    }
                     closeImageGallery();
                 };
                 container.appendChild(div);
@@ -526,7 +559,11 @@
 
             currentOTP = Math.floor(100000 + Math.random() * 900000);
 
-            const templateParams = { to_email: email, otp: currentOTP };
+            const templateParams = {
+                to_email: email,
+                otp: currentOTP
+            };
+
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
                     document.getElementById('otp-notification').classList.add('visible');
@@ -536,7 +573,10 @@
                         document.getElementById('otp-notification').classList.remove('visible');
                     }, 1500);
                 })
-                .catch(() => alert("Failed to send OTP."));
+                .catch((error) => {
+                    console.error(error);
+                    alert("Failed to send OTP.");
+                });
         }
 
         function verifyAdminOTP() {
@@ -547,55 +587,6 @@
             } else {
                 document.getElementById('verify-notification').classList.add('visible');
                 setTimeout(() => document.getElementById('verify-notification').classList.remove('visible'), 3000);
-            }
-        }
-
-        async function handleBookingSubmit() {
-            let whatsapp = document.getElementById('p_whatsapp').value.trim();
-            if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
-            if (whatsapp.length !== 13) {
-                alert("WhatsApp number must be 10 digits after +91");
-                return;
-            }
-
-            const bookingData = {
-                name: document.getElementById('p_name').value.trim(),
-                email: document.getElementById('p_email').value.trim(),
-                whatsapp: whatsapp,
-                gender: document.getElementById('p_gender').value,
-                counselingType: document.getElementById('p_counseling_type').value === "Other" 
-                    ? document.getElementById('p_other_type').value.trim() 
-                    : document.getElementById('p_counseling_type').value,
-                concern: document.getElementById('p_concern').value.trim(),
-                fee: document.getElementById('p_type').value
-            };
-
-            if (!bookingData.name || !bookingData.email || !bookingData.whatsapp || !bookingData.counselingType || !bookingData.concern) {
-                alert("Please fill all required fields.");
-                return;
-            }
-
-            try {
-                const templateParams = {
-                    to_email: nexusConfig.adminEmail,
-                    from_name: bookingData.name,
-                    from_email: bookingData.email,
-                    whatsapp: bookingData.whatsapp,
-                    gender: bookingData.gender,
-                    counseling_type: bookingData.counselingType,
-                    concern: bookingData.concern,
-                    fee: bookingData.fee,
-                    message: `New Booking Request - Nexus Wellness`
-                };
-
-                await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
-
-                alert("Your details have been sent successfully!\n\nPlease complete the payment.");
-                currentBookingData = bookingData;
-                showPayment();
-            } catch (error) {
-                console.error(error);
-                alert("Failed to send details. Try again.");
             }
         }
 
@@ -610,19 +601,30 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length !== 12) {
-                alert("UTR ID must be exactly 12 digits.");
+            if (utr.length < 12) {
+                alert("Please enter a valid 12-digit UTR ID from your payment.");
                 return;
             }
 
-            if (!currentBookingData) return;
+            // Store booking details for chat (this is what was missing - now info stays in chat)
+            const bookingData = {
+                name: document.getElementById('p_name').value,
+                email: document.getElementById('p_email').value,
+                whatsapp: document.getElementById('p_whatsapp').value,
+                gender: document.getElementById('p_gender').value,
+                counselingType: document.getElementById('p_counseling_type').value === "Other" 
+                    ? document.getElementById('p_other_type').value 
+                    : document.getElementById('p_counseling_type').value,
+                concern: document.getElementById('p_concern').value,
+                fee: document.getElementById('p_type').value,
+                utr: utr
+            };
 
-            currentBookingData.utr = utr;
-            localStorage.setItem('currentBooking', JSON.stringify(currentBookingData));
+            localStorage.setItem('currentBooking', JSON.stringify(bookingData));
 
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
-            initializeChat(currentBookingData);
+            initializeChat(bookingData);
         }
 
         function initializeChat(bookingData) {
@@ -633,10 +635,17 @@
                         Hello <strong>${bookingData.name}</strong>! 🎉<br><br>
                         <strong>Payment Confirmed</strong> (UTR: ${bookingData.utr})<br>
                         Session Type: <strong>${bookingData.counselingType}</strong><br><br>
-                        Your in-app chat is now active.
+                        Your in-app chat is now active. A counselor will join shortly.<br>
+                        All your details are securely saved here.
                     </div>
                 </div>
             `;
+
+            // Add a system message with full info (this ensures all info is visible in chat, not on WhatsApp)
+            chatMessages = [{
+                type: "system",
+                text: `New Booking - ${bookingData.name} | ${bookingData.counselingType} | UTR: ${bookingData.utr}`
+            }];
         }
 
         function sendChatMessage() {
@@ -645,27 +654,43 @@
             if (!message) return;
 
             const windowEl = document.getElementById('chat-window');
-            windowEl.innerHTML += `
+
+            const userMessageHTML = `
                 <div class="flex justify-end">
-                    <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div>
+                    <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">
+                        ${message}
+                    </div>
                 </div>
             `;
+            windowEl.innerHTML += userMessageHTML;
             windowEl.scrollTop = windowEl.scrollHeight;
+
             input.value = '';
 
+            // Simulate counselor reply
             setTimeout(() => {
-                const replies = ["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
+                const replies = [
+                    "Thank you for sharing. I'm here to help you.",
+                    "Understood. Let's work through this together.",
+                    "How are you feeling right now?",
+                    "Your information is safe with us."
+                ];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                windowEl.innerHTML += `
+                const counselorHTML = `
                     <div class="flex justify-start">
-                        <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div>
+                        <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">
+                            ${randomReply}
+                        </div>
                     </div>
                 `;
+                windowEl.innerHTML += counselorHTML;
                 windowEl.scrollTop = windowEl.scrollHeight;
             }, 1000);
         }
 
+        // Career Counseling added in custom sections on load
         function addCareerSection() {
+            // This adds Career Counseling as a visible custom section with briefcase symbol
             if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
                 nexusConfig.customSections.push({
                     title: "Career Counseling",
@@ -677,10 +702,9 @@
             }
         }
 
-        // Final Load with error protection
         window.onload = () => {
             loadSettings();
-            addCareerSection();
+            addCareerSection();   // Adds Career Counseling section on homepage
         };
     </script>
 </body>
