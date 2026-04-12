@@ -217,7 +217,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections (Anxiety, Relationship, Sleep) -->
+    <!-- Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -549,6 +549,7 @@
             }
         }
 
+        // ==================== UPDATED FUNCTION ====================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -580,23 +581,25 @@
                     from_name: bookingData.name,
                     from_email: bookingData.email,
                     whatsapp: bookingData.whatsapp,
-                    gender: bookingData.gender,
+                    gender: bookingData.gender || "Not specified",
                     counseling_type: bookingData.counselingType,
                     concern: bookingData.concern,
                     fee: bookingData.fee,
-                    message: `New Booking Request - Nexus Wellness`
+                    message: `New Booking Request - Nexus Wellness`,
+                    date: new Date().toLocaleString('en-IN')
                 };
 
                 await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
 
-                alert("Your details have been sent successfully!\n\nPlease complete the payment.");
+                alert("Your details have been sent successfully to our team!\n\nPlease complete the payment to confirm your session.");
                 currentBookingData = bookingData;
                 showPayment();
             } catch (error) {
                 console.error(error);
-                alert("Failed to send details. Try again.");
+                alert("Failed to send details. Please try again or contact us on WhatsApp.");
             }
         }
+        // =========================================================
 
         function showPayment() {
             const fee = document.getElementById('p_type').value;
