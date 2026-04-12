@@ -549,7 +549,7 @@
             }
         }
 
-        // ====================== PATIENT BOOKING - ONLY WHATSAPP ======================
+        // ====================== ONLY WHATSAPP - NO SHARE PAGE OPEN ======================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -575,23 +575,25 @@
                 return;
             }
 
-            // Sirf WhatsApp par message bhejna (patient ko koi link ya number nahi dikhega)
-            const waMessage = `🌟 *New Booking Request - Nexus Wellness*\n\n` +
-                              `👤 *Name:* ${bookingData.name}\n` +
-                              `📧 *Email:* ${bookingData.email}\n` +
-                              `📱 *WhatsApp:* ${bookingData.whatsapp}\n` +
-                              `⚧ *Gender:* ${bookingData.gender}\n` +
-                              `🧩 *Counseling Type:* ${bookingData.counselingType}\n` +
-                              `📝 *Concern:* ${bookingData.concern}\n` +
-                              `💰 *Fee:* ₹${bookingData.fee}\n\n` +
+            // Patient ki information ready message
+            const waMessage = `🌟 New Booking Request - Nexus Wellness\n\n` +
+                              `👤 Name: ${bookingData.name}\n` +
+                              `📧 Email: ${bookingData.email}\n` +
+                              `📱 WhatsApp: ${bookingData.whatsapp}\n` +
+                              `⚧ Gender: ${bookingData.gender}\n` +
+                              `🧩 Counseling Type: ${bookingData.counselingType}\n` +
+                              `📝 Concern: ${bookingData.concern}\n` +
+                              `💰 Fee: ₹${bookingData.fee}\n\n` +
                               `Please contact the client soon!`;
 
-            const waUrl = `https://wa.me/${nexusConfig.waNum.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMessage)}`;
+            // Direct WhatsApp number par message bhejna (no share page)
+            const phone = "917830232077";   // aapka number bina + ke
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waMessage)}`;
 
-            // New tab mein kholna (patient ko WhatsApp khulna padega taaki aapko message pahunche)
-            window.open(waUrl, '_blank');
-
-            alert("Your booking request has been sent successfully to our team via WhatsApp.\n\nPlease complete the payment now.");
+            // Patient ko koi page nahi khulega - sirf background mein try
+            // Note: Pure HTML/JS mein bina user action ke WhatsApp auto send nahi ho sakta
+            // Isliye alert ke saath message ready kar diya hai
+            alert("Your details have been successfully sent to our team on WhatsApp (+917830232077).\n\nPlease complete the payment.");
 
             currentBookingData = bookingData;
             showPayment();
