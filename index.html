@@ -549,7 +549,7 @@
             }
         }
 
-        // ==================== UPDATED FUNCTION ====================
+        // ====================== UPDATED FUNCTION ONLY ======================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -562,7 +562,7 @@
                 name: document.getElementById('p_name').value.trim(),
                 email: document.getElementById('p_email').value.trim(),
                 whatsapp: whatsapp,
-                gender: document.getElementById('p_gender').value,
+                gender: document.getElementById('p_gender').value || "Not specified",
                 counselingType: document.getElementById('p_counseling_type').value === "Other" 
                     ? document.getElementById('p_other_type').value.trim() 
                     : document.getElementById('p_counseling_type').value,
@@ -581,7 +581,7 @@
                     from_name: bookingData.name,
                     from_email: bookingData.email,
                     whatsapp: bookingData.whatsapp,
-                    gender: bookingData.gender || "Not specified",
+                    gender: bookingData.gender,
                     counseling_type: bookingData.counselingType,
                     concern: bookingData.concern,
                     fee: bookingData.fee,
@@ -599,7 +599,7 @@
                 alert("Failed to send details. Please try again or contact us on WhatsApp.");
             }
         }
-        // =========================================================
+        // ===================================================================
 
         function showPayment() {
             const fee = document.getElementById('p_type').value;
