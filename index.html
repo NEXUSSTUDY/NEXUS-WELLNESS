@@ -88,15 +88,13 @@
         .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
         .notification.visible { opacity: 1; visibility: visible; }
 
-        /* Premium Blog Modal */
-        #blog-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 5000;
-            display: none; align-items: center; justify-content: center; padding: 20px;
+        /* Premium Detail Modal */
+        #counseling-detail-modal {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        #blog-modal.active { display: flex; }
-        .blog-content {
-            background: white; max-width: 1100px; width: 100%; border-radius: 32px;
-            max-height: 92vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        @keyframes modalPop {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -126,11 +124,11 @@
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div class="space-y-8 text-[19px]">
-            <div onclick="openCounselingBlog('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingBlog('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingBlog('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingBlog('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingBlog('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
@@ -145,22 +143,59 @@
         </div>
     </div>
 
-    <!-- Premium Counseling Blog Modal -->
-    <div id="blog-modal" class="hidden fixed inset-0 bg-black/80 z-[5000] flex items-center justify-center p-4">
-        <div class="blog-content">
-            <div class="sticky top-0 bg-white border-b flex justify-between items-center px-8 py-6 z-10">
-                <h2 id="blog-modal-title" class="text-3xl font-bold tracking-tight"></h2>
-                <button onclick="closeBlogModal()" class="text-4xl text-gray-400 hover:text-black leading-none">&times;</button>
-            </div>
+    <!-- COUNSELING DETAIL MODAL (Premium Page) -->
+    <div id="counseling-detail-modal" class="hidden fixed inset-0 bg-black/90 z-[5000] flex items-center justify-center p-6">
+        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[95vh] overflow-hidden shadow-2xl flex flex-col">
             
-            <div class="p-8 md:p-12">
-                <img id="blog-modal-image" class="w-full h-96 object-cover rounded-3xl shadow-xl mb-10" alt="">
-                
-                <div id="blog-modal-subtitle" class="text-2xl text-gray-600 mb-8 font-medium"></div>
-                
-                <div id="blog-modal-content" class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                    <!-- Dynamic premium content will be inserted here -->
+            <!-- Header -->
+            <div class="px-10 py-6 border-b flex items-center justify-between bg-gradient-to-r from-[#0071e3] to-[#005bb5] text-white">
+                <div class="flex items-center gap-4">
+                    <span id="modal-emoji" class="text-5xl"></span>
+                    <div>
+                        <h1 id="modal-title" class="text-4xl font-bold tracking-tighter"></h1>
+                        <p id="modal-subtitle" class="text-white/90 text-lg"></p>
+                    </div>
                 </div>
+                <button onclick="closeCounselingDetail()" class="text-5xl leading-none hover:scale-110 transition">&times;</button>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-auto p-10">
+                <!-- Main Image -->
+                <img id="modal-image" src="" class="w-full h-96 object-cover rounded-3xl shadow-xl mb-10" alt="">
+                
+                <!-- Description -->
+                <div id="modal-description" class="prose prose-lg max-w-none text-gray-700 leading-relaxed text-[17px]">
+                </div>
+
+                <!-- Premium Benefits Section -->
+                <div class="mt-16 grid md:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
+                        <div class="text-4xl mb-4">🧘</div>
+                        <h4 class="font-semibold text-xl mb-2">Personalized Guidance</h4>
+                        <p class="text-gray-600">Tailored strategies that fit your unique life situation</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
+                        <div class="text-4xl mb-4">📈</div>
+                        <h4 class="font-semibold text-xl mb-2">Proven Results</h4>
+                        <p class="text-gray-600">Evidence-based techniques with measurable improvement</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
+                        <div class="text-4xl mb-4">🔒</div>
+                        <h4 class="font-semibold text-xl mb-2">100% Confidential</h4>
+                        <p class="text-gray-600">Your privacy is our absolute priority</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer CTA -->
+            <div class="px-10 py-8 border-t flex items-center justify-between bg-white">
+                <button onclick="closeCounselingDetail()" class="text-gray-500 font-medium flex items-center gap-2">
+                    <i class="fas fa-arrow-left"></i> Back to Menu
+                </button>
+                <a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn px-10 py-4 text-sm font-bold uppercase tracking-widest">
+                    Book Your Session Now
+                </a>
             </div>
         </div>
     </div>
@@ -185,6 +220,7 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-10 text-sm">
+
             <!-- Hero Section -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Hero Section</h4>
@@ -198,22 +234,23 @@
                 </div>
             </div>
 
-            <!-- Custom Sections -->
+            <!-- Custom Sections (Home) -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Custom Sections</h4>
+                <h4 class="font-bold text-lg mb-6">Custom Sections (Homepage)</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
                 <button onclick="addNewCustomSection()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">+ Add New Custom Section</button>
             </div>
 
-            <!-- NEW: Counseling Blogs Management (Full Admin Control) -->
+            <!-- NEW: Counseling Topics Management -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Counseling Blogs (Premium Content)</h4>
-                <div id="blog-management-container" class="space-y-8"></div>
+                <h4 class="font-bold text-lg mb-6">Counseling Topics (Detail Pages)</h4>
+                <div id="counseling-topics-container" class="space-y-8"></div>
+                <button onclick="addNewCounselingTopic()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">+ Add New Counseling Topic</button>
             </div>
 
             <!-- Blog Control -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">General Blog URL</h4>
+                <h4 class="font-bold text-lg mb-6">Blog Control</h4>
                 <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
             </div>
 
@@ -255,7 +292,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections -->
+    <!-- Custom Sections (Homepage) -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -358,79 +395,55 @@
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ],
-            // === NEW: Full Admin Control for Counseling Blogs ===
-            counselingBlogs: {
-                Anxiety: {
+            // NEW: Counseling Topics with full admin control
+            counselingTopics: [
+                {
+                    key: "Anxiety",
                     title: "Anxiety & Stress",
                     subtitle: "Finding stillness in a chaotic world",
-                    heroImage: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
-                    content: `<div class="space-y-8">
-                        <h3 class="text-4xl font-semibold">Understanding Anxiety</h3>
-                        <p class="text-xl">Modern life brings constant pressure. Learn proven techniques to calm your mind and regain control.</p>
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4" class="rounded-3xl w-full shadow-2xl" alt="Calm mind">
-                        <h4 class="text-2xl font-medium mt-12">Our Approach</h4>
-                        <ul class="list-disc pl-6 space-y-3 text-lg">
-                            <li>Cognitive Behavioral Techniques</li>
-                            <li>Mindfulness & Breathing Exercises</li>
-                            <li>Personalized Stress Management Plans</li>
-                        </ul>
-                        <div class="bg-amber-50 p-8 rounded-3xl mt-12">
-                            <p class="italic">"Within 3 sessions, I felt a profound sense of peace I hadn't known in years."</p>
-                            <p class="text-sm mt-4 font-medium">- Priya Sharma, Client</p>
-                        </div>
-                    </div>`
+                    description: "Experience a complete transformation in how you handle anxiety and stress. Our premium approach combines evidence-based cognitive techniques, mindfulness practices, and personalized coping strategies designed specifically for high-achieving professionals and students in India.",
+                    image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
+                    emoji: "🧠"
                 },
-                Relationship: {
+                {
+                    key: "Relationship",
                     title: "Relationship Issues",
                     subtitle: "Healing emotional bonds",
-                    heroImage: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
-                    content: `<div class="space-y-8">
-                        <h3 class="text-4xl font-semibold">Rebuild Connection</h3>
-                        <p class="text-xl">Communication breakdowns, trust issues, intimacy challenges — we help couples and individuals heal.</p>
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="rounded-3xl w-full shadow-2xl" alt="Couple">
-                        <h4 class="text-2xl font-medium mt-12">What You'll Learn</h4>
-                        <ul class="grid grid-cols-2 gap-6 text-lg">
-                            <li class="bg-white p-6 rounded-2xl shadow">Active Listening</li>
-                            <li class="bg-white p-6 rounded-2xl shadow">Conflict Resolution</li>
-                            <li class="bg-white p-6 rounded-2xl shadow">Emotional Intimacy</li>
-                            <li class="bg-white p-6 rounded-2xl shadow">Setting Healthy Boundaries</li>
-                        </ul>
-                    </div>`
+                    description: "Rebuild trust, improve communication, and create deeper emotional connections. Whether it's marriage, dating, family conflicts or breakups — our expert counselors provide compassionate, practical guidance to help you foster healthier and more fulfilling relationships.",
+                    image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070&auto=format&fit=crop",
+                    emoji: "❤️"
                 },
-                Sleep: {
+                {
+                    key: "Sleep",
                     title: "Sleep Problems",
                     subtitle: "Restorative sleep techniques",
-                    heroImage: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
-                    content: `<div class="space-y-8">
-                        <h3 class="text-4xl font-semibold">Sleep Better Tonight</h3>
-                        <p class="text-xl">Insomnia, nightmares, restless nights — get science-backed solutions for deep, refreshing sleep.</p>
-                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" class="rounded-3xl w-full shadow-2xl" alt="Peaceful sleep">
-                    </div>`
+                    description: "End sleepless nights and wake up refreshed. Learn proven sleep hygiene methods, relaxation techniques, and cognitive behavioral strategies for insomnia. Achieve deep, restorative sleep that improves your mood, focus, and overall wellbeing.",
+                    image: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070&auto=format&fit=crop",
+                    emoji: "🌙"
                 },
-                Trauma: {
+                {
+                    key: "Trauma",
                     title: "Trauma Support",
-                    subtitle: "Safe healing journey",
-                    heroImage: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
-                    content: `<div class="space-y-8">
-                        <h3 class="text-4xl font-semibold">Gentle Trauma Recovery</h3>
-                        <p class="text-xl">EMDR-informed care, somatic healing, and compassionate support for PTSD and emotional wounds.</p>
-                    </div>`
+                    subtitle: "Gentle healing for deep wounds",
+                    description: "Safe, trauma-informed care to help you process and heal from past experiences. Using EMDR-inspired methods and somatic techniques, we create a compassionate space where you can reclaim your power and move forward with strength and peace.",
+                    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070&auto=format&fit=crop",
+                    emoji: "🌿"
                 },
-                Career: {
+                {
+                    key: "Career",
                     title: "Career Counseling",
                     subtitle: "Guidance for your professional journey",
-                    heroImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070",
-                    content: `<div class="space-y-8">
-                        <h3 class="text-4xl font-semibold">Unlock Your Career Potential</h3>
-                        <p class="text-xl">Clarity, confidence, and direction for job changes, promotions, or new career paths.</p>
-                    </div>`
+                    description: "Unlock your full potential with expert career guidance. Whether you're choosing a stream, changing jobs, preparing for interviews, or seeking work-life balance — we provide strategic insights, confidence building, and actionable plans for long-term success.",
+                    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop",
+                    emoji: "💼"
                 }
-            }
+            ]
         };
 
         let currentOTP = null;
         let currentImageTarget = null;
         let currentBookingData = null;
+        let currentDetailKey = null;
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -463,32 +476,89 @@
             });
         }
 
-        // ====================== OPEN PREMIUM BLOG ======================
-        function openCounselingBlog(key) {
-            const blog = nexusConfig.counselingBlogs[key];
-            if (!blog) return;
+        // ====================== NEW: COUNSELING DETAIL MODAL ======================
+        function showCounselingDetail(key) {
+            const topic = nexusConfig.counselingTopics.find(t => t.key === key);
+            if (!topic) return;
 
-            document.getElementById('blog-modal-title').textContent = blog.title;
-            document.getElementById('blog-modal-subtitle').innerHTML = `<p class="text-2xl text-gray-600">${blog.subtitle}</p>`;
-            document.getElementById('blog-modal-image').src = blog.heroImage;
-            document.getElementById('blog-modal-content').innerHTML = blog.content;
+            currentDetailKey = key;
 
-            document.getElementById('blog-modal').classList.add('active');
+            document.getElementById('modal-emoji').innerHTML = topic.emoji;
+            document.getElementById('modal-title').textContent = topic.title;
+            document.getElementById('modal-subtitle').textContent = topic.subtitle;
+            document.getElementById('modal-image').src = topic.image;
+            document.getElementById('modal-description').innerHTML = `
+                <p class="text-gray-700 leading-relaxed text-[17px]">${topic.description}</p>
+            `;
+
+            const modal = document.getElementById('counseling-detail-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             toggleCounselingMenu(); // close menu
         }
 
-        function closeBlogModal() {
-            document.getElementById('blog-modal').classList.remove('active');
+        function closeCounselingDetail() {
+            const modal = document.getElementById('counseling-detail-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
+        // ====================== COUNSELING TOPICS ADMIN ======================
+        function renderCounselingTopicsAdmin() {
+            const container = document.getElementById('counseling-topics-container');
+            container.innerHTML = '';
+
+            nexusConfig.counselingTopics.forEach((topic, index) => {
+                const div = document.createElement('div');
+                div.className = "border rounded-3xl p-6 bg-gray-50";
+                div.innerHTML = `
+                    <div class="flex justify-between mb-4">
+                        <h5 class="font-semibold text-base">${topic.title}</h5>
+                        <button onclick="removeCounselingTopic(${index})" class="text-red-500 text-sm hover:text-red-700">Remove</button>
+                    </div>
+                    <div class="space-y-4">
+                        <input id="ct-key-${index}" value="${topic.key}" class="premium-input text-sm" placeholder="Key (Anxiety / Relationship etc)">
+                        <input id="ct-title-${index}" value="${topic.title}" class="premium-input text-sm" placeholder="Title">
+                        <input id="ct-subtitle-${index}" value="${topic.subtitle}" class="premium-input text-sm" placeholder="Subtitle">
+                        <textarea id="ct-desc-${index}" class="premium-input text-sm h-32" placeholder="Full Description">${topic.description}</textarea>
+                        <div class="flex gap-2">
+                            <input id="ct-image-${index}" value="${topic.image}" class="premium-input text-sm flex-1" placeholder="Main Image URL">
+                            <button onclick="openImageGalleryForTopic(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                        </div>
+                        <input id="ct-emoji-${index}" value="${topic.emoji}" class="premium-input text-sm" placeholder="Emoji">
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addNewCounselingTopic() {
+            nexusConfig.counselingTopics.push({
+                key: "NewTopic",
+                title: "New Counseling Topic",
+                subtitle: "Short catchy subtitle",
+                description: "Write a detailed premium description here...",
+                image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
+                emoji: "✨"
+            });
+            renderCounselingTopicsAdmin();
+        }
+
+        function removeCounselingTopic(index) {
+            if (confirm("Delete this counseling topic?")) {
+                nexusConfig.counselingTopics.splice(index, 1);
+                renderCounselingTopicsAdmin();
+            }
+        }
+
+        function openImageGalleryForTopic(index) {
+            currentImageTarget = { type: 'topic', index: index };
+            openImageGallery(null);
+        }
+
+        // ====================== REST OF THE CODE (UNCHANGED) ======================
         function toggleCounselingMenu() { 
             document.getElementById('counseling-menu').classList.toggle('active'); 
-        }
-
-        function showCounselingAlert() {
-            // kept for safety but not used
-            alert("Our team will contact you shortly.");
-            toggleCounselingMenu();
         }
 
         function openBlog() {
@@ -521,8 +591,9 @@
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
+
             renderAdminCustomSections();
-            renderBlogManagement();   // ← new
+            renderCounselingTopicsAdmin();   // NEW
         }
 
         function closeAdmin() {
@@ -554,37 +625,6 @@
             });
         }
 
-        // ====================== ADMIN BLOG MANAGEMENT ======================
-        function renderBlogManagement() {
-            const container = document.getElementById('blog-management-container');
-            container.innerHTML = '';
-
-            const keys = Object.keys(nexusConfig.counselingBlogs);
-            keys.forEach((key, index) => {
-                const b = nexusConfig.counselingBlogs[key];
-                const div = document.createElement('div');
-                div.className = "border rounded-3xl p-6 bg-gray-50";
-                div.innerHTML = `
-                    <h5 class="font-semibold mb-4">${key} Counseling Blog</h5>
-                    <div class="space-y-4">
-                        <input id="blog-title-${key}" value="${b.title}" class="premium-input text-sm" placeholder="Blog Title">
-                        <input id="blog-subtitle-${key}" value="${b.subtitle}" class="premium-input text-sm" placeholder="Blog Subtitle">
-                        <div class="flex gap-2">
-                            <input id="blog-hero-${key}" value="${b.heroImage}" class="premium-input text-sm flex-1" placeholder="Hero Image URL">
-                            <button onclick="openImageGalleryForBlog('${key}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
-                        </div>
-                        <textarea id="blog-content-${key}" rows="6" class="premium-input text-sm w-full">${b.content}</textarea>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function openImageGalleryForBlog(key) {
-            currentImageTarget = 'blog-' + key;
-            openImageGallery(null);
-        }
-
         function addNewCustomSection() {
             nexusConfig.customSections.push({ title: "New Section Title", description: "Write description here...", emoji: "✨", image: "" });
             renderAdminCustomSections();
@@ -598,7 +638,7 @@
         }
 
         function openImageGalleryForSection(index) {
-            currentImageTarget = index;
+            currentImageTarget = { type: 'custom', index: index };
             openImageGallery(null);
         }
 
@@ -623,11 +663,10 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget !== null && typeof currentImageTarget === 'number') {
-                        document.getElementById(`cs-image-${currentImageTarget}`).value = url;
-                    } else if (typeof currentImageTarget === 'string' && currentImageTarget.startsWith('blog-')) {
-                        const key = currentImageTarget.replace('blog-', '');
-                        document.getElementById(`blog-hero-${key}`).value = url;
+                    if (currentImageTarget && currentImageTarget.type === 'topic') {
+                        document.getElementById(`ct-image-${currentImageTarget.index}`).value = url;
+                    } else if (currentImageTarget && currentImageTarget.type === 'custom') {
+                        document.getElementById(`cs-image-${currentImageTarget.index}`).value = url;
                     } else if (targetId) {
                         document.getElementById(targetId).value = url;
                     }
@@ -648,10 +687,12 @@
         }
 
         function saveAdminSettings() {
+            // Hero
             nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
 
+            // Custom Sections
             nexusConfig.customSections.forEach((section, index) => {
                 section.title = document.getElementById(`cs-title-${index}`).value;
                 section.description = document.getElementById(`cs-desc-${index}`).value;
@@ -659,13 +700,14 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
-            // Save all blog content from admin
-            const keys = Object.keys(nexusConfig.counselingBlogs);
-            keys.forEach(key => {
-                nexusConfig.counselingBlogs[key].title = document.getElementById(`blog-title-${key}`).value;
-                nexusConfig.counselingBlogs[key].subtitle = document.getElementById(`blog-subtitle-${key}`).value;
-                nexusConfig.counselingBlogs[key].heroImage = document.getElementById(`blog-hero-${key}`).value;
-                nexusConfig.counselingBlogs[key].content = document.getElementById(`blog-content-${key}`).value;
+            // Counseling Topics
+            nexusConfig.counselingTopics.forEach((topic, index) => {
+                topic.key = document.getElementById(`ct-key-${index}`).value;
+                topic.title = document.getElementById(`ct-title-${index}`).value;
+                topic.subtitle = document.getElementById(`ct-subtitle-${index}`).value;
+                topic.description = document.getElementById(`ct-desc-${index}`).value;
+                topic.image = document.getElementById(`ct-image-${index}`).value;
+                topic.emoji = document.getElementById(`ct-emoji-${index}`).value;
             });
 
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
@@ -675,7 +717,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! (Including all premium blog content)");
+            alert("All changes saved successfully! Counseling topics updated.");
             closeAdmin();
         }
 
@@ -693,7 +735,9 @@
                 alert("Please enter a valid email address");
                 return;
             }
+
             currentOTP = Math.floor(100000 + Math.random() * 900000);
+
             const templateParams = { to_email: email, otp: currentOTP };
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
@@ -718,7 +762,6 @@
             }
         }
 
-        // ====================== SILENT WHATSAPP (NO ALERT, NO PAGE) ======================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -744,18 +787,10 @@
                 return;
             }
 
-            const waMessage = `🌟 New Booking Request - Nexus Wellness\n\n` +
-                              `👤 Name: ${bookingData.name}\n` +
-                              `📧 Email: ${bookingData.email}\n` +
-                              `📱 WhatsApp: ${bookingData.whatsapp}\n` +
-                              `⚧ Gender: ${bookingData.gender}\n` +
-                              `🧩 Counseling Type: ${bookingData.counselingType}\n` +
-                              `📝 Concern: ${bookingData.concern}\n` +
-                              `💰 Fee: ₹${bookingData.fee}\n\n` +
-                              `Please contact the client soon!`;
+            const waMessage = `🌟 New Booking Request - Nexus Wellness\n\n👤 Name: ${bookingData.name}\n📧 Email: ${bookingData.email}\n📱 WhatsApp: ${bookingData.whatsapp}\n⚧ Gender: ${bookingData.gender}\n🧩 Counseling Type: ${bookingData.counselingType}\n📝 Concern: ${bookingData.concern}\n💰 Fee: ₹${bookingData.fee}\n\nPlease contact the client soon!`;
 
             const phone = "917830232077";
-            const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(waMessage)}`;
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waMessage)}`;
 
             const link = document.createElement('a');
             link.href = waUrl;
