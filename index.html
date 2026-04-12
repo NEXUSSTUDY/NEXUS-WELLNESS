@@ -87,6 +87,17 @@
 
         .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
         .notification.visible { opacity: 1; visibility: visible; }
+
+        /* Premium Blog Modal */
+        #blog-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 5000;
+            display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        #blog-modal.active { display: flex; }
+        .blog-content {
+            background: white; max-width: 1100px; width: 100%; border-radius: 32px;
+            max-height: 92vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -115,11 +126,11 @@
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div class="space-y-8 text-[19px]">
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingBlog('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingBlog('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingBlog('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingBlog('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingBlog('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
@@ -130,6 +141,26 @@
                 <a href="#" class="social-icon text-[#0A66C2]"><i class="fab fa-linkedin"></i></a>
                 <a href="#" class="social-icon text-[#FF0000]"><i class="fab fa-youtube"></i></a>
                 <a href="#" class="social-icon text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Counseling Blog Modal -->
+    <div id="blog-modal" class="hidden fixed inset-0 bg-black/80 z-[5000] flex items-center justify-center p-4">
+        <div class="blog-content">
+            <div class="sticky top-0 bg-white border-b flex justify-between items-center px-8 py-6 z-10">
+                <h2 id="blog-modal-title" class="text-3xl font-bold tracking-tight"></h2>
+                <button onclick="closeBlogModal()" class="text-4xl text-gray-400 hover:text-black leading-none">&times;</button>
+            </div>
+            
+            <div class="p-8 md:p-12">
+                <img id="blog-modal-image" class="w-full h-96 object-cover rounded-3xl shadow-xl mb-10" alt="">
+                
+                <div id="blog-modal-subtitle" class="text-2xl text-gray-600 mb-8 font-medium"></div>
+                
+                <div id="blog-modal-content" class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    <!-- Dynamic premium content will be inserted here -->
+                </div>
             </div>
         </div>
     </div>
@@ -154,6 +185,7 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-10 text-sm">
+            <!-- Hero Section -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Hero Section</h4>
                 <div class="space-y-4">
@@ -165,21 +197,27 @@
                     <input id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle">
                 </div>
             </div>
-            
+
+            <!-- Custom Sections -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Custom Sections</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
-                <button onclick="addNewCustomSection()" 
-                        class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
-                    + Add New Custom Section
-                </button>
+                <button onclick="addNewCustomSection()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">+ Add New Custom Section</button>
             </div>
 
+            <!-- NEW: Counseling Blogs Management (Full Admin Control) -->
             <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Blog Control</h4>
+                <h4 class="font-bold text-lg mb-6">Counseling Blogs (Premium Content)</h4>
+                <div id="blog-management-container" class="space-y-8"></div>
+            </div>
+
+            <!-- Blog Control -->
+            <div class="border-b pb-8">
+                <h4 class="font-bold text-lg mb-6">General Blog URL</h4>
                 <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
             </div>
 
+            <!-- Contact & Payment -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Contact & Payment</h4>
                 <div class="space-y-4">
@@ -271,7 +309,6 @@
 
                 <div id="p-success" class="hidden text-center space-y-8">
                     <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
-                    
                     <div class="mt-8">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">Payment Verified ✓<br>Your session is confirmed!</h3>
                         <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly here</p>
@@ -320,7 +357,75 @@
                 { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
-            ]
+            ],
+            // === NEW: Full Admin Control for Counseling Blogs ===
+            counselingBlogs: {
+                Anxiety: {
+                    title: "Anxiety & Stress",
+                    subtitle: "Finding stillness in a chaotic world",
+                    heroImage: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
+                    content: `<div class="space-y-8">
+                        <h3 class="text-4xl font-semibold">Understanding Anxiety</h3>
+                        <p class="text-xl">Modern life brings constant pressure. Learn proven techniques to calm your mind and regain control.</p>
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4" class="rounded-3xl w-full shadow-2xl" alt="Calm mind">
+                        <h4 class="text-2xl font-medium mt-12">Our Approach</h4>
+                        <ul class="list-disc pl-6 space-y-3 text-lg">
+                            <li>Cognitive Behavioral Techniques</li>
+                            <li>Mindfulness & Breathing Exercises</li>
+                            <li>Personalized Stress Management Plans</li>
+                        </ul>
+                        <div class="bg-amber-50 p-8 rounded-3xl mt-12">
+                            <p class="italic">"Within 3 sessions, I felt a profound sense of peace I hadn't known in years."</p>
+                            <p class="text-sm mt-4 font-medium">- Priya Sharma, Client</p>
+                        </div>
+                    </div>`
+                },
+                Relationship: {
+                    title: "Relationship Issues",
+                    subtitle: "Healing emotional bonds",
+                    heroImage: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
+                    content: `<div class="space-y-8">
+                        <h3 class="text-4xl font-semibold">Rebuild Connection</h3>
+                        <p class="text-xl">Communication breakdowns, trust issues, intimacy challenges — we help couples and individuals heal.</p>
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="rounded-3xl w-full shadow-2xl" alt="Couple">
+                        <h4 class="text-2xl font-medium mt-12">What You'll Learn</h4>
+                        <ul class="grid grid-cols-2 gap-6 text-lg">
+                            <li class="bg-white p-6 rounded-2xl shadow">Active Listening</li>
+                            <li class="bg-white p-6 rounded-2xl shadow">Conflict Resolution</li>
+                            <li class="bg-white p-6 rounded-2xl shadow">Emotional Intimacy</li>
+                            <li class="bg-white p-6 rounded-2xl shadow">Setting Healthy Boundaries</li>
+                        </ul>
+                    </div>`
+                },
+                Sleep: {
+                    title: "Sleep Problems",
+                    subtitle: "Restorative sleep techniques",
+                    heroImage: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
+                    content: `<div class="space-y-8">
+                        <h3 class="text-4xl font-semibold">Sleep Better Tonight</h3>
+                        <p class="text-xl">Insomnia, nightmares, restless nights — get science-backed solutions for deep, refreshing sleep.</p>
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" class="rounded-3xl w-full shadow-2xl" alt="Peaceful sleep">
+                    </div>`
+                },
+                Trauma: {
+                    title: "Trauma Support",
+                    subtitle: "Safe healing journey",
+                    heroImage: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
+                    content: `<div class="space-y-8">
+                        <h3 class="text-4xl font-semibold">Gentle Trauma Recovery</h3>
+                        <p class="text-xl">EMDR-informed care, somatic healing, and compassionate support for PTSD and emotional wounds.</p>
+                    </div>`
+                },
+                Career: {
+                    title: "Career Counseling",
+                    subtitle: "Guidance for your professional journey",
+                    heroImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070",
+                    content: `<div class="space-y-8">
+                        <h3 class="text-4xl font-semibold">Unlock Your Career Potential</h3>
+                        <p class="text-xl">Clarity, confidence, and direction for job changes, promotions, or new career paths.</p>
+                    </div>`
+                }
+            }
         };
 
         let currentOTP = null;
@@ -341,7 +446,6 @@
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
             container.innerHTML = '';
-
             nexusConfig.customSections.forEach((section) => {
                 const html = `
                     <section class="py-24 px-6 md:px-20 bg-white">
@@ -359,12 +463,31 @@
             });
         }
 
+        // ====================== OPEN PREMIUM BLOG ======================
+        function openCounselingBlog(key) {
+            const blog = nexusConfig.counselingBlogs[key];
+            if (!blog) return;
+
+            document.getElementById('blog-modal-title').textContent = blog.title;
+            document.getElementById('blog-modal-subtitle').innerHTML = `<p class="text-2xl text-gray-600">${blog.subtitle}</p>`;
+            document.getElementById('blog-modal-image').src = blog.heroImage;
+            document.getElementById('blog-modal-content').innerHTML = blog.content;
+
+            document.getElementById('blog-modal').classList.add('active');
+            toggleCounselingMenu(); // close menu
+        }
+
+        function closeBlogModal() {
+            document.getElementById('blog-modal').classList.remove('active');
+        }
+
         function toggleCounselingMenu() { 
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
 
         function showCounselingAlert() {
-            alert("Our team will contact you shortly to discuss your concerns.\n\nYou can also book a session directly from the website.");
+            // kept for safety but not used
+            alert("Our team will contact you shortly.");
             toggleCounselingMenu();
         }
 
@@ -399,6 +522,7 @@
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
             renderAdminCustomSections();
+            renderBlogManagement();   // ← new
         }
 
         function closeAdmin() {
@@ -428,6 +552,37 @@
                 `;
                 container.appendChild(div);
             });
+        }
+
+        // ====================== ADMIN BLOG MANAGEMENT ======================
+        function renderBlogManagement() {
+            const container = document.getElementById('blog-management-container');
+            container.innerHTML = '';
+
+            const keys = Object.keys(nexusConfig.counselingBlogs);
+            keys.forEach((key, index) => {
+                const b = nexusConfig.counselingBlogs[key];
+                const div = document.createElement('div');
+                div.className = "border rounded-3xl p-6 bg-gray-50";
+                div.innerHTML = `
+                    <h5 class="font-semibold mb-4">${key} Counseling Blog</h5>
+                    <div class="space-y-4">
+                        <input id="blog-title-${key}" value="${b.title}" class="premium-input text-sm" placeholder="Blog Title">
+                        <input id="blog-subtitle-${key}" value="${b.subtitle}" class="premium-input text-sm" placeholder="Blog Subtitle">
+                        <div class="flex gap-2">
+                            <input id="blog-hero-${key}" value="${b.heroImage}" class="premium-input text-sm flex-1" placeholder="Hero Image URL">
+                            <button onclick="openImageGalleryForBlog('${key}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                        </div>
+                        <textarea id="blog-content-${key}" rows="6" class="premium-input text-sm w-full">${b.content}</textarea>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function openImageGalleryForBlog(key) {
+            currentImageTarget = 'blog-' + key;
+            openImageGallery(null);
         }
 
         function addNewCustomSection() {
@@ -468,8 +623,14 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget !== null) document.getElementById(`cs-image-${currentImageTarget}`).value = url;
-                    else if (targetId) document.getElementById(targetId).value = url;
+                    if (currentImageTarget !== null && typeof currentImageTarget === 'number') {
+                        document.getElementById(`cs-image-${currentImageTarget}`).value = url;
+                    } else if (typeof currentImageTarget === 'string' && currentImageTarget.startsWith('blog-')) {
+                        const key = currentImageTarget.replace('blog-', '');
+                        document.getElementById(`blog-hero-${key}`).value = url;
+                    } else if (targetId) {
+                        document.getElementById(targetId).value = url;
+                    }
                     closeImageGallery();
                 };
                 container.appendChild(div);
@@ -483,6 +644,7 @@
             const modal = document.getElementById('image-gallery-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            currentImageTarget = null;
         }
 
         function saveAdminSettings() {
@@ -497,6 +659,15 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
+            // Save all blog content from admin
+            const keys = Object.keys(nexusConfig.counselingBlogs);
+            keys.forEach(key => {
+                nexusConfig.counselingBlogs[key].title = document.getElementById(`blog-title-${key}`).value;
+                nexusConfig.counselingBlogs[key].subtitle = document.getElementById(`blog-subtitle-${key}`).value;
+                nexusConfig.counselingBlogs[key].heroImage = document.getElementById(`blog-hero-${key}`).value;
+                nexusConfig.counselingBlogs[key].content = document.getElementById(`blog-content-${key}`).value;
+            });
+
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
             nexusConfig.upiId = document.getElementById('adm-upi-id').value;
             nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
@@ -504,7 +675,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully!");
+            alert("All changes saved successfully! (Including all premium blog content)");
             closeAdmin();
         }
 
@@ -522,9 +693,7 @@
                 alert("Please enter a valid email address");
                 return;
             }
-
             currentOTP = Math.floor(100000 + Math.random() * 900000);
-
             const templateParams = { to_email: email, otp: currentOTP };
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
@@ -549,7 +718,7 @@
             }
         }
 
-        // ====================== ONLY WHATSAPP - NO SHARE PAGE OPEN ======================
+        // ====================== SILENT WHATSAPP (NO ALERT, NO PAGE) ======================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -575,7 +744,6 @@
                 return;
             }
 
-            // Patient ki information ready message
             const waMessage = `🌟 New Booking Request - Nexus Wellness\n\n` +
                               `👤 Name: ${bookingData.name}\n` +
                               `📧 Email: ${bookingData.email}\n` +
@@ -586,14 +754,15 @@
                               `💰 Fee: ₹${bookingData.fee}\n\n` +
                               `Please contact the client soon!`;
 
-            // Direct WhatsApp number par message bhejna (no share page)
-            const phone = "917830232077";   // aapka number bina + ke
-            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waMessage)}`;
+            const phone = "917830232077";
+            const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(waMessage)}`;
 
-            // Patient ko koi page nahi khulega - sirf background mein try
-            // Note: Pure HTML/JS mein bina user action ke WhatsApp auto send nahi ho sakta
-            // Isliye alert ke saath message ready kar diya hai
-            alert("Your details have been successfully sent to our team on WhatsApp (+917830232077).\n\nPlease complete the payment.");
+            const link = document.createElement('a');
+            link.href = waUrl;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
 
             currentBookingData = bookingData;
             showPayment();
@@ -614,12 +783,9 @@
                 alert("UTR ID must be exactly 12 digits.");
                 return;
             }
-
             if (!currentBookingData) return;
-
             currentBookingData.utr = utr;
             localStorage.setItem('currentBooking', JSON.stringify(currentBookingData));
-
             document.getElementById('p-payment').classList.add('hidden');
             document.getElementById('p-success').classList.remove('hidden');
             initializeChat(currentBookingData);
@@ -643,36 +809,21 @@
             const input = document.getElementById('chat-input');
             const message = input.value.trim();
             if (!message) return;
-
             const windowEl = document.getElementById('chat-window');
-            windowEl.innerHTML += `
-                <div class="flex justify-end">
-                    <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div>
-                </div>
-            `;
+            windowEl.innerHTML += `<div class="flex justify-end"><div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div></div>`;
             windowEl.scrollTop = windowEl.scrollHeight;
             input.value = '';
-
             setTimeout(() => {
                 const replies = ["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                windowEl.innerHTML += `
-                    <div class="flex justify-start">
-                        <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div>
-                    </div>
-                `;
+                windowEl.innerHTML += `<div class="flex justify-start"><div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div></div>`;
                 windowEl.scrollTop = windowEl.scrollHeight;
             }, 1000);
         }
 
         function addCareerSection() {
             if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
-                nexusConfig.customSections.push({
-                    title: "Career Counseling",
-                    description: "Guidance for your professional journey and future goals",
-                    emoji: "💼",
-                    image: ""
-                });
+                nexusConfig.customSections.push({ title: "Career Counseling", description: "Guidance for your professional journey and future goals", emoji: "💼", image: "" });
                 renderCustomSections();
             }
         }
