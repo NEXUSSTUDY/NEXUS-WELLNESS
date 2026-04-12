@@ -71,30 +71,16 @@
         .menu-item { transition: all 0.3s ease; }
         .menu-item:hover { color: #60a5fa; padding-left: 10px; }
 
-        .social-icon { transition: all 0.3s ease; }
-        .social-icon:hover { transform: scale(1.18); }
-
-        #admin-panel { 
-            position: fixed; top: 0; right: 0; width: 380px; height: 100%; 
-            background: white; z-index: 3000; 
-            box-shadow: -25px 0 60px rgba(0,0,0,0.12); 
-            transform: translateX(100%); 
-            transition: 0.5s ease; 
-            overflow-y: auto; 
-            padding: 40px; 
+        /* ULTRA PREMIUM DETAIL PAGE */
+        #counseling-detail-page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: white; z-index: 3000; overflow-y: auto;
+            transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
         }
-        #admin-panel.active { transform: translateX(0); }
+        #counseling-detail-page.active { transform: translateY(0); }
 
-        .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
-        .notification.visible { opacity: 1; visibility: visible; }
-
-        /* Premium Detail Modal */
-        #counseling-detail-modal {
-            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        @keyframes modalPop {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .detail-header {
+            background: linear-gradient(135deg, #0071e3, #005bb5);
         }
     </style>
 </head>
@@ -124,11 +110,11 @@
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div class="space-y-8 text-[19px]">
-            <div onclick="showCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingPage('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingPage('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingPage('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingPage('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="showCounselingPage('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
@@ -143,59 +129,39 @@
         </div>
     </div>
 
-    <!-- COUNSELING DETAIL MODAL (Premium Page) -->
-    <div id="counseling-detail-modal" class="hidden fixed inset-0 bg-black/90 z-[5000] flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[95vh] overflow-hidden shadow-2xl flex flex-col">
-            
-            <!-- Header -->
-            <div class="px-10 py-6 border-b flex items-center justify-between bg-gradient-to-r from-[#0071e3] to-[#005bb5] text-white">
-                <div class="flex items-center gap-4">
-                    <span id="modal-emoji" class="text-5xl"></span>
-                    <div>
-                        <h1 id="modal-title" class="text-4xl font-bold tracking-tighter"></h1>
-                        <p id="modal-subtitle" class="text-white/90 text-lg"></p>
-                    </div>
-                </div>
-                <button onclick="closeCounselingDetail()" class="text-5xl leading-none hover:scale-110 transition">&times;</button>
+    <!-- ULTRA PREMIUM COUNSELING DETAIL PAGE -->
+    <div id="counseling-detail-page" class="hidden">
+        <div class="detail-header px-6 md:px-20 py-8 text-white sticky top-0 z-10 flex items-center justify-between">
+            <button onclick="closeCounselingPage()" class="flex items-center gap-3 text-lg font-medium">
+                <i class="fas fa-arrow-left"></i> BACK
+            </button>
+            <div id="detail-emoji" class="text-5xl"></div>
+            <a href="#booking-section" onclick="closeCounselingPage()" class="cta-btn text-sm px-8">BOOK SESSION</a>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 md:px-10 py-10">
+            <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter mb-3"></h1>
+            <p id="detail-subtitle" class="text-2xl text-gray-600 mb-10"></p>
+
+            <!-- Main Image -->
+            <img id="detail-image" src="" class="w-full h-[500px] object-cover rounded-3xl shadow-2xl mb-16" alt="">
+
+            <!-- What is it -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">📌</span> What is it?</h2>
+                <div id="detail-whatis" class="text-[17px] leading-relaxed text-gray-700"></div>
             </div>
 
-            <!-- Content -->
-            <div class="flex-1 overflow-auto p-10">
-                <!-- Main Image -->
-                <img id="modal-image" src="" class="w-full h-96 object-cover rounded-3xl shadow-xl mb-10" alt="">
-                
-                <!-- Description -->
-                <div id="modal-description" class="prose prose-lg max-w-none text-gray-700 leading-relaxed text-[17px]">
-                </div>
-
-                <!-- Premium Benefits Section -->
-                <div class="mt-16 grid md:grid-cols-3 gap-6">
-                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
-                        <div class="text-4xl mb-4">🧘</div>
-                        <h4 class="font-semibold text-xl mb-2">Personalized Guidance</h4>
-                        <p class="text-gray-600">Tailored strategies that fit your unique life situation</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
-                        <div class="text-4xl mb-4">📈</div>
-                        <h4 class="font-semibold text-xl mb-2">Proven Results</h4>
-                        <p class="text-gray-600">Evidence-based techniques with measurable improvement</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-3xl p-8 text-center">
-                        <div class="text-4xl mb-4">🔒</div>
-                        <h4 class="font-semibold text-xl mb-2">100% Confidential</h4>
-                        <p class="text-gray-600">Your privacy is our absolute priority</p>
-                    </div>
-                </div>
+            <!-- Effects -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">⚠️</span> What are the effects?</h2>
+                <div id="detail-effects" class="text-[17px] leading-relaxed text-gray-700"></div>
             </div>
 
-            <!-- Footer CTA -->
-            <div class="px-10 py-8 border-t flex items-center justify-between bg-white">
-                <button onclick="closeCounselingDetail()" class="text-gray-500 font-medium flex items-center gap-2">
-                    <i class="fas fa-arrow-left"></i> Back to Menu
-                </button>
-                <a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn px-10 py-4 text-sm font-bold uppercase tracking-widest">
-                    Book Your Session Now
-                </a>
+            <!-- Solutions -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">🛠️</span> What solutions are possible?</h2>
+                <div id="detail-solutions" class="text-[17px] leading-relaxed text-gray-700"></div>
             </div>
         </div>
     </div>
@@ -234,27 +200,25 @@
                 </div>
             </div>
 
-            <!-- Custom Sections (Home) -->
+            <!-- Custom Sections -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Custom Sections (Homepage)</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
                 <button onclick="addNewCustomSection()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">+ Add New Custom Section</button>
             </div>
 
-            <!-- NEW: Counseling Topics Management -->
+            <!-- COUNSELING TOPICS - FULL ADMIN CONTROL -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Counseling Topics (Detail Pages)</h4>
-                <div id="counseling-topics-container" class="space-y-8"></div>
+                <div id="counseling-topics-container" class="space-y-10"></div>
                 <button onclick="addNewCounselingTopic()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">+ Add New Counseling Topic</button>
             </div>
 
-            <!-- Blog Control -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Blog Control</h4>
                 <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
             </div>
 
-            <!-- Contact & Payment -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Contact & Payment</h4>
                 <div class="space-y-4">
@@ -292,7 +256,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections (Homepage) -->
+    <!-- Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -395,47 +359,56 @@
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ],
-            // NEW: Counseling Topics with full admin control
             counselingTopics: [
                 {
                     key: "Anxiety",
                     title: "Anxiety & Stress",
                     subtitle: "Finding stillness in a chaotic world",
-                    description: "Experience a complete transformation in how you handle anxiety and stress. Our premium approach combines evidence-based cognitive techniques, mindfulness practices, and personalized coping strategies designed specifically for high-achieving professionals and students in India.",
+                    emoji: "🧠",
                     image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
-                    emoji: "🧠"
+                    whatIs: "Anxiety & Stress is a common mental health condition where a person feels excessive worry, fear, or tension that interferes with daily life. It can be triggered by work pressure, relationships, financial issues, or past trauma.",
+                    effects: "• Constant restlessness and racing thoughts\n• Difficulty concentrating and sleeping\n• Physical symptoms like rapid heartbeat, sweating, and fatigue\n• Impact on relationships and work performance",
+                    solutions: "• Cognitive Behavioral Therapy (CBT)\n• Mindfulness and breathing exercises\n• Lifestyle changes including exercise and sleep hygiene\n• Professional counseling sessions with expert guidance"
                 },
                 {
                     key: "Relationship",
                     title: "Relationship Issues",
                     subtitle: "Healing emotional bonds",
-                    description: "Rebuild trust, improve communication, and create deeper emotional connections. Whether it's marriage, dating, family conflicts or breakups — our expert counselors provide compassionate, practical guidance to help you foster healthier and more fulfilling relationships.",
+                    emoji: "❤️",
                     image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070&auto=format&fit=crop",
-                    emoji: "❤️"
+                    whatIs: "Relationship Issues refer to difficulties in communication, trust, intimacy, or emotional connection with your partner, family, or friends.",
+                    effects: "• Frequent arguments and misunderstandings\n• Emotional distance or loneliness\n• Loss of trust and insecurity\n• Impact on mental peace and self-worth",
+                    solutions: "• Couples or individual counseling\n• Effective communication techniques\n• Conflict resolution strategies\n• Rebuilding emotional intimacy and trust"
                 },
                 {
                     key: "Sleep",
                     title: "Sleep Problems",
                     subtitle: "Restorative sleep techniques",
-                    description: "End sleepless nights and wake up refreshed. Learn proven sleep hygiene methods, relaxation techniques, and cognitive behavioral strategies for insomnia. Achieve deep, restorative sleep that improves your mood, focus, and overall wellbeing.",
+                    emoji: "🌙",
                     image: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070&auto=format&fit=crop",
-                    emoji: "🌙"
+                    whatIs: "Sleep Problems include insomnia, disturbed sleep, nightmares, or difficulty falling/staying asleep.",
+                    effects: "• Daytime fatigue and irritability\n• Poor concentration and memory\n• Weakened immune system\n• Increased risk of anxiety and depression",
+                    solutions: "• Cognitive Behavioral Therapy for Insomnia (CBT-I)\n• Relaxation and sleep hygiene practices\n• Guided meditation and breathing exercises\n• Professional sleep counseling"
                 },
                 {
                     key: "Trauma",
                     title: "Trauma Support",
                     subtitle: "Gentle healing for deep wounds",
-                    description: "Safe, trauma-informed care to help you process and heal from past experiences. Using EMDR-inspired methods and somatic techniques, we create a compassionate space where you can reclaim your power and move forward with strength and peace.",
+                    emoji: "🌿",
                     image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070&auto=format&fit=crop",
-                    emoji: "🌿"
+                    whatIs: "Trauma Support helps people who have experienced distressing events such as accidents, loss, abuse, or sudden shock.",
+                    effects: "• Flashbacks, nightmares, and anxiety\n• Emotional numbness or hypervigilance\n• Difficulty trusting others\n• Long-term impact on mental and physical health",
+                    solutions: "• Trauma-informed counseling\n• EMDR and somatic therapy techniques\n• Safe space for emotional processing\n• Gradual healing with expert support"
                 },
                 {
                     key: "Career",
                     title: "Career Counseling",
                     subtitle: "Guidance for your professional journey",
-                    description: "Unlock your full potential with expert career guidance. Whether you're choosing a stream, changing jobs, preparing for interviews, or seeking work-life balance — we provide strategic insights, confidence building, and actionable plans for long-term success.",
+                    emoji: "💼",
                     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop",
-                    emoji: "💼"
+                    whatIs: "Career Counseling provides guidance for students and professionals facing confusion about career choices, job changes, or skill development.",
+                    effects: "• Confusion and lack of direction\n• Low confidence and motivation\n• Stress about future and financial stability",
+                    solutions: "• Personalized career assessment\n• Skill development and interview preparation\n• Goal setting and action planning\n• Confidence building sessions"
                 }
             ]
         };
@@ -443,7 +416,6 @@
         let currentOTP = null;
         let currentImageTarget = null;
         let currentBookingData = null;
-        let currentDetailKey = null;
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -476,34 +448,34 @@
             });
         }
 
-        // ====================== NEW: COUNSELING DETAIL MODAL ======================
-        function showCounselingDetail(key) {
+        // ====================== OPEN ULTRA PREMIUM DETAIL PAGE ======================
+        function showCounselingPage(key) {
             const topic = nexusConfig.counselingTopics.find(t => t.key === key);
             if (!topic) return;
 
-            currentDetailKey = key;
+            document.getElementById('detail-emoji').innerHTML = topic.emoji;
+            document.getElementById('detail-title').textContent = topic.title;
+            document.getElementById('detail-subtitle').textContent = topic.subtitle;
+            document.getElementById('detail-image').src = topic.image;
+            document.getElementById('detail-whatis').innerHTML = `<p class="text-gray-700">${topic.whatIs}</p>`;
+            document.getElementById('detail-effects').innerHTML = `<p class="text-gray-700">${topic.effects}</p>`;
+            document.getElementById('detail-solutions').innerHTML = `<p class="text-gray-700">${topic.solutions}</p>`;
 
-            document.getElementById('modal-emoji').innerHTML = topic.emoji;
-            document.getElementById('modal-title').textContent = topic.title;
-            document.getElementById('modal-subtitle').textContent = topic.subtitle;
-            document.getElementById('modal-image').src = topic.image;
-            document.getElementById('modal-description').innerHTML = `
-                <p class="text-gray-700 leading-relaxed text-[17px]">${topic.description}</p>
-            `;
-
-            const modal = document.getElementById('counseling-detail-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            toggleCounselingMenu(); // close menu
+            const page = document.getElementById('counseling-detail-page');
+            page.classList.remove('hidden');
+            page.classList.add('active');
+            toggleCounselingMenu();
         }
 
-        function closeCounselingDetail() {
-            const modal = document.getElementById('counseling-detail-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+        function closeCounselingPage() {
+            const page = document.getElementById('counseling-detail-page');
+            page.classList.remove('active');
+            setTimeout(() => {
+                page.classList.add('hidden');
+            }, 500);
         }
 
-        // ====================== COUNSELING TOPICS ADMIN ======================
+        // ====================== ADMIN CONTROL FOR COUNSELING TOPICS ======================
         function renderCounselingTopicsAdmin() {
             const container = document.getElementById('counseling-topics-container');
             container.innerHTML = '';
@@ -513,19 +485,20 @@
                 div.className = "border rounded-3xl p-6 bg-gray-50";
                 div.innerHTML = `
                     <div class="flex justify-between mb-4">
-                        <h5 class="font-semibold text-base">${topic.title}</h5>
-                        <button onclick="removeCounselingTopic(${index})" class="text-red-500 text-sm hover:text-red-700">Remove</button>
+                        <h5 class="font-semibold">${topic.title}</h5>
+                        <button onclick="removeCounselingTopic(${index})" class="text-red-500 text-sm">Remove</button>
                     </div>
-                    <div class="space-y-4">
-                        <input id="ct-key-${index}" value="${topic.key}" class="premium-input text-sm" placeholder="Key (Anxiety / Relationship etc)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input id="ct-key-${index}" value="${topic.key}" class="premium-input text-sm" placeholder="Key">
                         <input id="ct-title-${index}" value="${topic.title}" class="premium-input text-sm" placeholder="Title">
                         <input id="ct-subtitle-${index}" value="${topic.subtitle}" class="premium-input text-sm" placeholder="Subtitle">
-                        <textarea id="ct-desc-${index}" class="premium-input text-sm h-32" placeholder="Full Description">${topic.description}</textarea>
-                        <div class="flex gap-2">
-                            <input id="ct-image-${index}" value="${topic.image}" class="premium-input text-sm flex-1" placeholder="Main Image URL">
-                            <button onclick="openImageGalleryForTopic(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
-                        </div>
                         <input id="ct-emoji-${index}" value="${topic.emoji}" class="premium-input text-sm" placeholder="Emoji">
+                        <div class="md:col-span-2">
+                            <input id="ct-image-${index}" value="${topic.image}" class="premium-input text-sm" placeholder="Main Image URL">
+                        </div>
+                        <textarea id="ct-whatis-${index}" class="premium-input text-sm h-28 md:col-span-2" placeholder="What is it?">${topic.whatIs}</textarea>
+                        <textarea id="ct-effects-${index}" class="premium-input text-sm h-28 md:col-span-2" placeholder="Effects">${topic.effects}</textarea>
+                        <textarea id="ct-solutions-${index}" class="premium-input text-sm h-28 md:col-span-2" placeholder="Solutions">${topic.solutions}</textarea>
                     </div>
                 `;
                 container.appendChild(div);
@@ -534,29 +507,26 @@
 
         function addNewCounselingTopic() {
             nexusConfig.counselingTopics.push({
-                key: "NewTopic",
-                title: "New Counseling Topic",
-                subtitle: "Short catchy subtitle",
-                description: "Write a detailed premium description here...",
-                image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
-                emoji: "✨"
+                key: "New",
+                title: "New Topic",
+                subtitle: "Short description",
+                emoji: "✨",
+                image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
+                whatIs: "Write what this issue is...",
+                effects: "Write effects here...",
+                solutions: "Write possible solutions here..."
             });
             renderCounselingTopicsAdmin();
         }
 
         function removeCounselingTopic(index) {
-            if (confirm("Delete this counseling topic?")) {
+            if (confirm("Delete this topic?")) {
                 nexusConfig.counselingTopics.splice(index, 1);
                 renderCounselingTopicsAdmin();
             }
         }
 
-        function openImageGalleryForTopic(index) {
-            currentImageTarget = { type: 'topic', index: index };
-            openImageGallery(null);
-        }
-
-        // ====================== REST OF THE CODE (UNCHANGED) ======================
+        // ====================== REST OF THE CODE (NO OTHER CHANGES) ======================
         function toggleCounselingMenu() { 
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
@@ -593,7 +563,7 @@
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
 
             renderAdminCustomSections();
-            renderCounselingTopicsAdmin();   // NEW
+            renderCounselingTopicsAdmin();
         }
 
         function closeAdmin() {
@@ -663,12 +633,8 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget && currentImageTarget.type === 'topic') {
-                        document.getElementById(`ct-image-${currentImageTarget.index}`).value = url;
-                    } else if (currentImageTarget && currentImageTarget.type === 'custom') {
+                    if (currentImageTarget && currentImageTarget.type === 'custom') {
                         document.getElementById(`cs-image-${currentImageTarget.index}`).value = url;
-                    } else if (targetId) {
-                        document.getElementById(targetId).value = url;
                     }
                     closeImageGallery();
                 };
@@ -683,16 +649,13 @@
             const modal = document.getElementById('image-gallery-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-            currentImageTarget = null;
         }
 
         function saveAdminSettings() {
-            // Hero
             nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
 
-            // Custom Sections
             nexusConfig.customSections.forEach((section, index) => {
                 section.title = document.getElementById(`cs-title-${index}`).value;
                 section.description = document.getElementById(`cs-desc-${index}`).value;
@@ -700,14 +663,15 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
-            // Counseling Topics
             nexusConfig.counselingTopics.forEach((topic, index) => {
                 topic.key = document.getElementById(`ct-key-${index}`).value;
                 topic.title = document.getElementById(`ct-title-${index}`).value;
                 topic.subtitle = document.getElementById(`ct-subtitle-${index}`).value;
-                topic.description = document.getElementById(`ct-desc-${index}`).value;
-                topic.image = document.getElementById(`ct-image-${index}`).value;
                 topic.emoji = document.getElementById(`ct-emoji-${index}`).value;
+                topic.image = document.getElementById(`ct-image-${index}`).value;
+                topic.whatIs = document.getElementById(`ct-whatis-${index}`).value;
+                topic.effects = document.getElementById(`ct-effects-${index}`).value;
+                topic.solutions = document.getElementById(`ct-solutions-${index}`).value;
             });
 
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
@@ -717,7 +681,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! Counseling topics updated.");
+            alert("All changes saved successfully! Counseling detail pages updated.");
             closeAdmin();
         }
 
@@ -735,9 +699,7 @@
                 alert("Please enter a valid email address");
                 return;
             }
-
             currentOTP = Math.floor(100000 + Math.random() * 900000);
-
             const templateParams = { to_email: email, otp: currentOTP };
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
