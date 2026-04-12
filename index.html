@@ -549,7 +549,7 @@
             }
         }
 
-        // ====================== UPDATED FUNCTION ONLY ======================
+        // ==================== PATIENT DATA WHATSAPP PAR ====================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -564,7 +564,7 @@
                 whatsapp: whatsapp,
                 gender: document.getElementById('p_gender').value || "Not specified",
                 counselingType: document.getElementById('p_counseling_type').value === "Other" 
-                    ? document.getElementById('p_other_type').value.trim() 
+                    ? (document.getElementById('p_other_type').value.trim() || "Other")
                     : document.getElementById('p_counseling_type').value,
                 concern: document.getElementById('p_concern').value.trim(),
                 fee: document.getElementById('p_type').value
@@ -575,31 +575,29 @@
                 return;
             }
 
-            try {
-                const templateParams = {
-                    to_email: nexusConfig.adminEmail,
-                    from_name: bookingData.name,
-                    from_email: bookingData.email,
-                    whatsapp: bookingData.whatsapp,
-                    gender: bookingData.gender,
-                    counseling_type: bookingData.counselingType,
-                    concern: bookingData.concern,
-                    fee: bookingData.fee,
-                    message: `New Booking Request - Nexus Wellness`,
-                    date: new Date().toLocaleString('en-IN')
-                };
+            // WhatsApp Message
+            const message = `🆕 *New Booking Request - Nexus Wellness*\n\n` +
+                            `📅 Date: ${new Date().toLocaleString('en-IN')}\n\n` +
+                            `👤 *Name:* ${bookingData.name}\n` +
+                            `📧 *Email:* ${bookingData.email}\n` +
+                            `📱 *WhatsApp:* ${bookingData.whatsapp}\n` +
+                            `⚧ *Gender:* ${bookingData.gender}\n` +
+                            `🧠 *Counseling Type:* ${bookingData.counselingType}\n` +
+                            `💰 *Fee:* ₹${bookingData.fee}\n\n` +
+                            `📝 *Concern:*\n${bookingData.concern}\n\n` +
+                            `Please check and confirm the booking.`;
 
-                await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
+            const waNumber = nexusConfig.waNum.replace(/\+/g, '');
+            const whatsappURL = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
-                alert("Your details have been sent successfully to our team!\n\nPlease complete the payment to confirm your session.");
-                currentBookingData = bookingData;
-                showPayment();
-            } catch (error) {
-                console.error(error);
-                alert("Failed to send details. Please try again or contact us on WhatsApp.");
-            }
+            window.open(whatsappURL, '_blank');
+
+            alert("Booking details opened in WhatsApp!\nPlease send the message and complete the payment.");
+
+            currentBookingData = bookingData;
+            showPayment();
         }
-        // ===================================================================
+        // =================================================================
 
         function showPayment() {
             const fee = document.getElementById('p_type').value;
