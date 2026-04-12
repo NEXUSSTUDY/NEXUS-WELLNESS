@@ -87,6 +87,14 @@
 
         .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
         .notification.visible { opacity: 1; visibility: visible; }
+
+        /* Ultra Premium Counseling Detail Panel */
+        #counseling-detail-panel {
+            z-index: 2600;
+        }
+        #counseling-detail-panel .detail-card {
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -115,11 +123,11 @@
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div class="space-y-8 text-[19px]">
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
-            <div onclick="showCounselingAlert()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
@@ -175,6 +183,12 @@
                 </button>
             </div>
 
+            <!-- New: Counseling Details Control (Ultra Premium Pages) -->
+            <div class="border-b pb-8">
+                <h4 class="font-bold text-lg mb-6">Counseling Areas - Detail Pages</h4>
+                <div id="counseling-details-container" class="space-y-10"></div>
+            </div>
+
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Blog Control</h4>
                 <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
@@ -203,6 +217,56 @@
             </div>
             <div class="p-6 overflow-y-auto" style="max-height: 70vh;">
                 <div class="grid grid-cols-2 gap-4" id="gallery-images"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ULTRA PREMIUM COUNSELING DETAIL PANEL -->
+    <div id="counseling-detail-panel" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 md:p-8">
+        <div class="detail-card bg-white rounded-3xl w-full max-w-6xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl">
+            <!-- Header -->
+            <div class="px-8 md:px-12 py-8 border-b flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
+                <div class="flex items-center gap-5">
+                    <span id="detail-emoji" class="text-7xl"></span>
+                    <div>
+                        <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter leading-none"></h1>
+                    </div>
+                </div>
+                <button onclick="closeCounselingDetail()" class="text-5xl text-gray-400 hover:text-gray-900 transition">&times;</button>
+            </div>
+            
+            <!-- Content -->
+            <div class="flex-1 overflow-auto p-8 md:p-12">
+                <div class="grid md:grid-cols-12 gap-12">
+                    <!-- Left Column - What is it + Image -->
+                    <div class="md:col-span-7">
+                        <div class="mb-8">
+                            <img id="detail-image" src="" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">
+                        </div>
+                        <h3 class="text-3xl font-semibold mb-5 flex items-center gap-3">
+                            <span class="text-4xl">❔</span> 
+                            What is it?
+                        </h3>
+                        <p id="detail-whatis" class="text-xl leading-relaxed text-gray-700"></p>
+                    </div>
+                    
+                    <!-- Right Column - Solutions -->
+                    <div class="md:col-span-5">
+                        <h3 class="text-3xl font-semibold mb-5 flex items-center gap-3">
+                            <span class="text-4xl">✨</span> 
+                            Our Premium Solutions
+                        </h3>
+                        <div id="detail-solutions" class="space-y-8 text-lg"></div>
+                        
+                        <div class="mt-16 pt-8 border-t border-gray-100">
+                            <p class="text-sm uppercase tracking-[1px] text-gray-400 mb-4">Ready to begin your healing journey?</p>
+                            <a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn text-base px-12 py-6 inline-flex items-center gap-3">
+                                <span>BOOK YOUR SESSION NOW</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -308,6 +372,14 @@
     <script>
         AOS.init();
 
+        let counselingAreas = [
+            { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠" },
+            { key: "Relationship", label: "Relationship Issues", emoji: "❤️" },
+            { key: "Sleep", label: "Sleep Problems", emoji: "🌙" },
+            { key: "Trauma", label: "Trauma Support", emoji: "🛡️" },
+            { key: "Career", label: "Career Counseling", emoji: "💼" }
+        ];
+
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
             heroBg: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
             heroTitle: "Reclaim Your Inner Peace",
@@ -320,7 +392,65 @@
                 { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
-            ]
+            ],
+            // Ultra Premium Detail Pages Content (fully editable in Admin)
+            counselingDetails: {
+                Anxiety: {
+                    title: "Anxiety & Stress",
+                    whatIs: "Anxiety & Stress refer to persistent feelings of worry, fear, or tension that can affect your daily life, sleep, and relationships. Common symptoms include racing thoughts, restlessness, and physical discomfort like headaches or rapid heartbeat.",
+                    solutions: [
+                        "Cognitive Behavioral Therapy (CBT) to identify and reframe negative thought patterns",
+                        "Mindfulness meditation and breathing techniques for instant calm",
+                        "Customized stress management and lifestyle coaching",
+                        "Regular follow-up sessions for long-term resilience"
+                    ],
+                    image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop"
+                },
+                Relationship: {
+                    title: "Relationship Issues",
+                    whatIs: "Relationship Issues encompass difficulties in communication, trust, intimacy, or conflict resolution in romantic partnerships, family dynamics, or friendships. These challenges can lead to emotional distance or recurring arguments.",
+                    solutions: [
+                        "Evidence-based couples and individual counseling",
+                        "Effective communication and conflict resolution skills",
+                        "Healing from past hurts and rebuilding trust",
+                        "Personalized strategies to strengthen emotional bonds"
+                    ],
+                    image: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop"
+                },
+                Sleep: {
+                    title: "Sleep Problems",
+                    whatIs: "Sleep Problems include insomnia, frequent awakenings, restless sleep, or poor sleep quality that leads to daytime fatigue, irritability, and reduced productivity. Chronic sleep issues can impact mental and physical health.",
+                    solutions: [
+                        "Cognitive Behavioral Therapy for Insomnia (CBT-I)",
+                        "Relaxation techniques and sleep hygiene education",
+                        "Personalized routines to improve sleep cycles",
+                        "Addressing underlying anxiety or stress contributing to sleep disruption"
+                    ],
+                    image: "https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop"
+                },
+                Trauma: {
+                    title: "Trauma Support",
+                    whatIs: "Trauma Support is designed for individuals who have experienced distressing or life-altering events, resulting in symptoms like flashbacks, hypervigilance, emotional numbness, or anxiety.",
+                    solutions: [
+                        "Trauma-informed therapy and EMDR techniques",
+                        "Safe space for processing emotions and experiences",
+                        "Building coping mechanisms and resilience",
+                        "Gentle, step-by-step healing journey with expert guidance"
+                    ],
+                    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop"
+                },
+                Career: {
+                    title: "Career Counseling",
+                    whatIs: "Career Counseling provides guidance for professional growth, job transitions, skill development, and overcoming career-related stress or uncertainty about your future path.",
+                    solutions: [
+                        "Personalized career assessment and goal setting",
+                        "Resume building, interview preparation, and job search strategies",
+                        "Work-life balance and burnout prevention coaching",
+                        "Long-term professional development plans"
+                    ],
+                    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop"
+                }
+            }
         };
 
         let currentOTP = null;
@@ -363,11 +493,6 @@
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
 
-        function showCounselingAlert() {
-            alert("Our team will contact you shortly to discuss your concerns.\n\nYou can also book a session directly from the website.");
-            toggleCounselingMenu();
-        }
-
         function openBlog() {
             if (nexusConfig.blogUrl && nexusConfig.blogUrl !== "#") {
                 window.open(nexusConfig.blogUrl, '_blank');
@@ -375,6 +500,49 @@
                 alert("Our Blog section is coming soon.");
             }
             toggleCounselingMenu();
+        }
+
+        // === ULTRA PREMIUM DETAIL PAGE SYSTEM ===
+        function openCounselingDetail(key) {
+            toggleCounselingMenu();
+            
+            const detail = nexusConfig.counselingDetails[key];
+            if (!detail) {
+                alert("Details not found. Please contact admin.");
+                return;
+            }
+
+            const area = counselingAreas.find(a => a.key === key);
+            
+            // Fill header
+            document.getElementById('detail-emoji').innerHTML = area.emoji;
+            document.getElementById('detail-title').textContent = detail.title;
+            
+            // Image
+            document.getElementById('detail-image').src = detail.image || nexusConfig.heroBg;
+            
+            // What is it
+            document.getElementById('detail-whatis').innerHTML = detail.whatIs;
+            
+            // Solutions (premium bullet list)
+            const solutionsHTML = detail.solutions.map(item => `
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">✓</div>
+                    <p class="leading-relaxed">${item}</p>
+                </div>
+            `).join('');
+            document.getElementById('detail-solutions').innerHTML = solutionsHTML;
+
+            // Show panel
+            const panel = document.getElementById('counseling-detail-panel');
+            panel.classList.remove('hidden');
+            panel.classList.add('flex');
+        }
+
+        function closeCounselingDetail() {
+            const panel = document.getElementById('counseling-detail-panel');
+            panel.classList.add('hidden');
+            panel.classList.remove('flex');
         }
 
         function handleCounselingTypeChange() {
@@ -399,6 +567,7 @@
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
             renderAdminCustomSections();
+            renderCounselingDetailsAdmin();   // <-- New admin control for detail pages
         }
 
         function closeAdmin() {
@@ -423,6 +592,40 @@
                         <div class="flex gap-2">
                             <input id="cs-image-${index}" value="${section.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL">
                             <button onclick="openImageGalleryForSection(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderCounselingDetailsAdmin() {
+            const container = document.getElementById('counseling-details-container');
+            container.innerHTML = '';
+            
+            counselingAreas.forEach((area) => {
+                const detail = nexusConfig.counselingDetails[area.key] || { whatIs: '', solutions: [], image: '' };
+                const solutionsText = detail.solutions ? detail.solutions.join('\n') : '';
+                
+                const div = document.createElement('div');
+                div.className = "border rounded-3xl p-6 bg-gray-50";
+                div.innerHTML = `
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-5xl">${area.emoji}</span>
+                        <h5 class="font-semibold text-xl">${area.label}</h5>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-gray-400 mb-2 block">What is it?</label>
+                            <textarea id="cd-what-${area.key}" class="premium-input text-sm h-40 resize-y">${detail.whatIs || ''}</textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-gray-400 mb-2 block">Premium Solutions (one per line)</label>
+                            <textarea id="cd-sol-${area.key}" class="premium-input text-sm h-40 resize-y">${solutionsText}</textarea>
+                        </div>
+                        <div class="flex gap-2">
+                            <input id="cd-image-${area.key}" value="${detail.image || ''}" class="premium-input text-sm flex-1" placeholder="Premium Image URL">
+                            <button onclick="openImageGallery('cd-image-${area.key}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
                         </div>
                     </div>
                 `;
@@ -460,7 +663,9 @@
                 "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
                 "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
                 "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
-                "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070"
+                "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070",
+                "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070"
             ];
 
             sampleImages.forEach(url => {
@@ -468,8 +673,11 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget !== null) document.getElementById(`cs-image-${currentImageTarget}`).value = url;
-                    else if (targetId) document.getElementById(targetId).value = url;
+                    if (currentImageTarget !== null) {
+                        document.getElementById(`cs-image-${currentImageTarget}`).value = url;
+                    } else if (targetId) {
+                        document.getElementById(targetId).value = url;
+                    }
                     closeImageGallery();
                 };
                 container.appendChild(div);
@@ -483,6 +691,7 @@
             const modal = document.getElementById('image-gallery-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            currentImageTarget = null;
         }
 
         function saveAdminSettings() {
@@ -497,6 +706,27 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
+            // Save Counseling Detail Pages (Ultra Premium)
+            counselingAreas.forEach((area) => {
+                const whatEl = document.getElementById(`cd-what-${area.key}`);
+                const solEl = document.getElementById(`cd-sol-${area.key}`);
+                const imgEl = document.getElementById(`cd-image-${area.key}`);
+                
+                if (whatEl && solEl && imgEl) {
+                    const whatIs = whatEl.value.trim();
+                    const solsText = solEl.value.trim();
+                    const solutions = solsText ? solsText.split('\n').map(s => s.trim()).filter(Boolean) : [];
+                    const image = imgEl.value.trim();
+
+                    if (!nexusConfig.counselingDetails[area.key]) {
+                        nexusConfig.counselingDetails[area.key] = { title: area.label };
+                    }
+                    nexusConfig.counselingDetails[area.key].whatIs = whatIs;
+                    nexusConfig.counselingDetails[area.key].solutions = solutions;
+                    nexusConfig.counselingDetails[area.key].image = image;
+                }
+            });
+
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
             nexusConfig.upiId = document.getElementById('adm-upi-id').value;
             nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
@@ -504,7 +734,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully!");
+            alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages are now updated.");
             closeAdmin();
         }
 
@@ -682,4 +912,4 @@
         };
     </script>
 </body>
-</html>    meri website me esa system ready kro ki jb patient form fill kre to patient ki sari details mere whatts app pr a jaye aur patient ko koi link ya mere whattapp koi link na dikhe  , aur koi change  mt krna code me
+</html>
