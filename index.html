@@ -99,7 +99,10 @@
         </div>
         <div class="flex items-center gap-4">
             <a href="#booking-section" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold uppercase">Book Now</a>
-            <!-- Admin button completely removed as per your request -->
+            <!-- Admin button right side mein same position par rakha gaya hai -->
+            <button onclick="openAdmin()" class="relative w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center bg-[#0071e3] shadow-md hover:bg-[#005bb5] transition overflow-hidden">
+                <i class="fas fa-user-shield text-white text-lg"></i>
+            </button>
         </div>
     </nav>
 
@@ -493,7 +496,7 @@
             }
         }
 
-        // ==================== ADMIN PANEL (Fixed) ====================
+        // ==================== ADMIN PANEL ====================
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
