@@ -217,7 +217,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections (Anxiety, Relationship, Sleep) -->
+    <!-- Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -549,6 +549,7 @@
             }
         }
 
+        // ====================== MAIN BOOKING FUNCTION ======================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -574,28 +575,25 @@
                 return;
             }
 
-            // Sirf WhatsApp par data bhejna hai, email nahi
-            try {
-                const waMessage = `🌟 *New Booking Request - Nexus Wellness*\n\n` +
-                                  `👤 *Name:* ${bookingData.name}\n` +
-                                  `📧 *Email:* ${bookingData.email}\n` +
-                                  `📱 *WhatsApp:* ${bookingData.whatsapp}\n` +
-                                  `⚧ *Gender:* ${bookingData.gender}\n` +
-                                  `🧩 *Counseling Type:* ${bookingData.counselingType}\n` +
-                                  `📝 *Concern:* ${bookingData.concern}\n` +
-                                  `💰 *Fee:* ₹${bookingData.fee}\n\n` +
-                                  `Please contact the client as soon as possible!`;
+            // Sirf WhatsApp par message (patient ko koi number/link nahi dikhega)
+            const waMessage = `🌟 *New Booking Request - Nexus Wellness*\n\n` +
+                              `👤 *Name:* ${bookingData.name}\n` +
+                              `📧 *Email:* ${bookingData.email}\n` +
+                              `📱 *WhatsApp:* ${bookingData.whatsapp}\n` +
+                              `⚧ *Gender:* ${bookingData.gender}\n` +
+                              `🧩 *Counseling Type:* ${bookingData.counselingType}\n` +
+                              `📝 *Concern:* ${bookingData.concern}\n` +
+                              `💰 *Fee:* ₹${bookingData.fee}\n\n` +
+                              `Please contact the client soon!`;
 
-                const waUrl = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=${encodeURIComponent(waMessage)}`;
-                window.open(waUrl, '_blank');
+            const waUrl = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=${encodeURIComponent(waMessage)}`;
+            
+            window.open(waUrl, '_blank');
 
-                alert("Your booking details have been sent successfully to our team via WhatsApp!\n\nPlease complete the payment below.");
-                currentBookingData = bookingData;
-                showPayment();
-            } catch (error) {
-                console.error(error);
-                alert("Failed to send details. Please try again.");
-            }
+            alert("Booking details successfully sent to our team via WhatsApp!\n\nPlease proceed to payment.");
+            
+            currentBookingData = bookingData;
+            showPayment();
         }
 
         function showPayment() {
