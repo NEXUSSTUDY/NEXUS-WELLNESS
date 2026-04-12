@@ -574,32 +574,27 @@
                 return;
             }
 
+            // Sirf WhatsApp par data bhejna hai, email nahi
             try {
-                const templateParams = {
-                    to_email: nexusConfig.adminEmail,
-                    from_name: bookingData.name,
-                    from_email: bookingData.email,
-                    whatsapp: bookingData.whatsapp,
-                    gender: bookingData.gender,
-                    counseling_type: bookingData.counselingType,
-                    concern: bookingData.concern,
-                    fee: bookingData.fee,
-                    message: `New Booking Request - Nexus Wellness`
-                };
+                const waMessage = `🌟 *New Booking Request - Nexus Wellness*\n\n` +
+                                  `👤 *Name:* ${bookingData.name}\n` +
+                                  `📧 *Email:* ${bookingData.email}\n` +
+                                  `📱 *WhatsApp:* ${bookingData.whatsapp}\n` +
+                                  `⚧ *Gender:* ${bookingData.gender}\n` +
+                                  `🧩 *Counseling Type:* ${bookingData.counselingType}\n` +
+                                  `📝 *Concern:* ${bookingData.concern}\n` +
+                                  `💰 *Fee:* ₹${bookingData.fee}\n\n` +
+                                  `Please contact the client as soon as possible!`;
 
-                await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
-
-                // === NEW SYSTEM: Patient ki saari details direct admin ke WhatsApp par aa jayengi (patient ko koi link ya WhatsApp number nahi dikhega) ===
-                const waMessage = `🌟 New Booking Request - Nexus Wellness\n\n👤 Name: ${bookingData.name}\n📧 Email: ${bookingData.email}\n📱 WhatsApp: ${bookingData.whatsapp}\n⚧ Gender: ${bookingData.gender}\n🧩 Counseling Type: ${bookingData.counselingType}\n📝 Concern: ${bookingData.concern}\n💰 Fee: ₹${bookingData.fee}\n\nPlease contact the client soon!`;
                 const waUrl = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=${encodeURIComponent(waMessage)}`;
                 window.open(waUrl, '_blank');
 
-                alert("Your details have been sent successfully!\n\nPlease complete the payment.");
+                alert("Your booking details have been sent successfully to our team via WhatsApp!\n\nPlease complete the payment below.");
                 currentBookingData = bookingData;
                 showPayment();
             } catch (error) {
                 console.error(error);
-                alert("Failed to send details. Try again.");
+                alert("Failed to send details. Please try again.");
             }
         }
 
