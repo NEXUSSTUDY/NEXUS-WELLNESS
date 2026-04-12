@@ -75,12 +75,13 @@
         #counseling-detail-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: white; z-index: 3000; overflow-y: auto;
-            transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
         }
         #counseling-detail-page.active { transform: translateY(0); }
 
         .detail-header {
-            background: linear-gradient(135deg, #0071e3, #005bb5);
+            background: linear-gradient(135deg, #0071e3, #1e40af);
+            padding: 2rem 1.5rem;
         }
     </style>
 </head>
@@ -131,37 +132,43 @@
 
     <!-- ULTRA PREMIUM COUNSELING DETAIL PAGE -->
     <div id="counseling-detail-page" class="hidden">
-        <div class="detail-header px-6 md:px-20 py-8 text-white sticky top-0 z-10 flex items-center justify-between">
-            <button onclick="closeCounselingPage()" class="flex items-center gap-3 text-lg font-medium">
-                <i class="fas fa-arrow-left"></i> BACK
-            </button>
-            <div id="detail-emoji" class="text-5xl"></div>
-            <a href="#booking-section" onclick="closeCounselingPage()" class="cta-btn text-sm px-8">BOOK SESSION</a>
+        <div class="detail-header text-white">
+            <div class="max-w-5xl mx-auto flex items-center justify-between">
+                <button onclick="closeCounselingPage()" class="flex items-center gap-3 text-lg font-medium">
+                    <i class="fas fa-arrow-left"></i> BACK
+                </button>
+                <div id="detail-emoji" class="text-6xl"></div>
+                <a href="#booking-section" onclick="closeCounselingPage()" class="cta-btn text-sm px-8 py-3">BOOK SESSION NOW</a>
+            </div>
         </div>
 
-        <div class="max-w-5xl mx-auto px-6 md:px-10 py-10">
-            <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter mb-3"></h1>
-            <p id="detail-subtitle" class="text-2xl text-gray-600 mb-10"></p>
+        <div class="max-w-5xl mx-auto px-6 md:px-12 py-12">
+            <h1 id="detail-title" class="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-4"></h1>
+            <p id="detail-subtitle" class="text-2xl text-gray-600 mb-12"></p>
 
-            <!-- Main Image -->
-            <img id="detail-image" src="" class="w-full h-[500px] object-cover rounded-3xl shadow-2xl mb-16" alt="">
+            <!-- Large Hero Image -->
+            <img id="detail-image" src="" class="w-full h-[520px] object-cover rounded-3xl shadow-2xl mb-16" alt="">
 
             <!-- What is it -->
-            <div class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">📌</span> What is it?</h2>
-                <div id="detail-whatis" class="text-[17px] leading-relaxed text-gray-700"></div>
+            <div class="mb-20">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-4"><span class="text-[#0071e3] text-4xl">01</span> What is this condition?</h2>
+                <div id="detail-whatis" class="prose prose-lg text-gray-700 leading-relaxed text-[17.5px]"></div>
             </div>
 
             <!-- Effects -->
-            <div class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">⚠️</span> What are the effects?</h2>
-                <div id="detail-effects" class="text-[17px] leading-relaxed text-gray-700"></div>
+            <div class="mb-20">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-4"><span class="text-[#0071e3] text-4xl">02</span> What are its effects?</h2>
+                <div id="detail-effects" class="prose prose-lg text-gray-700 leading-relaxed text-[17.5px]"></div>
             </div>
 
             <!-- Solutions -->
-            <div class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3"><span class="text-4xl">🛠️</span> What solutions are possible?</h2>
-                <div id="detail-solutions" class="text-[17px] leading-relaxed text-gray-700"></div>
+            <div class="mb-20">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-4"><span class="text-[#0071e3] text-4xl">03</span> What solutions can help?</h2>
+                <div id="detail-solutions" class="prose prose-lg text-gray-700 leading-relaxed text-[17.5px]"></div>
+            </div>
+
+            <div class="text-center mt-20">
+                <a href="#booking-section" onclick="closeCounselingPage()" class="cta-btn px-12 py-5 text-base font-bold tracking-widest">START YOUR HEALING JOURNEY TODAY</a>
             </div>
         </div>
     </div>
@@ -366,9 +373,9 @@
                     subtitle: "Finding stillness in a chaotic world",
                     emoji: "🧠",
                     image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
-                    whatIs: "Anxiety & Stress is a common mental health condition where a person feels excessive worry, fear, or tension that interferes with daily life. It can be triggered by work pressure, relationships, financial issues, or past trauma.",
-                    effects: "• Constant restlessness and racing thoughts\n• Difficulty concentrating and sleeping\n• Physical symptoms like rapid heartbeat, sweating, and fatigue\n• Impact on relationships and work performance",
-                    solutions: "• Cognitive Behavioral Therapy (CBT)\n• Mindfulness and breathing exercises\n• Lifestyle changes including exercise and sleep hygiene\n• Professional counseling sessions with expert guidance"
+                    whatIs: "Anxiety and stress is a mental health condition characterized by persistent feelings of worry, fear, tension, and unease that can significantly interfere with daily activities, work, relationships, and overall quality of life. It often manifests as racing thoughts, restlessness, and physical symptoms.",
+                    effects: "• Constant fatigue and sleep disturbances\n• Difficulty concentrating and making decisions\n• Physical symptoms such as rapid heartbeat, sweating, headaches, and muscle tension\n• Increased risk of depression, social withdrawal, and reduced productivity",
+                    solutions: "• Evidence-based Cognitive Behavioral Therapy (CBT)\n• Mindfulness-based stress reduction and deep breathing techniques\n• Lifestyle modifications including regular exercise, balanced diet, and proper sleep hygiene\n• Personalized one-on-one counseling sessions with experienced psychologists"
                 },
                 {
                     key: "Relationship",
@@ -376,9 +383,9 @@
                     subtitle: "Healing emotional bonds",
                     emoji: "❤️",
                     image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070&auto=format&fit=crop",
-                    whatIs: "Relationship Issues refer to difficulties in communication, trust, intimacy, or emotional connection with your partner, family, or friends.",
-                    effects: "• Frequent arguments and misunderstandings\n• Emotional distance or loneliness\n• Loss of trust and insecurity\n• Impact on mental peace and self-worth",
-                    solutions: "• Couples or individual counseling\n• Effective communication techniques\n• Conflict resolution strategies\n• Rebuilding emotional intimacy and trust"
+                    whatIs: "Relationship issues involve difficulties in communication, trust, emotional intimacy, conflict resolution, or maintaining healthy connections with partners, family members, or friends.",
+                    effects: "• Frequent arguments and emotional distance\n• Feelings of loneliness, insecurity, and low self-worth\n• Impact on mental peace, sleep, and overall happiness\n• Long-term strain on personal and professional life",
+                    solutions: "• Professional couples or individual relationship counseling\n• Effective communication and conflict resolution skills\n• Rebuilding trust and emotional intimacy\n• Practical strategies to strengthen healthy relationships"
                 },
                 {
                     key: "Sleep",
@@ -386,9 +393,9 @@
                     subtitle: "Restorative sleep techniques",
                     emoji: "🌙",
                     image: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070&auto=format&fit=crop",
-                    whatIs: "Sleep Problems include insomnia, disturbed sleep, nightmares, or difficulty falling/staying asleep.",
-                    effects: "• Daytime fatigue and irritability\n• Poor concentration and memory\n• Weakened immune system\n• Increased risk of anxiety and depression",
-                    solutions: "• Cognitive Behavioral Therapy for Insomnia (CBT-I)\n• Relaxation and sleep hygiene practices\n• Guided meditation and breathing exercises\n• Professional sleep counseling"
+                    whatIs: "Sleep problems include difficulty falling asleep, staying asleep, frequent awakenings, or poor quality sleep that leaves you feeling tired during the day.",
+                    effects: "• Daytime fatigue, irritability, and mood swings\n• Impaired concentration, memory, and decision-making\n• Weakened immune system and increased health risks\n• Worsening of anxiety, depression, and stress levels",
+                    solutions: "• Cognitive Behavioral Therapy for Insomnia (CBT-I)\n• Sleep hygiene education and relaxation techniques\n• Guided meditation and progressive muscle relaxation\n• Personalized counseling to address underlying causes"
                 },
                 {
                     key: "Trauma",
@@ -396,9 +403,9 @@
                     subtitle: "Gentle healing for deep wounds",
                     emoji: "🌿",
                     image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070&auto=format&fit=crop",
-                    whatIs: "Trauma Support helps people who have experienced distressing events such as accidents, loss, abuse, or sudden shock.",
-                    effects: "• Flashbacks, nightmares, and anxiety\n• Emotional numbness or hypervigilance\n• Difficulty trusting others\n• Long-term impact on mental and physical health",
-                    solutions: "• Trauma-informed counseling\n• EMDR and somatic therapy techniques\n• Safe space for emotional processing\n• Gradual healing with expert support"
+                    whatIs: "Trauma support is specialized care for individuals who have experienced distressing or life-altering events such as accidents, loss, abuse, violence, or sudden shocks.",
+                    effects: "• Flashbacks, nightmares, and intrusive thoughts\n• Emotional numbness, hypervigilance, or avoidance\n• Difficulty trusting others and forming close relationships\n• Long-lasting impact on mental, emotional, and physical wellbeing",
+                    solutions: "• Trauma-informed therapy and somatic experiencing\n• Safe, compassionate space for processing emotions\n• EMDR-inspired techniques and grounding exercises\n• Gradual, supportive healing journey with expert guidance"
                 },
                 {
                     key: "Career",
@@ -406,9 +413,9 @@
                     subtitle: "Guidance for your professional journey",
                     emoji: "💼",
                     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop",
-                    whatIs: "Career Counseling provides guidance for students and professionals facing confusion about career choices, job changes, or skill development.",
-                    effects: "• Confusion and lack of direction\n• Low confidence and motivation\n• Stress about future and financial stability",
-                    solutions: "• Personalized career assessment\n• Skill development and interview preparation\n• Goal setting and action planning\n• Confidence building sessions"
+                    whatIs: "Career counseling helps students and professionals navigate career choices, job transitions, skill development, interview preparation, and work-life balance.",
+                    effects: "• Confusion about career path and future direction\n• Lack of confidence and motivation\n• Stress related to job satisfaction and financial stability\n• Difficulty in making important career decisions",
+                    solutions: "• Comprehensive career assessment and guidance\n• Skill development and interview preparation\n• Goal setting, action planning, and confidence building\n• Ongoing support for long-term professional growth"
                 }
             ]
         };
@@ -448,7 +455,6 @@
             });
         }
 
-        // ====================== OPEN ULTRA PREMIUM DETAIL PAGE ======================
         function showCounselingPage(key) {
             const topic = nexusConfig.counselingTopics.find(t => t.key === key);
             if (!topic) return;
@@ -457,9 +463,9 @@
             document.getElementById('detail-title').textContent = topic.title;
             document.getElementById('detail-subtitle').textContent = topic.subtitle;
             document.getElementById('detail-image').src = topic.image;
-            document.getElementById('detail-whatis').innerHTML = `<p class="text-gray-700">${topic.whatIs}</p>`;
-            document.getElementById('detail-effects').innerHTML = `<p class="text-gray-700">${topic.effects}</p>`;
-            document.getElementById('detail-solutions').innerHTML = `<p class="text-gray-700">${topic.solutions}</p>`;
+            document.getElementById('detail-whatis').innerHTML = topic.whatIs;
+            document.getElementById('detail-effects').innerHTML = topic.effects;
+            document.getElementById('detail-solutions').innerHTML = topic.solutions;
 
             const page = document.getElementById('counseling-detail-page');
             page.classList.remove('hidden');
@@ -470,88 +476,10 @@
         function closeCounselingPage() {
             const page = document.getElementById('counseling-detail-page');
             page.classList.remove('active');
-            setTimeout(() => {
-                page.classList.add('hidden');
-            }, 500);
+            setTimeout(() => page.classList.add('hidden'), 600);
         }
 
-        // ====================== ADMIN CONTROL FOR COUNSELING TOPICS ======================
-        function renderCounselingTopicsAdmin() {
-            const container = document.getElementById('counseling-topics-container');
-            container.innerHTML = '';
-
-            nexusConfig.counselingTopics.forEach((topic, index) => {
-                const div = document.createElement('div');
-                div.className = "border rounded-3xl p-6 bg-gray-50";
-                div.innerHTML = `
-                    <div class="flex justify-between mb-4">
-                        <h5 class="font-semibold">${topic.title}</h5>
-                        <button onclick="removeCounselingTopic(${index})" class="text-red-500 text-sm">Remove</button>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input id="ct-key-${index}" value="${topic.key}" class="premium-input text-sm" placeholder="Key">
-                        <input id="ct-title-${index}" value="${topic.title}" class="premium-input text-sm" placeholder="Title">
-                        <input id="ct-subtitle-${index}" value="${topic.subtitle}" class="premium-input text-sm" placeholder="Subtitle">
-                        <input id="ct-emoji-${index}" value="${topic.emoji}" class="premium-input text-sm" placeholder="Emoji">
-                        <div class="md:col-span-2">
-                            <input id="ct-image-${index}" value="${topic.image}" class="premium-input text-sm" placeholder="Main Image URL">
-                        </div>
-                        <textarea id="ct-whatis-${index}" class="premium-input text-sm h-28 md:col-span-2" placeholder="What is it?">${topic.whatIs}</textarea>
-                        <textarea id="ct-effects-${index}" class="premium-input text-sm h-28 md:col-span-2" placeholder="Effects">${topic.effects}</textarea>
-                        <textarea id="ct-solutions-${index}" class="premium-input text-sm h-28 md:col-span-2" placeholder="Solutions">${topic.solutions}</textarea>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function addNewCounselingTopic() {
-            nexusConfig.counselingTopics.push({
-                key: "New",
-                title: "New Topic",
-                subtitle: "Short description",
-                emoji: "✨",
-                image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
-                whatIs: "Write what this issue is...",
-                effects: "Write effects here...",
-                solutions: "Write possible solutions here..."
-            });
-            renderCounselingTopicsAdmin();
-        }
-
-        function removeCounselingTopic(index) {
-            if (confirm("Delete this topic?")) {
-                nexusConfig.counselingTopics.splice(index, 1);
-                renderCounselingTopicsAdmin();
-            }
-        }
-
-        // ====================== REST OF THE CODE (NO OTHER CHANGES) ======================
-        function toggleCounselingMenu() { 
-            document.getElementById('counseling-menu').classList.toggle('active'); 
-        }
-
-        function openBlog() {
-            if (nexusConfig.blogUrl && nexusConfig.blogUrl !== "#") {
-                window.open(nexusConfig.blogUrl, '_blank');
-            } else {
-                alert("Our Blog section is coming soon.");
-            }
-            toggleCounselingMenu();
-        }
-
-        function handleCounselingTypeChange() {
-            const select = document.getElementById('p_counseling_type');
-            const otherField = document.getElementById('p_other_type');
-            if (select.value === "Other") {
-                otherField.classList.remove('hidden');
-                otherField.required = true;
-            } else {
-                otherField.classList.add('hidden');
-                otherField.required = false;
-            }
-        }
-
+        // ====================== ADMIN PANEL ======================
         function openAdmin() {
             document.getElementById('admin-panel').classList.add('active');
             document.getElementById('adm-hero-bg').value = nexusConfig.heroBg;
@@ -604,6 +532,55 @@
             if (confirm("Delete this section?")) {
                 nexusConfig.customSections.splice(index, 1);
                 renderAdminCustomSections();
+            }
+        }
+
+        function renderCounselingTopicsAdmin() {
+            const container = document.getElementById('counseling-topics-container');
+            container.innerHTML = '';
+
+            nexusConfig.counselingTopics.forEach((topic, index) => {
+                const div = document.createElement('div');
+                div.className = "border rounded-3xl p-6 bg-gray-50";
+                div.innerHTML = `
+                    <div class="flex justify-between mb-4">
+                        <h5 class="font-semibold">${topic.title}</h5>
+                        <button onclick="removeCounselingTopic(${index})" class="text-red-500 text-sm hover:text-red-700">Remove</button>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        <input id="ct-key-${index}" value="${topic.key}" class="premium-input text-sm" placeholder="Key (Anxiety, Relationship etc)">
+                        <input id="ct-title-${index}" value="${topic.title}" class="premium-input text-sm" placeholder="Title">
+                        <input id="ct-subtitle-${index}" value="${topic.subtitle}" class="premium-input text-sm" placeholder="Subtitle">
+                        <input id="ct-emoji-${index}" value="${topic.emoji}" class="premium-input text-sm" placeholder="Emoji">
+                        <input id="ct-image-${index}" value="${topic.image}" class="premium-input text-sm" placeholder="Main Image URL">
+                        
+                        <textarea id="ct-whatis-${index}" class="premium-input text-sm h-32" placeholder="What is this condition?">${topic.whatIs}</textarea>
+                        <textarea id="ct-effects-${index}" class="premium-input text-sm h-32" placeholder="What are its effects?">${topic.effects}</textarea>
+                        <textarea id="ct-solutions-${index}" class="premium-input text-sm h-32" placeholder="What solutions can help?">${topic.solutions}</textarea>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addNewCounselingTopic() {
+            nexusConfig.counselingTopics.push({
+                key: "NewTopic",
+                title: "New Counseling Topic",
+                subtitle: "Short catchy subtitle",
+                emoji: "✨",
+                image: "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070&auto=format&fit=crop",
+                whatIs: "Write a detailed explanation of what this condition is...",
+                effects: "Write the common effects and symptoms here...",
+                solutions: "Write possible solutions and treatment approaches here..."
+            });
+            renderCounselingTopicsAdmin();
+        }
+
+        function removeCounselingTopic(index) {
+            if (confirm("Delete this counseling topic?")) {
+                nexusConfig.counselingTopics.splice(index, 1);
+                renderCounselingTopicsAdmin();
             }
         }
 
@@ -681,7 +658,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! Counseling detail pages updated.");
+            alert("All changes saved successfully! Detail pages are now updated with more premium content.");
             closeAdmin();
         }
 
