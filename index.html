@@ -549,7 +549,7 @@
             }
         }
 
-        // ====================== MAIN BOOKING FUNCTION ======================
+        // ====================== PATIENT BOOKING - ONLY WHATSAPP ======================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -575,7 +575,7 @@
                 return;
             }
 
-            // Sirf WhatsApp par message (patient ko koi number/link nahi dikhega)
+            // Sirf WhatsApp par message bhejna (patient ko koi link ya number nahi dikhega)
             const waMessage = `🌟 *New Booking Request - Nexus Wellness*\n\n` +
                               `👤 *Name:* ${bookingData.name}\n` +
                               `📧 *Email:* ${bookingData.email}\n` +
@@ -586,12 +586,13 @@
                               `💰 *Fee:* ₹${bookingData.fee}\n\n` +
                               `Please contact the client soon!`;
 
-            const waUrl = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=${encodeURIComponent(waMessage)}`;
-            
+            const waUrl = `https://wa.me/${nexusConfig.waNum.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(waMessage)}`;
+
+            // New tab mein kholna (patient ko WhatsApp khulna padega taaki aapko message pahunche)
             window.open(waUrl, '_blank');
 
-            alert("Booking details successfully sent to our team via WhatsApp!\n\nPlease proceed to payment.");
-            
+            alert("Your booking request has been sent successfully to our team via WhatsApp.\n\nPlease complete the payment now.");
+
             currentBookingData = bookingData;
             showPayment();
         }
