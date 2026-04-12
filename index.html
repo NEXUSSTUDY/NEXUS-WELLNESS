@@ -217,7 +217,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections -->
+    <!-- Custom Sections (Anxiety, Relationship, Sleep) -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -549,7 +549,6 @@
             }
         }
 
-        // ==================== UPDATED FUNCTION ====================
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
@@ -581,25 +580,23 @@
                     from_name: bookingData.name,
                     from_email: bookingData.email,
                     whatsapp: bookingData.whatsapp,
-                    gender: bookingData.gender || "Not specified",
+                    gender: bookingData.gender,
                     counseling_type: bookingData.counselingType,
                     concern: bookingData.concern,
                     fee: bookingData.fee,
-                    message: `New Booking Request - Nexus Wellness`,
-                    date: new Date().toLocaleString('en-IN')
+                    message: `New Booking Request - Nexus Wellness`
                 };
 
                 await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
 
-                alert("Your details have been sent successfully to our team!\n\nPlease complete the payment to confirm your session.");
+                alert("Your details have been sent successfully!\n\nPlease complete the payment.");
                 currentBookingData = bookingData;
                 showPayment();
             } catch (error) {
                 console.error(error);
-                alert("Failed to send details. Please try again or contact us on WhatsApp.");
+                alert("Failed to send details. Try again.");
             }
         }
-        // =========================================================
 
         function showPayment() {
             const fee = document.getElementById('p_type').value;
@@ -685,4 +682,4 @@
         };
     </script>
 </body>
-</html>
+</html>     ye meri website ka code he isme paient ka data jo bhi vo form me fill kre vo mere pass aa jaye mere email pr 1 page pr , baki code ko change mt krna
