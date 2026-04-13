@@ -17,6 +17,8 @@
             background-color: #fbfbfb; 
             color: #1d1d1f; 
             scroll-behavior: smooth; 
+            margin: 0;
+            padding: 0;
         }
         
         .glass-nav { 
@@ -124,27 +126,38 @@
             visibility: visible; 
         }
 
-        /* ULTRA PREMIUM FULL-PAGE COUNSELING DETAIL - Mobile Fixed */
+        /* FIXED: Mobile Detail Page Problem */
         #counseling-detail-panel {
-            z-index: 2600;
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100dvh;                    /* Important fix for mobile */
             background: white;
+            z-index: 2600;
             display: none;
             flex-direction: column;
             overflow: hidden;
         }
+        
         #counseling-detail-panel.active {
             display: flex;
         }
 
-        /* Mobile Touch Improvements */
-        .menu-item {
-            -webkit-tap-highlight-color: transparent;
+        #detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            -webkit-overflow-scrolling: touch;   /* Smooth scroll on iOS */
         }
-        
-        button, a {
-            -webkit-tap-highlight-color: transparent;
+
+        /* Rest styles */
+        .premium-input { 
+            background: #ffffff; 
+            border: 1px solid #e5e5e7; 
+            border-radius: 16px; 
+            padding: 18px 22px; 
+            width: 100%; 
         }
     </style>
 </head>
@@ -228,20 +241,18 @@
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Custom Sections</h4>
                 <div id="custom-sections-container" class="space-y-8"></div>
-                <button onclick="addNewCustomSection()" 
-                        class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 active:scale-[0.97] transition">
+                <button onclick="addNewCustomSection()" class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 active:scale-[0.97] transition">
                     + Add New Custom Section
                 </button>
             </div>
 
-            <!-- Social Media Links Control -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Social Media Links</h4>
                 <div class="space-y-4">
-                    <input id="adm-instagram" class="premium-input text-sm" placeholder="Instagram URL (https://...)">
-                    <input id="adm-linkedin" class="premium-input text-sm" placeholder="LinkedIn URL (https://...)">
-                    <input id="adm-youtube" class="premium-input text-sm" placeholder="YouTube URL (https://...)">
-                    <input id="adm-whatsapp" class="premium-input text-sm" placeholder="WhatsApp URL (https://wa.me/...)">
+                    <input id="adm-instagram" class="premium-input text-sm" placeholder="Instagram URL">
+                    <input id="adm-linkedin" class="premium-input text-sm" placeholder="LinkedIn URL">
+                    <input id="adm-youtube" class="premium-input text-sm" placeholder="YouTube URL">
+                    <input id="adm-whatsapp" class="premium-input text-sm" placeholder="WhatsApp URL">
                 </div>
             </div>
 
@@ -282,10 +293,9 @@
         </div>
     </div>
 
-    <!-- ULTRA PREMIUM FULL-PAGE COUNSELING DETAIL -->
+    <!-- ULTRA PREMIUM FULL-PAGE COUNSELING DETAIL (Fixed for Mobile) -->
     <div id="counseling-detail-panel">
-        <!-- Premium Top Bar -->
-        <div class="px-6 md:px-12 py-6 border-b flex items-center justify-between bg-white sticky top-0 z-50 shadow-sm">
+        <div class="px-6 py-6 border-b flex items-center justify-between bg-white sticky top-0 z-50 shadow-sm">
             <div class="flex items-center gap-4">
                 <button onclick="closeCounselingDetail()" class="text-3xl text-gray-400 hover:text-black active:scale-90 transition flex items-center gap-2">
                     <i class="fas fa-arrow-left"></i>
@@ -296,18 +306,11 @@
                     <h1 id="detail-title" class="text-4xl font-bold tracking-tighter"></h1>
                 </div>
             </div>
-            <div class="flex items-center gap-2 text-xs uppercase font-semibold tracking-[1px] text-emerald-600">
-                <span class="relative flex h-3 w-3">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                </span>
-                ULTRA PREMIUM
-            </div>
+            <div class="text-xs uppercase font-semibold tracking-widest text-emerald-600">ULTRA PREMIUM</div>
         </div>
 
-        <!-- Scrollable Content Area -->
-        <div id="detail-content" class="flex-1 overflow-auto p-8 md:p-12 max-w-5xl mx-auto w-full">
-            <!-- Dynamically filled by JavaScript -->
+        <div id="detail-content" class="flex-1 overflow-y-auto p-6 md:p-12 max-w-5xl mx-auto w-full">
+            <!-- Dynamic content -->
         </div>
     </div>
 
@@ -375,7 +378,6 @@
 
                 <div id="p-success" class="hidden text-center space-y-8">
                     <div class="bg-green-50 text-green-600 p-8 rounded-[40px] font-bold border border-green-100 italic">"Healing begins with a single step."</div>
-                    
                     <div class="mt-8">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">Payment Verified ✓<br>Your session is confirmed!</h3>
                         <p class="text-sm text-gray-500 mb-4">Chat with your counselor directly here</p>
@@ -440,66 +442,11 @@
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ],
             counselingDetails: {
-                Anxiety: {
-                    title: "Anxiety & Stress",
-                    contentBlocks: [
-                        { type: "paragraph", content: "Anxiety & Stress refer to persistent feelings of worry, fear, or tension that can affect your daily life, sleep, and relationships. Common symptoms include racing thoughts, restlessness, and physical discomfort like headaches or rapid heartbeat." },
-                        { type: "image", url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" },
-                        { type: "paragraph", content: "Our Premium Solutions" },
-                        { type: "paragraph", content: "• Cognitive Behavioral Therapy (CBT) to identify and reframe negative thought patterns" },
-                        { type: "paragraph", content: "• Mindfulness meditation and breathing techniques for instant calm" },
-                        { type: "paragraph", content: "• Customized stress management and lifestyle coaching" },
-                        { type: "paragraph", content: "• Regular follow-up sessions for long-term resilience" }
-                    ]
-                },
-                Relationship: {
-                    title: "Relationship Issues",
-                    contentBlocks: [
-                        { type: "paragraph", content: "Relationship Issues encompass difficulties in communication, trust, intimacy, or conflict resolution in romantic partnerships, family dynamics, or friendships." },
-                        { type: "image", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop" },
-                        { type: "paragraph", content: "Our Premium Solutions" },
-                        { type: "paragraph", content: "• Evidence-based couples and individual counseling" },
-                        { type: "paragraph", content: "• Effective communication and conflict resolution skills" },
-                        { type: "paragraph", content: "• Healing from past hurts and rebuilding trust" },
-                        { type: "paragraph", content: "• Personalized strategies to strengthen emotional bonds" }
-                    ]
-                },
-                Sleep: {
-                    title: "Sleep Problems",
-                    contentBlocks: [
-                        { type: "paragraph", content: "Sleep Problems include insomnia, frequent awakenings, restless sleep, or poor sleep quality that leads to daytime fatigue." },
-                        { type: "image", url: "https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop" },
-                        { type: "paragraph", content: "Our Premium Solutions" },
-                        { type: "paragraph", content: "• Cognitive Behavioral Therapy for Insomnia (CBT-I)" },
-                        { type: "paragraph", content: "• Relaxation techniques and sleep hygiene education" },
-                        { type: "paragraph", content: "• Personalized routines to improve sleep cycles" },
-                        { type: "paragraph", content: "• Addressing underlying anxiety or stress contributing to sleep disruption" }
-                    ]
-                },
-                Trauma: {
-                    title: "Trauma Support",
-                    contentBlocks: [
-                        { type: "paragraph", content: "Trauma Support is designed for individuals who have experienced distressing or life-altering events." },
-                        { type: "image", url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" },
-                        { type: "paragraph", content: "Our Premium Solutions" },
-                        { type: "paragraph", content: "• Trauma-informed therapy and EMDR techniques" },
-                        { type: "paragraph", content: "• Safe space for processing emotions and experiences" },
-                        { type: "paragraph", content: "• Building coping mechanisms and resilience" },
-                        { type: "paragraph", content: "• Gentle, step-by-step healing journey with expert guidance" }
-                    ]
-                },
-                Career: {
-                    title: "Career Counseling",
-                    contentBlocks: [
-                        { type: "paragraph", content: "Career Counseling provides guidance for professional growth, job transitions, skill development, and overcoming career-related stress." },
-                        { type: "image", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop" },
-                        { type: "paragraph", content: "Our Premium Solutions" },
-                        { type: "paragraph", content: "• Personalized career assessment and goal setting" },
-                        { type: "paragraph", content: "• Resume building, interview preparation, and job search strategies" },
-                        { type: "paragraph", content: "• Work-life balance and burnout prevention coaching" },
-                        { type: "paragraph", content: "• Long-term professional development plans" }
-                    ]
-                }
+                Anxiety: { title: "Anxiety & Stress", contentBlocks: [{type:"paragraph", content:"Anxiety & Stress refer to persistent feelings of worry..."}, {type:"image", url:"https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop"}] },
+                Relationship: { title: "Relationship Issues", contentBlocks: [{type:"paragraph", content:"Relationship Issues encompass difficulties..."}, {type:"image", url:"https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop"}] },
+                Sleep: { title: "Sleep Problems", contentBlocks: [{type:"paragraph", content:"Sleep Problems include insomnia..."}, {type:"image", url:"https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop"}] },
+                Trauma: { title: "Trauma Support", contentBlocks: [{type:"paragraph", content:"Trauma Support is designed for..."}, {type:"image", url:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop"}] },
+                Career: { title: "Career Counseling", contentBlocks: [{type:"paragraph", content:"Career Counseling provides guidance..."}, {type:"image", url:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop"}] }
             }
         };
 
@@ -516,13 +463,13 @@
             document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
-            
-            // Load Social Links
+
+            // Social Links
             document.getElementById('social-instagram').href = nexusConfig.socialLinks.instagram || "#";
             document.getElementById('social-linkedin').href = nexusConfig.socialLinks.linkedin || "#";
             document.getElementById('social-youtube').href = nexusConfig.socialLinks.youtube || "#";
             document.getElementById('social-whatsapp').href = nexusConfig.socialLinks.whatsapp || "#";
-            
+
             document.getElementById('footer-instagram').href = nexusConfig.socialLinks.instagram || "#";
             document.getElementById('footer-linkedin').href = nexusConfig.socialLinks.linkedin || "#";
             document.getElementById('footer-youtube').href = nexusConfig.socialLinks.youtube || "#";
@@ -534,7 +481,6 @@
         function renderCustomSections() {
             const container = document.getElementById('custom-sections');
             container.innerHTML = '';
-
             nexusConfig.customSections.forEach((section) => {
                 const html = `
                     <section class="py-24 px-6 md:px-20 bg-white">
@@ -567,21 +513,16 @@
 
         function openCounselingDetail(key) {
             toggleCounselingMenu();
-            
             const detail = nexusConfig.counselingDetails[key];
-            if (!detail) {
-                alert("Details not found. Please contact admin.");
-                return;
-            }
+            if (!detail) return alert("Details not found.");
 
             const area = counselingAreas.find(a => a.key === key);
-            
             document.getElementById('detail-emoji').innerHTML = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
-            
+
             const contentContainer = document.getElementById('detail-content');
             contentContainer.innerHTML = '';
-            
+
             detail.contentBlocks.forEach(block => {
                 if (block.type === "paragraph") {
                     contentContainer.innerHTML += `<p class="text-xl leading-relaxed text-gray-700 mb-10">${block.content}</p>`;
@@ -590,13 +531,11 @@
                 }
             });
 
-            const panel = document.getElementById('counseling-detail-panel');
-            panel.classList.add('active');
+            document.getElementById('counseling-detail-panel').classList.add('active');
         }
 
         function closeCounselingDetail() {
-            const panel = document.getElementById('counseling-detail-panel');
-            panel.classList.remove('active');
+            document.getElementById('counseling-detail-panel').classList.remove('active');
         }
 
         function handleCounselingTypeChange() {
@@ -620,8 +559,6 @@
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
-            
-            // Social Links
             document.getElementById('adm-instagram').value = nexusConfig.socialLinks.instagram || "";
             document.getElementById('adm-linkedin').value = nexusConfig.socialLinks.linkedin || "";
             document.getElementById('adm-youtube').value = nexusConfig.socialLinks.youtube || "";
@@ -701,9 +638,7 @@
                             <span class="text-5xl">${area.emoji}</span>
                             <h5 class="font-semibold text-xl">${area.label}</h5>
                         </div>
-                        <div class="space-y-4">
-                            ${blocksHTML}
-                        </div>
+                        <div class="space-y-4">${blocksHTML}</div>
                         <div class="flex gap-3 mt-8">
                             <button onclick="addBlock('${area.key}', 'paragraph')" class="flex-1 py-4 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition flex items-center justify-center gap-2 active:scale-95">
                                 <i class="fas fa-paragraph"></i> Add Text Paragraph
@@ -725,7 +660,7 @@
         }
 
         function deleteBlock(key, index) {
-            if (confirm("Delete this block permanently?")) {
+            if (confirm("Delete this block?")) {
                 nexusConfig.counselingDetails[key].contentBlocks.splice(index, 1);
                 renderCounselingDetailsAdmin();
             }
@@ -814,7 +749,6 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
-            // Save Social Media Links
             nexusConfig.socialLinks = {
                 instagram: document.getElementById('adm-instagram').value.trim() || "#",
                 linkedin: document.getElementById('adm-linkedin').value.trim() || "#",
@@ -824,17 +758,17 @@
 
             counselingAreas.forEach((area) => {
                 const detail = nexusConfig.counselingDetails[area.key];
-                if (!detail || !detail.contentBlocks) return;
-
-                detail.contentBlocks.forEach((block, index) => {
-                    if (block.type === "paragraph") {
-                        const ta = document.getElementById(`block-text-${area.key}-${index}`);
-                        if (ta) block.content = ta.value.trim();
-                    } else if (block.type === "image") {
-                        const inp = document.getElementById(`block-image-${area.key}-${index}`);
-                        if (inp) block.url = inp.value.trim();
-                    }
-                });
+                if (detail && detail.contentBlocks) {
+                    detail.contentBlocks.forEach((block, index) => {
+                        if (block.type === "paragraph") {
+                            const ta = document.getElementById(`block-text-${area.key}-${index}`);
+                            if (ta) block.content = ta.value.trim();
+                        } else if (block.type === "image") {
+                            const inp = document.getElementById(`block-image-${area.key}-${index}`);
+                            if (inp) block.url = inp.value.trim();
+                        }
+                    });
+                }
             });
 
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
@@ -844,27 +778,20 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nSocial media links and all sections updated.");
+            alert("All changes saved successfully! ✅");
             closeAdmin();
         }
 
         function logoutAdmin() {
             document.getElementById('admin-controls').classList.add('hidden');
             document.getElementById('admin-login').classList.remove('hidden');
-            document.getElementById('admin-email-input').value = '';
-            document.getElementById('admin-otp-input').value = '';
-            currentOTP = null;
         }
 
         function sendAdminOTP() {
             const email = document.getElementById('admin-email-input').value.trim();
-            if (!email || !email.includes('@')) {
-                alert("Please enter a valid email address");
-                return;
-            }
+            if (!email || !email.includes('@')) return alert("Please enter a valid email address");
 
             currentOTP = Math.floor(100000 + Math.random() * 900000);
-
             const templateParams = { to_email: email, otp: currentOTP };
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
@@ -892,30 +819,24 @@
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
-            if (whatsapp.length !== 13) {
-                alert("WhatsApp number must be 10 digits after +91");
-                return;
-            }
+            if (whatsapp.length !== 13) return alert("WhatsApp number must be 10 digits after +91");
 
             const bookingData = {
                 name: document.getElementById('p_name').value.trim(),
                 email: document.getElementById('p_email').value.trim(),
                 whatsapp: whatsapp,
                 gender: document.getElementById('p_gender').value,
-                counselingType: document.getElementById('p_counseling_type').value === "Other" 
-                    ? document.getElementById('p_other_type').value.trim() 
-                    : document.getElementById('p_counseling_type').value,
+                counselingType: document.getElementById('p_counseling_type').value === "Other" ? document.getElementById('p_other_type').value.trim() : document.getElementById('p_counseling_type').value,
                 concern: document.getElementById('p_concern').value.trim(),
                 fee: document.getElementById('p_type').value
             };
 
             if (!bookingData.name || !bookingData.email || !bookingData.whatsapp || !bookingData.counselingType || !bookingData.concern) {
-                alert("Please fill all required fields.");
-                return;
+                return alert("Please fill all required fields.");
             }
 
             try {
-                const templateParams = {
+                await emailjs.send("service_w0vxgvf", "template_tt1b26p", {
                     to_email: nexusConfig.adminEmail,
                     from_name: bookingData.name,
                     from_email: bookingData.email,
@@ -925,15 +846,12 @@
                     concern: bookingData.concern,
                     fee: bookingData.fee,
                     message: `New Booking Request - Nexus Wellness`
-                };
-
-                await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
+                });
 
                 alert("Your details have been sent successfully!\n\nPlease complete the payment.");
                 currentBookingData = bookingData;
                 showPayment();
             } catch (error) {
-                console.error(error);
                 alert("Failed to send details. Try again.");
             }
         }
@@ -949,12 +867,7 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length !== 12) {
-                alert("UTR ID must be exactly 12 digits.");
-                return;
-            }
-
-            if (!currentBookingData) return;
+            if (utr.length !== 12) return alert("UTR ID must be exactly 12 digits.");
 
             currentBookingData.utr = utr;
             localStorage.setItem('currentBooking', JSON.stringify(currentBookingData));
@@ -984,34 +897,21 @@
             if (!message) return;
 
             const windowEl = document.getElementById('chat-window');
-            windowEl.innerHTML += `
-                <div class="flex justify-end">
-                    <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div>
-                </div>
-            `;
+            windowEl.innerHTML += `<div class="flex justify-end"><div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div></div>`;
             windowEl.scrollTop = windowEl.scrollHeight;
             input.value = '';
 
             setTimeout(() => {
                 const replies = ["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                windowEl.innerHTML += `
-                    <div class="flex justify-start">
-                        <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div>
-                    </div>
-                `;
+                windowEl.innerHTML += `<div class="flex justify-start"><div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div></div>`;
                 windowEl.scrollTop = windowEl.scrollHeight;
             }, 1000);
         }
 
         function addCareerSection() {
             if (!nexusConfig.customSections.some(s => s.title.includes("Career"))) {
-                nexusConfig.customSections.push({
-                    title: "Career Counseling",
-                    description: "Guidance for your professional journey and future goals",
-                    emoji: "💼",
-                    image: ""
-                });
+                nexusConfig.customSections.push({ title: "Career Counseling", description: "Guidance for your professional journey and future goals", emoji: "💼", image: "" });
                 renderCustomSections();
             }
         }
