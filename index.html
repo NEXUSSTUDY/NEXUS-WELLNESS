@@ -429,10 +429,10 @@
             adminEmail: "thenexusstudy3@gmail.com",
             blogUrl: "#",
             socialLinks: {
-                instagram: "https://instagram.com",
-                linkedin: "https://linkedin.com",
-                youtube: "https://youtube.com",
-                whatsapp: "https://wa.me/"
+                instagram: "#",
+                linkedin: "#",
+                youtube: "#",
+                whatsapp: "#"
             },
             customSections: [
                 { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
@@ -440,11 +440,66 @@
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ],
             counselingDetails: {
-                Anxiety: { title: "Anxiety & Stress", contentBlocks: [{ type: "paragraph", content: "Anxiety & Stress refer to persistent feelings of worry, fear, or tension..." }, { type: "image", url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" }] },
-                Relationship: { title: "Relationship Issues", contentBlocks: [{ type: "paragraph", content: "Relationship Issues encompass difficulties in communication..." }, { type: "image", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop" }] },
-                Sleep: { title: "Sleep Problems", contentBlocks: [{ type: "paragraph", content: "Sleep Problems include insomnia..." }, { type: "image", url: "https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop" }] },
-                Trauma: { title: "Trauma Support", contentBlocks: [{ type: "paragraph", content: "Trauma Support is designed for individuals..." }, { type: "image", url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" }] },
-                Career: { title: "Career Counseling", contentBlocks: [{ type: "paragraph", content: "Career Counseling provides guidance..." }, { type: "image", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop" }] }
+                Anxiety: {
+                    title: "Anxiety & Stress",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Anxiety & Stress refer to persistent feelings of worry, fear, or tension that can affect your daily life, sleep, and relationships. Common symptoms include racing thoughts, restlessness, and physical discomfort like headaches or rapid heartbeat." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Cognitive Behavioral Therapy (CBT) to identify and reframe negative thought patterns" },
+                        { type: "paragraph", content: "• Mindfulness meditation and breathing techniques for instant calm" },
+                        { type: "paragraph", content: "• Customized stress management and lifestyle coaching" },
+                        { type: "paragraph", content: "• Regular follow-up sessions for long-term resilience" }
+                    ]
+                },
+                Relationship: {
+                    title: "Relationship Issues",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Relationship Issues encompass difficulties in communication, trust, intimacy, or conflict resolution in romantic partnerships, family dynamics, or friendships." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Evidence-based couples and individual counseling" },
+                        { type: "paragraph", content: "• Effective communication and conflict resolution skills" },
+                        { type: "paragraph", content: "• Healing from past hurts and rebuilding trust" },
+                        { type: "paragraph", content: "• Personalized strategies to strengthen emotional bonds" }
+                    ]
+                },
+                Sleep: {
+                    title: "Sleep Problems",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Sleep Problems include insomnia, frequent awakenings, restless sleep, or poor sleep quality that leads to daytime fatigue." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Cognitive Behavioral Therapy for Insomnia (CBT-I)" },
+                        { type: "paragraph", content: "• Relaxation techniques and sleep hygiene education" },
+                        { type: "paragraph", content: "• Personalized routines to improve sleep cycles" },
+                        { type: "paragraph", content: "• Addressing underlying anxiety or stress contributing to sleep disruption" }
+                    ]
+                },
+                Trauma: {
+                    title: "Trauma Support",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Trauma Support is designed for individuals who have experienced distressing or life-altering events." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Trauma-informed therapy and EMDR techniques" },
+                        { type: "paragraph", content: "• Safe space for processing emotions and experiences" },
+                        { type: "paragraph", content: "• Building coping mechanisms and resilience" },
+                        { type: "paragraph", content: "• Gentle, step-by-step healing journey with expert guidance" }
+                    ]
+                },
+                Career: {
+                    title: "Career Counseling",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Career Counseling provides guidance for professional growth, job transitions, skill development, and overcoming career-related stress." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Personalized career assessment and goal setting" },
+                        { type: "paragraph", content: "• Resume building, interview preparation, and job search strategies" },
+                        { type: "paragraph", content: "• Work-life balance and burnout prevention coaching" },
+                        { type: "paragraph", content: "• Long-term professional development plans" }
+                    ]
+                }
             }
         };
 
@@ -566,7 +621,7 @@
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
             
-            // Social Links in Admin
+            // Social Links
             document.getElementById('adm-instagram').value = nexusConfig.socialLinks.instagram || "";
             document.getElementById('adm-linkedin').value = nexusConfig.socialLinks.linkedin || "";
             document.getElementById('adm-youtube').value = nexusConfig.socialLinks.youtube || "";
@@ -761,10 +816,10 @@
 
             // Save Social Media Links
             nexusConfig.socialLinks = {
-                instagram: document.getElementById('adm-instagram').value.trim(),
-                linkedin: document.getElementById('adm-linkedin').value.trim(),
-                youtube: document.getElementById('adm-youtube').value.trim(),
-                whatsapp: document.getElementById('adm-whatsapp').value.trim()
+                instagram: document.getElementById('adm-instagram').value.trim() || "#",
+                linkedin: document.getElementById('adm-linkedin').value.trim() || "#",
+                youtube: document.getElementById('adm-youtube').value.trim() || "#",
+                whatsapp: document.getElementById('adm-whatsapp').value.trim() || "#"
             };
 
             counselingAreas.forEach((area) => {
@@ -789,7 +844,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nSocial media links and detail pages updated.");
+            alert("All changes saved successfully! ✅\n\nSocial media links and all sections updated.");
             closeAdmin();
         }
 
