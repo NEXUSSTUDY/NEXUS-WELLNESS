@@ -789,9 +789,6 @@
                 const blocksContainer = document.getElementById('counseling-details-container');
                 // Since we re-render every time, we need to collect from current inputs
                 // For simplicity we loop through all possible blocks in the rendered DOM
-                const allInputs = blocksContainer.querySelectorAll(`[id^="cd-text-${area.key}"], [id^="cd-image-${area.key}"], [id^="cd-heading-${area.key}"], [id^="cd-list-${area.key}"]`);
-                
-                // This is a simplified collection - in real production we'd use a better ID system
                 // But for this single-file code we re-fetch from the latest render
                 // (Admin re-renders after every add/remove so latest values are present)
                 detail.contentBlocks = nexusConfig.counselingDetails[area.key].contentBlocks.map((block, i) => {
@@ -907,6 +904,12 @@
 
                 await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
 
+                // PATIENT DATA AUTOMATICALLY GOES TO YOUR WHATSAPP (no extra link/button shown to patient, no other UI change)
+                const waMessage = `🚨 NEW BOOKING - NEXUS WELLNESS\n\n👤 Name: ${bookingData.name}\n📧 Email: ${bookingData.email}\n📱 WhatsApp: ${bookingData.whatsapp}\n⚧ Gender: ${bookingData.gender}\n🧠 Counseling Type: ${bookingData.counselingType}\n💬 Concern: ${bookingData.concern}\n💰 Fee: ₹${bookingData.fee}\n🕒 Time: ${new Date().toLocaleString('en-IN')}\n\nReply fast to confirm session!`;
+                const encodedMessage = encodeURIComponent(waMessage);
+                const waUrl = `https://wa.me/${nexusConfig.waNum.replace('+', '')}?text=${encodedMessage}`;
+                window.open(waUrl, '_blank');
+
                 alert("Your details have been sent successfully!\n\nPlease complete the payment.");
                 currentBookingData = bookingData;
                 showPayment();
@@ -1000,4 +1003,4 @@
         };
     </script>
 </body>
-</html>    
+</html>
