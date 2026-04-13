@@ -96,54 +96,53 @@
             box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
         }
 
-        /* === 3D Rotating Emoji Circles - Ultra Premium === */
-        .emoji-3d-circle {
-            width: 92px;
-            height: 92px;
-            background: white;
-            border-radius: 9999px;
+        /* ULTRA PREMIUM CIRCULAR ORBIT ANIMATION - ONLY FOR HOMEPAGE SYMBOLS */
+        .emoji-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 52px;
-            box-shadow: 
-                0 25px 50px -12px rgb(0 0 0 / 0.25),
-                inset 0 -10px 20px rgba(255,255,255,0.6),
-                inset 0 10px 20px rgba(0,0,0,0.08);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
         }
-
-        .emoji-3d-circle::before {
+        .emoji-symbol {
+            font-size: 60px;
+            display: inline-block;
+            animation: ultraPremiumOrbit 28s linear infinite;
+            filter: drop-shadow(0 10px 15px rgba(0, 113, 227, 0.2));
+        }
+        @keyframes ultraPremiumOrbit {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .emoji-container::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), transparent 70%);
-            border-radius: 9999px;
-            pointer-events: none;
-        }
-
-        .emoji-3d-circle:hover {
-            transform: scale(1.12) rotate(8deg);
-        }
-
-        .emoji-container {
-            animation: rotate3d 12s linear infinite;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes rotate3d {
-            from { transform: rotateY(0deg) rotateX(15deg); }
-            to { transform: rotateY(360deg) rotateX(15deg); }
-        }
-
-        /* Extra glow for premium feel */
-        .emoji-3d-circle.glow {
+            inset: -14px;
+            border: 4px solid transparent;
+            border-top-color: rgba(0, 113, 227, 0.4);
+            border-radius: 50%;
+            animation: ultraPremiumRing 18s linear infinite reverse;
+            z-index: -1;
             box-shadow: 
-                0 25px 50px -12px rgb(0 0 0 / 0.25),
-                0 0 40px rgba(16, 185, 129, 0.35),
-                inset 0 -10px 20px rgba(255,255,255,0.7);
+                0 0 25px rgba(0, 113, 227, 0.25),
+                inset 0 0 25px rgba(0, 113, 227, 0.15);
+        }
+        @keyframes ultraPremiumRing {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .emoji-container:hover .emoji-symbol,
+        .emoji-container:hover::before {
+            animation-play-state: paused;
         }
     </style>
 </head>
@@ -173,26 +172,11 @@
         <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div class="space-y-8 text-[19px]">
-            <div onclick="openCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Anxiety & Stress</span>
-                <div class="emoji-3d-circle glow"><span class="emoji-container">🧠</span></div>
-            </div>
-            <div onclick="openCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Relationship Issues</span>
-                <div class="emoji-3d-circle glow"><span class="emoji-container">❤️</span></div>
-            </div>
-            <div onclick="openCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Sleep Problems</span>
-                <div class="emoji-3d-circle glow"><span class="emoji-container">🌙</span></div>
-            </div>
-            <div onclick="openCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Trauma Support</span>
-                <div class="emoji-3d-circle glow"><span class="emoji-container">🛡️</span></div>
-            </div>
-            <div onclick="openCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span>Career Counseling</span>
-                <div class="emoji-3d-circle glow"><span class="emoji-container">💼</span></div>
-            </div>
+            <div onclick="openCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
+            <div onclick="openCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
             <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
@@ -292,7 +276,7 @@
             <!-- Header -->
             <div class="px-8 md:px-12 py-8 border-b flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
                 <div class="flex items-center gap-5">
-                    <div id="detail-emoji-wrapper" class="emoji-3d-circle glow text-7xl flex items-center justify-center"></div>
+                    <span id="detail-emoji" class="text-7xl"></span>
                     <div>
                         <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter leading-none"></h1>
                     </div>
@@ -458,6 +442,7 @@
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ],
+            // Ultra Premium Detail Pages Content (fully editable in Admin)
             counselingDetails: {
                 Anxiety: {
                     title: "Anxiety & Stress",
@@ -542,7 +527,9 @@
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
                                 ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
-                                <div class="emoji-3d-circle glow mx-auto mb-6 text-7xl">${section.emoji || '✨'}</div>
+                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl relative emoji-container">
+                                    <span class="emoji-symbol">${section.emoji || '✨'}</span>
+                                </div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
                             </div>
@@ -578,10 +565,8 @@
 
             const area = counselingAreas.find(a => a.key === key);
             
-            // 3D Emoji in Detail Panel
-            const emojiWrapper = document.getElementById('detail-emoji-wrapper');
-            emojiWrapper.innerHTML = `<span class="emoji-container">${area.emoji}</span>`;
-            
+            // Fill header
+            document.getElementById('detail-emoji').innerHTML = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
             
             // Image
@@ -590,7 +575,7 @@
             // What is it
             document.getElementById('detail-whatis').innerHTML = detail.whatIs;
             
-            // Solutions
+            // Solutions (premium bullet list)
             const solutionsHTML = detail.solutions.map(item => `
                 <div class="flex gap-4">
                     <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">✓</div>
@@ -633,7 +618,7 @@
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
             renderAdminCustomSections();
-            renderCounselingDetailsAdmin();
+            renderCounselingDetailsAdmin();   // <-- New admin control for detail pages
         }
 
         function closeAdmin() {
@@ -772,6 +757,7 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
+            // Save Counseling Detail Pages (Ultra Premium)
             counselingAreas.forEach((area) => {
                 const whatEl = document.getElementById(`cd-what-${area.key}`);
                 const solEl = document.getElementById(`cd-sol-${area.key}`);
