@@ -96,62 +96,81 @@
             box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
         }
 
-        /* ===== 3D ANIMATED EMOJI STYLES ===== */
-        .emoji-3d {
-            display: inline-block;
+        /* === 3D ANIMATED EMOJI / SYMBOL STYLES (Ultra Premium) === */
+        .premium-emoji {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-size: 3.5rem;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle at 40% 30%, rgba(255,255,255,0.9), rgba(240,240,240,0.6));
+            border-radius: 50%;
+            box-shadow: 
+                0 20px 40px -15px rgba(0, 0, 0, 0.25),
+                inset 0 -15px 25px rgba(255,255,255,0.7),
+                inset 0 15px 25px rgba(0,0,0,0.1);
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
-            animation: float3d 4s ease-in-out infinite;
-            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: float3d 6s ease-in-out infinite;
         }
 
-        .emoji-3d:hover {
-            transform: scale(1.25) rotate(8deg) !important;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+        .premium-emoji:hover {
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 
+                0 30px 60px -10px rgba(0, 113, 227, 0.35),
+                inset 0 -20px 30px rgba(255,255,255,0.9);
+        }
+
+        .premium-emoji::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 10%, transparent 60%);
+            opacity: 0.4;
+            animation: shine 4s linear infinite;
         }
 
         @keyframes float3d {
-            0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
-            50% { transform: translateY(-18px) rotate(8deg) scale(1.08); }
+            0%, 100% { transform: translateY(0px) rotate(-6deg); }
+            50% { transform: translateY(-18px) rotate(6deg); }
         }
 
-        /* Different subtle animations for each emoji */
-        .emoji-brain { animation: float3d 4.2s ease-in-out infinite; }
-        .emoji-heart { animation: float3d 3.8s ease-in-out infinite; }
-        .emoji-moon { animation: float3d 4.5s ease-in-out infinite; }
-        .emoji-shield { animation: float3d 4.1s ease-in-out infinite; }
-        .emoji-briefcase { animation: float3d 3.7s ease-in-out infinite; }
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            50% { transform: translateX(100%) translateY(100%); }
+            100% { transform: translateX(-100%) translateY(-100%); }
+        }
 
-        /* Extra glow effect */
-        .emoji-3d::after {
-            content: '';
-            position: absolute;
+        /* Larger version for detail panel */
+        .premium-emoji-large {
+            font-size: 6.5rem;
+            width: 140px;
+            height: 140px;
+            animation: float3d 7s ease-in-out infinite;
+        }
+
+        /* Menu items emoji */
+        .menu-emoji {
+            font-size: 2.2rem;
             width: 60px;
             height: 60px;
-            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+            background: rgba(255,255,255,0.1);
             border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.4;
-            z-index: -1;
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); }
-            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
-        }
-
-        /* Menu item emoji styling */
-        .menu-emoji {
-            font-size: 1.8rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
         }
 
         .menu-item:hover .menu-emoji {
-            transform: scale(1.3) rotate(12deg);
+            transform: scale(1.2) rotate(12deg);
+            background: rgba(96, 165, 250, 0.2);
         }
     </style>
 </head>
@@ -182,26 +201,47 @@
         <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
         <div class="space-y-8 text-[19px]">
             <div onclick="openCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span class="flex items-center gap-4"><span class="menu-emoji">🧠</span> Anxiety & Stress</span>
+                <span class="flex items-center gap-5">
+                    <span class="menu-emoji">🧠</span>
+                    <span>Anxiety & Stress</span>
+                </span>
                 <span class="text-2xl">›</span>
             </div>
             <div onclick="openCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span class="flex items-center gap-4"><span class="menu-emoji">❤️</span> Relationship Issues</span>
+                <span class="flex items-center gap-5">
+                    <span class="menu-emoji">❤️</span>
+                    <span>Relationship Issues</span>
+                </span>
                 <span class="text-2xl">›</span>
             </div>
             <div onclick="openCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span class="flex items-center gap-4"><span class="menu-emoji">🌙</span> Sleep Problems</span>
+                <span class="flex items-center gap-5">
+                    <span class="menu-emoji">🌙</span>
+                    <span>Sleep Problems</span>
+                </span>
                 <span class="text-2xl">›</span>
             </div>
             <div onclick="openCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span class="flex items-center gap-4"><span class="menu-emoji">🛡️</span> Trauma Support</span>
+                <span class="flex items-center gap-5">
+                    <span class="menu-emoji">🛡️</span>
+                    <span>Trauma Support</span>
+                </span>
                 <span class="text-2xl">›</span>
             </div>
             <div onclick="openCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
-                <span class="flex items-center gap-4"><span class="menu-emoji">💼</span> Career Counseling</span>
+                <span class="flex items-center gap-5">
+                    <span class="menu-emoji">💼</span>
+                    <span>Career Counseling</span>
+                </span>
                 <span class="text-2xl">›</span>
             </div>
-            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
+            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition">
+                <span class="flex items-center gap-5">
+                    <span class="menu-emoji">📖</span>
+                    <span>Blog</span>
+                </span>
+                <span class="text-2xl">›</span>
+            </div>
         </div>
 
         <div class="mt-16">
@@ -256,7 +296,7 @@
                 </button>
             </div>
 
-            <!-- New: Counseling Details Control (Ultra Premium Pages) -->
+            <!-- New: Counseling Details Control -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Counseling Areas - Detail Pages</h4>
                 <div id="counseling-details-container" class="space-y-10"></div>
@@ -300,7 +340,7 @@
             <!-- Header -->
             <div class="px-8 md:px-12 py-8 border-b flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
                 <div class="flex items-center gap-5">
-                    <span id="detail-emoji" class="emoji-3d text-7xl"></span>
+                    <span id="detail-emoji" class="premium-emoji-large"></span>
                     <div>
                         <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter leading-none"></h1>
                     </div>
@@ -311,7 +351,7 @@
             <!-- Content -->
             <div class="flex-1 overflow-auto p-8 md:p-12">
                 <div class="grid md:grid-cols-12 gap-12">
-                    <!-- Left Column - What is it + Image -->
+                    <!-- Left Column -->
                     <div class="md:col-span-7">
                         <div class="mb-8">
                             <img id="detail-image" src="" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">
@@ -323,7 +363,7 @@
                         <p id="detail-whatis" class="text-xl leading-relaxed text-gray-700"></p>
                     </div>
                     
-                    <!-- Right Column - Solutions -->
+                    <!-- Right Column -->
                     <div class="md:col-span-5">
                         <h3 class="text-3xl font-semibold mb-5 flex items-center gap-3">
                             <span class="text-4xl">✨</span> 
@@ -354,7 +394,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections (Anxiety, Relationship, Sleep) -->
+    <!-- Custom Sections -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -446,11 +486,11 @@
         AOS.init();
 
         let counselingAreas = [
-            { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠", class: "emoji-brain" },
-            { key: "Relationship", label: "Relationship Issues", emoji: "❤️", class: "emoji-heart" },
-            { key: "Sleep", label: "Sleep Problems", emoji: "🌙", class: "emoji-moon" },
-            { key: "Trauma", label: "Trauma Support", emoji: "🛡️", class: "emoji-shield" },
-            { key: "Career", label: "Career Counseling", emoji: "💼", class: "emoji-briefcase" }
+            { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠" },
+            { key: "Relationship", label: "Relationship Issues", emoji: "❤️" },
+            { key: "Sleep", label: "Sleep Problems", emoji: "🌙" },
+            { key: "Trauma", label: "Trauma Support", emoji: "🛡️" },
+            { key: "Career", label: "Career Counseling", emoji: "💼" }
         ];
 
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
@@ -550,9 +590,7 @@
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
                                 ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
-                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                                    <span class="emoji-3d text-7xl">${section.emoji || '✨'}</span>
-                                </div>
+                                <div class="premium-emoji mx-auto mb-6">${section.emoji || '✨'}</div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
                             </div>
@@ -576,7 +614,6 @@
             toggleCounselingMenu();
         }
 
-        // === ULTRA PREMIUM DETAIL PAGE SYSTEM ===
         function openCounselingDetail(key) {
             toggleCounselingMenu();
             
@@ -588,10 +625,10 @@
 
             const area = counselingAreas.find(a => a.key === key);
             
-            // Fill header with 3D animated emoji
+            // Fill header with 3D emoji
             const emojiEl = document.getElementById('detail-emoji');
             emojiEl.innerHTML = area.emoji;
-            emojiEl.className = `emoji-3d text-7xl ${area.class}`;
+            emojiEl.className = "premium-emoji-large";
             
             document.getElementById('detail-title').textContent = detail.title;
             
@@ -601,7 +638,7 @@
             // What is it
             document.getElementById('detail-whatis').innerHTML = detail.whatIs;
             
-            // Solutions (premium bullet list)
+            // Solutions
             const solutionsHTML = detail.solutions.map(item => `
                 <div class="flex gap-4">
                     <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">✓</div>
