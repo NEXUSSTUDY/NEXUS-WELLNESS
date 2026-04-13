@@ -88,74 +88,10 @@
         .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
         .notification.visible { opacity: 1; visibility: visible; }
 
-        /* Ultra Premium Counseling Detail Panel */
+        /* Ultra Premium Full-Page Counseling Detail */
         #counseling-detail-panel {
             z-index: 2600;
         }
-        #counseling-detail-panel .detail-card {
-            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
-        }
-
-        /* === ULTRA PREMIUM CIRCULAR ORBIT ANIMATION FOR HOME PAGE SYMBOLS ONLY === */
-        @keyframes orbit {
-            0% {
-                transform: rotate(0deg) translateX(48px) rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg) translateX(48px) rotate(-360deg);
-            }
-        }
-
-        @keyframes ringRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .premium-emoji-container {
-            position: relative;
-            width: 128px;
-            height: 128px;
-            margin: 0 auto 28px auto;
-        }
-
-        .premium-emoji-container .orbit-ring {
-            position: absolute;
-            inset: 0;
-            border: 2.5px solid rgba(0, 113, 227, 0.25);
-            border-radius: 9999px;
-            animation: ringRotate 18s linear infinite;
-        }
-
-        .premium-emoji-container .inner-dot {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 10px;
-            height: 10px;
-            background: #0071e3;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px 6px rgba(0, 113, 227, 0.4);
-            z-index: 10;
-        }
-
-        .orbiter {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 52px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            animation: orbit 16s linear infinite;
-            z-index: 20;
-        }
-
-        /* Medium speed - smooth & premium feel */
-        .orbiter.slow { animation-duration: 22s; }
-        .orbiter.medium { animation-duration: 16s; }
     </style>
 </head>
 <body class="font-sans">
@@ -244,6 +180,7 @@
                 </button>
             </div>
 
+            <!-- Counseling Areas - Detail Pages (Ultra Premium Full-Page + Unlimited Text & Photos) -->
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Counseling Areas - Detail Pages</h4>
                 <div id="counseling-details-container" class="space-y-10"></div>
@@ -281,47 +218,32 @@
         </div>
     </div>
 
-    <!-- ULTRA PREMIUM COUNSELING DETAIL PANEL -->
-    <div id="counseling-detail-panel" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 md:p-8">
-        <div class="detail-card bg-white rounded-3xl w-full max-w-6xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl">
-            <div class="px-8 md:px-12 py-8 border-b flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
-                <div class="flex items-center gap-5">
-                    <span id="detail-emoji" class="text-7xl"></span>
-                    <div>
-                        <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter leading-none"></h1>
-                    </div>
-                </div>
-                <button onclick="closeCounselingDetail()" class="text-5xl text-gray-400 hover:text-gray-900 transition">&times;</button>
-            </div>
-            
-            <div class="flex-1 overflow-auto p-8 md:p-12">
-                <div class="grid md:grid-cols-12 gap-12">
-                    <div class="md:col-span-7">
-                        <div class="mb-8">
-                            <img id="detail-image" src="" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">
-                        </div>
-                        <h3 class="text-3xl font-semibold mb-5 flex items-center gap-3">
-                            <span class="text-4xl">❔</span> What is it?
-                        </h3>
-                        <p id="detail-whatis" class="text-xl leading-relaxed text-gray-700"></p>
-                    </div>
-                    
-                    <div class="md:col-span-5">
-                        <h3 class="text-3xl font-semibold mb-5 flex items-center gap-3">
-                            <span class="text-4xl">✨</span> Our Premium Solutions
-                        </h3>
-                        <div id="detail-solutions" class="space-y-8 text-lg"></div>
-                        
-                        <div class="mt-16 pt-8 border-t border-gray-100">
-                            <p class="text-sm uppercase tracking-[1px] text-gray-400 mb-4">Ready to begin your healing journey?</p>
-                            <a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn text-base px-12 py-6 inline-flex items-center gap-3">
-                                <span>BOOK YOUR SESSION NOW</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
+    <!-- ULTRA PREMIUM FULL-PAGE COUNSELING DETAIL (replaces old modal) -->
+    <div id="counseling-detail-panel" class="hidden fixed inset-0 bg-white z-[2600] flex flex-col overflow-hidden">
+        <!-- Premium Top Bar -->
+        <div class="px-6 md:px-12 py-6 border-b flex items-center justify-between bg-white sticky top-0 z-50 shadow-sm">
+            <div class="flex items-center gap-4">
+                <button onclick="closeCounselingDetail()" class="text-3xl text-gray-400 hover:text-black transition flex items-center gap-2">
+                    <i class="fas fa-arrow-left"></i>
+                    <span class="text-sm font-medium uppercase tracking-widest">Back</span>
+                </button>
+                <div class="flex items-center gap-4">
+                    <span id="detail-emoji" class="text-5xl"></span>
+                    <h1 id="detail-title" class="text-4xl font-bold tracking-tighter"></h1>
                 </div>
             </div>
+            <div class="flex items-center gap-2 text-xs uppercase font-semibold tracking-[1px] text-emerald-600">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                ULTRA PREMIUM
+            </div>
+        </div>
+
+        <!-- Scrollable Content Area - Unlimited Text + Photos -->
+        <div id="detail-content" class="flex-1 overflow-auto p-8 md:p-12 max-w-5xl mx-auto w-full">
+            <!-- Dynamically filled by JavaScript -->
         </div>
     </div>
 
@@ -335,7 +257,7 @@
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 text-4xl animate-bounce">↓</div>
     </section>
 
-    <!-- Custom Sections (Home Page Symbols Only - Ultra Premium Orbit) -->
+    <!-- Custom Sections (Anxiety, Relationship, Sleep) -->
     <div id="custom-sections"></div>
 
     <!-- Booking Section -->
@@ -447,18 +369,75 @@
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
             ],
+            // Ultra Premium Full-Page Detail Content - Unlimited text + photos (admin editable)
             counselingDetails: {
-                Anxiety: { title: "Anxiety & Stress", whatIs: "...", solutions: [...], image: "..." },
-                Relationship: { title: "Relationship Issues", whatIs: "...", solutions: [...], image: "..." },
-                Sleep: { title: "Sleep Problems", whatIs: "...", solutions: [...], image: "..." },
-                Trauma: { title: "Trauma Support", whatIs: "...", solutions: [...], image: "..." },
-                Career: { title: "Career Counseling", whatIs: "...", solutions: [...], image: "..." }
+                Anxiety: {
+                    title: "Anxiety & Stress",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Anxiety & Stress refer to persistent feelings of worry, fear, or tension that can affect your daily life, sleep, and relationships. Common symptoms include racing thoughts, restlessness, and physical discomfort like headaches or rapid heartbeat." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Cognitive Behavioral Therapy (CBT) to identify and reframe negative thought patterns" },
+                        { type: "paragraph", content: "• Mindfulness meditation and breathing techniques for instant calm" },
+                        { type: "paragraph", content: "• Customized stress management and lifestyle coaching" },
+                        { type: "paragraph", content: "• Regular follow-up sessions for long-term resilience" }
+                    ]
+                },
+                Relationship: {
+                    title: "Relationship Issues",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Relationship Issues encompass difficulties in communication, trust, intimacy, or conflict resolution in romantic partnerships, family dynamics, or friendships. These challenges can lead to emotional distance or recurring arguments." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Evidence-based couples and individual counseling" },
+                        { type: "paragraph", content: "• Effective communication and conflict resolution skills" },
+                        { type: "paragraph", content: "• Healing from past hurts and rebuilding trust" },
+                        { type: "paragraph", content: "• Personalized strategies to strengthen emotional bonds" }
+                    ]
+                },
+                Sleep: {
+                    title: "Sleep Problems",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Sleep Problems include insomnia, frequent awakenings, restless sleep, or poor sleep quality that leads to daytime fatigue, irritability, and reduced productivity. Chronic sleep issues can impact mental and physical health." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Cognitive Behavioral Therapy for Insomnia (CBT-I)" },
+                        { type: "paragraph", content: "• Relaxation techniques and sleep hygiene education" },
+                        { type: "paragraph", content: "• Personalized routines to improve sleep cycles" },
+                        { type: "paragraph", content: "• Addressing underlying anxiety or stress contributing to sleep disruption" }
+                    ]
+                },
+                Trauma: {
+                    title: "Trauma Support",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Trauma Support is designed for individuals who have experienced distressing or life-altering events, resulting in symptoms like flashbacks, hypervigilance, emotional numbness, or anxiety." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Trauma-informed therapy and EMDR techniques" },
+                        { type: "paragraph", content: "• Safe space for processing emotions and experiences" },
+                        { type: "paragraph", content: "• Building coping mechanisms and resilience" },
+                        { type: "paragraph", content: "• Gentle, step-by-step healing journey with expert guidance" }
+                    ]
+                },
+                Career: {
+                    title: "Career Counseling",
+                    contentBlocks: [
+                        { type: "paragraph", content: "Career Counseling provides guidance for professional growth, job transitions, skill development, and overcoming career-related stress or uncertainty about your future path." },
+                        { type: "image", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop" },
+                        { type: "paragraph", content: "Our Premium Solutions" },
+                        { type: "paragraph", content: "• Personalized career assessment and goal setting" },
+                        { type: "paragraph", content: "• Resume building, interview preparation, and job search strategies" },
+                        { type: "paragraph", content: "• Work-life balance and burnout prevention coaching" },
+                        { type: "paragraph", content: "• Long-term professional development plans" }
+                    ]
+                }
             }
         };
 
         let currentOTP = null;
         let currentImageTarget = null;
         let currentBookingData = null;
+        let currentDetailBlock = null;   // for admin image gallery targeting detail blocks
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -481,16 +460,7 @@
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
                                 ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
-                                
-                                <!-- ULTRA PREMIUM CIRCULAR ORBIT ANIMATION (Only for Home Page) -->
-                                <div class="premium-emoji-container">
-                                    <div class="orbit-ring"></div>
-                                    <div class="inner-dot"></div>
-                                    <div class="orbiter medium">
-                                        <span>${section.emoji || '✨'}</span>
-                                    </div>
-                                </div>
-
+                                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">${section.emoji || '✨'}</div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
                             </div>
@@ -514,34 +484,46 @@
             toggleCounselingMenu();
         }
 
+        // === ULTRA PREMIUM FULL-PAGE DETAIL SYSTEM (unlimited text + photos) ===
         function openCounselingDetail(key) {
             toggleCounselingMenu();
+            
             const detail = nexusConfig.counselingDetails[key];
-            if (!detail) return alert("Details not found.");
+            if (!detail) {
+                alert("Details not found. Please contact admin.");
+                return;
+            }
 
             const area = counselingAreas.find(a => a.key === key);
+            
+            // Header
             document.getElementById('detail-emoji').innerHTML = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
-            document.getElementById('detail-image').src = detail.image || nexusConfig.heroBg;
-            document.getElementById('detail-whatis').innerHTML = detail.whatIs;
+            
+            // Render unlimited blocks
+            const contentContainer = document.getElementById('detail-content');
+            contentContainer.innerHTML = '';
+            
+            detail.contentBlocks.forEach(block => {
+                if (block.type === "paragraph") {
+                    contentContainer.innerHTML += `
+                        <p class="text-xl leading-relaxed text-gray-700 mb-10">${block.content}</p>
+                    `;
+                } else if (block.type === "image") {
+                    contentContainer.innerHTML += `
+                        <img src="${block.url}" alt="" class="w-full rounded-3xl shadow-2xl mb-12 object-cover">
+                    `;
+                }
+            });
 
-            const solutionsHTML = detail.solutions.map(item => `
-                <div class="flex gap-4">
-                    <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">✓</div>
-                    <p class="leading-relaxed">${item}</p>
-                </div>
-            `).join('');
-            document.getElementById('detail-solutions').innerHTML = solutionsHTML;
-
+            // Show full page
             const panel = document.getElementById('counseling-detail-panel');
             panel.classList.remove('hidden');
-            panel.classList.add('flex');
         }
 
         function closeCounselingDetail() {
             const panel = document.getElementById('counseling-detail-panel');
             panel.classList.add('hidden');
-            panel.classList.remove('flex');
         }
 
         function handleCounselingTypeChange() {
@@ -598,52 +580,92 @@
             });
         }
 
+        // Dynamic blocks rendering for admin (unlimited text + photos)
         function renderCounselingDetailsAdmin() {
             const container = document.getElementById('counseling-details-container');
             container.innerHTML = '';
+            
             counselingAreas.forEach((area) => {
-                const detail = nexusConfig.counselingDetails[area.key] || { whatIs: '', solutions: [], image: '' };
-                const solutionsText = detail.solutions ? detail.solutions.join('\n') : '';
-                const div = document.createElement('div');
-                div.className = "border rounded-3xl p-6 bg-gray-50";
-                div.innerHTML = `
-                    <div class="flex items-center gap-4 mb-6">
-                        <span class="text-5xl">${area.emoji}</span>
-                        <h5 class="font-semibold text-xl">${area.label}</h5>
-                    </div>
-                    <div class="space-y-6">
-                        <div>
-                            <label class="text-xs uppercase tracking-widest text-gray-400 mb-2 block">What is it?</label>
-                            <textarea id="cd-what-${area.key}" class="premium-input text-sm h-40 resize-y">${detail.whatIs || ''}</textarea>
+                let detail = nexusConfig.counselingDetails[area.key];
+                if (!detail) {
+                    detail = { title: area.label, contentBlocks: [] };
+                    nexusConfig.counselingDetails[area.key] = detail;
+                }
+
+                let blocksHTML = '';
+                detail.contentBlocks.forEach((block, index) => {
+                    if (block.type === "paragraph") {
+                        blocksHTML += `
+                            <div class="border rounded-2xl p-4 bg-white mb-4">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xs font-medium uppercase text-gray-500">Text Paragraph</span>
+                                    <button onclick="deleteBlock('${area.key}', ${index})" class="text-red-500 text-xs hover:text-red-700">Delete</button>
+                                </div>
+                                <textarea id="block-text-${area.key}-${index}" class="premium-input text-sm h-32 resize-y">${block.content || ''}</textarea>
+                            </div>
+                        `;
+                    } else if (block.type === "image") {
+                        blocksHTML += `
+                            <div class="border rounded-2xl p-4 bg-white mb-4">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xs font-medium uppercase text-gray-500">Photo</span>
+                                    <button onclick="deleteBlock('${area.key}', ${index})" class="text-red-500 text-xs hover:text-red-700">Delete</button>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input id="block-image-${area.key}-${index}" value="${block.url || ''}" class="premium-input text-sm flex-1" placeholder="Image URL">
+                                    <button onclick="openImageGalleryForDetailBlock('${area.key}', ${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                const html = `
+                    <div class="border rounded-3xl p-6 bg-gray-50">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="text-5xl">${area.emoji}</span>
+                            <h5 class="font-semibold text-xl">${area.label}</h5>
                         </div>
-                        <div>
-                            <label class="text-xs uppercase tracking-widest text-gray-400 mb-2 block">Premium Solutions (one per line)</label>
-                            <textarea id="cd-sol-${area.key}" class="premium-input text-sm h-40 resize-y">${solutionsText}</textarea>
+                        <div class="space-y-4">
+                            ${blocksHTML}
                         </div>
-                        <div class="flex gap-2">
-                            <input id="cd-image-${area.key}" value="${detail.image || ''}" class="premium-input text-sm flex-1" placeholder="Premium Image URL">
-                            <button onclick="openImageGallery('cd-image-${area.key}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                        <div class="flex gap-3 mt-8">
+                            <button onclick="addBlock('${area.key}', 'paragraph')" 
+                                    class="flex-1 py-4 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-paragraph"></i> Add Text Paragraph
+                            </button>
+                            <button onclick="addBlock('${area.key}', 'image')" 
+                                    class="flex-1 py-4 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-image"></i> Add Photo
+                            </button>
                         </div>
                     </div>
                 `;
-                container.appendChild(div);
+                container.innerHTML += html;
             });
         }
 
-        function addNewCustomSection() {
-            nexusConfig.customSections.push({ title: "New Section Title", description: "Write description here...", emoji: "✨", image: "" });
-            renderAdminCustomSections();
+        function addBlock(key, type) {
+            if (!nexusConfig.counselingDetails[key]) {
+                nexusConfig.counselingDetails[key] = { title: "", contentBlocks: [] };
+            }
+            nexusConfig.counselingDetails[key].contentBlocks.push(
+                type === "paragraph" 
+                    ? { type: "paragraph", content: "" } 
+                    : { type: "image", url: "" }
+            );
+            renderCounselingDetailsAdmin();
         }
 
-        function removeCustomSection(index) {
-            if (confirm("Delete this section?")) {
-                nexusConfig.customSections.splice(index, 1);
-                renderAdminCustomSections();
+        function deleteBlock(key, index) {
+            if (confirm("Delete this block permanently?")) {
+                nexusConfig.counselingDetails[key].contentBlocks.splice(index, 1);
+                renderCounselingDetailsAdmin();
             }
         }
 
-        function openImageGalleryForSection(index) {
-            currentImageTarget = index;
+        function openImageGalleryForDetailBlock(key, index) {
+            currentDetailBlock = { key: key, index: index };
             openImageGallery(null);
         }
 
@@ -670,8 +692,16 @@
                 div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
                 div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget !== null) document.getElementById(`cs-image-${currentImageTarget}`).value = url;
-                    else if (targetId) document.getElementById(targetId).value = url;
+                    if (currentDetailBlock) {
+                        const inputId = `block-image-${currentDetailBlock.key}-${currentDetailBlock.index}`;
+                        const input = document.getElementById(inputId);
+                        if (input) input.value = url;
+                        currentDetailBlock = null;
+                    } else if (currentImageTarget !== null) {
+                        document.getElementById(`cs-image-${currentImageTarget}`).value = url;
+                    } else if (targetId) {
+                        document.getElementById(targetId).value = url;
+                    }
                     closeImageGallery();
                 };
                 container.appendChild(div);
@@ -686,6 +716,24 @@
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             currentImageTarget = null;
+            currentDetailBlock = null;
+        }
+
+        function addNewCustomSection() {
+            nexusConfig.customSections.push({ title: "New Section Title", description: "Write description here...", emoji: "✨", image: "" });
+            renderAdminCustomSections();
+        }
+
+        function removeCustomSection(index) {
+            if (confirm("Delete this section?")) {
+                nexusConfig.customSections.splice(index, 1);
+                renderAdminCustomSections();
+            }
+        }
+
+        function openImageGalleryForSection(index) {
+            currentImageTarget = index;
+            openImageGallery(null);
         }
 
         function saveAdminSettings() {
@@ -693,6 +741,7 @@
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
 
+            // Save custom sections
             nexusConfig.customSections.forEach((section, index) => {
                 section.title = document.getElementById(`cs-title-${index}`).value;
                 section.description = document.getElementById(`cs-desc-${index}`).value;
@@ -700,21 +749,20 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
+            // Save ALL detail blocks (unlimited text + photos) - read live inputs
             counselingAreas.forEach((area) => {
-                const whatEl = document.getElementById(`cd-what-${area.key}`);
-                const solEl = document.getElementById(`cd-sol-${area.key}`);
-                const imgEl = document.getElementById(`cd-image-${area.key}`);
-                if (whatEl && solEl && imgEl) {
-                    const whatIs = whatEl.value.trim();
-                    const solsText = solEl.value.trim();
-                    const solutions = solsText ? solsText.split('\n').map(s => s.trim()).filter(Boolean) : [];
-                    const image = imgEl.value.trim();
+                const detail = nexusConfig.counselingDetails[area.key];
+                if (!detail || !detail.contentBlocks) return;
 
-                    if (!nexusConfig.counselingDetails[area.key]) nexusConfig.counselingDetails[area.key] = { title: area.label };
-                    nexusConfig.counselingDetails[area.key].whatIs = whatIs;
-                    nexusConfig.counselingDetails[area.key].solutions = solutions;
-                    nexusConfig.counselingDetails[area.key].image = image;
-                }
+                detail.contentBlocks.forEach((block, index) => {
+                    if (block.type === "paragraph") {
+                        const ta = document.getElementById(`block-text-${area.key}-${index}`);
+                        if (ta) block.content = ta.value.trim();
+                    } else if (block.type === "image") {
+                        const inp = document.getElementById(`block-image-${area.key}-${index}`);
+                        if (inp) block.url = inp.value.trim();
+                    }
+                });
             });
 
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
@@ -724,7 +772,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nUltra-premium orbiting symbols updated on homepage.");
+            alert("All changes saved successfully! ✅\n\nYour full-page counseling details are now updated with unlimited text & photos.");
             closeAdmin();
         }
 
@@ -738,9 +786,13 @@
 
         function sendAdminOTP() {
             const email = document.getElementById('admin-email-input').value.trim();
-            if (!email || !email.includes('@')) return alert("Please enter a valid email address");
+            if (!email || !email.includes('@')) {
+                alert("Please enter a valid email address");
+                return;
+            }
 
             currentOTP = Math.floor(100000 + Math.random() * 900000);
+
             const templateParams = { to_email: email, otp: currentOTP };
             emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams)
                 .then(() => {
@@ -768,7 +820,10 @@
         async function handleBookingSubmit() {
             let whatsapp = document.getElementById('p_whatsapp').value.trim();
             if (!whatsapp.startsWith('+91')) whatsapp = '+91' + whatsapp.replace(/[^0-9]/g, '');
-            if (whatsapp.length !== 13) return alert("WhatsApp number must be 10 digits after +91");
+            if (whatsapp.length !== 13) {
+                alert("WhatsApp number must be 10 digits after +91");
+                return;
+            }
 
             const bookingData = {
                 name: document.getElementById('p_name').value.trim(),
@@ -783,7 +838,8 @@
             };
 
             if (!bookingData.name || !bookingData.email || !bookingData.whatsapp || !bookingData.counselingType || !bookingData.concern) {
-                return alert("Please fill all required fields.");
+                alert("Please fill all required fields.");
+                return;
             }
 
             try {
@@ -800,10 +856,12 @@
                 };
 
                 await emailjs.send("service_w0vxgvf", "template_tt1b26p", templateParams);
+
                 alert("Your details have been sent successfully!\n\nPlease complete the payment.");
                 currentBookingData = bookingData;
                 showPayment();
             } catch (error) {
+                console.error(error);
                 alert("Failed to send details. Try again.");
             }
         }
@@ -819,9 +877,13 @@
 
         function unlockSession() {
             const utr = document.getElementById('p_utr').value.trim();
-            if (utr.length !== 12) return alert("UTR ID must be exactly 12 digits.");
+            if (utr.length !== 12) {
+                alert("UTR ID must be exactly 12 digits.");
+                return;
+            }
 
             if (!currentBookingData) return;
+
             currentBookingData.utr = utr;
             localStorage.setItem('currentBooking', JSON.stringify(currentBookingData));
 
@@ -850,14 +912,22 @@
             if (!message) return;
 
             const windowEl = document.getElementById('chat-window');
-            windowEl.innerHTML += `<div class="flex justify-end"><div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div></div>`;
+            windowEl.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="max-w-[75%] bg-[#0071e3] text-white px-5 py-3 rounded-3xl rounded-tr-none">${message}</div>
+                </div>
+            `;
             windowEl.scrollTop = windowEl.scrollHeight;
             input.value = '';
 
             setTimeout(() => {
                 const replies = ["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                windowEl.innerHTML += `<div class="flex justify-start"><div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div></div>`;
+                windowEl.innerHTML += `
+                    <div class="flex justify-start">
+                        <div class="max-w-[75%] bg-[#f1f1f1] px-5 py-3 rounded-3xl rounded-tl-none">${randomReply}</div>
+                    </div>
+                `;
                 windowEl.scrollTop = windowEl.scrollHeight;
             }, 1000);
         }
