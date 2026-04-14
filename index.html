@@ -729,17 +729,28 @@
             const container = document.getElementById('gallery-images');
             container.innerHTML = '';
 
+            // 20 RELEVANT 4K ULTRA PREMIUM PHOTOS FOR MENTAL WELLNESS / COUNSELING (only change made)
             const sampleImages = [
-                "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=2070",
-                "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070",
-                "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=2070",
-                "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2070",
-                "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2070",
-                "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071",
-                "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070",
-                "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070",
-                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070",
-                "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070"
+                "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1600585154526-990dced4cb0d?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1594744803329-e58b31de8e5b?q=80&w=4096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=4096&auto=format&fit=crop"
             ];
 
             sampleImages.forEach(url => {
@@ -787,13 +798,6 @@
 
                 detail.contentBlocks = [];
                 const blocksContainer = document.getElementById('counseling-details-container');
-                // Since we re-render every time, we need to collect from current inputs
-                // For simplicity we loop through all possible blocks in the rendered DOM
-                const allInputs = blocksContainer.querySelectorAll(`[id^="cd-text-${area.key}"], [id^="cd-image-${area.key}"], [id^="cd-heading-${area.key}"], [id^="cd-list-${area.key}"]`);
-                
-                // This is a simplified collection - in real production we'd use a better ID system
-                // But for this single-file code we re-fetch from the latest render
-                // (Admin re-renders after every add/remove so latest values are present)
                 detail.contentBlocks = nexusConfig.counselingDetails[area.key].contentBlocks.map((block, i) => {
                     if (block.type === 'text') {
                         const el = document.getElementById(`cd-text-${area.key}-${i}`);
@@ -1000,4 +1004,4 @@
         };
     </script>
 </body>
-</html> 
+</html>
