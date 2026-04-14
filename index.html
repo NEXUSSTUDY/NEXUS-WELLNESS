@@ -621,7 +621,7 @@
             });
         }
 
-        // Admin control for Counseling Areas - Simplified to ONLY Text + Photo (as requested)
+        // Admin control for counseling areas - SIMPLIFIED: ONLY TEXT + PHOTO blocks
         function renderCounselingDetailsAdmin() {
             const container = document.getElementById('counseling-details-container');
             container.innerHTML = '';
@@ -641,7 +641,7 @@
                     } else if (block.type === 'image') {
                         blocksHTML += `
                             <div class="border border-gray-200 p-4 rounded-2xl mb-4">
-                                <label class="text-xs uppercase text-gray-400 mb-1 block">Photo Block ${i+1}</label>
+                                <label class="text-xs uppercase text-gray-400 mb-1 block">Image Block ${i+1}</label>
                                 <div class="flex gap-2">
                                     <input id="cd-image-${area.key}-${i}" value="${block.url}" class="premium-input text-sm flex-1" placeholder="Image URL">
                                     <button onclick="openImageGallery('cd-image-${area.key}-${i}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
@@ -725,29 +725,28 @@
             const container = document.getElementById('gallery-images');
             container.innerHTML = '';
 
-            // 20 ULTRA PREMIUM 4K-QUALITY RELEVANT PHOTOS (Nature, Couple, Yoga, Medicine/Therapy, Depression/Healing)
-            // All high-resolution Unsplash 4K-ready images for admin gallery
+            // 20 ULTRA PREMIUM 4K photos (nature, couple, yoga, medicine, depression themes) - from Pexels (not Unsplash)
             const sampleImages = [
-                "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=4096&auto=format&fit=crop", // Serene forest nature
-                "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=4096&auto=format&fit=crop", // Misty mountain nature
-                "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=4096&auto=format&fit=crop", // Calm ocean nature
-                "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=4096&auto=format&fit=crop", // Peaceful forest path nature
-                "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=4096&auto=format&fit=crop", // Tranquil lake nature
-                "https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=4096&auto=format&fit=crop", // Waterfall nature
-                "https://images.unsplash.com/photo-1600585154340-be6161a56a9c?q=80&w=4096&auto=format&fit=crop", // Loving couple embrace
-                "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=4096&auto=format&fit=crop", // Supportive couple talking
-                "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=4096&auto=format&fit=crop", // Happy couple in nature
-                "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=4096&auto=format&fit=crop", // Yoga pose in sunrise
-                "https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?q=80&w=4096&auto=format&fit=crop", // Yoga in peaceful nature
-                "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=4096&auto=format&fit=crop", // Morning yoga session
-                "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=4096&auto=format&fit=crop", // Professional therapy session (medicine)
-                "https://images.unsplash.com/photo-1582213782179-1c9c5e0c5b8a?q=80&w=4096&auto=format&fit=crop", // Calm counseling room (medicine)
-                "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=4096&auto=format&fit=crop", // Mindful meditation therapy
-                "https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=4096&auto=format&fit=crop", // Person finding inner peace (healing depression)
-                "https://images.unsplash.com/photo-1544716278-ca5e3e4f2d6f?q=80&w=4096&auto=format&fit=crop", // Mindful reflection (healing)
-                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=4096&auto=format&fit=crop", // Calm breathing exercise
-                "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=4096&auto=format&fit=crop", // Zen garden healing space
-                "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=4096&auto=format&fit=crop"  // Professional wellness environment
+                "https://images.pexels.com/photos/3757375/pexels-photo-3757375.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3823497/pexels-photo-3823497.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/4056527/pexels-photo-4056527.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/1586073/pexels-photo-1586073.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/1812634/pexels-photo-1812634.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/4060146/pexels-photo-4060146.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/4491881/pexels-photo-4491881.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/2894944/pexels-photo-2894944.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3775534/pexels-photo-3775534.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3771834/pexels-photo-3771834.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3771830/pexels-photo-3771830.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/2079628/pexels-photo-2079628.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/5212329/pexels-photo-5212329.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/3767405/pexels-photo-3767405.jpeg?auto=compress&cs=tinysrgb&w=3840",
+                "https://images.pexels.com/photos/4491880/pexels-photo-4491880.jpeg?auto=compress&cs=tinysrgb&w=3840"
             ];
 
             sampleImages.forEach(url => {
@@ -795,7 +794,6 @@
 
                 detail.contentBlocks = [];
                 const blocksContainer = document.getElementById('counseling-details-container');
-                
                 detail.contentBlocks = nexusConfig.counselingDetails[area.key].contentBlocks.map((block, i) => {
                     if (block.type === 'text') {
                         const el = document.getElementById(`cd-text-${area.key}-${i}`);
@@ -824,7 +822,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages now support unlimited text blocks and photos.");
+            alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages now support only text + photo blocks (simplified as requested).");
             closeAdmin();
         }
 
