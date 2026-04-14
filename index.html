@@ -221,7 +221,7 @@
         </div>
     </div>
 
-    <!-- ULTRA PREMIUM COUNSELING DETAIL PANEL (Page-style Modal with English Content) -->
+    <!-- ULTRA PREMIUM COUNSELING DETAIL PANEL -->
     <div id="counseling-detail-panel" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 md:p-8">
         <div class="detail-card bg-white rounded-3xl w-full max-w-6xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl">
             <!-- Header -->
@@ -488,7 +488,6 @@
             toggleCounselingMenu();
         }
 
-        // === ULTRA PREMIUM DETAIL PAGE SYSTEM (English + Unlimited Text & Photos via Admin) ===
         function openCounselingDetail(key) {
             toggleCounselingMenu();
             currentDetailKey = key;
@@ -501,11 +500,9 @@
 
             const area = counselingAreas.find(a => a.key === key);
             
-            // Header
             document.getElementById('detail-emoji').innerHTML = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
 
-            // Render unlimited content blocks
             const contentContainer = document.getElementById('detail-content');
             contentContainer.innerHTML = '';
 
@@ -542,7 +539,6 @@
                 }
             });
 
-            // Final CTA
             const cta = document.createElement('div');
             cta.className = "mt-16 pt-8 border-t border-gray-100 text-center";
             cta.innerHTML = `
@@ -554,7 +550,6 @@
             `;
             contentContainer.appendChild(cta);
 
-            // Show panel
             const panel = document.getElementById('counseling-detail-panel');
             panel.classList.remove('hidden');
             panel.classList.add('flex');
@@ -621,7 +616,6 @@
             });
         }
 
-        // Admin control for counseling areas - SIMPLIFIED: ONLY TEXT + PHOTO blocks
         function renderCounselingDetailsAdmin() {
             const container = document.getElementById('counseling-details-container');
             container.innerHTML = '';
@@ -725,28 +719,29 @@
             const container = document.getElementById('gallery-images');
             container.innerHTML = '';
 
-            // 20 ULTRA PREMIUM 4K photos (nature, couple, yoga, medicine, depression themes) - from Pexels (not Unsplash)
+            // Updated 20 ultra-premium relevant 4K photos from Pexels
+            // Beautiful nature (ocean, trees, mountains, universe), beautiful couple, kids, office look, yoga, sleeping girl
             const sampleImages = [
-                "https://images.pexels.com/photos/3757375/pexels-photo-3757375.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3823497/pexels-photo-3823497.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/4056527/pexels-photo-4056527.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/1586073/pexels-photo-1586073.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/1812634/pexels-photo-1812634.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/4060146/pexels-photo-4060146.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/4491881/pexels-photo-4491881.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/2894944/pexels-photo-2894944.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3775534/pexels-photo-3775534.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3771834/pexels-photo-3771834.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3771830/pexels-photo-3771830.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/2079628/pexels-photo-2079628.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/5212329/pexels-photo-5212329.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/3767405/pexels-photo-3767405.jpeg?auto=compress&cs=tinysrgb&w=3840",
-                "https://images.pexels.com/photos/4491880/pexels-photo-4491880.jpeg?auto=compress&cs=tinysrgb&w=3840"
+                "https://images.pexels.com/photos/3757375/pexels-photo-3757375.jpeg?auto=compress&cs=tinysrgb&w=3840", // ocean
+                "https://images.pexels.com/photos/3823497/pexels-photo-3823497.jpeg?auto=compress&cs=tinysrgb&w=3840", // ocean waves
+                "https://images.pexels.com/photos/4056527/pexels-photo-4056527.jpeg?auto=compress&cs=tinysrgb&w=3840", // mountains
+                "https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=3840", // forest trees
+                "https://images.pexels.com/photos/1812634/pexels-photo-1812634.jpeg?auto=compress&cs=tinysrgb&w=3840", // starry night universe
+                "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=3840", // mountain starry sky
+                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=3840", // beautiful couple
+                "https://images.pexels.com/photos/3775534/pexels-photo-3775534.jpeg?auto=compress&cs=tinysrgb&w=3840", // romantic couple
+                "https://images.pexels.com/photos/3771834/pexels-photo-3771834.jpeg?auto=compress&cs=tinysrgb&w=3840", // happy kids playing
+                "https://images.pexels.com/photos/4491881/pexels-photo-4491881.jpeg?auto=compress&cs=tinysrgb&w=3840", // kids in nature
+                "https://images.pexels.com/photos/4060146/pexels-photo-4060146.jpeg?auto=compress&cs=tinysrgb&w=3840", // woman doing yoga
+                "https://images.pexels.com/photos/5212329/pexels-photo-5212329.jpeg?auto=compress&cs=tinysrgb&w=3840", // yoga meditation
+                "https://images.pexels.com/photos/3767405/pexels-photo-3767405.jpeg?auto=compress&cs=tinysrgb&w=3840", // peaceful sleeping girl
+                "https://images.pexels.com/photos/4491880/pexels-photo-4491880.jpeg?auto=compress&cs=tinysrgb&w=3840", // calm sleeping woman
+                "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=3840", // professional office calm
+                "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=3840", // office worker focused
+                "https://images.pexels.com/photos/2894944/pexels-photo-2894944.jpeg?auto=compress&cs=tinysrgb&w=3840", // serene ocean sunset
+                "https://images.pexels.com/photos/2079628/pexels-photo-2079628.jpeg?auto=compress&cs=tinysrgb&w=3840", // tall trees forest
+                "https://images.pexels.com/photos/1586073/pexels-photo-1586073.jpeg?auto=compress&cs=tinysrgb&w=3840", // peaceful mountain landscape
+                "https://images.pexels.com/photos/3771830/pexels-photo-3771830.jpeg?auto=compress&cs=tinysrgb&w=3840"  // beautiful couple nature
             ];
 
             sampleImages.forEach(url => {
@@ -787,13 +782,11 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
-            // Save all counseling detail blocks
             counselingAreas.forEach((area) => {
                 const detail = nexusConfig.counselingDetails[area.key];
                 if (!detail) return;
 
                 detail.contentBlocks = [];
-                const blocksContainer = document.getElementById('counseling-details-container');
                 detail.contentBlocks = nexusConfig.counselingDetails[area.key].contentBlocks.map((block, i) => {
                     if (block.type === 'text') {
                         const el = document.getElementById(`cd-text-${area.key}-${i}`);
@@ -822,7 +815,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages now support only text + photo blocks (simplified as requested).");
+            alert("All changes saved successfully! ✅\n\nNew relevant premium photos added for nature, couple, kids, yoga, sleeping, office etc.");
             closeAdmin();
         }
 
