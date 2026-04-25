@@ -162,6 +162,18 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-10 text-sm">
+            
+            <!-- NEW: Secure File Vault (Up to 5GB) -->
+            <div class="border-b pb-8">
+                <h4 class="font-bold text-lg mb-2">Secure File Vault</h4>
+                <p class="text-xs text-gray-500 mb-6">Store up to 5GB of photos, PDFs, and text files locally. Images uploaded here will appear in your Gallery.</p>
+                <div class="space-y-4">
+                    <input type="file" id="admin-vault-upload" multiple accept="image/*,application/pdf,text/plain" class="premium-input text-sm p-3">
+                    <button onclick="uploadToVault()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl text-xs font-bold w-full transition shadow-md">UPLOAD TO VAULT</button>
+                </div>
+                <div id="vault-files-list" class="mt-6 space-y-3 max-h-60 overflow-y-auto pr-2"></div>
+            </div>
+
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Hero Section</h4>
                 <div class="space-y-4">
@@ -343,7 +355,7 @@
     <script>
         AOS.init();
 
-        let counselingAreas = [
+        let counselingAreas =[
             { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠" },
             { key: "Relationship", label: "Relationship Issues", emoji: "❤️" },
             { key: "Sleep", label: "Sleep Problems", emoji: "🌙" },
@@ -359,7 +371,7 @@
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
             blogUrl: "#",
-            customSections: [
+            customSections:[
                 { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
                 { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
@@ -367,11 +379,11 @@
             counselingDetails: {
                 Anxiety: {
                     title: "Anxiety & Stress",
-                    contentBlocks: [
+                    contentBlocks:[
                         { type: "text", content: "What is it?\nAnxiety & Stress refer to persistent feelings of worry, fear, or tension that can affect your daily life, sleep, and relationships. Common symptoms include racing thoughts, restlessness, and physical discomfort like headaches or rapid heartbeat." },
                         { type: "image", url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" },
                         { type: "heading", content: "Our Premium Solutions" },
-                        { type: "list", items: [
+                        { type: "list", items:[
                             "Cognitive Behavioral Therapy (CBT) to identify and reframe negative thought patterns",
                             "Mindfulness meditation and breathing techniques for instant calm",
                             "Customized stress management and lifestyle coaching",
@@ -381,11 +393,11 @@
                 },
                 Relationship: {
                     title: "Relationship Issues",
-                    contentBlocks: [
+                    contentBlocks:[
                         { type: "text", content: "What is it?\nRelationship Issues encompass difficulties in communication, trust, intimacy, or conflict resolution in romantic partnerships, family dynamics, or friendships. These challenges can lead to emotional distance or recurring arguments." },
                         { type: "image", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?q=80&w=2070&auto=format&fit=crop" },
                         { type: "heading", content: "Our Premium Solutions" },
-                        { type: "list", items: [
+                        { type: "list", items:[
                             "Evidence-based couples and individual counseling",
                             "Effective communication and conflict resolution skills",
                             "Healing from past hurts and rebuilding trust",
@@ -395,11 +407,11 @@
                 },
                 Sleep: {
                     title: "Sleep Problems",
-                    contentBlocks: [
+                    contentBlocks:[
                         { type: "text", content: "What is it?\nSleep Problems include insomnia, frequent awakenings, restless sleep, or poor sleep quality that leads to daytime fatigue, irritability, and reduced productivity. Chronic sleep issues can impact mental and physical health." },
                         { type: "image", url: "https://images.unsplash.com/photo-1511653755506-5c7a5a5c5c4c?q=80&w=2070&auto=format&fit=crop" },
                         { type: "heading", content: "Our Premium Solutions" },
-                        { type: "list", items: [
+                        { type: "list", items:[
                             "Cognitive Behavioral Therapy for Insomnia (CBT-I)",
                             "Relaxation techniques and sleep hygiene education",
                             "Personalized routines to improve sleep cycles",
@@ -409,11 +421,11 @@
                 },
                 Trauma: {
                     title: "Trauma Support",
-                    contentBlocks: [
+                    contentBlocks:[
                         { type: "text", content: "What is it?\nTrauma Support is designed for individuals who have experienced distressing or life-altering events, resulting in symptoms like flashbacks, hypervigilance, emotional numbness, or anxiety." },
                         { type: "image", url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" },
                         { type: "heading", content: "Our Premium Solutions" },
-                        { type: "list", items: [
+                        { type: "list", items:[
                             "Trauma-informed therapy and EMDR techniques",
                             "Safe space for processing emotions and experiences",
                             "Building coping mechanisms and resilience",
@@ -423,11 +435,11 @@
                 },
                 Career: {
                     title: "Career Counseling",
-                    contentBlocks: [
+                    contentBlocks:[
                         { type: "text", content: "What is it?\nCareer Counseling provides guidance for professional growth, job transitions, skill development, and overcoming career-related stress or uncertainty about your future path." },
                         { type: "image", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop" },
                         { type: "heading", content: "Our Premium Solutions" },
-                        { type: "list", items: [
+                        { type: "list", items:[
                             "Personalized career assessment and goal setting",
                             "Resume building, interview preparation, and job search strategies",
                             "Work-life balance and burnout prevention coaching",
@@ -443,12 +455,161 @@
         let currentBookingData = null;
         let currentDetailKey = null;
 
+        // --- NEW: IndexedDB Vault System (Up to 5GB Local Storage) ---
+        const dbName = "NexusAdminDB";
+        const storeName = "FileVault";
+        let db;
+        window.vaultCache = {}; // Cache for rendering vault images synchronously
+
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(dbName, 1);
+                request.onupgradeneeded = (event) => {
+                    db = event.target.result;
+                    if (!db.objectStoreNames.contains(storeName)) {
+                        db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
+                    }
+                };
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    resolve(db);
+                };
+                request.onerror = (event) => reject(event.target.error);
+            });
+        }
+
+        async function loadVaultCacheAndSettings() {
+            try {
+                await initDB();
+                const transaction = db.transaction([storeName], "readonly");
+                const store = transaction.objectStore(storeName);
+                const request = store.getAll();
+                
+                request.onsuccess = () => {
+                    const files = request.result;
+                    files.forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            window.vaultCache[`vault://${file.id}`] = URL.createObjectURL(file.data);
+                        }
+                    });
+                    loadSettings();
+                    addCareerSection();
+                };
+            } catch (e) {
+                console.error("Vault DB Error:", e);
+                loadSettings();
+                addCareerSection();
+            }
+        }
+
+        function getImageUrl(url) {
+            if (url && url.startsWith('vault://')) {
+                return window.vaultCache[url] || '';
+            }
+            return url;
+        }
+
+        async function uploadToVault() {
+            const fileInput = document.getElementById('admin-vault-upload');
+            const files = fileInput.files;
+            if (!files.length) return alert("Please select files to upload.");
+
+            const transaction = db.transaction([storeName], "readwrite");
+            const store = transaction.objectStore(storeName);
+
+            for (let file of files) {
+                const fileRecord = {
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    data: file,
+                    timestamp: new Date().getTime()
+                };
+                store.add(fileRecord);
+            }
+
+            transaction.oncomplete = () => {
+                alert("Files saved to Secure Vault successfully!");
+                fileInput.value = "";
+                renderVaultFiles();
+                // Reload cache to make new images available immediately
+                loadVaultCacheAndSettings(); 
+            };
+        }
+
+        function renderVaultFiles() {
+            const container = document.getElementById('vault-files-list');
+            container.innerHTML = '';
+            if (!db) return;
+
+            const transaction = db.transaction([storeName], "readonly");
+            const store = transaction.objectStore(storeName);
+            const request = store.getAll();
+
+            request.onsuccess = () => {
+                const files = request.result;
+                files.forEach(file => {
+                    const div = document.createElement('div');
+                    div.className = "flex justify-between items-center p-3 bg-white border border-gray-200 rounded-xl shadow-sm";
+                    
+                    let icon = "📄";
+                    if (file.type.startsWith('image/')) icon = "🖼️";
+                    else if (file.type === 'application/pdf') icon = "📕";
+
+                    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+
+                    div.innerHTML = `
+                        <div class="flex items-center gap-3 overflow-hidden w-3/4">
+                            <span class="text-2xl">${icon}</span>
+                            <div class="truncate">
+                                <p class="text-sm font-bold truncate text-gray-800">${file.name}</p>
+                                <p class="text-xs text-gray-500">${sizeMB} MB</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="downloadVaultFile(${file.id})" class="text-blue-500 hover:text-blue-700 transition" title="Download"><i class="fas fa-download"></i></button>
+                            <button onclick="deleteVaultFile(${file.id})" class="text-red-500 hover:text-red-700 transition" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            };
+        }
+
+        function downloadVaultFile(id) {
+            const transaction = db.transaction([storeName], "readonly");
+            const store = transaction.objectStore(storeName);
+            const request = store.get(id);
+            request.onsuccess = () => {
+                const file = request.result;
+                const url = URL.createObjectURL(file.data);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = file.name;
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+        }
+
+        function deleteVaultFile(id) {
+            if(!confirm("Delete this file permanently from the vault?")) return;
+            const transaction = db.transaction([storeName], "readwrite");
+            const store = transaction.objectStore(storeName);
+            store.delete(id);
+            transaction.oncomplete = () => {
+                renderVaultFiles();
+                delete window.vaultCache[`vault://${id}`];
+                loadSettings(); 
+            };
+        }
+        // --- END IndexedDB Vault System ---
+
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
         function loadSettings() {
-            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
+            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${getImageUrl(nexusConfig.heroBg)}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
             renderCustomSections();
@@ -463,7 +624,7 @@
                     <section class="py-24 px-6 md:px-20 bg-white">
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
-                                ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
+                                ${section.image ? `<img src="${getImageUrl(section.image)}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
                                 <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">${section.emoji || '✨'}</div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
@@ -488,7 +649,6 @@
             toggleCounselingMenu();
         }
 
-        // === ULTRA PREMIUM DETAIL PAGE SYSTEM (English + Unlimited Text & Photos via Admin) ===
         function openCounselingDetail(key) {
             toggleCounselingMenu();
             currentDetailKey = key;
@@ -501,11 +661,9 @@
 
             const area = counselingAreas.find(a => a.key === key);
             
-            // Header
             document.getElementById('detail-emoji').innerHTML = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
 
-            // Render unlimited content blocks
             const contentContainer = document.getElementById('detail-content');
             contentContainer.innerHTML = '';
 
@@ -519,7 +677,7 @@
                 else if (block.type === "image") {
                     const imgDiv = document.createElement('div');
                     imgDiv.className = "mb-12";
-                    imgDiv.innerHTML = `<img src="${block.url}" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">`;
+                    imgDiv.innerHTML = `<img src="${getImageUrl(block.url)}" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">`;
                     contentContainer.appendChild(imgDiv);
                 } 
                 else if (block.type === "heading") {
@@ -542,7 +700,6 @@
                 }
             });
 
-            // Final CTA
             const cta = document.createElement('div');
             cta.className = "mt-16 pt-8 border-t border-gray-100 text-center";
             cta.innerHTML = `
@@ -554,7 +711,6 @@
             `;
             contentContainer.appendChild(cta);
 
-            // Show panel
             const panel = document.getElementById('counseling-detail-panel');
             panel.classList.remove('hidden');
             panel.classList.add('flex');
@@ -590,6 +746,7 @@
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
             renderAdminCustomSections();
             renderCounselingDetailsAdmin();
+            renderVaultFiles(); // Load vault files when admin opens
         }
 
         function closeAdmin() {
@@ -621,13 +778,12 @@
             });
         }
 
-        // Admin control for unlimited text + photos in detail pages - SIMPLIFIED to ONLY Text & Photo
         function renderCounselingDetailsAdmin() {
             const container = document.getElementById('counseling-details-container');
             container.innerHTML = '';
             
             counselingAreas.forEach((area) => {
-                const detail = nexusConfig.counselingDetails[area.key] || { title: area.label, contentBlocks: [] };
+                const detail = nexusConfig.counselingDetails[area.key] || { title: area.label, contentBlocks:[] };
                 
                 let blocksHTML = '';
                 detail.contentBlocks.forEach((block, i) => {
@@ -686,7 +842,7 @@
 
         function addContentBlock(key, type) {
             if (!nexusConfig.counselingDetails[key]) {
-                nexusConfig.counselingDetails[key] = { title: key, contentBlocks: [] };
+                nexusConfig.counselingDetails[key] = { title: key, contentBlocks:[] };
             }
             let newBlock = {};
             if (type === 'text') newBlock = { type: 'text', content: 'Write detailed explanation here...' };
@@ -725,8 +881,35 @@
             const container = document.getElementById('gallery-images');
             container.innerHTML = '';
 
-            // 20 relevant new 4K ultra-premium photos (nature, couple, yoga, medicine, depression themes) from Pexels (not Unsplash)
-            const sampleImages = [
+            // Load Vault Images First
+            if (db) {
+                const transaction = db.transaction([storeName], "readonly");
+                const store = transaction.objectStore(storeName);
+                const request = store.getAll();
+                request.onsuccess = () => {
+                    const files = request.result;
+                    files.forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            const url = window.vaultCache[`vault://${file.id}`];
+                            const div = document.createElement('div');
+                            div.className = "cursor-pointer rounded-2xl overflow-hidden border-4 border-emerald-400 hover:border-blue-500 transition relative";
+                            div.innerHTML = `<div class="absolute top-2 left-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg z-10 shadow-md">VAULT</div><img src="${url}" class="w-full h-40 object-cover">`;
+                            div.onclick = () => {
+                                const vaultUrl = `vault://${file.id}`;
+                                if (currentImageTarget !== null) {
+                                    document.getElementById(`cs-image-${currentImageTarget}`).value = vaultUrl;
+                                } else if (targetId) {
+                                    document.getElementById(targetId).value = vaultUrl;
+                                }
+                                closeImageGallery();
+                            };
+                            container.prepend(div);
+                        }
+                    });
+                };
+            }
+
+            const sampleImages =[
                 "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=3840",
                 "https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=3840",
                 "https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&w=3840",
@@ -787,12 +970,11 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
-            // Save all counseling detail blocks
             counselingAreas.forEach((area) => {
                 const detail = nexusConfig.counselingDetails[area.key];
                 if (!detail) return;
 
-                detail.contentBlocks = [];
+                detail.contentBlocks =[];
                 const blocksContainer = document.getElementById('counseling-details-container');
                 detail.contentBlocks = nexusConfig.counselingDetails[area.key].contentBlocks.map((block, i) => {
                     if (block.type === 'text') {
@@ -822,7 +1004,7 @@
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages now support unlimited text blocks and photos.");
+            alert("All changes saved successfully! ✅");
             closeAdmin();
         }
 
@@ -971,7 +1153,7 @@
             input.value = '';
 
             setTimeout(() => {
-                const replies = ["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
+                const replies =["Thank you for sharing. I'm here to help you.", "Understood. Let's work through this together.", "How are you feeling right now?"];
                 const randomReply = replies[Math.floor(Math.random() * replies.length)];
                 windowEl.innerHTML += `
                     <div class="flex justify-start">
@@ -995,9 +1177,9 @@
         }
 
         window.onload = () => {
-            loadSettings();
-            addCareerSection();
+            // Initialize Vault DB and load settings
+            loadVaultCacheAndSettings();
         };
     </script>
 </body>
-</html>    
+</html>
