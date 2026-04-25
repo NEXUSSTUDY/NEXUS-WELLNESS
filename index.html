@@ -162,24 +162,13 @@
         </div>
         
         <div id="admin-controls" class="hidden space-y-10 text-sm">
-            
-            <!-- NEW: Secure File Vault (Up to 5GB) -->
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-2">Secure File Vault</h4>
-                <p class="text-xs text-gray-500 mb-6">Store up to 5GB of photos, PDFs, and text files locally. Images uploaded here will appear in your Gallery.</p>
-                <div class="space-y-4">
-                    <input type="file" id="admin-vault-upload" multiple accept="image/*,application/pdf,text/plain" class="premium-input text-sm p-3">
-                    <button onclick="uploadToVault()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl text-xs font-bold w-full transition shadow-md">UPLOAD TO VAULT</button>
-                </div>
-                <div id="vault-files-list" class="mt-6 space-y-3 max-h-60 overflow-y-auto pr-2"></div>
-            </div>
-
             <div class="border-b pb-8">
                 <h4 class="font-bold text-lg mb-6">Hero Section</h4>
                 <div class="space-y-4">
                     <div class="flex gap-2">
                         <input id="adm-hero-bg" class="premium-input text-sm flex-1" placeholder="Hero Background Image URL">
                         <button onclick="openImageGallery('adm-hero-bg')" class="bg-gray-800 text-white px-4 rounded-xl text-xs font-medium">Gallery</button>
+                        <button onclick="triggerFileUpload('adm-hero-bg')" class="bg-blue-600 text-white px-4 rounded-xl text-xs font-medium">Upload</button>
                     </div>
                     <input id="adm-hero-title" class="premium-input text-sm" placeholder="Hero Title">
                     <input id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle">
@@ -455,161 +444,12 @@
         let currentBookingData = null;
         let currentDetailKey = null;
 
-        // --- NEW: IndexedDB Vault System (Up to 5GB Local Storage) ---
-        const dbName = "NexusAdminDB";
-        const storeName = "FileVault";
-        let db;
-        window.vaultCache = {}; // Cache for rendering vault images synchronously
-
-        function initDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(dbName, 1);
-                request.onupgradeneeded = (event) => {
-                    db = event.target.result;
-                    if (!db.objectStoreNames.contains(storeName)) {
-                        db.createObjectStore(storeName, { keyPath: "id", autoIncrement: true });
-                    }
-                };
-                request.onsuccess = (event) => {
-                    db = event.target.result;
-                    resolve(db);
-                };
-                request.onerror = (event) => reject(event.target.error);
-            });
-        }
-
-        async function loadVaultCacheAndSettings() {
-            try {
-                await initDB();
-                const transaction = db.transaction([storeName], "readonly");
-                const store = transaction.objectStore(storeName);
-                const request = store.getAll();
-                
-                request.onsuccess = () => {
-                    const files = request.result;
-                    files.forEach(file => {
-                        if (file.type.startsWith('image/')) {
-                            window.vaultCache[`vault://${file.id}`] = URL.createObjectURL(file.data);
-                        }
-                    });
-                    loadSettings();
-                    addCareerSection();
-                };
-            } catch (e) {
-                console.error("Vault DB Error:", e);
-                loadSettings();
-                addCareerSection();
-            }
-        }
-
-        function getImageUrl(url) {
-            if (url && url.startsWith('vault://')) {
-                return window.vaultCache[url] || '';
-            }
-            return url;
-        }
-
-        async function uploadToVault() {
-            const fileInput = document.getElementById('admin-vault-upload');
-            const files = fileInput.files;
-            if (!files.length) return alert("Please select files to upload.");
-
-            const transaction = db.transaction([storeName], "readwrite");
-            const store = transaction.objectStore(storeName);
-
-            for (let file of files) {
-                const fileRecord = {
-                    name: file.name,
-                    type: file.type,
-                    size: file.size,
-                    data: file,
-                    timestamp: new Date().getTime()
-                };
-                store.add(fileRecord);
-            }
-
-            transaction.oncomplete = () => {
-                alert("Files saved to Secure Vault successfully!");
-                fileInput.value = "";
-                renderVaultFiles();
-                // Reload cache to make new images available immediately
-                loadVaultCacheAndSettings(); 
-            };
-        }
-
-        function renderVaultFiles() {
-            const container = document.getElementById('vault-files-list');
-            container.innerHTML = '';
-            if (!db) return;
-
-            const transaction = db.transaction([storeName], "readonly");
-            const store = transaction.objectStore(storeName);
-            const request = store.getAll();
-
-            request.onsuccess = () => {
-                const files = request.result;
-                files.forEach(file => {
-                    const div = document.createElement('div');
-                    div.className = "flex justify-between items-center p-3 bg-white border border-gray-200 rounded-xl shadow-sm";
-                    
-                    let icon = "📄";
-                    if (file.type.startsWith('image/')) icon = "🖼️";
-                    else if (file.type === 'application/pdf') icon = "📕";
-
-                    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-
-                    div.innerHTML = `
-                        <div class="flex items-center gap-3 overflow-hidden w-3/4">
-                            <span class="text-2xl">${icon}</span>
-                            <div class="truncate">
-                                <p class="text-sm font-bold truncate text-gray-800">${file.name}</p>
-                                <p class="text-xs text-gray-500">${sizeMB} MB</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <button onclick="downloadVaultFile(${file.id})" class="text-blue-500 hover:text-blue-700 transition" title="Download"><i class="fas fa-download"></i></button>
-                            <button onclick="deleteVaultFile(${file.id})" class="text-red-500 hover:text-red-700 transition" title="Delete"><i class="fas fa-trash"></i></button>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            };
-        }
-
-        function downloadVaultFile(id) {
-            const transaction = db.transaction([storeName], "readonly");
-            const store = transaction.objectStore(storeName);
-            const request = store.get(id);
-            request.onsuccess = () => {
-                const file = request.result;
-                const url = URL.createObjectURL(file.data);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = file.name;
-                a.click();
-                URL.revokeObjectURL(url);
-            };
-        }
-
-        function deleteVaultFile(id) {
-            if(!confirm("Delete this file permanently from the vault?")) return;
-            const transaction = db.transaction([storeName], "readwrite");
-            const store = transaction.objectStore(storeName);
-            store.delete(id);
-            transaction.oncomplete = () => {
-                renderVaultFiles();
-                delete window.vaultCache[`vault://${id}`];
-                loadSettings(); 
-            };
-        }
-        // --- END IndexedDB Vault System ---
-
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
         })();
 
         function loadSettings() {
-            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${getImageUrl(nexusConfig.heroBg)}')`;
+            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.28), rgba(0,0,0,0.38)), url('${nexusConfig.heroBg}')`;
             document.getElementById('hero-title').textContent = nexusConfig.heroTitle;
             document.getElementById('hero-subtitle').textContent = nexusConfig.heroSubtitle;
             renderCustomSections();
@@ -624,7 +464,7 @@
                     <section class="py-24 px-6 md:px-20 bg-white">
                         <div class="max-w-7xl mx-auto">
                             <div class="text-center mb-12">
-                                ${section.image ? `<img src="${getImageUrl(section.image)}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
+                                ${section.image ? `<img src="${section.image}" class="mx-auto mb-8 rounded-3xl shadow-xl w-full max-h-96 object-cover" alt="${section.title}">` : ''}
                                 <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center text-6xl">${section.emoji || '✨'}</div>
                                 <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">${section.title}</h2>
                                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">${section.description}</p>
@@ -649,6 +489,7 @@
             toggleCounselingMenu();
         }
 
+        // === ULTRA PREMIUM DETAIL PAGE SYSTEM (English + Unlimited Text & Photos via Admin) ===
         function openCounselingDetail(key) {
             toggleCounselingMenu();
             currentDetailKey = key;
@@ -661,9 +502,11 @@
 
             const area = counselingAreas.find(a => a.key === key);
             
+            // Header
             document.getElementById('detail-emoji').innerHTML = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
 
+            // Render unlimited content blocks
             const contentContainer = document.getElementById('detail-content');
             contentContainer.innerHTML = '';
 
@@ -677,7 +520,7 @@
                 else if (block.type === "image") {
                     const imgDiv = document.createElement('div');
                     imgDiv.className = "mb-12";
-                    imgDiv.innerHTML = `<img src="${getImageUrl(block.url)}" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">`;
+                    imgDiv.innerHTML = `<img src="${block.url}" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">`;
                     contentContainer.appendChild(imgDiv);
                 } 
                 else if (block.type === "heading") {
@@ -700,6 +543,7 @@
                 }
             });
 
+            // Final CTA
             const cta = document.createElement('div');
             cta.className = "mt-16 pt-8 border-t border-gray-100 text-center";
             cta.innerHTML = `
@@ -711,6 +555,7 @@
             `;
             contentContainer.appendChild(cta);
 
+            // Show panel
             const panel = document.getElementById('counseling-detail-panel');
             panel.classList.remove('hidden');
             panel.classList.add('flex');
@@ -746,7 +591,6 @@
             document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
             renderAdminCustomSections();
             renderCounselingDetailsAdmin();
-            renderVaultFiles(); // Load vault files when admin opens
         }
 
         function closeAdmin() {
@@ -770,7 +614,8 @@
                         <input id="cs-emoji-${index}" value="${section.emoji || ''}" class="premium-input text-sm" placeholder="Emoji">
                         <div class="flex gap-2">
                             <input id="cs-image-${index}" value="${section.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL">
-                            <button onclick="openImageGalleryForSection(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                            <button onclick="openImageGalleryForSection(${index})" class="bg-gray-800 text-white px-4 rounded-xl text-xs font-medium">Gallery</button>
+                            <button onclick="triggerFileUpload('cs-image-${index}')" class="bg-blue-600 text-white px-4 rounded-xl text-xs font-medium">Upload</button>
                         </div>
                     </div>
                 `;
@@ -778,6 +623,7 @@
             });
         }
 
+        // Admin control for unlimited text + photos in detail pages - SIMPLIFIED to ONLY Text & Photo
         function renderCounselingDetailsAdmin() {
             const container = document.getElementById('counseling-details-container');
             container.innerHTML = '';
@@ -800,7 +646,8 @@
                                 <label class="text-xs uppercase text-gray-400 mb-1 block">Image Block ${i+1}</label>
                                 <div class="flex gap-2">
                                     <input id="cd-image-${area.key}-${i}" value="${block.url}" class="premium-input text-sm flex-1" placeholder="Image URL">
-                                    <button onclick="openImageGallery('cd-image-${area.key}-${i}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                                    <button onclick="openImageGallery('cd-image-${area.key}-${i}')" class="bg-gray-800 text-white px-4 rounded-xl text-xs font-medium">Gallery</button>
+                                    <button onclick="triggerFileUpload('cd-image-${area.key}-${i}')" class="bg-blue-600 text-white px-4 rounded-xl text-xs font-medium">Upload</button>
                                 </div>
                                 <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 text-xs mt-2">Remove Block</button>
                             </div>`;
@@ -881,34 +728,7 @@
             const container = document.getElementById('gallery-images');
             container.innerHTML = '';
 
-            // Load Vault Images First
-            if (db) {
-                const transaction = db.transaction([storeName], "readonly");
-                const store = transaction.objectStore(storeName);
-                const request = store.getAll();
-                request.onsuccess = () => {
-                    const files = request.result;
-                    files.forEach(file => {
-                        if (file.type.startsWith('image/')) {
-                            const url = window.vaultCache[`vault://${file.id}`];
-                            const div = document.createElement('div');
-                            div.className = "cursor-pointer rounded-2xl overflow-hidden border-4 border-emerald-400 hover:border-blue-500 transition relative";
-                            div.innerHTML = `<div class="absolute top-2 left-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-lg z-10 shadow-md">VAULT</div><img src="${url}" class="w-full h-40 object-cover">`;
-                            div.onclick = () => {
-                                const vaultUrl = `vault://${file.id}`;
-                                if (currentImageTarget !== null) {
-                                    document.getElementById(`cs-image-${currentImageTarget}`).value = vaultUrl;
-                                } else if (targetId) {
-                                    document.getElementById(targetId).value = vaultUrl;
-                                }
-                                closeImageGallery();
-                            };
-                            container.prepend(div);
-                        }
-                    });
-                };
-            }
-
+            // 20 relevant new 4K ultra-premium photos (nature, couple, yoga, medicine, depression themes) from Pexels (not Unsplash)
             const sampleImages =[
                 "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=3840",
                 "https://images.pexels.com/photos/1266810/pexels-photo-1266810.jpeg?auto=compress&cs=tinysrgb&w=3840",
@@ -958,6 +778,57 @@
             currentImageTarget = null;
         }
 
+        // Function to handle file uploads from device (compresses large files to fit in localStorage)
+        function triggerFileUpload(targetId) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const targetInput = document.getElementById(targetId);
+                targetInput.value = "Uploading and compressing...";
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        // Compress image to ensure it fits within localStorage limits (5MB)
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 1920;
+                        const MAX_HEIGHT = 1080;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Convert to base64 with 70% quality compression
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        targetInput.value = dataUrl;
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        }
+
         function saveAdminSettings() {
             nexusConfig.heroBg = document.getElementById('adm-hero-bg').value;
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
@@ -970,6 +841,7 @@
                 section.image = document.getElementById(`cs-image-${index}`).value;
             });
 
+            // Save all counseling detail blocks
             counselingAreas.forEach((area) => {
                 const detail = nexusConfig.counselingDetails[area.key];
                 if (!detail) return;
@@ -1002,10 +874,14 @@
             nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
             nexusConfig.blogUrl = document.getElementById('adm-blog-url').value || "#";
 
-            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            loadSettings();
-            alert("All changes saved successfully! ✅");
-            closeAdmin();
+            try {
+                localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+                loadSettings();
+                alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages now support unlimited text blocks and photos.");
+                closeAdmin();
+            } catch (e) {
+                alert("Error saving data. The uploaded images might be too large. Try uploading smaller images.");
+            }
         }
 
         function logoutAdmin() {
@@ -1177,8 +1053,8 @@
         }
 
         window.onload = () => {
-            // Initialize Vault DB and load settings
-            loadVaultCacheAndSettings();
+            loadSettings();
+            addCareerSection();
         };
     </script>
 </body>
