@@ -22,6 +22,7 @@
         .glass-nav { 
             background: rgba(255, 255, 255, 0.92); 
             backdrop-filter: saturate(180%) blur(24px); 
+            -webkit-backdrop-filter: saturate(180%) blur(24px);
             border-bottom: 1px solid rgba(0,0,0,0.06); 
             z-index: 1000; 
         }
@@ -74,35 +75,148 @@
         .social-icon { transition: all 0.3s ease; }
         .social-icon:hover { transform: scale(1.18); }
 
+        /* ULTRA PREMIUM APPLE-STYLE ADMIN PANEL */
         #admin-panel { 
-            position: fixed; top: 0; right: 0; width: 380px; height: 100%; 
-            background: white; z-index: 3000; 
-            box-shadow: -25px 0 60px rgba(0,0,0,0.12); 
+            position: fixed; top: 0; right: 0; width: 100%; max-width: 440px; height: 100%; 
+            background: rgba(245, 245, 247, 0.85); 
+            backdrop-filter: saturate(200%) blur(40px);
+            -webkit-backdrop-filter: saturate(200%) blur(40px);
+            z-index: 3000; 
+            box-shadow: -20px 0 60px rgba(0,0,0,0.08); 
+            border-left: 1px solid rgba(255,255,255,0.4);
             transform: translateX(100%); 
-            transition: 0.5s ease; 
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); 
             overflow-y: auto; 
-            padding: 40px; 
+            padding: 0; 
         }
         #admin-panel.active { transform: translateX(0); }
+        #admin-panel::-webkit-scrollbar { width: 0px; background: transparent; }
 
-        .notification { transition: all 0.5s; opacity: 0; visibility: hidden; }
-        .notification.visible { opacity: 1; visibility: visible; }
+        .apple-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
 
-        /* Ultra Premium Counseling Detail Panel */
-        #counseling-detail-panel {
-            z-index: 2600;
+        .apple-input {
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid transparent;
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 15px;
+            color: #1d1d1f;
+            width: 100%;
+            transition: all 0.2s ease-out;
         }
-        #counseling-detail-panel .detail-card {
-            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
+        .apple-input:focus {
+            background: #ffffff;
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+            outline: none;
         }
+
+        .apple-btn-primary {
+            background: #0071e3;
+            color: white;
+            border-radius: 999px;
+            padding: 14px 24px;
+            font-weight: 600;
+            font-size: 15px;
+            width: 100%;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .apple-btn-primary:hover { background: #005bb5; transform: scale(0.98); }
+        .apple-btn-primary:active { transform: scale(0.95); }
+
+        .apple-btn-secondary {
+            background: rgba(0, 0, 0, 0.05);
+            color: #1d1d1f;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+        .apple-btn-secondary:hover { background: rgba(0, 0, 0, 0.1); }
+
+        .apple-btn-danger {
+            color: #ff3b30;
+            font-weight: 500;
+            font-size: 15px;
+            transition: opacity 0.2s;
+        }
+        .apple-btn-danger:hover { opacity: 0.7; }
+
+        .notification { transition: all 0.3s ease-out; opacity: 0; transform: translateY(-10px); visibility: hidden; }
+        .notification.visible { opacity: 1; transform: translateY(0); visibility: visible; }
+
+        /* ==========================================
+           ULTRA PREMIUM APPLE DETAIL PANEL
+           ========================================== */
+        #counseling-detail-panel { 
+            position: fixed; inset: 0; z-index: 4000; 
+            background: rgba(0, 0, 0, 0.35); 
+            backdrop-filter: saturate(180%) blur(20px); 
+            -webkit-backdrop-filter: saturate(180%) blur(20px); 
+            display: flex; align-items: center; justify-content: center; 
+            opacity: 0; pointer-events: none; 
+            transition: opacity 0.3s ease; 
+            padding: 1rem;
+        }
+        #counseling-detail-panel.active { 
+            opacity: 1; pointer-events: auto; 
+        }
+        #counseling-detail-panel .detail-card { 
+            background: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(40px); 
+            -webkit-backdrop-filter: blur(40px); 
+            border: 1px solid rgba(255,255,255,0.6); 
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0,0,0,0.05); 
+            border-radius: 36px; 
+            width: 100%; max-width: 72rem; max-height: 92vh; 
+            display: flex; flex-direction: column; 
+            overflow: hidden; 
+            transform: scale(0.9) translateY(40px); 
+            opacity: 0; 
+            /* Speed of light spring animation */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1); 
+        }
+        #counseling-detail-panel.active .detail-card { 
+            transform: scale(1) translateY(0); 
+            opacity: 1; 
+        }
+
+        /* Smooth Scroll Reveal Animation */
+        .reveal-block {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom Scrollbar for Detail Panel */
+        #detail-content::-webkit-scrollbar { width: 8px; }
+        #detail-content::-webkit-scrollbar-track { background: transparent; }
+        #detail-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+        #detail-content::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
     </style>
 </head>
 <body class="font-sans">
 
+    <!-- Hidden File Input for Local Uploads -->
+    <input type="file" id="local-image-upload" accept="image/*" class="hidden" onchange="handleLocalImageUpload(event)">
+
     <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-4">
-            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700 hover:text-black">
+            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700 hover:text-black transition-transform active:scale-90">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="flex items-center gap-3">
@@ -112,7 +226,7 @@
         </div>
         <div class="flex items-center gap-4">
             <a href="#booking-section" class="cta-btn px-6 py-2.5 rounded-full text-[12px] font-bold uppercase">Book Now</a>
-            <button onclick="openAdmin()" class="relative w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center bg-[#0071e3] shadow-md hover:bg-[#005bb5] transition overflow-hidden">
+            <button onclick="openAdmin()" class="relative w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center bg-[#0071e3] shadow-md hover:bg-[#005bb5] transition overflow-hidden active:scale-95">
                 <i class="fas fa-user-shield text-white text-lg"></i>
             </button>
         </div>
@@ -128,7 +242,6 @@
             <div onclick="openCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
             <div onclick="openCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
             <div onclick="openCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
-            <div onclick="openBlog()" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Blog</span><span class="text-2xl">›</span></div>
         </div>
 
         <div class="mt-16">
@@ -142,101 +255,118 @@
         </div>
     </div>
 
-    <!-- Admin Panel -->
+    <!-- Admin Panel (Apple Style) -->
     <div id="admin-panel">
-        <div class="flex justify-between items-center mb-10">
-            <h3 class="font-bold text-2xl uppercase tracking-tight">Admin Console</h3>
-            <button onclick="closeAdmin()"><i class="fas fa-times text-2xl text-gray-500 hover:text-gray-900"></i></button>
+        <!-- Header -->
+        <div class="sticky top-0 z-10 bg-white/40 backdrop-blur-xl border-b border-gray-200/50 px-8 py-6 flex justify-between items-center">
+            <h3 class="font-semibold text-xl tracking-tight text-gray-900">Settings</h3>
+            <button onclick="closeAdmin()" class="bg-gray-200/60 hover:bg-gray-300/80 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         
-        <div id="admin-login" class="space-y-6 text-center">
-            <input type="email" id="admin-email-input" placeholder="Enter your email" class="premium-input text-sm">
-            <button onclick="sendAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">SEND OTP</button>
-            <div id="otp-notification" class="notification text-sm text-green-600 font-medium">OTP SENT TO YOUR EMAIL</div>
-        </div>
-        
-        <div id="admin-login-step2" class="hidden space-y-6 text-center">
-            <input type="text" id="admin-otp-input" maxlength="6" placeholder="ENTER 6-DIGIT OTP" class="premium-input text-center text-4xl tracking-widest font-mono">
-            <button onclick="verifyAdminOTP()" class="cta-btn w-full py-4 rounded-xl font-bold">VERIFY & ENTER</button>
-            <div id="verify-notification" class="notification text-sm text-red-600 font-medium">INCORRECT OTP, TRY AGAIN</div>
-        </div>
-        
-        <div id="admin-controls" class="hidden space-y-10 text-sm">
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Hero Section</h4>
-                <div class="space-y-4">
-                    <div class="flex gap-2">
-                        <input id="adm-hero-bg" class="premium-input text-sm flex-1" placeholder="Hero Background Image URL">
-                        <button onclick="openImageGallery('adm-hero-bg')" class="bg-gray-800 text-white px-4 rounded-xl text-xs font-medium">Gallery</button>
-                    </div>
-                    <input id="adm-hero-title" class="premium-input text-sm" placeholder="Hero Title">
-                    <input id="adm-hero-subtitle" class="premium-input text-sm" placeholder="Hero Subtitle">
+        <div class="p-8">
+            <!-- Login Step 1 -->
+            <div id="admin-login" class="space-y-6 text-center mt-10">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-4 shadow-sm">
+                    <i class="fas fa-lock"></i>
                 </div>
+                <h2 class="text-2xl font-semibold tracking-tight">Admin Access</h2>
+                <p class="text-gray-500 text-sm mb-6">Enter your email to receive a secure code.</p>
+                <input type="email" id="admin-email-input" placeholder="name@example.com" class="apple-input text-center">
+                <button onclick="sendAdminOTP()" class="apple-btn-primary">Continue</button>
+                <div id="otp-notification" class="notification text-sm text-green-600 font-medium mt-4">Code sent to your email</div>
             </div>
             
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Custom Sections</h4>
-                <div id="custom-sections-container" class="space-y-8"></div>
-                <button onclick="addNewCustomSection()" 
-                        class="mt-6 w-full py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50 transition">
-                    + Add New Custom Section
-                </button>
+            <!-- Login Step 2 -->
+            <div id="admin-login-step2" class="hidden space-y-6 text-center mt-10">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-4 shadow-sm">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h2 class="text-2xl font-semibold tracking-tight">Enter Code</h2>
+                <p class="text-gray-500 text-sm mb-6">Please enter the 6-digit code sent to your email.</p>
+                <input type="text" id="admin-otp-input" maxlength="6" placeholder="••••••" class="apple-input text-center text-3xl tracking-[0.5em] font-mono">
+                <button onclick="verifyAdminOTP()" class="apple-btn-primary">Verify</button>
+                <div id="verify-notification" class="notification text-sm text-red-500 font-medium mt-4">Incorrect code, try again</div>
             </div>
+            
+            <!-- Admin Controls -->
+            <div id="admin-controls" class="hidden space-y-8 pb-10">
+                
+                <!-- Hero Section Card -->
+                <div>
+                    <h4 class="text-[13px] font-semibold text-gray-500 uppercase tracking-wider ml-4 mb-2">Hero Section</h4>
+                    <div class="apple-card space-y-4">
+                        <div class="flex gap-2">
+                            <input id="adm-hero-bg" class="apple-input flex-1" placeholder="Background Image URL">
+                            <button onclick="openImageGallery('adm-hero-bg')" class="apple-btn-secondary"><i class="fas fa-image"></i></button>
+                            <button onclick="triggerLocalUpload('adm-hero-bg')" class="apple-btn-secondary text-blue-600"><i class="fas fa-upload"></i></button>
+                        </div>
+                        <input id="adm-hero-title" class="apple-input font-semibold" placeholder="Hero Title">
+                        <input id="adm-hero-subtitle" class="apple-input" placeholder="Hero Subtitle">
+                    </div>
+                </div>
 
-            <!-- Ultra Premium Counseling Detail Pages - FULL ADMIN CONTROL -->
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Counseling Areas - Detail Pages (Ultra Premium)</h4>
-                <div id="counseling-details-container" class="space-y-10"></div>
-            </div>
+                <!-- Counseling Areas Detail Pages Control -->
+                <div>
+                    <h4 class="text-[13px] font-semibold text-gray-500 uppercase tracking-wider ml-4 mb-2">Menu Details</h4>
+                    <div id="counseling-details-container" class="space-y-6"></div>
+                </div>
 
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Blog Control</h4>
-                <input id="adm-blog-url" class="premium-input text-sm" placeholder="Blog URL (or leave blank)">
-            </div>
+                <!-- Contact & Payment Card -->
+                <div>
+                    <h4 class="text-[13px] font-semibold text-gray-500 uppercase tracking-wider ml-4 mb-2">Contact & Payment</h4>
+                    <div class="apple-card space-y-4">
+                        <input id="adm-wa-num" class="apple-input" placeholder="WhatsApp (+91...)">
+                        <input id="adm-upi-id" class="apple-input" placeholder="UPI ID">
+                        <input id="adm-admin-email" class="apple-input" placeholder="Admin Email">
+                    </div>
+                </div>
 
-            <div class="border-b pb-8">
-                <h4 class="font-bold text-lg mb-6">Contact & Payment</h4>
-                <div class="space-y-4">
-                    <input id="adm-wa-num" class="premium-input text-sm" placeholder="WhatsApp Number (+91xxxxxxxxxx)">
-                    <input id="adm-upi-id" class="premium-input text-sm" placeholder="UPI ID">
-                    <input id="adm-admin-email" class="premium-input text-sm" placeholder="Admin Email">
+                <!-- Actions -->
+                <div class="pt-4 space-y-4">
+                    <button onclick="saveAdminSettings()" class="apple-btn-primary shadow-lg shadow-blue-500/30">Save All Changes</button>
+                    <div class="text-center">
+                        <button onclick="logoutAdmin()" class="apple-btn-danger">Lock Admin Panel</button>
+                    </div>
                 </div>
             </div>
-
-            <button onclick="saveAdminSettings()" class="bg-black text-white w-full py-4 rounded-xl font-bold text-xs uppercase tracking-wider">SAVE ALL CHANGES</button>
-            <button onclick="logoutAdmin()" class="text-red-500 text-sm font-medium w-full">Logout / Relock</button>
         </div>
     </div>
 
     <!-- Image Gallery Modal -->
-    <div id="image-gallery-modal" class="hidden fixed inset-0 bg-black/70 z-[4000] flex items-center justify-center">
-        <div class="bg-white rounded-3xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
-            <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="font-bold text-xl">Choose Background Image</h3>
-                <button onclick="closeImageGallery()" class="text-3xl leading-none">&times;</button>
+    <div id="image-gallery-modal" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-[4000] flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white/90 backdrop-blur-xl rounded-[32px] w-full max-w-2xl max-h-[85vh] overflow-hidden shadow-2xl border border-white">
+            <div class="p-6 border-b border-gray-200/50 flex justify-between items-center bg-white/50">
+                <h3 class="font-semibold text-xl tracking-tight">Select Image</h3>
+                <button onclick="closeImageGallery()" class="bg-gray-200/60 hover:bg-gray-300 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="p-6 overflow-y-auto" style="max-height: 70vh;">
+            <div class="p-6 overflow-y-auto" style="max-height: 65vh;">
                 <div class="grid grid-cols-2 gap-4" id="gallery-images"></div>
             </div>
         </div>
     </div>
 
-    <!-- ULTRA PREMIUM COUNSELING DETAIL PANEL (Page-style Modal with English Content) -->
-    <div id="counseling-detail-panel" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 md:p-8">
-        <div class="detail-card bg-white rounded-3xl w-full max-w-6xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl">
+    <!-- ULTRA PREMIUM COUNSELING DETAIL PANEL (Apple Style) -->
+    <div id="counseling-detail-panel">
+        <div class="detail-card">
             <!-- Header -->
-            <div class="px-8 md:px-12 py-8 border-b flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
-                <div class="flex items-center gap-5">
-                    <span id="detail-emoji" class="text-7xl"></span>
+            <div class="px-8 md:px-12 py-6 md:py-8 border-b border-gray-200/50 flex items-center justify-between bg-white/60 backdrop-blur-xl sticky top-0 z-10">
+                <div class="flex items-center gap-4 md:gap-6">
+                    <span id="detail-emoji" class="text-5xl md:text-7xl drop-shadow-sm"></span>
                     <div>
-                        <h1 id="detail-title" class="text-5xl md:text-6xl font-bold tracking-tighter leading-none"></h1>
+                        <h1 id="detail-title" class="text-3xl md:text-5xl font-bold tracking-tight leading-none text-gray-900"></h1>
                     </div>
                 </div>
-                <button onclick="closeCounselingDetail()" class="text-5xl text-gray-400 hover:text-gray-900 transition">&times;</button>
+                <button onclick="closeCounselingDetail()" class="w-10 h-10 md:w-12 md:h-12 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-xl md:text-2xl text-gray-600 transition-colors active:scale-90">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
             <!-- Content -->
-            <div class="flex-1 overflow-auto p-8 md:p-12" id="detail-content">
+            <div class="flex-1 overflow-y-auto p-8 md:p-16 scroll-smooth" id="detail-content">
                 <!-- Dynamically populated by JS -->
             </div>
         </div>
@@ -358,7 +488,6 @@
             waNum: "+917830232077",
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
-            blogUrl: "#",
             customSections:[
                 { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
                 { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
@@ -439,9 +568,9 @@
         };
 
         let currentOTP = null;
-        let currentImageTarget = null;
         let currentBookingData = null;
         let currentDetailKey = null;
+        let currentUploadTarget = null;
 
         (function() {
             emailjs.init("jH5TwO1sLcWFwHHzu");
@@ -479,16 +608,7 @@
             document.getElementById('counseling-menu').classList.toggle('active'); 
         }
 
-        function openBlog() {
-            if (nexusConfig.blogUrl && nexusConfig.blogUrl !== "#") {
-                window.open(nexusConfig.blogUrl, '_blank');
-            } else {
-                alert("Our Blog section is coming soon.");
-            }
-            toggleCounselingMenu();
-        }
-
-        // === ULTRA PREMIUM DETAIL PAGE SYSTEM (English + Unlimited Text & Photos via Admin) ===
+        // === ULTRA PREMIUM DETAIL PAGE SYSTEM (APPLE VIBE + SMOOTH SCROLL) ===
         function openCounselingDetail(key) {
             toggleCounselingMenu();
             currentDetailKey = key;
@@ -509,34 +629,34 @@
             const contentContainer = document.getElementById('detail-content');
             contentContainer.innerHTML = '';
 
-            detail.contentBlocks.forEach(block => {
+            detail.contentBlocks.forEach((block, index) => {
                 if (block.type === "text") {
                     const p = document.createElement('div');
-                    p.className = "mb-12 text-xl leading-relaxed text-gray-700";
+                    p.className = "reveal-block mb-12 text-xl leading-relaxed text-gray-700 font-medium";
                     p.innerHTML = block.content.replace(/\n/g, '<br><br>');
                     contentContainer.appendChild(p);
                 } 
                 else if (block.type === "image") {
                     const imgDiv = document.createElement('div');
-                    imgDiv.className = "mb-12";
-                    imgDiv.innerHTML = `<img src="${block.url}" alt="" class="w-full rounded-3xl shadow-2xl object-cover h-[380px] md:h-[460px]">`;
+                    imgDiv.className = "reveal-block mb-12";
+                    imgDiv.innerHTML = `<img src="${block.url}" alt="" class="w-full rounded-[32px] shadow-xl object-cover h-[380px] md:h-[500px] border border-gray-100">`;
                     contentContainer.appendChild(imgDiv);
                 } 
                 else if (block.type === "heading") {
                     const h = document.createElement('h3');
-                    h.className = "text-3xl font-semibold mb-6 flex items-center gap-3";
+                    h.className = "reveal-block text-3xl md:text-4xl font-bold mb-8 flex items-center gap-4 tracking-tight text-gray-900";
                     h.innerHTML = `<span class="text-4xl">✨</span> ${block.content}`;
                     contentContainer.appendChild(h);
                 } 
                 else if (block.type === "list") {
                     const listHTML = block.items.map(item => `
-                        <div class="flex gap-4 mb-4">
-                            <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">✓</div>
-                            <p class="leading-relaxed text-lg">${item}</p>
+                        <div class="flex gap-5 mb-6 items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm shadow-md mt-1"><i class="fas fa-check"></i></div>
+                            <p class="leading-relaxed text-xl text-gray-700 font-medium">${item}</p>
                         </div>
                     `).join('');
                     const div = document.createElement('div');
-                    div.className = "space-y-4 mb-12";
+                    div.className = "reveal-block space-y-2 mb-12 bg-gray-50/50 p-8 rounded-[32px] border border-gray-100";
                     div.innerHTML = listHTML;
                     contentContainer.appendChild(div);
                 }
@@ -544,26 +664,42 @@
 
             // Final CTA
             const cta = document.createElement('div');
-            cta.className = "mt-16 pt-8 border-t border-gray-100 text-center";
+            cta.className = "reveal-block mt-16 pt-12 border-t border-gray-200/60 text-center pb-8";
             cta.innerHTML = `
-                <p class="text-sm uppercase tracking-[1px] text-gray-400 mb-4">Ready to begin your healing journey?</p>
-                <a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn text-base px-12 py-6 inline-flex items-center gap-3">
+                <p class="text-xs font-bold uppercase tracking-[2px] text-gray-400 mb-6">Ready to begin your healing journey?</p>
+                <a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn text-base px-12 py-5 inline-flex items-center gap-3 shadow-xl shadow-blue-500/20 hover:scale-105 transition-transform">
                     <span>BOOK YOUR SESSION NOW</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             `;
             contentContainer.appendChild(cta);
 
-            // Show panel
+            // Show panel with Speed of Light Animation
             const panel = document.getElementById('counseling-detail-panel');
-            panel.classList.remove('hidden');
-            panel.classList.add('flex');
+            panel.classList.add('active');
+            
+            // Reset scroll position
+            contentContainer.scrollTop = 0;
+
+            // Initialize Intersection Observer for Smooth Scroll Reveal
+            setTimeout(() => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+                document.querySelectorAll('.reveal-block').forEach(block => {
+                    observer.observe(block);
+                });
+            }, 100);
         }
 
         function closeCounselingDetail() {
             const panel = document.getElementById('counseling-detail-panel');
-            panel.classList.add('hidden');
-            panel.classList.remove('flex');
+            panel.classList.remove('active');
             currentDetailKey = null;
         }
 
@@ -587,8 +723,7 @@
             document.getElementById('adm-wa-num').value = nexusConfig.waNum;
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail || "";
-            document.getElementById('adm-blog-url').value = nexusConfig.blogUrl || "#";
-            renderAdminCustomSections();
+            
             renderCounselingDetailsAdmin();
         }
 
@@ -596,32 +731,48 @@
             document.getElementById('admin-panel').classList.remove('active');
         }
 
-        function renderAdminCustomSections() {
-            const container = document.getElementById('custom-sections-container');
-            container.innerHTML = '';
-            nexusConfig.customSections.forEach((section, index) => {
-                const div = document.createElement('div');
-                div.className = "border rounded-3xl p-6 bg-gray-50";
-                div.innerHTML = `
-                    <div class="flex justify-between mb-4">
-                        <h5 class="font-semibold text-base">Custom Section ${index + 1}</h5>
-                        <button onclick="removeCustomSection(${index})" class="text-red-500 text-sm hover:text-red-700">Remove</button>
-                    </div>
-                    <div class="space-y-4">
-                        <input id="cs-title-${index}" value="${section.title || ''}" class="premium-input text-sm" placeholder="Section Title">
-                        <input id="cs-desc-${index}" value="${section.description || ''}" class="premium-input text-sm" placeholder="Section Description">
-                        <input id="cs-emoji-${index}" value="${section.emoji || ''}" class="premium-input text-sm" placeholder="Emoji">
-                        <div class="flex gap-2">
-                            <input id="cs-image-${index}" value="${section.image || ''}" class="premium-input text-sm flex-1" placeholder="Image URL">
-                            <button onclick="openImageGalleryForSection(${index})" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
+        // === LOCAL IMAGE UPLOAD SYSTEM (WITH COMPRESSION) ===
+        function triggerLocalUpload(targetId) {
+            currentUploadTarget = targetId;
+            document.getElementById('local-image-upload').click();
         }
 
-        // Admin control for unlimited text + photos in detail pages - SIMPLIFIED to ONLY Text & Photo
+        function handleLocalImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 1000; 
+                    let scaleSize = 1;
+                    
+                    if (img.width > MAX_WIDTH) {
+                        scaleSize = MAX_WIDTH / img.width;
+                    }
+                    
+                    canvas.width = img.width * scaleSize;
+                    canvas.height = img.height * scaleSize;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    const base64String = canvas.toDataURL('image/jpeg', 0.7);
+
+                    if (currentUploadTarget) {
+                        document.getElementById(currentUploadTarget).value = base64String;
+                    }
+                    
+                    event.target.value = '';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // === ADMIN COUNSELING DETAILS EDITOR (APPLE STYLE) ===
         function renderCounselingDetailsAdmin() {
             const container = document.getElementById('counseling-details-container');
             container.innerHTML = '';
@@ -633,50 +784,61 @@
                 detail.contentBlocks.forEach((block, i) => {
                     if (block.type === 'text') {
                         blocksHTML += `
-                            <div class="border border-gray-200 p-4 rounded-2xl mb-4">
-                                <label class="text-xs uppercase text-gray-400 mb-1 block">Text Block ${i+1}</label>
-                                <textarea id="cd-text-${area.key}-${i}" class="premium-input text-sm h-32 resize-y">${block.content}</textarea>
-                                <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 text-xs mt-2">Remove Block</button>
+                            <div class="bg-white/60 backdrop-blur-md border border-white/50 p-4 rounded-2xl mb-3 shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Text Block</label>
+                                    <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-600 text-xs font-semibold"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <textarea id="cd-text-${area.key}-${i}" class="apple-input text-sm h-24 resize-y">${block.content}</textarea>
                             </div>`;
                     } else if (block.type === 'image') {
                         blocksHTML += `
-                            <div class="border border-gray-200 p-4 rounded-2xl mb-4">
-                                <label class="text-xs uppercase text-gray-400 mb-1 block">Image Block ${i+1}</label>
-                                <div class="flex gap-2">
-                                    <input id="cd-image-${area.key}-${i}" value="${block.url}" class="premium-input text-sm flex-1" placeholder="Image URL">
-                                    <button onclick="openImageGallery('cd-image-${area.key}-${i}')" class="bg-gray-800 text-white px-6 rounded-xl text-xs font-medium">Gallery</button>
+                            <div class="bg-white/60 backdrop-blur-md border border-white/50 p-4 rounded-2xl mb-3 shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Image Block</label>
+                                    <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-600 text-xs font-semibold"><i class="fas fa-trash"></i></button>
                                 </div>
-                                <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 text-xs mt-2">Remove Block</button>
+                                <div class="flex gap-2">
+                                    <input id="cd-image-${area.key}-${i}" value="${block.url}" class="apple-input text-sm flex-1" placeholder="Image URL">
+                                    <button onclick="openImageGallery('cd-image-${area.key}-${i}')" class="apple-btn-secondary"><i class="fas fa-image"></i></button>
+                                    <button onclick="triggerLocalUpload('cd-image-${area.key}-${i}')" class="apple-btn-secondary text-blue-600"><i class="fas fa-upload"></i></button>
+                                </div>
                             </div>`;
                     } else if (block.type === 'heading') {
                         blocksHTML += `
-                            <div class="border border-gray-200 p-4 rounded-2xl mb-4">
-                                <label class="text-xs uppercase text-gray-400 mb-1 block">Heading Block ${i+1}</label>
-                                <input id="cd-heading-${area.key}-${i}" value="${block.content}" class="premium-input text-sm">
-                                <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 text-xs mt-2">Remove Block</button>
+                            <div class="bg-white/60 backdrop-blur-md border border-white/50 p-4 rounded-2xl mb-3 shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Heading Block</label>
+                                    <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-600 text-xs font-semibold"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <input id="cd-heading-${area.key}-${i}" value="${block.content}" class="apple-input text-sm font-semibold">
                             </div>`;
                     } else if (block.type === 'list') {
                         blocksHTML += `
-                            <div class="border border-gray-200 p-4 rounded-2xl mb-4">
-                                <label class="text-xs uppercase text-gray-400 mb-1 block">Solution List Block ${i+1} (one per line)</label>
-                                <textarea id="cd-list-${area.key}-${i}" class="premium-input text-sm h-40 resize-y">${block.items.join('\n')}</textarea>
-                                <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 text-xs mt-2">Remove Block</button>
+                            <div class="bg-white/60 backdrop-blur-md border border-white/50 p-4 rounded-2xl mb-3 shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">List Block (One per line)</label>
+                                    <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-600 text-xs font-semibold"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <textarea id="cd-list-${area.key}-${i}" class="apple-input text-sm h-32 resize-y">${block.items.join('\n')}</textarea>
                             </div>`;
                     }
                 });
 
                 const div = document.createElement('div');
-                div.className = "border rounded-3xl p-6 bg-gray-50";
+                div.className = "apple-card";
                 div.innerHTML = `
-                    <div class="flex items-center gap-4 mb-6">
-                        <span class="text-5xl">${area.emoji}</span>
-                        <h5 class="font-semibold text-xl">${area.label}</h5>
+                    <div class="flex items-center gap-3 mb-5 border-b border-gray-200/50 pb-4">
+                        <span class="text-3xl">${area.emoji}</span>
+                        <h5 class="font-semibold text-lg tracking-tight">${area.label}</h5>
                     </div>
-                    <div class="space-y-6">
+                    <div class="space-y-2">
                         ${blocksHTML}
-                        <div class="flex gap-3">
-                            <button onclick="addContentBlock('${area.key}', 'text')" class="flex-1 py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50">+ Add Text Block</button>
-                            <button onclick="addContentBlock('${area.key}', 'image')" class="flex-1 py-3 border border-dashed border-gray-400 rounded-2xl text-sm font-medium hover:bg-gray-50">+ Add Photo Block</button>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <button onclick="addContentBlock('${area.key}', 'text')" class="bg-blue-50/50 hover:bg-blue-100/50 text-blue-600 rounded-xl py-2.5 text-xs font-semibold transition-colors">+ Text</button>
+                            <button onclick="addContentBlock('${area.key}', 'image')" class="bg-blue-50/50 hover:bg-blue-100/50 text-blue-600 rounded-xl py-2.5 text-xs font-semibold transition-colors">+ Photo</button>
+                            <button onclick="addContentBlock('${area.key}', 'heading')" class="bg-blue-50/50 hover:bg-blue-100/50 text-blue-600 rounded-xl py-2.5 text-xs font-semibold transition-colors">+ Heading</button>
+                            <button onclick="addContentBlock('${area.key}', 'list')" class="bg-blue-50/50 hover:bg-blue-100/50 text-blue-600 rounded-xl py-2.5 text-xs font-semibold transition-colors">+ List</button>
                         </div>
                     </div>
                 `;
@@ -691,6 +853,8 @@
             let newBlock = {};
             if (type === 'text') newBlock = { type: 'text', content: 'Write detailed explanation here...' };
             else if (type === 'image') newBlock = { type: 'image', url: '' };
+            else if (type === 'heading') newBlock = { type: 'heading', content: 'New Heading' };
+            else if (type === 'list') newBlock = { type: 'list', items:['Point 1', 'Point 2'] };
             
             nexusConfig.counselingDetails[key].contentBlocks.push(newBlock);
             renderCounselingDetailsAdmin();
@@ -703,60 +867,40 @@
             }
         }
 
-        function addNewCustomSection() {
-            nexusConfig.customSections.push({ title: "New Section Title", description: "Write description here...", emoji: "✨", image: "" });
-            renderAdminCustomSections();
-        }
-
-        function removeCustomSection(index) {
-            if (confirm("Delete this section?")) {
-                nexusConfig.customSections.splice(index, 1);
-                renderAdminCustomSections();
-            }
-        }
-
-        function openImageGalleryForSection(index) {
-            currentImageTarget = index;
-            openImageGallery(null);
-        }
-
         function openImageGallery(targetId) {
             const modal = document.getElementById('image-gallery-modal');
             const container = document.getElementById('gallery-images');
             container.innerHTML = '';
 
-            // 20 relevant new 4K ultra-premium photos from Unsplash (Therapy, Nature, Relationships, Sleep, Career, Wellness)
             const sampleImages =[
-                "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop", // Foggy nature calm
-                "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=2070&auto=format&fit=crop", // Therapist talking
-                "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2070&auto=format&fit=crop", // Couple holding hands
-                "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=2060&auto=format&fit=crop", // Sleeping/Resting
-                "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=2070&auto=format&fit=crop", // Working at desk/Career
-                "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2069&auto=format&fit=crop", // Comforting hands
-                "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop", // Forest path
-                "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=2069&auto=format&fit=crop", // Couple talking
-                "https://images.unsplash.com/photo-1511295742362-92c96b124e41?q=80&w=2070&auto=format&fit=crop", // Cozy bed/sleep
-                "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop", // Team/Career
-                "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?q=80&w=2070&auto=format&fit=crop", // Mental health concept
-                "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020&auto=format&fit=crop", // Yoga/Meditation
-                "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2070&auto=format&fit=crop", // Person looking out window
-                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop", // Journaling/Thinking
-                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop", // Beach calm
-                "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2099&auto=format&fit=crop", // Tea/Relaxation
-                "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?q=80&w=2070&auto=format&fit=crop", // Spa/Wellness
-                "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?q=80&w=2072&auto=format&fit=crop", // Peaceful abstract
-                "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=2096&auto=format&fit=crop", // Nature hike/freedom
-                "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=2070&auto=format&fit=crop"  // Sunset calm
+                "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=2060&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2069&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=2069&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1511295742362-92c96b124e41?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2099&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?q=80&w=2072&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=2096&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=2070&auto=format&fit=crop"
             ];
 
             sampleImages.forEach(url => {
                 const div = document.createElement('div');
-                div.className = "cursor-pointer rounded-2xl overflow-hidden border border-gray-200 hover:border-blue-400 transition";
-                div.innerHTML = `<img src="${url}" class="w-full h-40 object-cover">`;
+                div.className = "cursor-pointer rounded-2xl overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all duration-200 shadow-sm";
+                div.innerHTML = `<img src="${url}" class="w-full h-32 object-cover">`;
                 div.onclick = () => {
-                    if (currentImageTarget !== null) {
-                        document.getElementById(`cs-image-${currentImageTarget}`).value = url;
-                    } else if (targetId) {
+                    if (targetId) {
                         document.getElementById(targetId).value = url;
                     }
                     closeImageGallery();
@@ -772,7 +916,6 @@
             const modal = document.getElementById('image-gallery-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-            currentImageTarget = null;
         }
 
         function saveAdminSettings() {
@@ -780,20 +923,10 @@
             nexusConfig.heroTitle = document.getElementById('adm-hero-title').value;
             nexusConfig.heroSubtitle = document.getElementById('adm-hero-subtitle').value;
 
-            nexusConfig.customSections.forEach((section, index) => {
-                section.title = document.getElementById(`cs-title-${index}`).value;
-                section.description = document.getElementById(`cs-desc-${index}`).value;
-                section.emoji = document.getElementById(`cs-emoji-${index}`).value;
-                section.image = document.getElementById(`cs-image-${index}`).value;
-            });
-
-            // Save all counseling detail blocks
             counselingAreas.forEach((area) => {
                 const detail = nexusConfig.counselingDetails[area.key];
                 if (!detail) return;
 
-                detail.contentBlocks =[];
-                const blocksContainer = document.getElementById('counseling-details-container');
                 detail.contentBlocks = nexusConfig.counselingDetails[area.key].contentBlocks.map((block, i) => {
                     if (block.type === 'text') {
                         const el = document.getElementById(`cd-text-${area.key}-${i}`);
@@ -818,11 +951,10 @@
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
             nexusConfig.upiId = document.getElementById('adm-upi-id').value;
             nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
-            nexusConfig.blogUrl = document.getElementById('adm-blog-url').value || "#";
 
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             loadSettings();
-            alert("All changes saved successfully! ✅\n\nYour ultra-premium detail pages now support unlimited text blocks and photos.");
+            alert("Settings saved successfully.");
             closeAdmin();
         }
 
