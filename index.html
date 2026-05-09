@@ -61,16 +61,99 @@
             transform: translateY(-2px); 
         }
 
+        /* ULTRA PREMIUM APPLE-STYLE COUNSELING MENU */
         #counseling-menu {
-            position: fixed; top: 0; left: 0; width: 100%; max-width: 380px; height: 100vh;
-            background: rgba(15, 23, 42, 0.96); color: white; backdrop-filter: blur(30px);
-            border-right: 1px solid rgba(255,255,255,0.08); transform: translateX(-100%);
-            transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1); z-index: 2500; padding: 80px 28px 40px; overflow-y: auto;
+            position: fixed; top: 0; left: 0; width: 100%; max-width: 400px; height: 100vh;
+            background: rgba(245, 245, 247, 0.85); 
+            backdrop-filter: saturate(200%) blur(40px);
+            -webkit-backdrop-filter: saturate(200%) blur(40px);
+            border-right: 1px solid rgba(255,255,255,0.5); 
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1); /* Ultra-fast snappy ease */
+            z-index: 2500; padding: 0; overflow-y: auto;
+            box-shadow: 20px 0 60px rgba(0,0,0,0.08);
+            color: #1d1d1f;
         }
         #counseling-menu.active { transform: translateX(0); }
 
-        .menu-item { transition: all 0.3s ease; }
-        .menu-item:hover { color: #60a5fa; padding-left: 10px; }
+        .menu-header {
+            padding: 40px 32px 20px;
+            position: sticky;
+            top: 0;
+            background: rgba(245, 245, 247, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 10;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-items-container {
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .apple-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 20px;
+            background: transparent;
+            transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            color: #1d1d1f;
+        }
+        .apple-menu-item:hover {
+            background: rgba(0, 0, 0, 0.04);
+            transform: scale(0.98);
+        }
+        .apple-menu-item:active {
+            transform: scale(0.95);
+            background: rgba(0, 0, 0, 0.08);
+        }
+        .apple-menu-item .icon-box {
+            width: 38px; height: 38px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-right: 16px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .apple-menu-item .chevron {
+            color: #86868b;
+            font-size: 22px;
+            font-weight: 400;
+            transition: transform 0.2s;
+        }
+        .apple-menu-item:hover .chevron {
+            transform: translateX(4px);
+            color: #0071e3;
+        }
+
+        /* Ultra-fast staggered entrance animation */
+        #counseling-menu .apple-menu-item {
+            opacity: 0;
+            transform: translateX(-15px);
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+        #counseling-menu.active .apple-menu-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        #counseling-menu.active .apple-menu-item:nth-child(1) { transition-delay: 0.04s; }
+        #counseling-menu.active .apple-menu-item:nth-child(2) { transition-delay: 0.08s; }
+        #counseling-menu.active .apple-menu-item:nth-child(3) { transition-delay: 0.12s; }
+        #counseling-menu.active .apple-menu-item:nth-child(4) { transition-delay: 0.16s; }
+        #counseling-menu.active .apple-menu-item:nth-child(5) { transition-delay: 0.20s; }
 
         .social-icon { transition: all 0.3s ease; }
         .social-icon:hover { transform: scale(1.18); }
@@ -232,25 +315,60 @@
         </div>
     </nav>
 
-    <!-- Counseling Menu -->
+    <!-- Counseling Menu (Apple Premium Style) -->
     <div id="counseling-menu">
-        <button onclick="toggleCounselingMenu()" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-white">&times;</button>
-        <h3 class="text-2xl font-semibold mb-10">Counseling Areas</h3>
-        <div class="space-y-8 text-[19px]">
-            <div onclick="openCounselingDetail('Anxiety')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Anxiety & Stress</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingDetail('Relationship')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Relationship Issues</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingDetail('Sleep')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Sleep Problems</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingDetail('Trauma')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Trauma Support</span><span class="text-2xl">›</span></div>
-            <div onclick="openCounselingDetail('Career')" class="menu-item flex justify-between items-center border-b border-gray-600 pb-4 cursor-pointer hover:text-blue-400 transition"><span>Career Counseling</span><span class="text-2xl">›</span></div>
+        <div class="menu-header">
+            <h3 class="text-2xl font-bold tracking-tight text-gray-900">Counseling</h3>
+            <button onclick="toggleCounselingMenu()" class="w-8 h-8 bg-gray-200/60 hover:bg-gray-300/80 text-gray-600 rounded-full flex items-center justify-center transition-colors active:scale-90">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="menu-items-container">
+            <div onclick="openCounselingDetail('Anxiety')" class="apple-menu-item">
+                <div class="flex items-center">
+                    <div class="icon-box">🧠</div>
+                    <span>Anxiety & Stress</span>
+                </div>
+                <span class="chevron">›</span>
+            </div>
+            <div onclick="openCounselingDetail('Relationship')" class="apple-menu-item">
+                <div class="flex items-center">
+                    <div class="icon-box">❤️</div>
+                    <span>Relationship Issues</span>
+                </div>
+                <span class="chevron">›</span>
+            </div>
+            <div onclick="openCounselingDetail('Sleep')" class="apple-menu-item">
+                <div class="flex items-center">
+                    <div class="icon-box">🌙</div>
+                    <span>Sleep Problems</span>
+                </div>
+                <span class="chevron">›</span>
+            </div>
+            <div onclick="openCounselingDetail('Trauma')" class="apple-menu-item">
+                <div class="flex items-center">
+                    <div class="icon-box">🛡️</div>
+                    <span>Trauma Support</span>
+                </div>
+                <span class="chevron">›</span>
+            </div>
+            <div onclick="openCounselingDetail('Career')" class="apple-menu-item">
+                <div class="flex items-center">
+                    <div class="icon-box">💼</div>
+                    <span>Career Counseling</span>
+                </div>
+                <span class="chevron">›</span>
+            </div>
         </div>
 
-        <div class="mt-16">
-            <p class="text-xs uppercase tracking-widest text-gray-400 mb-4">FOLLOW NEXUS MIND</p>
-            <div class="flex gap-6 text-3xl">
-                <a href="#" class="social-icon text-[#E1306C]"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon text-[#0A66C2]"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="social-icon text-[#FF0000]"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon text-[#25D366]"><i class="fab fa-whatsapp"></i></a>
+        <div class="px-8 mt-6 pb-12">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-4 ml-2">Follow Nexus Mind</p>
+            <div class="flex gap-4 ml-2">
+                <a href="#" class="w-10 h-10 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#E1306C] hover:scale-110 transition-transform"><i class="fab fa-instagram text-lg"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#0A66C2] hover:scale-110 transition-transform"><i class="fab fa-linkedin text-lg"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#FF0000] hover:scale-110 transition-transform"><i class="fab fa-youtube text-lg"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#25D366] hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-lg"></i></a>
             </div>
         </div>
     </div>
