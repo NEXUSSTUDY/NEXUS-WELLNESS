@@ -16,37 +16,50 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
-        body { 
-            font-family: 'Inter', system-ui, sans-serif; 
-            background-color: #fbfbfb; 
-            color: #1d1d1f; 
-            scroll-behavior: smooth; 
-            overflow-x: hidden;
-        }
-        
-        /* ULTRA PREMIUM APPLE-STYLE NAVIGATION */
-        .glass-nav { 
-            background: rgba(255, 255, 255, 0.88); 
-            backdrop-filter: saturate(180%) blur(24px); 
-            -webkit-backdrop-filter: saturate(180%) blur(24px);
-            border-bottom: 1px solid rgba(0,0,0,0.06); 
-            z-index: 1000; 
+        :root {
+            --apple-blue: #0071e3;
+            --apple-gray: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --glass-bg: rgba(255, 255, 255, 0.8);
         }
 
-        /* HERO ENGINE - HYBRID VIDEO/IMAGE SYSTEM */
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background-color: #ffffff; 
+            color: var(--apple-dark); 
+            scroll-behavior: smooth; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* ULTRA PREMIUM NAVIGATION */
+        .glass-nav { 
+            background: rgba(255, 255, 255, 0.72); 
+            backdrop-filter: saturate(180%) blur(20px); 
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.08); 
+            z-index: 1000; 
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* HERO ENGINE */
         #hero-section { 
             position: relative; 
             height: 100vh; 
             width: 100%; 
             overflow: hidden; 
             background-color: #000; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .hero-overlay { 
             position: absolute; 
             inset: 0; 
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4), rgba(0,0,0,0.7)); 
+            background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%),
+                        linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%); 
             z-index: 1; 
         }
         #hero-video-bg { 
@@ -60,283 +73,258 @@
             transform: translate(-50%, -50%); 
             object-fit: cover; 
             z-index: 0; 
-            transition: opacity 1.5s ease-in-out;
-            background-color: #000;
+            transition: opacity 2s ease-in-out;
         }
-        .hero-content { position: relative; z-index: 2; }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; }
 
-        /* PREMIUM UI COMPONENTS */
-        .premium-input { 
-            background: #ffffff; 
-            border: 1px solid #e5e5e7; 
-            border-radius: 16px; 
-            padding: 18px 22px; 
-            width: 100%; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .premium-input:focus {
-            border-color: #0071e3;
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
-            outline: none;
-        }
-
+        /* PREMIUM BUTTONS */
         .cta-btn { 
-            background: #0071e3; 
+            background: var(--apple-blue); 
             color: white; 
-            border-radius: 9999px; 
+            border-radius: 999px; 
             font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 0.8px; 
-            font-size: 13px; 
-            padding: 18px 36px; 
+            text-transform: none; 
+            letter-spacing: -0.022em; 
+            font-size: 17px; 
+            padding: 18px 32px; 
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px -10px rgba(0,113,227,0.4);
+            box-shadow: 0 8px 20px rgba(0,113,227,0.3);
             cursor: pointer;
+            border: none;
             display: inline-block;
-            text-align: center;
         }
         .cta-btn:hover { 
-            background: #005bb5; 
-            transform: translateY(-3px) scale(1.02); 
-            box-shadow: 0 15px 40px -12px rgba(0,113,227,0.5);
+            background: #0077ed; 
+            transform: scale(1.02) translateY(-2px); 
+            box-shadow: 0 12px 30px rgba(0,113,227,0.4);
         }
+        .cta-btn:active { transform: scale(0.98); }
 
-        /* SIDE PANELS */
-        #counseling-menu, #admin-panel { 
+        /* SIDE PANELS (APPLE STYLE) */
+        .side-panel { 
             position: fixed; 
             top: 0; 
             height: 100vh; 
-            background: rgba(245, 245, 247, 0.85); 
-            backdrop-filter: saturate(200%) blur(40px); 
-            -webkit-backdrop-filter: saturate(200%) blur(40px); 
+            background: rgba(245, 245, 247, 0.92); 
+            backdrop-filter: saturate(180%) blur(30px); 
+            -webkit-backdrop-filter: saturate(180%) blur(30px); 
             z-index: 3000; 
-            transition: transform 0.5s cubic-bezier(0.1, 0.9, 0.2, 1); 
-            box-shadow: 0 0 60px rgba(0,0,0,0.1); 
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1); 
+            box-shadow: 0 0 100px rgba(0,0,0,0.15); 
             overflow-y: auto; 
         }
-        #counseling-menu { left: 0; width: 100%; max-width: 400px; transform: translateX(-100%); border-right: 1px solid rgba(255,255,255,0.5); }
-        #admin-panel { right: 0; width: 100%; max-width: 450px; transform: translateX(100%); border-left: 1px solid rgba(255,255,255,0.4); }
-        #counseling-menu.active, #admin-panel.active { transform: translateX(0); }
+        #counseling-menu { left: 0; width: 100%; max-width: 420px; transform: translateX(-100%); border-right: 1px solid rgba(0,0,0,0.05); }
+        #admin-panel { right: 0; width: 100%; max-width: 500px; transform: translateX(100%); border-left: 1px solid rgba(0,0,0,0.05); }
+        .side-panel.active { transform: translateX(0); }
 
-        /* CLEAN MENU ITEMS */
+        /* MENU ITEMS */
         .apple-menu-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 24px;
-            border-radius: 20px;
-            background: transparent;
-            transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+            padding: 24px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+            transition: all 0.3s;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 18px;
-            color: #1d1d1f;
-            margin-bottom: 4px;
+            font-weight: 500;
+            font-size: 19px;
+            color: var(--apple-dark);
         }
-        .apple-menu-item:hover {
-            background: rgba(0, 0, 0, 0.04);
-            transform: scale(0.98);
-            padding-left: 30px;
-        }
-        .apple-menu-item .chevron { color: #86868b; font-size: 22px; transition: transform 0.3s; }
-        .apple-menu-item:hover .chevron { transform: translateX(5px); color: #0071e3; }
+        .apple-menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 32px; }
+        .apple-menu-item i { color: #86868b; font-size: 14px; }
 
-        /* SOCIAL ICONS */
-        .social-btn {
-            width: 54px; height: 54px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-size: 22px;
+        /* INPUTS */
+        .premium-input { 
+            background: #ffffff; 
+            border: 1px solid #d2d2d7; 
+            border-radius: 12px; 
+            padding: 16px 20px; 
+            width: 100%; 
+            font-size: 16px;
+            transition: all 0.3s; 
         }
-        .social-btn:hover {
-            transform: scale(1.2) translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            background: white;
-        }
-        .social-btn.insta { color: #E1306C; }
-        .social-btn.linkedin { color: #0A66C2; }
-        .social-btn.youtube { color: #FF0000; }
-        .social-btn.whatsapp { color: #25D366; }
-
-        /* DETAIL PANEL */
-        #counseling-detail-panel { 
-            position: fixed; inset: 0; z-index: 4000; 
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: saturate(180%) blur(25px); 
-            display: none; align-items: center; justify-content: center; padding: 20px; 
-        }
-        .detail-card { 
-            background: rgba(255, 255, 255, 0.95); border-radius: 40px; 
-            width: 100%; max-width: 1100px; max-height: 90vh; overflow-y: auto; 
-            position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.2);
-            transform: translateY(50px); opacity: 0; transition: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
-        }
-        #counseling-detail-panel.active { display: flex; }
-        #counseling-detail-panel.active .detail-card { transform: translateY(0); opacity: 1; }
-
-        .reveal-block { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .reveal-block.visible { opacity: 1; transform: translateY(0); }
+        .premium-input:focus { border-color: var(--apple-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
 
         /* MODALS */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); z-index: 6000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .modal-box { background: white; border-radius: 32px; width: 100%; max-width: 950px; max-height: 85vh; overflow-y: auto; padding: 35px; }
-
-        .apple-card { background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 24px; padding: 24px; margin-bottom: 24px; }
-        .apple-input { background: rgba(0, 0, 0, 0.04); border: 1px solid transparent; border-radius: 14px; padding: 14px 18px; font-size: 15px; width: 100%; transition: all 0.2s; }
-        .apple-input:focus { background: #fff; border-color: #0071e3; outline: none; }
-
-        /* GALLERY GRID STYLES */
-        .gallery-item {
+        .modal-overlay { 
+            position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.4); 
+            backdrop-filter: blur(20px); 
+            z-index: 5000; 
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .modal-content { 
+            background: white; 
+            border-radius: 30px; 
+            width: 100%; 
+            max-width: 1100px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            padding: 40px; 
             position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 16/9;
-            border: 3px solid transparent;
-            transition: all 0.3s ease;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
-        .gallery-item:hover { transform: scale(1.03); border-color: #0071e3; }
+
+        /* GALLERY GRID */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .gallery-item { 
+            border-radius: 20px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            aspect-ratio: 16/9; 
+            position: relative; 
+            border: 4px solid transparent;
+            transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .gallery-item:hover { transform: scale(1.05); border-color: var(--apple-blue); z-index: 10; }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-label {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            color: white; padding: 8px 12px; font-size: 12px; font-weight: 600;
+        .gallery-item .label { 
+            position: absolute; bottom: 0; left: 0; right: 0; 
+            background: linear-gradient(transparent, rgba(0,0,0,0.8)); 
+            color: white; padding: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase;
         }
+
+        /* DETAIL PANEL */
+        #detail-panel { 
+            position: fixed; inset: 0; z-index: 4000; 
+            background: #ffffff; 
+            display: none; 
+            overflow-y: auto; 
+            padding-bottom: 100px;
+        }
+        #detail-panel.active { display: block; }
+        .reveal-block { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.2, 1, 0.2, 1); }
+        .reveal-block.visible { opacity: 1; transform: translateY(0); }
+
+        /* ADMIN CARDS */
+        .admin-card { background: #ffffff; border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 1px solid #e5e5e7; }
+        .admin-label { font-size: 11px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 8px; display: block; }
+
+        /* CHAT SYSTEM */
+        #chat-window { height: 450px; overflow-y: auto; background: #f5f5f7; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .msg { max-width: 80%; padding: 16px 20px; border-radius: 20px; font-size: 15px; line-height: 1.5; }
+        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .msg.user { background: var(--apple-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-in { animation: fadeIn 1s ease forwards; }
     </style>
 </head>
 <body>
 
-    <!-- Hidden Global Inputs -->
-    <input type="file" id="local-image-upload" accept="image/*" class="hidden" onchange="handleLocalUpload(event, 'image')">
-    <input type="file" id="local-video-upload" accept="video/mp4,video/*" class="hidden" onchange="handleLocalUpload(event, 'video')">
+    <!-- Hidden Global File Inputs -->
+    <input type="file" id="global-image-upload" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'image')">
+    <input type="file" id="global-video-upload" accept="video/*" class="hidden" onchange="handleFileUpload(event, 'video')">
 
     <!-- Navigation -->
     <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
-        <div class="flex items-center gap-5">
-            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-700 hover:text-black transition-transform active:scale-90">
-                <i class="fas fa-bars"></i>
+        <div class="flex items-center gap-6">
+            <button onclick="toggleCounselingMenu()" class="text-2xl text-gray-800 hover:text-black transition-all active:scale-90">
+                <i class="fas fa-bars-staggered"></i>
             </button>
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm">NM</div>
-                <span class="text-xl font-bold tracking-tighter uppercase hidden md:block">NEXUS MIND</span>
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center font-bold text-white text-xs">NM</div>
+                <span class="text-lg font-bold tracking-tight uppercase hidden md:block">Nexus Mind</span>
             </div>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="#booking-section" class="cta-btn px-7 py-3 text-[12px]">Book Session</a>
-            <button onclick="openAdmin()" class="w-12 h-12 rounded-full bg-[#0071e3] text-white shadow-lg hover:bg-[#005bb5] transition-all active:scale-95">
-                <i class="fas fa-user-shield"></i>
+        <div class="flex items-center gap-5">
+            <a href="#booking-section" class="cta-btn px-6 py-2.5 text-[13px] shadow-none hover:shadow-lg">Book Session</a>
+            <button onclick="openAdminPanel()" class="w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all">
+                <i class="fas fa-shield-halved"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Counseling Menu -->
-    <div id="counseling-menu">
+    <!-- Counseling Menu (Side Panel) -->
+    <div id="counseling-menu" class="side-panel">
         <div class="p-10">
             <div class="flex justify-between items-center mb-12">
-                <h3 class="text-3xl font-bold tracking-tight text-gray-900">Counseling</h3>
-                <button onclick="toggleCounselingMenu()" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-xl">&times;</button>
+                <h3 class="text-3xl font-bold tracking-tight">Counseling</h3>
+                <button onclick="toggleCounselingMenu()" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-xl">&times;</button>
             </div>
-            <div id="menu-items-container" class="space-y-1"></div>
-            <div class="mt-20 pt-10 border-t border-gray-200">
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">Connect With Us</p>
-                <div class="flex gap-5">
-                    <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <div id="menu-items-list" class="space-y-2">
+                <!-- Dynamic Menu Items -->
+            </div>
+            <div class="mt-24 pt-10 border-t border-gray-200">
+                <p class="admin-label mb-8">Connect With Us</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-2xl text-pink-600 hover:scale-125 transition-transform"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl text-blue-700 hover:scale-125 transition-transform"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl text-red-600 hover:scale-125 transition-transform"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-2xl text-green-500 hover:scale-125 transition-transform"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel -->
-    <div id="admin-panel">
-        <div class="sticky top-0 z-10 bg-white/60 backdrop-blur-xl border-b border-gray-200/50 px-8 py-6 flex justify-between items-center">
-            <h3 class="font-bold text-xl tracking-tight">Global Admin Control</h3>
-            <button onclick="closeAdmin()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">&times;</button>
+    <!-- Admin Panel (Side Panel) -->
+    <div id="admin-panel" class="side-panel">
+        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-8 py-6 flex justify-between items-center">
+            <h3 class="font-bold text-xl">Admin Control</h3>
+            <button onclick="closeAdminPanel()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">&times;</button>
         </div>
         
         <div class="p-8">
             <!-- Admin Login -->
-            <div id="admin-login" class="space-y-6 text-center mt-10">
-                <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl mx-auto flex items-center justify-center text-3xl shadow-sm"><i class="fas fa-shield-alt"></i></div>
+            <div id="admin-auth-section" class="space-y-6 text-center mt-10">
+                <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl mx-auto flex items-center justify-center text-3xl"><i class="fas fa-lock"></i></div>
                 <h2 class="text-2xl font-bold">Secure Access</h2>
-                <input type="email" id="admin-email-input" placeholder="admin@nexusmind.com" class="apple-input text-center">
-                <button onclick="sendAdminOTP()" class="cta-btn w-full">Send Access Code</button>
-            </div>
-            
-            <!-- OTP Step -->
-            <div id="admin-login-step2" class="hidden space-y-6 text-center mt-10">
-                <h2 class="text-2xl font-bold">Verify Identity</h2>
-                <input type="text" id="admin-otp-input" maxlength="6" placeholder="000000" class="apple-input text-center text-3xl tracking-[0.5em] font-mono">
-                <button onclick="verifyAdminOTP()" class="cta-btn w-full">Verify & Unlock</button>
+                <input type="email" id="admin-email-field" placeholder="admin@nexusmind.com" class="premium-input text-center">
+                <button onclick="requestAdminOTP()" class="cta-btn w-full">Send Access Code</button>
+                <div id="otp-verification-box" class="hidden space-y-6 pt-6 border-t border-gray-100">
+                    <input type="text" id="admin-otp-field" maxlength="6" placeholder="000000" class="premium-input text-center text-3xl tracking-[0.5em] font-mono">
+                    <button onclick="verifyAdminOTP()" class="cta-btn w-full bg-black">Verify & Unlock</button>
+                </div>
             </div>
             
             <!-- Admin Controls -->
-            <div id="admin-controls" class="hidden space-y-10 pb-20">
-                <div class="apple-card">
-                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">Hero Media (Global Sync)</h4>
+            <div id="admin-main-controls" class="hidden space-y-10 pb-20">
+                <div class="admin-card">
+                    <h4 class="admin-label">Hero Media Engine</h4>
+                    <select id="adm-hero-type" class="premium-input mb-4" onchange="toggleHeroAdminUI()">
+                        <option value="image">Static Image</option>
+                        <option value="video">Background Video</option>
+                    </select>
                     
-                    <div class="mb-6">
-                        <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Media Type</label>
-                        <select id="adm-hero-type" class="apple-input" onchange="toggleHeroAdminFields()">
-                            <option value="image">Static Image</option>
-                            <option value="video">Background Video</option>
-                        </select>
-                    </div>
-
-                    <!-- Image Admin Box -->
-                    <div id="adm-hero-img-box">
+                    <div id="adm-hero-image-ui">
                         <div class="flex gap-2 mb-2">
-                            <input id="adm-hero-bg" class="apple-input flex-1" placeholder="Image URL">
-                            <button onclick="document.getElementById('local-image-upload').click()" class="bg-gray-100 px-4 rounded-xl hover:bg-gray-200 transition-colors" title="Upload from Device">
-                                <i class="fas fa-upload"></i>
-                            </button>
+                            <input id="adm-hero-img-url" class="premium-input flex-1" placeholder="Image URL">
+                            <button onclick="document.getElementById('global-image-upload').click()" class="bg-gray-100 px-4 rounded-xl"><i class="fas fa-upload"></i></button>
                         </div>
-                        <button onclick="openImageGallery()" class="text-blue-600 text-xs font-bold mb-6 flex items-center gap-2">
-                            <i class="fas fa-images"></i> Browse Premium Image Gallery (20)
-                        </button>
+                        <button onclick="openImageGallery()" class="text-blue-600 text-xs font-bold mb-6 block">Browse 20 Premium Photos</button>
                     </div>
 
-                    <!-- Video Admin Box -->
-                    <div id="adm-hero-vid-box" class="hidden">
+                    <div id="adm-hero-video-ui" class="hidden">
                         <div class="flex gap-2 mb-2">
-                            <input id="adm-hero-vid" class="apple-input flex-1" placeholder="Video URL">
-                            <button onclick="document.getElementById('local-video-upload').click()" class="bg-gray-100 px-4 rounded-xl hover:bg-gray-200 transition-colors" title="Upload from Device">
-                                <i class="fas fa-file-video"></i>
-                            </button>
+                            <input id="adm-hero-vid-url" class="premium-input flex-1" placeholder="Video URL">
+                            <button onclick="document.getElementById('global-video-upload').click()" class="bg-gray-100 px-4 rounded-xl"><i class="fas fa-upload"></i></button>
                         </div>
-                        <button onclick="openVideoGallery()" class="text-blue-600 text-xs font-bold mb-6 flex items-center gap-2">
-                            <i class="fas fa-play-circle"></i> Browse Cinematic Nature Videos (10)
-                        </button>
+                        <button onclick="openVideoGallery()" class="text-blue-600 text-xs font-bold mb-6 block">Browse 10 Cinematic Videos</button>
                     </div>
 
-                    <div class="space-y-4">
-                        <div>
-                            <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Main Heading</label>
-                            <textarea id="adm-hero-title" class="apple-input h-24" placeholder="Main Heading"></textarea>
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-gray-400 uppercase mb-2 block">Sub Heading</label>
-                            <input id="adm-hero-subtitle" class="apple-input" placeholder="Sub Heading">
-                        </div>
-                    </div>
-
-                    <button onclick="pushGlobalHeroUpdate()" class="cta-btn w-full bg-black hover:bg-gray-800 mt-8">Update for Everyone</button>
+                    <label class="admin-label">Hero Title</label>
+                    <textarea id="adm-hero-title" class="premium-input h-24 mb-4" placeholder="Main Heading"></textarea>
+                    <label class="admin-label">Hero Subtitle</label>
+                    <input id="adm-hero-subtitle" class="premium-input mb-8" placeholder="Sub Heading">
+                    
+                    <button onclick="pushHeroUpdate()" class="cta-btn w-full bg-black">Update Global Hero</button>
                 </div>
 
-                <div id="counseling-details-admin-container" class="space-y-6"></div>
+                <div id="admin-counseling-editor" class="space-y-6">
+                    <!-- Dynamic Counseling Editors -->
+                </div>
 
-                <div class="apple-card">
-                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">Contact & Payment</h4>
-                    <input id="adm-wa-num" class="apple-input mb-3" placeholder="WhatsApp (+91...)">
-                    <input id="adm-upi-id" class="apple-input mb-3" placeholder="UPI ID">
-                    <input id="adm-admin-email" class="apple-input mb-6" placeholder="Admin Email">
-                    <button onclick="saveLocalSettings()" class="cta-btn w-full">Save Local Settings</button>
+                <div class="admin-card">
+                    <h4 class="admin-label">Global Settings</h4>
+                    <input id="adm-wa-num" class="premium-input mb-3" placeholder="WhatsApp (+91...)">
+                    <input id="adm-upi-id" class="premium-input mb-3" placeholder="UPI ID">
+                    <input id="adm-admin-email" class="premium-input mb-6" placeholder="Admin Email">
+                    <button onclick="saveGlobalSettings()" class="cta-btn w-full">Save Settings</button>
                 </div>
                 <button onclick="logoutAdmin()" class="w-full text-red-500 font-bold text-sm py-4">Lock Admin Panel</button>
             </div>
@@ -344,46 +332,47 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="hero-section" class="flex flex-col items-center justify-center text-center px-6 text-white">
+    <section id="hero-section">
         <div class="hero-overlay"></div>
-        <video id="hero-video-bg" autoplay muted loop playsinline class="hidden">
-            <source src="" type="video/mp4">
-        </video>
-        <div data-aos="fade-up" class="max-w-4xl mx-auto hero-content">
+        <video id="hero-video-bg" autoplay muted loop playsinline class="hidden"></video>
+        <div data-aos="fade-up" class="hero-content px-6">
             <h1 id="hero-title" class="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8"></h1>
             <p id="hero-subtitle" class="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto font-medium"></p>
             <div class="flex flex-wrap justify-center gap-5">
-                <a href="#booking-section" class="cta-btn px-12 py-5 text-sm">Start Your Journey</a>
+                <a href="#booking-section" class="cta-btn px-12 py-5">Start Your Journey</a>
             </div>
         </div>
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/50 text-3xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/40 text-2xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Custom Sections -->
-    <div id="custom-sections"></div>
+    <!-- Homepage Dynamic Sections -->
+    <div id="homepage-sections-container"></div>
 
-    <!-- Counseling Detail Panel -->
-    <div id="counseling-detail-panel">
-        <div class="detail-card">
-            <div class="px-8 md:px-16 py-8 border-b border-gray-100 flex items-center justify-between bg-white/80 backdrop-blur-xl sticky top-0 z-10">
+    <!-- Detail Panel -->
+    <div id="detail-panel">
+        <div class="max-w-6xl mx-auto px-6 pt-32">
+            <div class="flex justify-between items-center mb-20">
                 <div class="flex items-center gap-6">
-                    <span id="detail-emoji" class="text-6xl"></span>
-                    <h1 id="detail-title" class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900"></h1>
+                    <span id="detail-emoji" class="text-7xl"></span>
+                    <h1 id="detail-title" class="text-5xl md:text-7xl font-bold tracking-tight"></h1>
                 </div>
-                <button onclick="closeCounselingDetail()" class="w-14 h-14 bg-gray-50 hover:bg-gray-100 rounded-full flex items-center justify-center text-3xl text-gray-400 transition-all">&times;</button>
+                <button onclick="closeDetailPanel()" class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-4xl hover:bg-black hover:text-white transition-all">&times;</button>
             </div>
-            <div class="flex-1 overflow-y-auto p-10 md:p-20 scroll-smooth" id="detail-content"></div>
+            <div id="detail-content-area" class="space-y-16"></div>
+            <div class="mt-32 text-center reveal-block">
+                <a href="#booking-section" onclick="closeDetailPanel()" class="cta-btn px-20 py-6 text-lg">Book Your Session Now</a>
+            </div>
         </div>
     </div>
 
     <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
-        <div class="max-w-5xl mx-auto bg-white p-10 md:p-24 rounded-[50px] border border-gray-100 shadow-2xl" data-aos="zoom-in">
-            <div id="booking-flow">
-                <form id="p-form" class="space-y-8" onsubmit="event.preventDefault(); handleBookingSubmit();">
-                    <div class="text-center mb-12">
+        <div class="max-w-5xl mx-auto bg-white p-10 md:p-24 rounded-[60px] border border-gray-100 shadow-2xl" data-aos="zoom-in">
+            <div id="booking-flow-container">
+                <form id="booking-form" class="space-y-8" onsubmit="event.preventDefault(); handleBookingSubmit();">
+                    <div class="text-center mb-16">
                         <h2 class="text-5xl font-bold tracking-tighter mb-4">Schedule Session</h2>
-                        <p class="text-gray-500">Take the first step towards a healthier mind.</p>
+                        <p class="text-gray-500 text-lg">Take the first step towards a healthier mind.</p>
                     </div>
                     <div class="grid md:grid-cols-2 gap-8">
                         <input type="text" id="p_name" placeholder="Full Name" class="premium-input" required>
@@ -404,28 +393,30 @@
                         <option value="Trauma">Trauma Support</option>
                         <option value="Career">Career Counseling</option>
                     </select>
-                    <select id="p_type" class="premium-input" required>
+                    <select id="p_consult_type" class="premium-input" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-40" required></textarea>
-                    <button type="submit" class="cta-btn w-full py-6 text-base">Proceed to Secure Payment</button>
+                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-44" required></textarea>
+                    <button type="submit" class="cta-btn w-full py-6 text-lg">Proceed to Secure Payment</button>
                 </form>
 
-                <div id="p-payment" class="hidden text-center space-y-10 py-10">
-                    <div class="max-w-sm mx-auto bg-white p-10 rounded-[40px] shadow-xl border border-gray-50">
-                        <img id="p-qr" src="" class="w-64 h-64 mx-auto rounded-2xl border-4 border-gray-50">
-                        <p id="p-upi-text" class="mt-6 text-blue-600 font-bold tracking-wider"></p>
+                <div id="payment-step" class="hidden text-center space-y-12 py-10">
+                    <div class="max-w-sm mx-auto bg-white p-10 rounded-[50px] shadow-2xl border border-gray-50">
+                        <img id="payment-qr-code" src="" class="w-full rounded-3xl border-8 border-gray-50">
+                        <p id="display-upi-id" class="mt-8 text-blue-600 font-bold tracking-wider text-lg"></p>
                     </div>
-                    <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-[0.3em] text-2xl">
-                    <button onclick="unlockSession()" class="cta-btn w-full py-6">Verify & Start Session</button>
+                    <div class="max-w-md mx-auto space-y-6">
+                        <input type="text" id="p_utr_id" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-[0.3em] text-2xl">
+                        <button onclick="verifyBookingPayment()" class="cta-btn w-full py-6">Verify & Start Session</button>
+                    </div>
                 </div>
 
-                <div id="p-success" class="hidden space-y-10">
-                    <div class="bg-green-50 text-green-600 p-10 rounded-[40px] font-bold border border-green-100 italic text-center text-xl">"Your healing starts now."</div>
-                    <div id="chat-window" class="p-8 h-[450px] overflow-y-auto flex flex-col gap-5 bg-[#fbfbfd] rounded-[40px] border"></div>
+                <div id="success-step" class="hidden space-y-10">
+                    <div class="bg-green-50 text-green-600 p-10 rounded-[40px] font-bold border border-green-100 italic text-center text-2xl">"Your healing starts now."</div>
+                    <div id="chat-window"></div>
                     <div class="flex gap-4">
-                        <input id="chat-input" type="text" placeholder="Type message..." class="premium-input flex-1">
+                        <input id="chat-input-field" type="text" placeholder="Type message..." class="premium-input flex-1">
                         <button onclick="sendChatMessage()" class="cta-btn px-10"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
@@ -434,49 +425,43 @@
     </section>
 
     <!-- Image Gallery Modal -->
-    <div id="image-gallery-modal" class="modal">
-        <div class="modal-box">
+    <div id="image-gallery-modal" class="modal-overlay">
+        <div class="modal-content">
             <div class="flex justify-between items-center mb-10">
-                <div>
-                    <h3 class="text-3xl font-bold tracking-tight">Premium Image Library</h3>
-                    <p class="text-gray-400 text-sm mt-1">Curated for Nature, Anxiety, Career & Healing</p>
-                </div>
+                <h3 class="text-3xl font-bold">Premium Image Library</h3>
                 <button onclick="closeImageGallery()" class="text-4xl text-gray-300 hover:text-black">&times;</button>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="image-grid"></div>
+            <div class="gallery-grid" id="image-gallery-container"></div>
         </div>
     </div>
 
     <!-- Video Gallery Modal -->
-    <div id="video-gallery-modal" class="modal">
-        <div class="modal-box">
+    <div id="video-gallery-modal" class="modal-overlay">
+        <div class="modal-content">
             <div class="flex justify-between items-center mb-10">
-                <div>
-                    <h3 class="text-3xl font-bold tracking-tight">Cinematic Nature Videos</h3>
-                    <p class="text-gray-400 text-sm mt-1">Optimized for Hero Backgrounds</p>
-                </div>
+                <h3 class="text-3xl font-bold">Cinematic Nature Videos</h3>
                 <button onclick="closeVideoGallery()" class="text-4xl text-gray-300 hover:text-black">&times;</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="video-grid"></div>
+            <div class="gallery-grid" id="video-gallery-container"></div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="py-24 text-center bg-white border-t border-gray-100">
-        <div class="flex justify-center mb-8">
-            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm uppercase">NM</div>
+        <div class="flex justify-center mb-10">
+            <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-lg">NM</div>
         </div>
-        <h2 class="text-3xl font-bold tracking-tighter uppercase mb-6">Nexus Mind</h2>
-        <p class="text-sm text-gray-500 mb-10">Greater Noida, Uttar Pradesh, India</p>
+        <h2 class="text-4xl font-bold tracking-tighter uppercase mb-6">Nexus Mind</h2>
+        <p class="text-gray-500 mb-12">Greater Noida, Uttar Pradesh, India</p>
         
-        <div class="flex justify-center gap-10 mb-12">
-            <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <div class="flex justify-center gap-10 mb-16">
+            <a href="#" class="text-2xl text-gray-400 hover:text-pink-600 transition-colors"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-2xl text-gray-400 hover:text-blue-700 transition-colors"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-2xl text-gray-400 hover:text-red-600 transition-colors"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="text-2xl text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
         </div>
         
-        <p class="text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY.</p>
+        <p class="text-[11px] font-bold text-gray-300 tracking-[0.4em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -493,11 +478,10 @@
             messagingSenderId: "1902762667",
             appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // --- CURATED MEDIA DATA ---
+        // --- PREMIUM MEDIA DATA (20 IMAGES, 10 VIDEOS) ---
         const premiumImages = [
             { name: "Calm Forest", cat: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop" },
             { name: "Ocean Horizon", cat: "Nature", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop" },
@@ -522,53 +506,81 @@
         ];
 
         const cinematicVideos = [
-            { name: "Slow Ocean Waves", url: "https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-shore-at-sunset-4473-large.mp4" },
-            { name: "Sunlight Forest", url: "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" },
-            { name: "Moving Clouds", url: "https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-background-2408-large.mp4" },
-            { name: "Rain on Window", url: "https://assets.mixkit.co/videos/preview/mixkit-rain-drops-on-a-window-pane-1558-large.mp4" },
-            { name: "Starry Night", url: "https://assets.mixkit.co/videos/preview/mixkit-stars-in-the-night-sky-11640-large.mp4" },
-            { name: "Autumn Leaves", url: "https://assets.mixkit.co/videos/preview/mixkit-autumn-leaves-falling-from-trees-in-a-park-11634-large.mp4" },
+            { name: "Ocean Sunset", url: "https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-shore-at-sunset-4473-large.mp4" },
+            { name: "Forest Stream", url: "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" },
+            { name: "Mountain Clouds", url: "https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-background-2408-large.mp4" },
+            { name: "Rainy Window", url: "https://assets.mixkit.co/videos/preview/mixkit-rain-drops-on-a-window-pane-1558-large.mp4" },
+            { name: "Starry Sky", url: "https://assets.mixkit.co/videos/preview/mixkit-stars-in-the-night-sky-11640-large.mp4" },
+            { name: "Autumn Park", url: "https://assets.mixkit.co/videos/preview/mixkit-autumn-leaves-falling-from-trees-in-a-park-11634-large.mp4" },
             { name: "Snowy Peaks", url: "https://assets.mixkit.co/videos/preview/mixkit-snowy-mountain-peaks-under-a-blue-sky-42571-large.mp4" },
-            { name: "Desert Sunset", url: "https://assets.mixkit.co/videos/preview/mixkit-sun-setting-over-a-desert-landscape-42575-large.mp4" },
-            { name: "River Stream", url: "https://assets.mixkit.co/videos/preview/mixkit-river-water-flowing-over-rocks-42565-large.mp4" },
+            { name: "Desert Sun", url: "https://assets.mixkit.co/videos/preview/mixkit-sun-setting-over-a-desert-landscape-42575-large.mp4" },
+            { name: "River Flow", url: "https://assets.mixkit.co/videos/preview/mixkit-river-water-flowing-over-rocks-42565-large.mp4" },
             { name: "Aerial Forest", url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-dense-forest-42559-large.mp4" }
         ];
 
+        // --- CORE DATA STRUCTURES ---
         const counselingAreas = [
-            { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠" },
-            { key: "Relationship", label: "Relationship Issues", emoji: "❤️" },
-            { key: "Sleep", label: "Sleep Problems", emoji: "🌙" },
-            { key: "Trauma", label: "Trauma Support", emoji: "🛡️" },
-            { key: "Career", label: "Career Counseling", emoji: "💼" }
+            { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠", desc: "Finding stillness in a chaotic world." },
+            { key: "Relationship", label: "Relationship Issues", emoji: "❤️", desc: "Healing emotional bonds and trust." },
+            { key: "Sleep", label: "Sleep Problems", emoji: "🌙", desc: "Restorative techniques for deep sleep." },
+            { key: "Trauma", label: "Trauma Support", emoji: "🛡️", desc: "Safe space to process and heal past wounds." },
+            { key: "Career", label: "Career Counseling", emoji: "💼", desc: "Clarity and growth for your professional path." }
         ];
 
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
             waNum: "+917830232077",
             upiId: "7830232077@ptsbi",
             adminEmail: "thenexusstudy3@gmail.com",
-            customSections: [
-                { title: "Anxiety Care", description: "Finding stillness in a chaotic world", emoji: "🧠", image: "" },
-                { title: "Relationship Issues", description: "Healing emotional bonds", emoji: "❤️", image: "" },
-                { title: "Sleep Problems", description: "Restorative sleep techniques", emoji: "🌙", image: "" }
-            ],
             counselingDetails: {
-                Anxiety: { title: "Anxiety & Stress", contentBlocks: [{ type: "text", content: "What is it?\nAnxiety & Stress refer to persistent feelings of worry, fear, or tension that can affect your daily life." }, { type: "image", url: premiumImages[3].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Cognitive Behavioral Therapy (CBT)", "Mindfulness meditation", "Stress management coaching"] }] },
-                Relationship: { title: "Relationship Issues", contentBlocks: [{ type: "text", content: "What is it?\nRelationship Issues encompass difficulties in communication, trust, or intimacy." }, { type: "image", url: premiumImages[5].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Evidence-based couples counseling", "Effective communication skills", "Healing from past hurts"] }] },
-                Sleep: { title: "Sleep Problems", contentBlocks: [{ type: "text", content: "What is it?\nSleep Problems include insomnia or poor sleep quality." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["CBT for Insomnia (CBT-I)", "Relaxation techniques", "Sleep hygiene education"] }] },
-                Trauma: { title: "Trauma Support", contentBlocks: [{ type: "text", content: "What is it?\nTrauma Support is designed for individuals who have experienced distressing events." }, { type: "image", url: premiumImages[9].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Trauma-informed therapy", "EMDR techniques", "Building coping mechanisms"] }] },
-                Career: { title: "Career Counseling", contentBlocks: [{ type: "text", content: "What is it?\nCareer Counseling provides guidance for professional growth." }, { type: "image", url: premiumImages[11].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Personalized career assessment", "Resume building", "Work-life balance coaching"] }] }
+                Anxiety: { title: "Anxiety & Stress", contentBlocks: [{ type: "text", content: "Anxiety is more than just worry. It's a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[3].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
+                Relationship: { title: "Relationship Issues", contentBlocks: [{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[5].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Couples Counseling", "Conflict Resolution", "Intimacy Building"] }] },
+                Sleep: { title: "Sleep Problems", contentBlocks: [{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Sleep Hygiene Education", "CBT for Insomnia", "Relaxation Techniques"] }] },
+                Trauma: { title: "Trauma Support", contentBlocks: [{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety and power." }, { type: "image", url: premiumImages[9].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
+                Career: { title: "Career Counseling", contentBlocks: [{ type: "text", content: "Your career should be a source of fulfillment, not just a paycheck." }, { type: "image", url: premiumImages[11].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Career Path Assessment", "Burnout Prevention", "Professional Growth Coaching"] }] }
             }
         };
 
         let currentOTP = null;
         let currentBookingData = null;
 
-        // --- GLOBAL SYNC ENGINE ---
-        db.ref('globalHero').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) renderHero(data);
-            else renderHero({ type: 'image', img: premiumImages[0].url, vid: cinematicVideos[0].url, title: 'Reclaim Your\nInner Peace', subtitle: 'Personalized online counseling for mental wellness' });
-        });
+        // --- INITIALIZATION ---
+        function initApp() {
+            renderHomepageSections();
+            renderCounselingMenu();
+            emailjs.init("jH5TwO1sLcWFwHHzu");
+            
+            // Global Hero Sync
+            db.ref('globalHero').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) renderHero(data);
+                else renderHero({ type: 'image', img: premiumImages[0].url, title: "Reclaim Your\nInner Peace", subtitle: "Personalized online counseling for mental wellness" });
+            });
+        }
+
+        // --- UI RENDERING ---
+        function renderHomepageSections() {
+            const container = document.getElementById('homepage-sections-container');
+            container.innerHTML = counselingAreas.map(area => `
+                <section class="py-32 px-6 md:px-20 bg-white border-b border-gray-50">
+                    <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
+                        <div class="text-7xl mb-8">${area.emoji}</div>
+                        <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-6">${area.label}</h2>
+                        <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12">${area.desc}</p>
+                        <button onclick="openDetailPanel('${area.key}')" class="text-blue-600 font-bold hover:underline text-lg">Explore Our Approach ›</button>
+                    </div>
+                </section>
+            `).join('');
+        }
+
+        function renderCounselingMenu() {
+            const list = document.getElementById('menu-items-list');
+            list.innerHTML = counselingAreas.map(area => `
+                <div onclick="openDetailPanel('${area.key}')" class="apple-menu-item">
+                    <span>${area.label}</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            `).join('');
+        }
 
         function renderHero(data) {
             const vid = document.getElementById('hero-video-bg');
@@ -588,216 +600,236 @@
             document.getElementById('hero-subtitle').textContent = data.subtitle;
         }
 
-        function pushGlobalHeroUpdate() {
-            const data = {
-                type: document.getElementById('adm-hero-type').value,
-                img: document.getElementById('adm-hero-bg').value,
-                vid: document.getElementById('adm-hero-vid').value,
-                title: document.getElementById('adm-hero-title').value,
-                subtitle: document.getElementById('adm-hero-subtitle').value
-            };
-            db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
-        }
-
-        // --- CORE UI LOGIC ---
-        function initApp() {
-            renderCustomSections();
-            renderCounselingMenu();
-            (function() { emailjs.init("jH5TwO1sLcWFwHHzu"); })();
-        }
-
-        function renderCounselingMenu() {
-            const container = document.getElementById('menu-items-container');
-            container.innerHTML = '';
-            counselingAreas.forEach(area => {
-                container.innerHTML += `<div onclick="openCounselingDetail('${area.key}')" class="apple-menu-item"><span>${area.label}</span><span class="chevron">›</span></div>`;
-            });
-        }
-
-        function renderCustomSections() {
-            const container = document.getElementById('custom-sections');
-            container.innerHTML = '';
-            nexusConfig.customSections.forEach(section => {
-                container.innerHTML += `
-                    <section class="py-32 px-6 md:px-20 bg-white border-b border-gray-50">
-                        <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                            <div class="text-7xl mb-8">${section.emoji}</div>
-                            <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-6">${section.title}</h2>
-                            <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">${section.description}</p>
-                        </div>
-                    </section>`;
-            });
-        }
-
-        function openCounselingDetail(key) {
+        // --- DETAIL PANEL LOGIC ---
+        function openDetailPanel(key) {
             if(document.getElementById('counseling-menu').classList.contains('active')) toggleCounselingMenu();
             const detail = nexusConfig.counselingDetails[key];
             const area = counselingAreas.find(a => a.key === key);
+            
             document.getElementById('detail-emoji').textContent = area.emoji;
             document.getElementById('detail-title').textContent = detail.title;
-            const content = document.getElementById('detail-content');
-            content.innerHTML = '';
-            detail.contentBlocks.forEach(block => {
-                if (block.type === 'text') content.innerHTML += `<p class="reveal-block text-xl md:text-2xl leading-relaxed text-gray-600 mb-12">${block.content.replace(/\n/g, '<br>')}</p>`;
-                else if (block.type === 'image') content.innerHTML += `<div class="reveal-block mb-12"><img src="${block.url}" class="w-full rounded-[40px] shadow-2xl h-[500px] object-cover"></div>`;
-                else if (block.type === 'heading') content.innerHTML += `<h3 class="reveal-block text-3xl md:text-4xl font-bold mb-8">✨ ${block.content}</h3>`;
-                else if (block.type === 'list') {
-                    let listItems = block.items.map(i => `<li class="flex gap-4 mb-5 text-xl text-gray-600"><i class="fas fa-check-circle text-blue-500 mt-1"></i> ${i}</li>`).join('');
-                    content.innerHTML += `<ul class="reveal-block space-y-2 mb-12 bg-gray-50 p-10 rounded-[40px]">${listItems}</ul>`;
+            
+            const contentArea = document.getElementById('detail-content-area');
+            contentArea.innerHTML = detail.contentBlocks.map(block => {
+                if (block.type === 'text') return `<p class="reveal-block text-2xl md:text-3xl leading-relaxed text-gray-600">${block.content.replace(/\n/g, '<br>')}</p>`;
+                if (block.type === 'image') return `<div class="reveal-block"><img src="${block.url}" class="w-full rounded-[50px] shadow-2xl h-[600px] object-cover"></div>`;
+                if (block.type === 'heading') return `<h3 class="reveal-block text-4xl md:text-5xl font-bold">✨ ${block.content}</h3>`;
+                if (block.type === 'list') {
+                    const items = block.items.map(i => `<li class="flex gap-5 text-xl text-gray-600"><i class="fas fa-check-circle text-blue-500 mt-1"></i> ${i}</li>`).join('');
+                    return `<ul class="reveal-block space-y-6 bg-gray-50 p-12 rounded-[50px]">${items}</ul>`;
                 }
-            });
-            content.innerHTML += `<div class="reveal-block text-center mt-20 pt-10 border-t border-gray-100"><a href="#booking-section" onclick="closeCounselingDetail()" class="cta-btn px-16 py-6 text-base">Book Your Session Now</a></div>`;
-            document.getElementById('counseling-detail-panel').classList.add('active');
+                return '';
+            }).join('');
+            
+            document.getElementById('detail-panel').classList.add('active');
+            document.body.style.overflow = 'hidden';
             setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 100);
         }
 
-        function closeCounselingDetail() { document.getElementById('counseling-detail-panel').classList.remove('active'); }
+        function closeDetailPanel() {
+            document.getElementById('detail-panel').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
 
         // --- ADMIN ENGINE ---
-        function openAdmin() {
+        function openAdminPanel() {
             document.getElementById('admin-panel').classList.add('active');
+            // Pre-fill fields
             db.ref('globalHero').once('value', s => {
                 const d = s.val();
                 if(d) {
                     document.getElementById('adm-hero-type').value = d.type;
-                    document.getElementById('adm-hero-bg').value = d.img;
-                    document.getElementById('adm-hero-vid').value = d.vid;
+                    document.getElementById('adm-hero-img-url').value = d.img || '';
+                    document.getElementById('adm-hero-vid-url').value = d.vid || '';
                     document.getElementById('adm-hero-title').value = d.title;
                     document.getElementById('adm-hero-subtitle').value = d.subtitle;
-                    toggleHeroAdminFields();
+                    toggleHeroAdminUI();
                 }
             });
             document.getElementById('adm-wa-num').value = nexusConfig.waNum;
             document.getElementById('adm-upi-id').value = nexusConfig.upiId;
             document.getElementById('adm-admin-email').value = nexusConfig.adminEmail;
-            renderCounselingDetailsAdmin();
+            renderCounselingAdminEditor();
         }
 
-        function renderCounselingDetailsAdmin() {
-            const container = document.getElementById('counseling-details-admin-container');
-            container.innerHTML = '';
-            counselingAreas.forEach(area => {
+        function closeAdminPanel() { document.getElementById('admin-panel').classList.remove('active'); }
+
+        function toggleHeroAdminUI() {
+            const type = document.getElementById('adm-hero-type').value;
+            document.getElementById('adm-hero-image-ui').classList.toggle('hidden', type !== 'image');
+            document.getElementById('adm-hero-video-ui').classList.toggle('hidden', type !== 'video');
+        }
+
+        function renderCounselingAdminEditor() {
+            const container = document.getElementById('admin-counseling-editor');
+            container.innerHTML = counselingAreas.map(area => {
                 const detail = nexusConfig.counselingDetails[area.key];
-                let blocksHtml = detail.contentBlocks.map((b, i) => `
-                    <div class="bg-white p-4 rounded-2xl mb-3 border border-gray-100">
+                const blocksHtml = detail.contentBlocks.map((b, i) => `
+                    <div class="bg-gray-50 p-4 rounded-xl mb-3 border border-gray-100">
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-[10px] font-bold text-blue-500 uppercase">${b.type}</span>
-                            <button onclick="removeContentBlock('${area.key}', ${i})" class="text-red-400"><i class="fas fa-trash-alt"></i></button>
+                            <button onclick="removeAdminBlock('${area.key}', ${i})" class="text-red-400 text-xs"><i class="fas fa-trash"></i></button>
                         </div>
-                        <textarea class="apple-input text-xs h-20" onchange="updateContentBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
-                    </div>`).join('');
-                container.innerHTML += `<div class="apple-card"><h5 class="font-bold mb-4">${area.label}</h5>${blocksHtml}<button onclick="addContentBlock('${area.key}', 'text')" class="text-blue-600 text-xs font-bold">+ Add Block</button></div>`;
-            });
+                        <textarea class="premium-input text-xs h-20" onchange="updateAdminBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                    </div>
+                `).join('');
+                return `
+                    <div class="admin-card">
+                        <h5 class="font-bold mb-4">${area.label}</h5>
+                        ${blocksHtml}
+                        <div class="flex gap-2 mt-4">
+                            <button onclick="addAdminBlock('${area.key}', 'text')" class="text-[10px] font-bold bg-white border px-3 py-2 rounded-lg">+ Text</button>
+                            <button onclick="addAdminBlock('${area.key}', 'image')" class="text-[10px] font-bold bg-white border px-3 py-2 rounded-lg">+ Image</button>
+                            <button onclick="addAdminBlock('${area.key}', 'list')" class="text-[10px] font-bold bg-white border px-3 py-2 rounded-lg">+ List</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        function addContentBlock(key, type) { nexusConfig.counselingDetails[key].contentBlocks.push({type, content: "New Content"}); renderCounselingDetailsAdmin(); }
-        function removeContentBlock(key, i) { nexusConfig.counselingDetails[key].contentBlocks.splice(i, 1); renderCounselingDetailsAdmin(); }
-        function updateContentBlock(key, i, val) { 
+        function addAdminBlock(key, type) {
+            const block = { type };
+            if(type === 'list') block.items = ["New Item"];
+            else if(type === 'image') block.url = premiumImages[0].url;
+            else block.content = "New Content";
+            nexusConfig.counselingDetails[key].contentBlocks.push(block);
+            renderCounselingAdminEditor();
+        }
+
+        function removeAdminBlock(key, i) {
+            nexusConfig.counselingDetails[key].contentBlocks.splice(i, 1);
+            renderCounselingAdminEditor();
+        }
+
+        function updateAdminBlock(key, i, val) {
             const block = nexusConfig.counselingDetails[key].contentBlocks[i];
             if(block.type === 'list') block.items = val.split('\n').filter(s => s.trim());
             else if(block.type === 'image') block.url = val;
             else block.content = val;
         }
 
-        function saveLocalSettings() {
+        function pushHeroUpdate() {
+            const data = {
+                type: document.getElementById('adm-hero-type').value,
+                img: document.getElementById('adm-hero-img-url').value,
+                vid: document.getElementById('adm-hero-vid-url').value,
+                title: document.getElementById('adm-hero-title').value,
+                subtitle: document.getElementById('adm-hero-subtitle').value
+            };
+            db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
+        }
+
+        function saveGlobalSettings() {
             nexusConfig.waNum = document.getElementById('adm-wa-num').value;
             nexusConfig.upiId = document.getElementById('adm-upi-id').value;
             nexusConfig.adminEmail = document.getElementById('adm-admin-email').value;
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            alert("Local Settings Saved!");
+            alert("Settings Saved Locally!");
         }
 
-        function handleLocalUpload(e, type) {
+        // --- AUTH LOGIC ---
+        function requestAdminOTP() {
+            currentOTP = Math.floor(100000 + Math.random() * 900000);
+            emailjs.send("service_w0vxgvf", "template_tt1b26p", { 
+                to_email: document.getElementById('admin-email-field').value, 
+                otp: currentOTP 
+            }).then(() => {
+                document.getElementById('otp-verification-box').classList.remove('hidden');
+                alert("OTP Sent to Email!");
+            });
+        }
+
+        function verifyAdminOTP() {
+            const val = document.getElementById('admin-otp-field').value;
+            if(val == currentOTP || val == '123456') {
+                document.getElementById('admin-auth-section').classList.add('hidden');
+                document.getElementById('admin-main-controls').classList.remove('hidden');
+            } else alert("Invalid Code");
+        }
+
+        function logoutAdmin() { location.reload(); }
+
+        // --- GALLERY LOGIC ---
+        function openImageGallery() {
+            const container = document.getElementById('image-gallery-container');
+            container.innerHTML = premiumImages.map(img => `
+                <div class="gallery-item" onclick="selectGalleryImage('${img.url}')">
+                    <img src="${img.url}" loading="lazy">
+                    <div class="label">${img.cat}: ${img.name}</div>
+                </div>
+            `).join('');
+            document.getElementById('image-gallery-modal').style.display = 'flex';
+        }
+
+        function openVideoGallery() {
+            const container = document.getElementById('video-gallery-container');
+            container.innerHTML = cinematicVideos.map(vid => `
+                <div class="gallery-item" onclick="selectGalleryVideo('${vid.url}')">
+                    <video muted loop onmouseover="this.play()" onmouseout="this.pause()">
+                        <source src="${vid.url}" type="video/mp4">
+                    </video>
+                    <div class="label">${vid.name}</div>
+                </div>
+            `).join('');
+            document.getElementById('video-gallery-modal').style.display = 'flex';
+        }
+
+        function selectGalleryImage(url) { document.getElementById('adm-hero-img-url').value = url; closeImageGallery(); }
+        function selectGalleryVideo(url) { document.getElementById('adm-hero-vid-url').value = url; closeVideoGallery(); }
+        function closeImageGallery() { document.getElementById('image-gallery-modal').style.display = 'none'; }
+        function closeVideoGallery() { document.getElementById('video-gallery-modal').style.display = 'none'; }
+
+        function handleFileUpload(e, type) {
             const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (event) => {
-                if(type === 'image') document.getElementById('adm-hero-bg').value = event.target.result;
-                else document.getElementById('adm-hero-vid').value = event.target.result;
+                if(type === 'image') document.getElementById('adm-hero-img-url').value = event.target.result;
+                else document.getElementById('adm-hero-vid-url').value = event.target.result;
                 alert("File Loaded! Click Update to Sync.");
             };
             reader.readAsDataURL(file);
         }
 
-        // --- GALLERY LOGIC ---
-        function openImageGallery() {
-            const grid = document.getElementById('image-grid');
-            grid.innerHTML = '';
-            premiumImages.forEach(img => {
-                grid.innerHTML += `
-                    <div class="gallery-item" onclick="selectGalleryImage('${img.url}')">
-                        <img src="${img.url}" loading="lazy">
-                        <div class="gallery-label">${img.cat}: ${img.name}</div>
-                    </div>`;
-            });
-            document.getElementById('image-gallery-modal').style.display = 'flex';
-        }
-        function closeImageGallery() { document.getElementById('image-gallery-modal').style.display = 'none'; }
-        function selectGalleryImage(url) { document.getElementById('adm-hero-bg').value = url; closeImageGallery(); }
-
-        function openVideoGallery() {
-            const grid = document.getElementById('video-grid');
-            grid.innerHTML = '';
-            cinematicVideos.forEach(v => {
-                grid.innerHTML += `
-                    <div class="gallery-item" onclick="selectGalleryVideo('${v.url}')">
-                        <video muted loop onmouseover="this.play()" onmouseout="this.pause()">
-                            <source src="${v.url}" type="video/mp4">
-                        </video>
-                        <div class="gallery-label">${v.name}</div>
-                    </div>`;
-            });
-            document.getElementById('video-gallery-modal').style.display = 'flex';
-        }
-        function closeVideoGallery() { document.getElementById('video-gallery-modal').style.display = 'none'; }
-        function selectGalleryVideo(url) { document.getElementById('adm-hero-vid').value = url; closeVideoGallery(); }
-
         // --- BOOKING & CHAT ---
         function handleBookingSubmit() {
-            currentBookingData = { name: document.getElementById('p_name').value, fee: document.getElementById('p_type').value, counseling: document.getElementById('p_counseling_type').value };
-            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=Nexus Mind&am=${currentBookingData.fee}&cu=INR`;
-            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
-            document.getElementById('p-upi-text').textContent = nexusConfig.upiId;
-            document.getElementById('p-form').classList.add('hidden');
-            document.getElementById('p-payment').classList.remove('hidden');
+            currentBookingData = { 
+                name: document.getElementById('p_name').value, 
+                fee: document.getElementById('p_consult_type').value, 
+                type: document.getElementById('p_counseling_type').value 
+            };
+            const upiUrl = `upi://pay?pa=${nexusConfig.upiId}&pn=NexusMind&am=${currentBookingData.fee}&cu=INR`;
+            document.getElementById('payment-qr-code').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('display-upi-id').textContent = nexusConfig.upiId;
+            document.getElementById('booking-form').classList.add('hidden');
+            document.getElementById('payment-step').classList.remove('hidden');
         }
 
-        function unlockSession() {
-            if(document.getElementById('p_utr').value.length === 12) {
-                document.getElementById('p-payment').classList.add('hidden');
-                document.getElementById('p-success').classList.remove('hidden');
-                document.getElementById('chat-window').innerHTML = `<div class="flex justify-start"><div class="bg-white p-5 rounded-3xl rounded-tl-none shadow-sm border border-gray-100 max-w-[80%] text-gray-700">Hello <b>${currentBookingData.name}</b>! 👋<br><br>Your payment for <b>${currentBookingData.counseling}</b> has been verified. How are you feeling today?</div></div>`;
-            } else alert("Enter 12-digit UTR");
+        function verifyBookingPayment() {
+            if(document.getElementById('p_utr_id').value.length === 12) {
+                document.getElementById('payment-step').classList.add('hidden');
+                document.getElementById('success-step').classList.remove('hidden');
+                document.getElementById('chat-window').innerHTML = `
+                    <div class="msg bot">
+                        Hello <b>${currentBookingData.name}</b>! 👋<br><br>
+                        Your payment for <b>${currentBookingData.type}</b> has been verified. 
+                        Our specialist will join this secure chat shortly. How are you feeling right now?
+                    </div>
+                `;
+            } else alert("Please enter a valid 12-digit UTR ID");
         }
 
         function sendChatMessage() {
-            const input = document.getElementById('chat-input');
+            const input = document.getElementById('chat-input-field');
             if(!input.value.trim()) return;
             const win = document.getElementById('chat-window');
-            win.innerHTML += `<div class="flex justify-end"><div class="bg-blue-600 text-white p-5 rounded-3xl rounded-tr-none shadow-md max-w-[80%]">${input.value}</div></div>`;
+            win.innerHTML += `<div class="msg user">${input.value}</div>`;
             input.value = '';
             win.scrollTop = win.scrollHeight;
         }
 
-        // --- UTILS ---
         function toggleCounselingMenu() { document.getElementById('counseling-menu').classList.toggle('active'); }
-        function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
-        function toggleHeroAdminFields() {
-            const type = document.getElementById('adm-hero-type').value;
-            document.getElementById('adm-hero-img-box').classList.toggle('hidden', type !== 'image');
-            document.getElementById('adm-hero-vid-box').classList.toggle('hidden', type !== 'video');
-        }
-        function sendAdminOTP() {
-            currentOTP = Math.floor(100000 + Math.random() * 900000);
-            emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: document.getElementById('admin-email-input').value, otp: currentOTP })
-                .then(() => { document.getElementById('admin-login').classList.add('hidden'); document.getElementById('admin-login-step2').classList.remove('hidden'); });
-        }
-        function verifyAdminOTP() {
-            const val = document.getElementById('admin-otp-input').value;
-            if(val == currentOTP || val == '123456') { document.getElementById('admin-login-step2').classList.add('hidden'); document.getElementById('admin-controls').classList.remove('hidden'); }
-            else alert("Invalid Code");
-        }
-        function logoutAdmin() { document.getElementById('admin-controls').classList.add('hidden'); document.getElementById('admin-login').classList.remove('hidden'); }
-        
+        function toggleMenu() { toggleCounselingMenu(); }
+
         window.onload = initApp;
     </script>
 </body>
