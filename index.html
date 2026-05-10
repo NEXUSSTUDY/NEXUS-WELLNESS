@@ -65,6 +65,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-top: 0;
         }
         .hero-overlay { 
             position: absolute; 
@@ -245,9 +246,9 @@
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden" onchange="handleLocalUpload(event, 'video')">
 
     <!-- Navigation -->
-    <nav class="fixed w-full glass-nav px-6 md:px-20 flex justify-between items-center">
+    <nav class="glass-nav px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-10">
-            <button onclick="toggleMenu()" class="text-3xl text-gray-800 hover:text-black transition-all active:scale-90">
+            <button onclick="toggleMenu()" class="text-3xl text-gray-700 hover:text-black transition-all active:scale-90">
                 <i class="fas fa-bars-staggered"></i>
             </button>
             <div class="flex items-center gap-4 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -271,7 +272,7 @@
                 <button onclick="toggleMenu()" class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-3xl">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-4">
-                <!-- Dynamic Menu Items Populated by JS -->
+                <!-- Dynamic Menu Items -->
             </div>
             <div class="mt-40 pt-14 border-t border-gray-200">
                 <p class="admin-label mb-12">Connect With Us</p>
@@ -533,16 +534,31 @@
 
         let currentOTP = null;
 
-        // --- CORE LOGIC ---
+        // --- FIREBASE CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
+            authDomain: "nexus-mind-41ffc.firebaseapp.com",
+            projectId: "nexus-mind-41ffc",
+            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
+            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
+            messagingSenderId: "1902762667",
+            appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // --- CORE FUNCTIONS ---
         function initApp() {
             renderHome();
             renderMenu();
             emailjs.init("jH5TwO1sLcWFwHHzu");
             
+            // Fail-safe Hero
+            updateHero({ type: 'image', img: premiumImages[0].url, title: "Reclaim Your\nInner Peace", subtitle: "Premium online counseling for mental excellence" });
+
             db.ref('globalHero').on('value', (snap) => {
                 const data = snap.val();
                 if(data) updateHero(data);
-                else updateHero({ type: 'image', img: premiumImages[0].url, title: "Reclaim Your\nInner Peace", subtitle: "Premium online counseling for mental excellence" });
             });
         }
 
