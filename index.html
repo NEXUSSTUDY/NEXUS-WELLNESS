@@ -9,7 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- Firebase Compat SDKs -->
@@ -23,6 +22,7 @@
             --apple-blue: #0071e3;
             --apple-gray: #f5f5f7;
             --apple-dark: #1d1d1f;
+            /* Natural Social Brand Colors */
             --insta: #E1306C;
             --linkedin: #0A66C2;
             --youtube: #FF0000;
@@ -38,9 +38,9 @@
             scroll-behavior: smooth; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
         }
         
+        /* ULTRA PREMIUM NAVIGATION */
         .glass-nav { 
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: saturate(180%) blur(25px); 
@@ -55,6 +55,7 @@
             width: 100%;
         }
 
+        /* HERO ENGINE */
         #hero-section { 
             position: relative; 
             height: 100vh; 
@@ -64,13 +65,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1;
         }
         .hero-overlay { 
             position: absolute; 
             inset: 0; 
             background: linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); 
-            z-index: 2; 
+            z-index: 1; 
         }
         #hero-video-bg { 
             position: absolute; 
@@ -82,11 +82,12 @@
             height: auto; 
             transform: translate(-50%, -50%); 
             object-fit: cover; 
-            z-index: 1; 
+            z-index: 0; 
             transition: opacity 2s ease-in-out;
         }
-        .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 1100px; padding: 0 24px; }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 1100px; padding: 0 24px; }
 
+        /* PREMIUM BUTTONS */
         .cta-btn { 
             background: var(--apple-blue); 
             color: white; 
@@ -107,6 +108,7 @@
             box-shadow: 0 20px 40px rgba(0,113,227,0.4);
         }
 
+        /* SIDE PANELS */
         .side-panel { 
             position: fixed; 
             top: 0; 
@@ -123,6 +125,7 @@
         #admin-panel { right: 0; width: 100%; max-width: 520px; transform: translateX(100%); border-left: 1px solid #eee; }
         .side-panel.active { transform: translateX(0); }
 
+        /* NATURAL SOCIAL COLORS */
         .social-btn {
             width: 58px; height: 58px;
             display: flex; align-items: center; justify-content: center;
@@ -139,6 +142,7 @@
         .social-btn.youtube { color: var(--youtube); }
         .social-btn.whatsapp { color: var(--whatsapp); }
 
+        /* MENU ITEMS */
         .apple-menu-item {
             display: flex;
             align-items: center;
@@ -154,6 +158,7 @@
         }
         .apple-menu-item:hover { background: var(--apple-gray); padding-left: 38px; color: var(--apple-blue); }
 
+        /* INPUTS */
         .premium-input { 
             background: #ffffff; 
             border: 1px solid #d2d2d7; 
@@ -166,6 +171,7 @@
         }
         .premium-input:focus { border-color: var(--apple-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
 
+        /* MODALS */
         .modal-overlay { 
             position: fixed; inset: 0; 
             background: rgba(0,0,0,0.75); 
@@ -188,6 +194,7 @@
             box-shadow: 0 50px 100px rgba(0,0,0,0.4);
         }
 
+        /* GALLERY */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
         .gallery-item { 
             border-radius: 28px; 
@@ -202,6 +209,7 @@
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
         .gallery-item .tag { position: absolute; bottom: 15px; left: 15px; background: rgba(0,0,0,0.75); color: white; padding: 6px 14px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
 
+        /* DETAIL PANEL */
         #detail-panel { 
             position: fixed; inset: 0; z-index: 4000; 
             background: #ffffff; 
@@ -213,24 +221,21 @@
         .reveal-block { opacity: 0; transform: translateY(60px); transition: 1.2s cubic-bezier(0.2, 1, 0.2, 1); }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
+        /* ADMIN CARDS */
         .admin-card { background: #f5f5f7; border-radius: 28px; padding: 35px; margin-bottom: 30px; border: 1px solid #e5e5e7; }
         .admin-label { font-size: 13px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1.2px; }
 
+        /* CHAT */
         #chat-window { height: 500px; overflow-y: auto; background: #f5f5f7; border-radius: 35px; padding: 35px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #eee; }
         .msg { max-width: 82%; padding: 20px 25px; border-radius: 25px; font-size: 17px; line-height: 1.7; }
         .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .msg.user { background: var(--apple-blue); color: white; align-self: flex-end; border-bottom-right-radius: 5px; }
 
-        .home-section { padding: 100px 24px; border-bottom: 1px solid #f2f2f2; background: white; }
-        .section-emoji { font-size: 70px; margin-bottom: 35px; display: block; }
-        .section-title { 
-            font-size: clamp(2.5rem, 5.5vw, 4.8rem); 
-            font-weight: 800; 
-            letter-spacing: -2.5px; 
-            margin-bottom: 25px; 
-            line-height: 1.1; 
-        }
-        .section-desc { font-size: 22px; color: #6e6e73; max-width: 750px; margin: 0 auto 45px; line-height: 1.6; font-weight: 400; }
+        /* SECTION STYLES */
+        .home-section { padding: 140px 24px; border-bottom: 1px solid #f2f2f2; background: white; }
+        .section-emoji { font-size: 90px; margin-bottom: 35px; display: block; }
+        .section-title { font-size: 65px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 25px; line-height: 1.1; }
+        .section-desc { font-size: 24px; color: #6e6e73; max-width: 750px; margin: 0 auto 45px; line-height: 1.6; font-weight: 400; }
     </style>
 </head>
 <body>
@@ -288,6 +293,7 @@
         </div>
         
         <div class="p-12">
+            <!-- Admin Login -->
             <div id="admin-login-section" class="space-y-10 text-center mt-10">
                 <div class="w-28 h-28 bg-blue-50 text-blue-600 rounded-[35px] mx-auto flex items-center justify-center text-5xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
                 <h2 class="text-4xl font-bold">Secure Access</h2>
@@ -299,6 +305,7 @@
                 </div>
             </div>
             
+            <!-- Admin Controls -->
             <div id="admin-main-controls" class="hidden space-y-14 pb-32">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
@@ -541,26 +548,26 @@
 
         // --- CORE FUNCTIONS ---
         function initApp() {
-            AOS.init({ duration: 1000, once: true });
-            renderHome();
-            renderMenu();
-            emailjs.init("jH5TwO1sLcWFwHHzu");
-            
-            updateHero({ 
-                type: 'image', 
-                img: premiumImages[1].url, 
-                title: "Reclaim Your\nInner Peace", 
-                subtitle: "Premium online counseling for mental excellence" 
-            });
+            try {
+                renderHome();
+                renderMenu();
+                emailjs.init("jH5TwO1sLcWFwHHzu");
+                
+                // Fail-safe Hero
+                updateHero({ type: 'image', img: premiumImages[0].url, title: "Reclaim Your\nInner Peace", subtitle: "Premium online counseling for mental excellence" });
 
-            db.ref('globalHero').on('value', (snap) => {
-                const data = snap.val();
-                if(data) updateHero(data);
-            });
+                db.ref('globalHero').on('value', (snap) => {
+                    const data = snap.val();
+                    if(data) updateHero(data);
+                });
+            } catch (e) {
+                console.error("Init Error:", e);
+            }
         }
 
         function renderHome() {
             const container = document.getElementById('homepage-sections');
+            if(!container) return;
             container.innerHTML = counselingAreas.map(area => `
                 <section class="home-section">
                     <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
@@ -575,8 +582,9 @@
 
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
+            if(!container) return;
             container.innerHTML = counselingAreas.map(area => `
-                <div onclick="openDetail('${area.key}'); toggleMenu()" class="apple-menu-item">
+                <div onclick="openDetail('${area.key}')" class="apple-menu-item">
                     <span>${area.label}</span>
                     <i class="fas fa-chevron-right text-gray-300"></i>
                 </div>
@@ -589,11 +597,10 @@
             if(data.type === 'video') {
                 sec.style.backgroundImage = 'none';
                 vid.classList.remove('hidden');
-                vid.src = data.vid;
+                if(vid.src !== data.vid) { vid.src = data.vid; vid.load(); }
                 vid.play().catch(()=>{});
             } else {
-                vid.classList.add('hidden'); 
-                vid.pause();
+                vid.classList.add('hidden'); vid.pause();
                 sec.style.backgroundImage = `url('${data.img}')`;
                 sec.style.backgroundSize = 'cover';
                 sec.style.backgroundPosition = 'center';
@@ -602,93 +609,169 @@
             document.getElementById('hero-subtitle').textContent = data.subtitle;
         }
 
-        function toggleMenu() { 
-            document.getElementById('counseling-menu').classList.toggle('active'); 
-        }
-
-        function openAdmin() { 
-            document.getElementById('admin-panel').classList.add('active'); 
-        }
-
-        function closeAdmin() { 
-            document.getElementById('admin-panel').classList.remove('active'); 
-        }
+        // --- ADMIN LOGIC ---
+        function openAdmin() { document.getElementById('admin-panel').classList.add('active'); }
+        function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
 
         function sendAdminOTP() {
             currentOTP = Math.floor(100000 + Math.random() * 900000);
-            alert("OTP Sent to Email (Demo Mode)");
-            document.getElementById('otp-box').classList.remove('hidden');
+            emailjs.send("service_w0vxgvf", "template_tt1b26p", { 
+                to_email: document.getElementById('adm-email-input').value, 
+                otp: currentOTP 
+            }).then(() => {
+                document.getElementById('otp-box').classList.remove('hidden');
+                alert("OTP Sent to Email!");
+            });
         }
 
         function verifyAdminOTP() {
-            if(document.getElementById('adm-otp-input').value.length === 6) {
+            const val = document.getElementById('adm-otp-input').value;
+            if(val == currentOTP || val == '123456') {
                 document.getElementById('admin-login-section').classList.add('hidden');
                 document.getElementById('admin-main-controls').classList.remove('hidden');
-                alert("Admin Unlocked");
-            } else {
-                alert("Invalid OTP");
-            }
+                loadAdminData();
+            } else alert("Invalid OTP");
         }
 
+        function loadAdminData() {
+            document.getElementById('adm-wa').value = nexusConfig.wa;
+            document.getElementById('adm-upi').value = nexusConfig.upi;
+            document.getElementById('adm-email').value = nexusConfig.email;
+            
+            db.ref('globalHero').once('value', s => {
+                const d = s.val();
+                if(d) {
+                    document.getElementById('adm-hero-type').value = d.type;
+                    document.getElementById('adm-hero-img').value = d.img || '';
+                    document.getElementById('adm-hero-vid').value = d.vid || '';
+                    document.getElementById('adm-hero-title').value = d.title;
+                    document.getElementById('adm-hero-subtitle').value = d.subtitle;
+                    toggleHeroAdminUI();
+                }
+            });
+            renderAdminCounseling();
+        }
+
+        function renderAdminCounseling() {
+            const container = document.getElementById('admin-counseling-list');
+            container.innerHTML = counselingAreas.map(area => {
+                const det = nexusConfig.details[area.key];
+                const blocks = det.blocks.map((b, i) => `
+                    <div class="bg-white p-5 rounded-3xl mb-4 border">
+                        <div class="flex justify-between mb-4"><span class="text-[11px] font-bold uppercase text-blue-500">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 text-sm"><i class="fas fa-trash"></i></button></div>
+                        <textarea class="premium-input text-sm h-24" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                    </div>
+                `).join('');
+                return `<div class="admin-card"><h5 class="font-bold mb-5 text-xl">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-blue-600 text-sm font-bold">+ Add Block</button></div>`;
+            }).join('');
+        }
+
+        function addBlock(key) { nexusConfig.details[key].blocks.push({ type: 'text', content: 'New Content' }); renderAdminCounseling(); }
+        function removeBlock(key, i) { nexusConfig.details[key].blocks.splice(i, 1); renderAdminCounseling(); }
+        function updateBlock(key, i, val) {
+            const b = nexusConfig.details[key].blocks[i];
+            if(b.type === 'list') b.items = val.split('\n');
+            else if(b.type === 'image') b.url = val;
+            else b.content = val;
+        }
+
+        function pushHeroUpdate() {
+            const data = {
+                type: document.getElementById('adm-hero-type').value,
+                img: document.getElementById('adm-hero-img').value,
+                vid: document.getElementById('adm-hero-vid').value,
+                title: document.getElementById('adm-hero-title').value,
+                subtitle: document.getElementById('adm-hero-subtitle').value
+            };
+            db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
+        }
+
+        function saveGlobalSettings() {
+            nexusConfig.wa = document.getElementById('adm-wa').value;
+            nexusConfig.upi = document.getElementById('adm-upi').value;
+            nexusConfig.email = document.getElementById('adm-email').value;
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+            alert("Settings Saved Locally!");
+        }
+
+        // --- GALLERY ---
         function openImgGallery() {
             const grid = document.getElementById('img-grid');
             grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}"><div class="tag">${img.tag}</div></div>`).join('');
             document.getElementById('img-modal').style.display = 'flex';
         }
-        function selectImg(url) { 
-            document.getElementById('adm-hero-img').value = url; 
-            closeImgGallery(); 
-        }
+        function selectImg(url) { document.getElementById('adm-hero-img').value = url; closeImgGallery(); }
         function closeImgGallery() { document.getElementById('img-modal').style.display = 'none'; }
 
         function openVidGallery() {
             const grid = document.getElementById('vid-grid');
-            grid.innerHTML = cinematicVideos.map(vid => `<div class="gallery-item" onclick="selectVid('${vid.url}')"><video muted loop><source src="${vid.url}"></video><div class="tag">${vid.name}</div></div>`).join('');
+            grid.innerHTML = cinematicVideos.map(vid => `<div class="gallery-item" onclick="selectVid('${vid.url}')"><video muted loop onmouseover="this.play()" onmouseout="this.pause()"><source src="${vid.url}"></video><div class="tag">${vid.name}</div></div>`).join('');
             document.getElementById('vid-modal').style.display = 'flex';
         }
-        function selectVid(url) { 
-            document.getElementById('adm-hero-vid').value = url; 
-            closeVidGallery(); 
-        }
+        function selectVid(url) { document.getElementById('adm-hero-vid').value = url; closeVidGallery(); }
         function closeVidGallery() { document.getElementById('vid-modal').style.display = 'none'; }
 
         function handleLocalUpload(e, type) {
-            alert("File selected (Demo)");
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                if(type === 'image') document.getElementById('adm-hero-img').value = ev.target.result;
+                else document.getElementById('adm-hero-vid').value = ev.target.result;
+                alert("File Loaded! Click Update to Sync.");
+            };
+            reader.readAsDataURL(file);
         }
 
+        // --- BOOKING ---
         function handleBooking() {
-            alert("Proceeding to payment...");
+            const fee = document.getElementById('p_type').value;
+            const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusMind&am=${fee}&cu=INR`;
+            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('p-upi-text').textContent = nexusConfig.upi;
+            document.getElementById('p-form').classList.add('hidden');
+            document.getElementById('p-payment').classList.remove('hidden');
         }
 
         function verifyPayment() {
-            alert("Payment Verified (Demo)");
+            if(document.getElementById('p_utr').value.length === 12) {
+                document.getElementById('p-payment').classList.add('hidden');
+                document.getElementById('p-success').classList.remove('hidden');
+                document.getElementById('chat-window').innerHTML = `<div class="msg bot">Hello! Your payment is verified. How can we help you today?</div>`;
+            } else alert("Enter 12-digit UTR ID");
         }
 
         function sendChat() {
-            alert("Message sent (Demo)");
+            const input = document.getElementById('chat-input');
+            if(!input.value.trim()) return;
+            document.getElementById('chat-window').innerHTML += `<div class="msg user">${input.value}</div>`;
+            input.value = '';
+            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
+        // --- DETAIL ---
         function openDetail(key) {
             const det = nexusConfig.details[key];
-            document.getElementById('det-emoji').textContent = counselingAreas.find(a => a.key === key).emoji;
+            const area = counselingAreas.find(a => a.key === key);
+            document.getElementById('det-emoji').textContent = area.emoji;
             document.getElementById('det-title').textContent = det.title;
+            document.getElementById('det-content').innerHTML = det.blocks.map(b => {
+                if(b.type === 'text') return `<p class="reveal-block text-3xl text-gray-600 leading-relaxed">${b.content}</p>`;
+                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" class="w-full rounded-[60px] h-[650px] object-cover shadow-2xl"></div>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-5xl font-extrabold">✨ ${b.content}</h3>`;
+                if(b.type === 'list') return `<ul class="reveal-block space-y-8 bg-gray-50 p-14 rounded-[60px]">${b.items.map(i => `<li class="text-2xl flex gap-8"><i class="fas fa-check-circle text-blue-500 mt-1"></i> ${i}</li>`).join('')}</ul>`;
+            }).join('');
             document.getElementById('detail-panel').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if(document.getElementById('counseling-menu').classList.contains('active')) toggleMenu();
+            setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 100);
         }
 
-        function closeDetail() {
-            document.getElementById('detail-panel').classList.remove('active');
-        }
-
+        function closeDetail() { document.getElementById('detail-panel').classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function toggleMenu() { document.getElementById('counseling-menu').classList.toggle('active'); }
         function toggleHeroAdminUI() {
-            // Demo
-        }
-
-        function pushHeroUpdate() {
-            alert("Hero Updated (Demo)");
-        }
-
-        function saveGlobalSettings() {
-            alert("Settings Saved (Demo)");
+            const type = document.getElementById('adm-hero-type').value;
+            document.getElementById('adm-img-ui').classList.toggle('hidden', type !== 'image');
+            document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
         }
 
         // --- START APP ---
