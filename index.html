@@ -22,11 +22,13 @@
             --apple-blue: #0071e3;
             --apple-gray: #f5f5f7;
             --apple-dark: #1d1d1f;
-            --insta-color: #E1306C;
-            --linkedin-color: #0A66C2;
-            --youtube-color: #FF0000;
-            --whatsapp-color: #25D366;
+            --insta: #E1306C;
+            --linkedin: #0A66C2;
+            --youtube: #FF0000;
+            --whatsapp: #25D366;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
@@ -39,11 +41,14 @@
         
         /* ULTRA PREMIUM NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: saturate(180%) blur(20px); 
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: saturate(180%) blur(25px); 
+            -webkit-backdrop-filter: saturate(180%) blur(25px);
             border-bottom: 1px solid rgba(0,0,0,0.05); 
             z-index: 1000; 
+            height: 80px;
+            display: flex;
+            align-items: center;
         }
 
         /* HERO ENGINE */
@@ -60,7 +65,7 @@
         .hero-overlay { 
             position: absolute; 
             inset: 0; 
-            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3), rgba(0,0,0,0.7)); 
+            background: linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); 
             z-index: 1; 
         }
         #hero-video-bg { 
@@ -74,9 +79,9 @@
             transform: translate(-50%, -50%); 
             object-fit: cover; 
             z-index: 0; 
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 2s ease-in-out;
         }
-        .hero-content { position: relative; z-index: 2; text-align: center; color: white; }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 1000px; padding: 0 20px; }
 
         /* PREMIUM BUTTONS */
         .cta-btn { 
@@ -84,18 +89,19 @@
             color: white; 
             border-radius: 999px; 
             font-weight: 600; 
-            font-size: 16px; 
-            padding: 18px 36px; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 17px; 
+            padding: 20px 40px; 
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
             box-shadow: 0 10px 30px rgba(0,113,227,0.3);
             cursor: pointer;
             border: none;
             display: inline-block;
+            text-decoration: none;
         }
         .cta-btn:hover { 
             background: #0077ed; 
-            transform: scale(1.03) translateY(-3px); 
-            box-shadow: 0 15px 40px rgba(0,113,227,0.4);
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(0,113,227,0.4);
         }
 
         /* SIDE PANELS */
@@ -103,67 +109,69 @@
             position: fixed; 
             top: 0; 
             height: 100vh; 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: saturate(180%) blur(30px); 
-            -webkit-backdrop-filter: saturate(180%) blur(30px); 
+            background: rgba(255, 255, 255, 0.98); 
+            backdrop-filter: saturate(180%) blur(40px); 
+            -webkit-backdrop-filter: saturate(180%) blur(40px); 
             z-index: 3000; 
-            transition: transform 0.6s cubic-bezier(0.1, 0.9, 0.2, 1); 
-            box-shadow: 0 0 80px rgba(0,0,0,0.1); 
+            transition: transform 0.7s cubic-bezier(0.1, 0.9, 0.2, 1); 
+            box-shadow: 0 0 100px rgba(0,0,0,0.1); 
             overflow-y: auto; 
         }
-        #counseling-menu { left: 0; width: 100%; max-width: 400px; transform: translateX(-100%); }
-        #admin-panel { right: 0; width: 100%; max-width: 480px; transform: translateX(100%); }
+        #counseling-menu { left: 0; width: 100%; max-width: 420px; transform: translateX(-100%); border-right: 1px solid #eee; }
+        #admin-panel { right: 0; width: 100%; max-width: 500px; transform: translateX(100%); border-left: 1px solid #eee; }
         .side-panel.active { transform: translateX(0); }
 
         /* NATURAL SOCIAL COLORS */
         .social-btn {
-            width: 54px; height: 54px;
+            width: 56px; height: 56px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
             background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.4s;
-            font-size: 22px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 24px;
+            text-decoration: none;
         }
-        .social-btn:hover { transform: translateY(-8px) scale(1.1); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
-        .social-btn.insta { color: var(--insta-color); }
-        .social-btn.linkedin { color: var(--linkedin-color); }
-        .social-btn.youtube { color: var(--youtube-color); }
-        .social-btn.whatsapp { color: var(--whatsapp-color); }
+        .social-btn:hover { transform: translateY(-10px) scale(1.15); box-shadow: 0 20px 35px rgba(0,0,0,0.15); }
+        .social-btn.insta { color: var(--insta); }
+        .social-btn.linkedin { color: var(--linkedin); }
+        .social-btn.youtube { color: var(--youtube); }
+        .social-btn.whatsapp { color: var(--whatsapp); }
 
         /* MENU ITEMS */
         .apple-menu-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 22px 24px;
-            border-radius: 18px;
-            margin-bottom: 6px;
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 8px;
             transition: all 0.3s;
             cursor: pointer;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 19px;
             color: var(--apple-dark);
         }
-        .apple-menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 30px; }
+        .apple-menu-item:hover { background: var(--apple-gray); padding-left: 35px; color: var(--apple-blue); }
 
         /* INPUTS */
         .premium-input { 
             background: #ffffff; 
             border: 1px solid #d2d2d7; 
-            border-radius: 14px; 
-            padding: 16px 20px; 
+            border-radius: 16px; 
+            padding: 18px 24px; 
             width: 100%; 
             font-size: 16px;
             transition: all 0.3s; 
+            color: var(--apple-dark);
         }
         .premium-input:focus { border-color: var(--apple-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
 
         /* MODALS */
         .modal-overlay { 
             position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(15px); 
+            background: rgba(0,0,0,0.7); 
+            backdrop-filter: blur(20px); 
             z-index: 5000; 
             display: none; 
             align-items: center; 
@@ -172,29 +180,30 @@
         }
         .modal-content { 
             background: white; 
-            border-radius: 32px; 
+            border-radius: 40px; 
             width: 100%; 
-            max-width: 1000px; 
+            max-width: 1100px; 
             max-height: 85vh; 
             overflow-y: auto; 
-            padding: 40px; 
+            padding: 50px; 
             position: relative;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
         }
 
         /* GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         .gallery-item { 
-            border-radius: 16px; 
+            border-radius: 24px; 
             overflow: hidden; 
             cursor: pointer; 
             aspect-ratio: 16/9; 
             position: relative; 
-            border: 3px solid transparent;
-            transition: 0.3s;
+            border: 4px solid transparent;
+            transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
         }
-        .gallery-item:hover { border-color: var(--apple-blue); transform: scale(1.02); }
+        .gallery-item:hover { border-color: var(--apple-blue); transform: scale(1.05); z-index: 10; }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.6); color: white; padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 800; text-transform: uppercase; }
+        .gallery-item .tag { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; padding: 5px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
 
         /* DETAIL PANEL */
         #detail-panel { 
@@ -202,20 +211,27 @@
             background: #ffffff; 
             display: none; 
             overflow-y: auto; 
+            padding-bottom: 100px;
         }
         #detail-panel.active { display: block; }
-        .reveal-block { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.2, 1, 0.2, 1); }
+        .reveal-block { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.2, 1, 0.2, 1); }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
         /* ADMIN CARDS */
-        .admin-card { background: #f5f5f7; border-radius: 20px; padding: 24px; margin-bottom: 20px; }
-        .admin-label { font-size: 11px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .admin-card { background: #f5f5f7; border-radius: 24px; padding: 30px; margin-bottom: 25px; border: 1px solid #e5e5e7; }
+        .admin-label { font-size: 12px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
 
         /* CHAT */
-        #chat-window { height: 400px; overflow-y: auto; background: #fbfbfd; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #eee; }
-        .msg { max-width: 80%; padding: 14px 18px; border-radius: 18px; font-size: 15px; }
-        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        #chat-window { height: 450px; overflow-y: auto; background: #f5f5f7; border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #eee; }
+        .msg { max-width: 80%; padding: 18px 22px; border-radius: 22px; font-size: 16px; line-height: 1.6; }
+        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .msg.user { background: var(--apple-blue); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+        /* SECTION STYLES */
+        .home-section { padding: 120px 20px; border-bottom: 1px solid #f0f0f0; }
+        .section-emoji { font-size: 80px; margin-bottom: 30px; display: block; }
+        .section-title { font-size: 60px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
+        .section-desc { font-size: 22px; color: #6e6e73; max-width: 700px; margin: 0 auto 40px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -225,17 +241,19 @@
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden" onchange="handleLocalUpload(event, 'video')">
 
     <!-- Navigation -->
-    <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
-        <div class="flex items-center gap-6">
-            <button onclick="toggleMenu()" class="text-2xl text-gray-700 hover:text-black transition-all"><i class="fas fa-bars-staggered"></i></button>
+    <nav class="fixed w-full glass-nav px-6 md:px-20 flex justify-between items-center">
+        <div class="flex items-center gap-8">
+            <button onclick="toggleMenu()" class="text-2xl text-gray-800 hover:text-black transition-all active:scale-90">
+                <i class="fas fa-bars-staggered"></i>
+            </button>
             <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm">NM</div>
-                <span class="text-xl font-bold tracking-tighter uppercase hidden md:block">Nexus Mind</span>
+                <div class="w-11 h-11 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm">NM</div>
+                <span class="text-2xl font-bold tracking-tighter uppercase hidden md:block">Nexus Mind</span>
             </div>
         </div>
-        <div class="flex items-center gap-5">
-            <a href="#booking-section" class="cta-btn px-8 py-3 text-[13px]">Book Session</a>
-            <button onclick="openAdmin()" class="w-11 h-11 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all">
+        <div class="flex items-center gap-6">
+            <a href="#booking-section" class="cta-btn px-8 py-3 text-[14px] shadow-none">Book Session</a>
+            <button onclick="openAdmin()" class="w-12 h-12 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all flex items-center justify-center">
                 <i class="fas fa-user-shield"></i>
             </button>
         </div>
@@ -243,15 +261,17 @@
 
     <!-- Counseling Menu -->
     <div id="counseling-menu" class="side-panel">
-        <div class="p-10">
-            <div class="flex justify-between items-center mb-12">
-                <h3 class="text-3xl font-bold">Counseling</h3>
-                <button onclick="toggleMenu()" class="text-3xl">&times;</button>
+        <div class="p-12">
+            <div class="flex justify-between items-center mb-16">
+                <h3 class="text-4xl font-bold tracking-tight">Counseling</h3>
+                <button onclick="toggleMenu()" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl">&times;</button>
             </div>
-            <div id="menu-items-container" class="space-y-2"></div>
-            <div class="mt-24 pt-10 border-t border-gray-200">
-                <p class="admin-label mb-8">Connect With Us</p>
-                <div class="flex gap-5">
+            <div id="menu-items-container" class="space-y-3">
+                <!-- Dynamic Menu Items -->
+            </div>
+            <div class="mt-32 pt-12 border-t border-gray-200">
+                <p class="admin-label mb-10">Connect With Us</p>
+                <div class="flex gap-6">
                     <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
                     <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
@@ -263,64 +283,66 @@
 
     <!-- Admin Panel -->
     <div id="admin-panel" class="side-panel">
-        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-8 py-6 flex justify-between items-center">
-            <h3 class="font-bold text-xl">Admin Control</h3>
-            <button onclick="closeAdmin()" class="text-2xl">&times;</button>
+        <div class="sticky top-0 z-10 bg-white/90 backdrop-blur-xl border-b border-gray-100 px-10 py-8 flex justify-between items-center">
+            <h3 class="font-bold text-2xl">Admin Control</h3>
+            <button onclick="closeAdmin()" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-2xl">&times;</button>
         </div>
         
-        <div class="p-8">
+        <div class="p-10">
             <!-- Admin Login -->
-            <div id="admin-login-section" class="space-y-6 text-center mt-10">
-                <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl mx-auto flex items-center justify-center text-3xl"><i class="fas fa-shield-alt"></i></div>
-                <h2 class="text-2xl font-bold">Secure Access</h2>
+            <div id="admin-login-section" class="space-y-8 text-center mt-10">
+                <div class="w-24 h-24 bg-blue-50 text-blue-600 rounded-[30px] mx-auto flex items-center justify-center text-4xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
+                <h2 class="text-3xl font-bold">Secure Access</h2>
                 <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center">
-                <button onclick="sendAdminOTP()" class="cta-btn w-full">Send Access Code</button>
-                <div id="otp-box" class="hidden space-y-6 pt-6 border-t border-gray-100">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-3xl tracking-[0.5em] font-mono">
-                    <button onclick="verifyAdminOTP()" class="cta-btn w-full bg-black">Verify & Unlock</button>
+                <button onclick="sendAdminOTP()" class="cta-btn w-full py-5">Send Access Code</button>
+                <div id="otp-box" class="hidden space-y-8 pt-8 border-t border-gray-100">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-4xl tracking-[0.5em] font-mono">
+                    <button onclick="verifyAdminOTP()" class="cta-btn w-full bg-black py-5">Verify & Unlock</button>
                 </div>
             </div>
             
             <!-- Admin Controls -->
-            <div id="admin-main-controls" class="hidden space-y-10 pb-20">
+            <div id="admin-main-controls" class="hidden space-y-12 pb-24">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
-                    <select id="adm-hero-type" class="premium-input mb-4" onchange="toggleHeroAdminUI()">
+                    <select id="adm-hero-type" class="premium-input mb-6" onchange="toggleHeroAdminUI()">
                         <option value="image">Static Image</option>
                         <option value="video">Background Video</option>
                     </select>
                     
                     <div id="adm-img-ui">
-                        <div class="flex gap-2 mb-2">
+                        <div class="flex gap-3 mb-3">
                             <input id="adm-hero-img" class="premium-input flex-1" placeholder="Image URL">
-                            <button onclick="document.getElementById('local-img-upload').click()" class="bg-white p-4 rounded-xl border"><i class="fas fa-upload"></i></button>
+                            <button onclick="document.getElementById('local-img-upload').click()" class="bg-white p-5 rounded-2xl border hover:bg-gray-50"><i class="fas fa-upload"></i></button>
                         </div>
-                        <button onclick="openImgGallery()" class="text-blue-600 text-xs font-bold mb-6 block">Browse 20 Premium Photos</button>
+                        <button onclick="openImgGallery()" class="text-blue-600 text-sm font-bold mb-8 block hover:underline">Browse 20 Premium Photos</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
-                        <div class="flex gap-2 mb-2">
+                        <div class="flex gap-3 mb-3">
                             <input id="adm-hero-vid" class="premium-input flex-1" placeholder="Video URL">
-                            <button onclick="document.getElementById('local-vid-upload').click()" class="bg-white p-4 rounded-xl border"><i class="fas fa-upload"></i></button>
+                            <button onclick="document.getElementById('local-vid-upload').click()" class="bg-white p-5 rounded-2xl border hover:bg-gray-50"><i class="fas fa-upload"></i></button>
                         </div>
-                        <button onclick="openVidGallery()" class="text-blue-600 text-xs font-bold mb-6 block">Browse 10 Cinematic Videos</button>
+                        <button onclick="openVidGallery()" class="text-blue-600 text-sm font-bold mb-8 block hover:underline">Browse 10 Cinematic Videos</button>
                     </div>
 
-                    <textarea id="adm-hero-title" class="premium-input h-24 mb-4" placeholder="Hero Title"></textarea>
-                    <input id="adm-hero-subtitle" class="premium-input mb-8" placeholder="Hero Subtitle">
-                    <button onclick="pushHeroUpdate()" class="cta-btn w-full bg-black">Update Global Hero</button>
+                    <label class="admin-label">Hero Title</label>
+                    <textarea id="adm-hero-title" class="premium-input h-28 mb-6" placeholder="Hero Title"></textarea>
+                    <label class="admin-label">Hero Subtitle</label>
+                    <input id="adm-hero-subtitle" class="premium-input mb-10" placeholder="Hero Subtitle">
+                    <button onclick="pushHeroUpdate()" class="cta-btn w-full bg-black py-5">Update Global Hero</button>
                 </div>
 
-                <div id="admin-counseling-list" class="space-y-6"></div>
+                <div id="admin-counseling-list" class="space-y-8"></div>
 
                 <div class="admin-card">
                     <h4 class="admin-label">Global Settings</h4>
-                    <input id="adm-wa" class="premium-input mb-3" placeholder="WhatsApp (+91...)">
-                    <input id="adm-upi" class="premium-input mb-3" placeholder="UPI ID">
-                    <input id="adm-email" class="premium-input mb-6" placeholder="Admin Email">
-                    <button onclick="saveGlobalSettings()" class="cta-btn w-full">Save Settings</button>
+                    <input id="adm-wa" class="premium-input mb-4" placeholder="WhatsApp (+91...)">
+                    <input id="adm-upi" class="premium-input mb-4" placeholder="UPI ID">
+                    <input id="adm-email" class="premium-input mb-8" placeholder="Admin Email">
+                    <button onclick="saveGlobalSettings()" class="cta-btn w-full py-5">Save Settings</button>
                 </div>
-                <button onclick="location.reload()" class="w-full text-red-500 font-bold text-sm py-4">Lock Admin Panel</button>
+                <button onclick="location.reload()" class="w-full text-red-500 font-bold text-sm py-6 hover:bg-red-50 rounded-2xl transition-all">Lock Admin Panel</button>
             </div>
         </div>
     </div>
@@ -329,11 +351,12 @@
     <section id="hero-section">
         <div class="hero-overlay"></div>
         <video id="hero-video-bg" autoplay muted loop playsinline class="hidden"></video>
-        <div data-aos="fade-up" class="hero-content px-6">
-            <h1 id="hero-title" class="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8"></h1>
-            <p id="hero-subtitle" class="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto font-medium"></p>
-            <a href="#booking-section" class="cta-btn px-12 py-5">Start Your Journey</a>
+        <div data-aos="fade-up" class="hero-content">
+            <h1 id="hero-title" class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] mb-10"></h1>
+            <p id="hero-subtitle" class="text-xl md:text-3xl text-white/90 mb-16 max-w-3xl mx-auto font-medium"></p>
+            <a href="#booking-section" class="cta-btn">Start Your Journey</a>
         </div>
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-white/30 text-3xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
     <!-- Homepage Sections -->
@@ -341,35 +364,35 @@
 
     <!-- Detail Panel -->
     <div id="detail-panel">
-        <div class="max-w-5xl mx-auto px-6 py-32">
-            <div class="flex justify-between items-center mb-20">
-                <div class="flex items-center gap-6">
-                    <span id="det-emoji" class="text-7xl"></span>
-                    <h1 id="det-title" class="text-5xl md:text-7xl font-bold tracking-tight"></h1>
+        <div class="max-w-6xl mx-auto px-8 py-32">
+            <div class="flex justify-between items-center mb-24">
+                <div class="flex items-center gap-8">
+                    <span id="det-emoji" class="text-8xl"></span>
+                    <h1 id="det-title" class="text-6xl md:text-8xl font-extrabold tracking-tighter"></h1>
                 </div>
-                <button onclick="closeDetail()" class="text-5xl">&times;</button>
+                <button onclick="closeDetail()" class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-5xl hover:bg-black hover:text-white transition-all">&times;</button>
             </div>
-            <div id="det-content" class="space-y-16"></div>
-            <div class="mt-32 text-center reveal-block">
-                <a href="#booking-section" onclick="closeDetail()" class="cta-btn px-20 py-6 text-lg">Book Your Session Now</a>
+            <div id="det-content" class="space-y-20"></div>
+            <div class="mt-40 text-center reveal-block">
+                <a href="#booking-section" onclick="closeDetail()" class="cta-btn px-24 py-7 text-xl">Book Your Session Now</a>
             </div>
         </div>
     </div>
 
     <!-- Booking Section -->
-    <section id="booking-section" class="py-32 px-6 md:px-20 bg-[#fbfbfd]">
-        <div class="max-w-5xl mx-auto bg-white p-10 md:p-24 rounded-[60px] border border-gray-100 shadow-2xl" data-aos="zoom-in">
+    <section id="booking-section" class="py-40 px-6 md:px-20 bg-[#fbfbfd]">
+        <div class="max-w-5xl mx-auto bg-white p-12 md:p-24 rounded-[70px] border border-gray-100 shadow-2xl" data-aos="zoom-in">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-8" onsubmit="event.preventDefault(); handleBooking();">
-                    <div class="text-center mb-16">
-                        <h2 class="text-5xl font-bold tracking-tighter mb-4">Schedule Session</h2>
-                        <p class="text-gray-500 text-lg">Take the first step towards a healthier mind.</p>
+                <form id="p-form" class="space-y-10" onsubmit="event.preventDefault(); handleBooking();">
+                    <div class="text-center mb-20">
+                        <h2 class="text-6xl font-extrabold tracking-tighter mb-6">Schedule Session</h2>
+                        <p class="text-gray-500 text-xl">Take the first step towards a healthier mind.</p>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
+                    <div class="grid md:grid-cols-2 gap-10">
                         <input type="text" id="p_name" placeholder="Full Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email Address" class="premium-input" required>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
+                    <div class="grid md:grid-cols-2 gap-10">
                         <input type="tel" id="p_wa" value="+91" class="premium-input" required>
                         <select id="p_counseling" class="premium-input" required>
                             <option value="Anxiety">Anxiety & Stress</option>
@@ -383,25 +406,27 @@
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-44" required></textarea>
-                    <button type="submit" class="cta-btn w-full py-6 text-lg">Proceed to Secure Payment</button>
+                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-52" required></textarea>
+                    <button type="submit" class="cta-btn w-full py-7 text-xl">Proceed to Secure Payment</button>
                 </form>
 
-                <div id="p-payment" class="hidden text-center space-y-12 py-10">
-                    <div class="max-w-sm mx-auto bg-white p-10 rounded-[50px] shadow-2xl border border-gray-50">
-                        <img id="p-qr" src="" class="w-full rounded-3xl">
-                        <p id="p-upi-text" class="mt-8 text-blue-600 font-bold text-lg"></p>
+                <div id="p-payment" class="hidden text-center space-y-16 py-10">
+                    <div class="max-w-sm mx-auto bg-white p-12 rounded-[60px] shadow-2xl border border-gray-50">
+                        <img id="p-qr" src="" class="w-full rounded-[40px] border-8 border-gray-50">
+                        <p id="p-upi-text" class="mt-10 text-blue-600 font-bold text-xl tracking-wider"></p>
                     </div>
-                    <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-widest text-2xl">
-                    <button onclick="verifyPayment()" class="cta-btn w-full py-6">Verify & Start Session</button>
+                    <div class="max-w-md mx-auto space-y-8">
+                        <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-[0.3em] text-3xl">
+                        <button onclick="verifyPayment()" class="cta-btn w-full py-7 text-xl">Verify & Start Session</button>
+                    </div>
                 </div>
 
-                <div id="p-success" class="hidden space-y-10">
-                    <div class="bg-green-50 text-green-600 p-10 rounded-[40px] font-bold text-center text-2xl">"Your healing starts now."</div>
+                <div id="p-success" class="hidden space-y-12">
+                    <div class="bg-green-50 text-green-600 p-12 rounded-[50px] font-bold text-center text-3xl border border-green-100">"Your healing starts now."</div>
                     <div id="chat-window"></div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-6">
                         <input id="chat-input" type="text" placeholder="Type message..." class="premium-input flex-1">
-                        <button onclick="sendChat()" class="cta-btn px-10"><i class="fas fa-paper-plane"></i></button>
+                        <button onclick="sendChat()" class="cta-btn px-12"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
@@ -411,9 +436,9 @@
     <!-- Gallery Modals -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-3xl font-bold">Premium Image Library</h3>
-                <button onclick="closeImgGallery()" class="text-4xl">&times;</button>
+            <div class="flex justify-between items-center mb-12">
+                <h3 class="text-4xl font-bold">Premium Image Library</h3>
+                <button onclick="closeImgGallery()" class="text-5xl text-gray-300 hover:text-black">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
@@ -421,26 +446,26 @@
 
     <div id="vid-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-3xl font-bold">Cinematic Video Library</h3>
-                <button onclick="closeVidGallery()" class="text-4xl">&times;</button>
+            <div class="flex justify-between items-center mb-12">
+                <h3 class="text-4xl font-bold">Cinematic Video Library</h3>
+                <button onclick="closeVidGallery()" class="text-5xl text-gray-300 hover:text-black">&times;</button>
             </div>
             <div class="gallery-grid" id="vid-grid"></div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="py-24 text-center bg-white border-t border-gray-100">
-        <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-lg mx-auto mb-10">NM</div>
-        <h2 class="text-4xl font-bold tracking-tighter uppercase mb-6">Nexus Mind</h2>
-        <p class="text-gray-500 mb-12">Greater Noida, Uttar Pradesh, India</p>
-        <div class="flex justify-center gap-8 mb-16">
+    <footer class="py-32 text-center bg-white border-t border-gray-100">
+        <div class="w-16 h-16 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-xl mx-auto mb-12">NM</div>
+        <h2 class="text-5xl font-extrabold tracking-tighter uppercase mb-8">Nexus Mind</h2>
+        <p class="text-gray-500 text-lg mb-16">Greater Noida, Uttar Pradesh, India</p>
+        <div class="flex justify-center gap-10 mb-20">
             <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
             <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
             <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p class="text-[11px] font-bold text-gray-300 tracking-[0.4em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY.</p>
+        <p class="text-[12px] font-bold text-gray-300 tracking-[0.5em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
     </footer>
 
     <script>
@@ -459,7 +484,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // --- MEDIA DATA ---
+        // --- MEDIA DATA (20 IMAGES, 10 VIDEOS) ---
         const premiumImages = [
             { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" },
@@ -509,11 +534,11 @@
             upi: "7830232077@ptsbi",
             email: "thenexusstudy3@gmail.com",
             details: {
-                Anxiety: { title: "Anxiety & Stress", blocks: [{ type: "text", content: "Anxiety is a persistent state of tension." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Solutions" }, { type: "list", items: ["CBT", "Mindfulness", "Breathing"] }] },
-                Relationship: { title: "Relationship Issues", blocks: [{ type: "text", content: "Healing bonds requires trust." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Solutions" }, { type: "list", items: ["Couples Therapy", "Communication", "Trust Building"] }] },
-                Sleep: { title: "Sleep Problems", blocks: [{ type: "text", content: "Sleep is the foundation of health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Solutions" }, { type: "list", items: ["Sleep Hygiene", "Relaxation", "CBT-I"] }] },
-                Trauma: { title: "Trauma Support", blocks: [{ type: "text", content: "Healing from the past is possible." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Solutions" }, { type: "list", items: ["EMDR", "Safe Space", "Processing"] }] },
-                Career: { title: "Career Counseling", blocks: [{ type: "text", content: "Find your professional purpose." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Solutions" }, { type: "list", items: ["Assessment", "Growth", "Balance"] }] }
+                Anxiety: { title: "Anxiety & Stress", blocks: [{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
+                Relationship: { title: "Relationship Issues", blocks: [{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
+                Sleep: { title: "Sleep Problems", blocks: [{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
+                Trauma: { title: "Trauma Support", blocks: [{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
+                Career: { title: "Career Counseling", blocks: [{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
             }
         };
 
@@ -535,12 +560,12 @@
         function renderHome() {
             const container = document.getElementById('homepage-sections');
             container.innerHTML = counselingAreas.map(area => `
-                <section class="py-32 px-6 md:px-20 bg-white border-b border-gray-50">
+                <section class="home-section bg-white">
                     <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                        <div class="text-7xl mb-8">${area.emoji}</div>
-                        <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-6">${area.label}</h2>
-                        <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12">${area.desc}</p>
-                        <button onclick="openDetail('${area.key}')" class="text-blue-600 font-bold hover:underline text-lg">Explore Our Approach ›</button>
+                        <span class="section-emoji">${area.emoji}</span>
+                        <h2 class="section-title">${area.label}</h2>
+                        <p class="section-desc">${area.desc}</p>
+                        <button onclick="openDetail('${area.key}')" class="text-blue-600 font-bold hover:underline text-xl">Explore Our Approach ›</button>
                     </div>
                 </section>
             `).join('');
@@ -584,7 +609,7 @@
                 otp: currentOTP 
             }).then(() => {
                 document.getElementById('otp-box').classList.remove('hidden');
-                alert("OTP Sent!");
+                alert("OTP Sent to Email!");
             });
         }
 
@@ -621,12 +646,12 @@
             container.innerHTML = counselingAreas.map(area => {
                 const det = nexusConfig.details[area.key];
                 const blocks = det.blocks.map((b, i) => `
-                    <div class="bg-white p-3 rounded-xl mb-2 border">
-                        <div class="flex justify-between mb-2"><span class="text-[9px] font-bold uppercase">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 text-xs">&times;</button></div>
-                        <textarea class="premium-input text-xs h-16" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                    <div class="bg-white p-4 rounded-2xl mb-3 border">
+                        <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-blue-500">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 text-xs"><i class="fas fa-trash"></i></button></div>
+                        <textarea class="premium-input text-xs h-20" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
                     </div>
                 `).join('');
-                return `<div class="admin-card"><h5 class="font-bold mb-3">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-blue-600 text-xs font-bold">+ Add Block</button></div>`;
+                return `<div class="admin-card"><h5 class="font-bold mb-4">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-blue-600 text-xs font-bold">+ Add Block</button></div>`;
             }).join('');
         }
 
@@ -655,7 +680,7 @@
             nexusConfig.upi = document.getElementById('adm-upi').value;
             nexusConfig.email = document.getElementById('adm-email').value;
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            alert("Settings Saved!");
+            alert("Settings Saved Locally!");
         }
 
         // --- GALLERY ---
@@ -681,7 +706,7 @@
             reader.onload = (ev) => {
                 if(type === 'image') document.getElementById('adm-hero-img').value = ev.target.result;
                 else document.getElementById('adm-hero-vid').value = ev.target.result;
-                alert("File Loaded!");
+                alert("File Loaded! Click Update to Sync.");
             };
             reader.readAsDataURL(file);
         }
@@ -690,7 +715,7 @@
         function handleBooking() {
             const fee = document.getElementById('p_type').value;
             const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusMind&am=${fee}&cu=INR`;
-            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').textContent = nexusConfig.upi;
             document.getElementById('p-form').classList.add('hidden');
             document.getElementById('p-payment').classList.remove('hidden');
@@ -701,7 +726,7 @@
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
                 document.getElementById('chat-window').innerHTML = `<div class="msg bot">Hello! Your payment is verified. How can we help you today?</div>`;
-            } else alert("Enter 12-digit UTR");
+            } else alert("Enter 12-digit UTR ID");
         }
 
         function sendChat() {
@@ -709,6 +734,7 @@
             if(!input.value.trim()) return;
             document.getElementById('chat-window').innerHTML += `<div class="msg user">${input.value}</div>`;
             input.value = '';
+            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
         // --- DETAIL ---
@@ -718,17 +744,18 @@
             document.getElementById('det-emoji').textContent = area.emoji;
             document.getElementById('det-title').textContent = det.title;
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
-                if(b.type === 'text') return `<p class="reveal-block text-2xl text-gray-600">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" class="w-full rounded-[40px] h-[500px] object-cover shadow-2xl"></div>`;
-                if(b.type === 'heading') return `<h3 class="reveal-block text-4xl font-bold">✨ ${b.content}</h3>`;
-                if(b.type === 'list') return `<ul class="reveal-block space-y-4 bg-gray-50 p-10 rounded-[40px]">${b.items.map(i => `<li class="text-xl flex gap-4"><i class="fas fa-check text-blue-500"></i> ${i}</li>`).join('')}</ul>`;
+                if(b.type === 'text') return `<p class="reveal-block text-3xl text-gray-600 leading-relaxed">${b.content}</p>`;
+                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" class="w-full rounded-[50px] h-[600px] object-cover shadow-2xl"></div>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-5xl font-extrabold">✨ ${b.content}</h3>`;
+                if(b.type === 'list') return `<ul class="reveal-block space-y-6 bg-gray-50 p-12 rounded-[50px]">${b.items.map(i => `<li class="text-2xl flex gap-6"><i class="fas fa-check-circle text-blue-500 mt-1"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
             document.getElementById('detail-panel').classList.add('active');
+            document.body.style.overflow = 'hidden';
             if(document.getElementById('counseling-menu').classList.contains('active')) toggleMenu();
             setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 100);
         }
 
-        function closeDetail() { document.getElementById('detail-panel').classList.remove('active'); }
+        function closeDetail() { document.getElementById('detail-panel').classList.remove('active'); document.body.style.overflow = 'auto'; }
         function toggleMenu() { document.getElementById('counseling-menu').classList.toggle('active'); }
         function toggleHeroAdminUI() {
             const type = document.getElementById('adm-hero-type').value;
