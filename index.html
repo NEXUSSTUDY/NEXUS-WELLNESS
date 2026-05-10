@@ -22,7 +22,7 @@
             --apple-blue: #0071e3;
             --apple-gray: #f5f5f7;
             --apple-dark: #1d1d1f;
-            /* Natural Social Colors */
+            /* Natural Social Brand Colors */
             --insta: #E1306C;
             --linkedin: #0A66C2;
             --youtube: #FF0000;
@@ -42,7 +42,7 @@
         
         /* ULTRA PREMIUM NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.82); 
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: saturate(180%) blur(25px); 
             -webkit-backdrop-filter: saturate(180%) blur(25px);
             border-bottom: 1px solid rgba(0,0,0,0.05); 
@@ -50,7 +50,9 @@
             height: 85px;
             display: flex;
             align-items: center;
-            transition: all 0.4s ease;
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
 
         /* HERO ENGINE */
@@ -243,7 +245,7 @@
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden" onchange="handleLocalUpload(event, 'video')">
 
     <!-- Navigation -->
-    <nav class="fixed w-full glass-nav px-6 md:px-20 flex justify-between items-center">
+    <nav class="glass-nav px-6 md:px-20 flex justify-between items-center">
         <div class="flex items-center gap-10">
             <button onclick="toggleMenu()" class="text-3xl text-gray-800 hover:text-black transition-all active:scale-90">
                 <i class="fas fa-bars-staggered"></i>
@@ -269,7 +271,7 @@
                 <button onclick="toggleMenu()" class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-3xl">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-4">
-                <!-- Dynamic Menu Items -->
+                <!-- Dynamic Menu Items Populated by JS -->
             </div>
             <div class="mt-40 pt-14 border-t border-gray-200">
                 <p class="admin-label mb-12">Connect With Us</p>
@@ -361,7 +363,7 @@
         <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-white/30 text-4xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Homepage Sections -->
+    <!-- Homepage Sections Container -->
     <div id="homepage-sections"></div>
 
     <!-- Detail Panel -->
@@ -471,26 +473,7 @@
     </footer>
 
     <script>
-        // --- INITIALIZATION ---
-        window.onload = function() {
-            AOS.init({ duration: 1000, once: true });
-            initApp();
-        };
-
-        // --- FIREBASE CONFIG ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
-            authDomain: "nexus-mind-41ffc.firebaseapp.com",
-            projectId: "nexus-mind-41ffc",
-            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
-            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
-            messagingSenderId: "1902762667",
-            appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // --- MEDIA DATA ---
+        // --- GLOBAL DATA ---
         const premiumImages = [
             { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" },
@@ -550,7 +533,20 @@
 
         let currentOTP = null;
 
-        // --- CORE LOGIC ---
+        // --- FIREBASE CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
+            authDomain: "nexus-mind-41ffc.firebaseapp.com",
+            projectId: "nexus-mind-41ffc",
+            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
+            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
+            messagingSenderId: "1902762667",
+            appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // --- CORE FUNCTIONS ---
         function initApp() {
             renderHome();
             renderMenu();
@@ -565,6 +561,7 @@
 
         function renderHome() {
             const container = document.getElementById('homepage-sections');
+            if(!container) return;
             container.innerHTML = counselingAreas.map(area => `
                 <section class="home-section bg-white">
                     <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
@@ -578,7 +575,9 @@
         }
 
         function renderMenu() {
-            document.getElementById('menu-items-container').innerHTML = counselingAreas.map(area => `
+            const container = document.getElementById('menu-items-container');
+            if(!container) return;
+            container.innerHTML = counselingAreas.map(area => `
                 <div onclick="openDetail('${area.key}')" class="apple-menu-item">
                     <span>${area.label}</span>
                     <i class="fas fa-chevron-right text-gray-300"></i>
@@ -768,6 +767,9 @@
             document.getElementById('adm-img-ui').classList.toggle('hidden', type !== 'image');
             document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
         }
+
+        // --- START APP ---
+        initApp();
     </script>
 </body>
 </html>
