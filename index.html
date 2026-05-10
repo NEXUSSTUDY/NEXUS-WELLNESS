@@ -533,20 +533,7 @@
 
         let currentOTP = null;
 
-        // --- FIREBASE CONFIG ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
-            authDomain: "nexus-mind-41ffc.firebaseapp.com",
-            projectId: "nexus-mind-41ffc",
-            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
-            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
-            messagingSenderId: "1902762667",
-            appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // --- CORE FUNCTIONS ---
+        // --- CORE LOGIC ---
         function initApp() {
             renderHome();
             renderMenu();
@@ -769,7 +756,7 @@
         }
 
         // --- START APP ---
-        initApp();
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
