@@ -22,11 +22,7 @@
                     colors: {
                         appleBlue: '#0071e3',
                         appleGray: '#f5f5f7',
-                        appleDark: '#1d1d1f',
-                        brandInsta: '#E1306C',
-                        brandLinkedin: '#0A66C2',
-                        brandYoutube: '#FF0000',
-                        brandWhatsapp: '#25D366',
+                        appleDark: '#1d1d1f'
                     }
                 }
             }
@@ -36,22 +32,43 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
+        :root {
+            --apple-blue: #0071e3;
+            --apple-gray: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --insta: #E1306C;
+            --linkedin: #0A66C2;
+            --youtube: #FF0000;
+            --whatsapp: #25D366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
             background-color: #ffffff; 
-            color: #1d1d1f; 
+            color: var(--apple-dark); 
             scroll-behavior: smooth; 
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
         
+        /* ULTRA PREMIUM NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: saturate(180%) blur(20px); 
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: saturate(180%) blur(25px); 
+            -webkit-backdrop-filter: saturate(180%) blur(25px);
             border-bottom: 1px solid rgba(0,0,0,0.05); 
             z-index: 1000; 
+            height: 85px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
 
+        /* HERO ENGINE */
         #hero-section { 
             position: relative; 
             height: 100vh; 
@@ -62,51 +79,118 @@
             align-items: center;
             justify-content: center;
         }
-
         .hero-overlay { 
             position: absolute; 
             inset: 0; 
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4), rgba(0,0,0,0.8)); 
+            background: linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); 
             z-index: 1; 
         }
-
         #hero-video-bg { 
             position: absolute; 
             top: 50%; 
             left: 50%; 
             min-width: 100%; 
             min-height: 100%; 
+            width: auto; 
+            height: auto; 
             transform: translate(-50%, -50%); 
             object-fit: cover; 
             z-index: 0; 
+            transition: opacity 2s ease-in-out;
+        }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 1100px; padding: 0 24px; }
+
+        /* PREMIUM BUTTONS */
+        .cta-btn { 
+            background: var(--apple-blue); 
+            color: white; 
+            border-radius: 999px; 
+            font-weight: 600; 
+            font-size: 17px; 
+            padding: 20px 42px; 
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,113,227,0.3);
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cta-btn:hover { 
+            background: #0077ed; 
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(0,113,227,0.4);
         }
 
+        /* SIDE PANELS (FIXED TOGGLE LOGIC) */
         .side-panel { 
             position: fixed; 
             top: 0; 
             height: 100vh; 
             background: rgba(255, 255, 255, 0.98); 
-            backdrop-filter: saturate(180%) blur(30px); 
+            backdrop-filter: saturate(180%) blur(40px); 
+            -webkit-backdrop-filter: saturate(180%) blur(40px); 
             z-index: 3000; 
-            transition: transform 0.6s cubic-bezier(0.1, 0.9, 0.2, 1); 
-            box-shadow: 0 0 80px rgba(0,0,0,0.1); 
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1); 
+            box-shadow: 0 0 100px rgba(0,0,0,0.1); 
             overflow-y: auto; 
         }
+        #counseling-menu { left: 0; width: 100%; max-width: 420px; transform: translateX(-100%); border-right: 1px solid #eee; }
+        #admin-panel { right: 0; width: 100%; max-width: 520px; transform: translateX(100%); border-left: 1px solid #eee; }
+        
+        /* This class makes it visible */
+        .side-panel.active { transform: translateX(0) !important; }
 
+        /* NATURAL SOCIAL COLORS */
+        .social-btn {
+            width: 58px; height: 58px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 26px;
+            text-decoration: none;
+        }
+        .social-btn:hover { transform: translateY(-12px) scale(1.15); box-shadow: 0 20px 35px rgba(0,0,0,0.15); }
+        .social-btn.insta { color: var(--insta); }
+        .social-btn.linkedin { color: var(--linkedin); }
+        .social-btn.youtube { color: var(--youtube); }
+        .social-btn.whatsapp { color: var(--whatsapp); }
+
+        /* MENU ITEMS */
+        .apple-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 26px;
+            border-radius: 22px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--apple-dark);
+            background: transparent;
+        }
+        .apple-menu-item:hover { background: var(--apple-gray); padding-left: 38px; color: var(--apple-blue); }
+
+        /* INPUTS */
         .premium-input { 
             background: #ffffff; 
             border: 1px solid #d2d2d7; 
-            border-radius: 14px; 
-            padding: 16px 20px; 
+            border-radius: 18px; 
+            padding: 20px 26px; 
             width: 100%; 
+            font-size: 17px;
             transition: all 0.3s; 
+            color: var(--apple-dark);
         }
+        .premium-input:focus { border-color: var(--apple-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
 
-        .premium-input:focus { border-color: #0071e3; outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
-
+        /* MODALS */
         .modal-overlay { 
             position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.6); 
+            background: rgba(0,0,0,0.8); 
             backdrop-filter: blur(15px); 
             z-index: 5000; 
             display: none; 
@@ -114,114 +198,187 @@
             justify-content: center; 
             padding: 20px; 
         }
+        .modal-content { 
+            background: white; 
+            border-radius: 40px; 
+            width: 100%; 
+            max-width: 1100px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            padding: 50px; 
+            position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.4);
+        }
 
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         .gallery-item { 
-            border-radius: 16px; 
+            border-radius: 24px; 
             overflow: hidden; 
             cursor: pointer; 
             aspect-ratio: 16/9; 
             position: relative; 
-            border: 3px solid transparent;
-            transition: 0.3s;
+            border: 4px solid transparent;
+            transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
         }
-        .gallery-item:hover { border-color: #0071e3; transform: scale(1.02); }
+        .gallery-item:hover { border-color: var(--apple-blue); transform: scale(1.05); z-index: 10; }
+        .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item .tag { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.8); color: white; padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
 
+        /* DETAIL PANEL */
         #detail-panel { 
             position: fixed; inset: 0; z-index: 4000; 
             background: #ffffff; 
             display: none; 
             overflow-y: auto; 
+            padding-bottom: 120px;
         }
-
-        .reveal-block { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.2, 1, 0.2, 1); }
+        #detail-panel.active { display: block; }
+        .reveal-block { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.2, 1, 0.2, 1); }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
-        #chat-window { height: 400px; overflow-y: auto; background: #fbfbfd; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #eee; }
-        .msg { max-width: 80%; padding: 14px 18px; border-radius: 18px; font-size: 15px; }
-        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .msg.user { background: #0071e3; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        /* ADMIN CARDS */
+        .admin-card { background: #f5f5f7; border-radius: 24px; padding: 30px; margin-bottom: 30px; border: 1px solid #e5e5e7; }
+        .admin-label { font-size: 12px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1.2px; }
+
+        /* CHAT */
+        #chat-window { height: 450px; overflow-y: auto; background: #f5f5f7; border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 15px; border: 1px solid #eee; }
+        .msg { max-width: 80%; padding: 18px 24px; border-radius: 20px; font-size: 16px; line-height: 1.6; }
+        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .msg.user { background: var(--apple-blue); color: white; align-self: flex-end; border-bottom-right-radius: 5px; }
+
+        /* SECTION STYLES */
+        .home-section { padding: 140px 24px; border-bottom: 1px solid #f2f2f2; background: white; }
+        .section-emoji { font-size: 80px; margin-bottom: 30px; display: block; }
+        .section-title { font-size: 60px; font-weight: 800; letter-spacing: -2px; margin-bottom: 25px; line-height: 1.1; color: var(--apple-dark); }
+        .section-desc { font-size: 22px; color: #6e6e73; max-width: 700px; margin: 0 auto 40px; line-height: 1.6; font-weight: 400; }
     </style>
 </head>
 <body>
 
+    <!-- Hidden File Inputs -->
+    <input type="file" id="local-img-upload" accept="image/*" class="hidden" onchange="handleLocalUpload(event, 'image')">
+    <input type="file" id="local-vid-upload" accept="video/*" class="hidden" onchange="handleLocalUpload(event, 'video')">
+
     <!-- Navigation -->
-    <nav class="fixed w-full glass-nav py-4 px-6 md:px-20 flex justify-between items-center">
-        <div class="flex items-center gap-6">
-            <button onclick="toggleMenu()" class="text-2xl text-gray-700 hover:text-black transition-all"><i class="fas fa-bars-staggered"></i></button>
-            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center font-bold text-white text-sm">NM</div>
-                <span class="text-xl font-bold tracking-tighter uppercase hidden md:block">Nexus Mind</span>
+    <nav class="glass-nav px-6 md:px-20 flex justify-between items-center">
+        <div class="flex items-center gap-10">
+            <button onclick="toggleMenu()" class="text-3xl text-gray-800 hover:text-black transition-all active:scale-90">
+                <i class="fas fa-bars-staggered"></i>
+            </button>
+            <div class="flex items-center gap-4 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-base">NM</div>
+                <span class="text-2xl font-bold tracking-tighter uppercase hidden md:block">Nexus Mind</span>
             </div>
         </div>
-        <div class="flex items-center gap-5">
-            <a href="#booking-section" class="bg-appleBlue text-white px-8 py-3 rounded-full font-semibold text-[13px] hover:bg-blue-600 transition-all">Book Session</a>
-            <button onclick="openAdmin()" class="w-11 h-11 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all flex items-center justify-center">
+        <div class="flex items-center gap-8">
+            <a href="#booking-section" class="cta-btn px-10 py-3.5 text-[15px] shadow-none">Book Session</a>
+            <button onclick="openAdmin()" class="w-14 h-14 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all flex items-center justify-center text-xl">
                 <i class="fas fa-user-shield"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Counseling Menu -->
-    <div id="counseling-menu" class="side-panel left-0 w-full max-w-[400px] -translate-x-full">
-        <div class="p-10">
-            <div class="flex justify-between items-center mb-12">
-                <h3 class="text-3xl font-bold">Counseling</h3>
-                <button onclick="toggleMenu()" class="text-3xl">&times;</button>
+    <!-- Counseling Menu (Hardcoded for 100% Fail-Safe Visibility) -->
+    <div id="counseling-menu" class="side-panel">
+        <div class="p-14">
+            <div class="flex justify-between items-center mb-20">
+                <h3 class="text-4xl font-bold tracking-tight">Counseling</h3>
+                <button onclick="toggleMenu()" class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-3xl hover:bg-gray-200 transition-colors">&times;</button>
             </div>
-            <div id="menu-items-container" class="space-y-2">
-                <!-- Populated by JS -->
+            
+            <div id="menu-items-container" class="space-y-4">
+                <div onclick="openDetail('Anxiety')" class="apple-menu-item">
+                    <span>Anxiety & Stress</span><i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+                <div onclick="openDetail('Relationship')" class="apple-menu-item">
+                    <span>Relationship Issues</span><i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+                <div onclick="openDetail('Sleep')" class="apple-menu-item">
+                    <span>Sleep Problems</span><i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+                <div onclick="openDetail('Trauma')" class="apple-menu-item">
+                    <span>Trauma Support</span><i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
+                <div onclick="openDetail('Career')" class="apple-menu-item">
+                    <span>Career Counseling</span><i class="fas fa-chevron-right text-gray-300"></i>
+                </div>
             </div>
-            <div class="mt-24 pt-10 border-t border-gray-200">
-                <p class="text-[11px] font-bold text-gray-400 uppercase mb-8">Connect With Us</p>
-                <div class="flex gap-5">
-                    <a href="#" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-brandInsta text-xl hover:scale-110 transition-transform"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-brandLinkedin text-xl hover:scale-110 transition-transform"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-brandYoutube text-xl hover:scale-110 transition-transform"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-brandWhatsapp text-xl hover:scale-110 transition-transform"><i class="fab fa-whatsapp"></i></a>
+
+            <div class="mt-40 pt-14 border-t border-gray-200">
+                <p class="admin-label mb-12">Connect With Us</p>
+                <div class="flex gap-8">
+                    <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Admin Panel -->
-    <div id="admin-panel" class="side-panel right-0 w-full max-w-[480px] translate-x-full">
-        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-8 py-6 flex justify-between items-center">
-            <h3 class="font-bold text-xl">Admin Control</h3>
-            <button onclick="closeAdmin()" class="text-2xl">&times;</button>
+    <div id="admin-panel" class="side-panel">
+        <div class="sticky top-0 z-10 bg-white/90 backdrop-blur-xl border-b border-gray-100 px-12 py-10 flex justify-between items-center">
+            <h3 class="font-bold text-3xl">Admin Control</h3>
+            <button onclick="closeAdmin()" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-3xl hover:bg-gray-200">&times;</button>
         </div>
-        <div class="p-8">
-            <div id="admin-login-section" class="space-y-6 text-center mt-10">
-                <div class="w-20 h-20 bg-blue-50 text-appleBlue rounded-3xl mx-auto flex items-center justify-center text-3xl"><i class="fas fa-shield-alt"></i></div>
-                <h2 class="text-2xl font-bold">Secure Access</h2>
+        
+        <div class="p-12">
+            <!-- Admin Login -->
+            <div id="admin-login-section" class="space-y-10 text-center mt-10">
+                <div class="w-28 h-28 bg-blue-50 text-blue-600 rounded-[35px] mx-auto flex items-center justify-center text-5xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
+                <h2 class="text-4xl font-bold">Secure Access</h2>
                 <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center">
-                <button onclick="sendAdminOTP()" class="w-full bg-appleBlue text-white py-4 rounded-2xl font-bold">Send Access Code</button>
-                <div id="otp-box" class="hidden space-y-6 pt-6 border-t border-gray-100">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-3xl tracking-[0.5em] font-mono">
-                    <button onclick="verifyAdminOTP()" class="w-full bg-black text-white py-4 rounded-2xl font-bold">Verify & Unlock</button>
+                <button onclick="sendAdminOTP()" class="cta-btn w-full py-6">Send Access Code</button>
+                <div id="otp-box" class="hidden space-y-10 pt-10 border-t border-gray-100">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-5xl tracking-[0.5em] font-mono">
+                    <button onclick="verifyAdminOTP()" class="cta-btn w-full bg-black py-6">Verify & Unlock</button>
                 </div>
             </div>
             
-            <div id="admin-main-controls" class="hidden space-y-10 pb-20">
-                <div class="bg-appleGray p-6 rounded-3xl">
-                    <h4 class="text-[11px] font-bold text-gray-400 uppercase mb-4">Hero Media Engine</h4>
-                    <select id="adm-hero-type" class="premium-input mb-4" onchange="toggleHeroAdminUI()">
+            <!-- Admin Controls -->
+            <div id="admin-main-controls" class="hidden space-y-14 pb-32">
+                <div class="admin-card">
+                    <h4 class="admin-label">Hero Media Engine</h4>
+                    <select id="adm-hero-type" class="premium-input mb-8" onchange="toggleHeroAdminUI()">
                         <option value="image">Static Image</option>
                         <option value="video">Background Video</option>
                     </select>
+                    
                     <div id="adm-img-ui">
-                        <input id="adm-hero-img" class="premium-input mb-2" placeholder="Image URL">
-                        <button onclick="openImgGallery()" class="text-appleBlue text-xs font-bold mb-4 block">Browse 20 Premium Photos</button>
+                        <div class="flex gap-4 mb-4">
+                            <input id="adm-hero-img" class="premium-input flex-1" placeholder="Image URL">
+                            <button onclick="document.getElementById('local-img-upload').click()" class="bg-white p-6 rounded-2xl border hover:bg-gray-50"><i class="fas fa-upload"></i></button>
+                        </div>
+                        <button onclick="openImgGallery()" class="text-blue-600 text-base font-bold mb-10 block hover:underline">Browse 20 Premium Photos</button>
                     </div>
+
                     <div id="adm-vid-ui" class="hidden">
-                        <input id="adm-hero-vid" class="premium-input mb-2" placeholder="Video URL">
-                        <button onclick="openVidGallery()" class="text-appleBlue text-xs font-bold mb-4 block">Browse 10 Cinematic Videos</button>
+                        <div class="flex gap-4 mb-4">
+                            <input id="adm-hero-vid" class="premium-input flex-1" placeholder="Video URL">
+                            <button onclick="document.getElementById('local-vid-upload').click()" class="bg-white p-6 rounded-2xl border hover:bg-gray-50"><i class="fas fa-upload"></i></button>
+                        </div>
+                        <button onclick="openVidGallery()" class="text-blue-600 text-base font-bold mb-10 block hover:underline">Browse 10 Cinematic Videos</button>
                     </div>
-                    <textarea id="adm-hero-title" class="premium-input h-24 mb-4" placeholder="Hero Title"></textarea>
-                    <input id="adm-hero-subtitle" class="premium-input mb-6" placeholder="Hero Subtitle">
-                    <button onclick="pushHeroUpdate()" class="w-full bg-black text-white py-4 rounded-2xl font-bold">Update Global Hero</button>
+
+                    <label class="admin-label">Hero Title</label>
+                    <textarea id="adm-hero-title" class="premium-input h-32 mb-8" placeholder="Hero Title"></textarea>
+                    <label class="admin-label">Hero Subtitle</label>
+                    <input id="adm-hero-subtitle" class="premium-input mb-12" placeholder="Hero Subtitle">
+                    <button onclick="pushHeroUpdate()" class="cta-btn w-full bg-black py-6">Update Global Hero</button>
                 </div>
-                <div id="admin-counseling-list" class="space-y-6"></div>
-                <button onclick="location.reload()" class="w-full text-red-500 font-bold text-sm py-4">Lock Admin Panel</button>
+
+                <div id="admin-counseling-list" class="space-y-10"></div>
+
+                <div class="admin-card">
+                    <h4 class="admin-label">Global Settings</h4>
+                    <input id="adm-wa" class="premium-input mb-5" placeholder="WhatsApp (+91...)">
+                    <input id="adm-upi" class="premium-input mb-5" placeholder="UPI ID">
+                    <input id="adm-email" class="premium-input mb-10" placeholder="Admin Email">
+                    <button onclick="saveGlobalSettings()" class="cta-btn w-full py-6">Save Settings</button>
+                </div>
+                <button onclick="location.reload()" class="w-full text-red-500 font-bold text-base py-8 hover:bg-red-50 rounded-3xl transition-all">Lock Admin Panel</button>
             </div>
         </div>
     </div>
@@ -231,92 +388,92 @@
         <div class="hero-overlay"></div>
         <video id="hero-video-bg" autoplay muted loop playsinline class="hidden"></video>
         <div data-aos="fade-up" class="hero-content">
-            <h1 id="hero-title" class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] mb-8">Reclaim Your<br>Inner Peace</h1>
-            <p id="hero-subtitle" class="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto font-medium">Premium online counseling for mental excellence and emotional resilience.</p>
-            <a href="#booking-section" class="bg-appleBlue text-white px-12 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform">Start Your Journey</a>
+            <h1 id="hero-title" class="text-7xl md:text-9xl font-extrabold tracking-tighter leading-[0.85] mb-12">Reclaim Your<br>Inner Peace</h1>
+            <p id="hero-subtitle" class="text-2xl md:text-4xl text-white/90 mb-20 max-w-4xl mx-auto font-medium">Premium online counseling for mental excellence.</p>
+            <a href="#booking-section" class="cta-btn">Start Your Journey</a>
         </div>
+        <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-white/30 text-4xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Homepage Sections -->
+    <!-- Homepage Sections (Hardcoded for 100% Fail-Safe Visibility) -->
     <div id="homepage-sections">
-        <!-- Anxiety -->
-        <section class="py-32 px-6 md:px-20 border-b border-gray-50">
+        <section class="home-section">
             <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <span class="text-7xl mb-8 block">🧠</span>
-                <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6">Anxiety & Stress</h2>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">Finding stillness in a chaotic world through evidence-based clinical techniques.</p>
-                <button onclick="openDetail('Anxiety')" class="text-appleBlue font-bold text-xl hover:underline">Explore Our Approach ›</button>
+                <span class="section-emoji">🧠</span>
+                <h2 class="section-title">Anxiety & Stress</h2>
+                <p class="section-desc">Finding stillness in a chaotic world through evidence-based clinical techniques.</p>
+                <button onclick="openDetail('Anxiety')" class="text-appleBlue font-bold hover:underline text-2xl">Explore Our Approach ›</button>
             </div>
         </section>
-        <!-- Relationship -->
-        <section class="py-32 px-6 md:px-20 border-b border-gray-50">
+
+        <section class="home-section">
             <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <span class="text-7xl mb-8 block">❤️</span>
-                <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6">Relationship Issues</h2>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">Healing emotional bonds and building trust in a safe, confidential environment.</p>
-                <button onclick="openDetail('Relationship')" class="text-appleBlue font-bold text-xl hover:underline">Explore Our Approach ›</button>
+                <span class="section-emoji">❤️</span>
+                <h2 class="section-title">Relationship Issues</h2>
+                <p class="section-desc">Healing emotional bonds and building trust in a safe, confidential environment.</p>
+                <button onclick="openDetail('Relationship')" class="text-appleBlue font-bold hover:underline text-2xl">Explore Our Approach ›</button>
             </div>
         </section>
-        <!-- Sleep -->
-        <section class="py-32 px-6 md:px-20 border-b border-gray-50">
+
+        <section class="home-section">
             <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <span class="text-7xl mb-8 block">🌙</span>
-                <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6">Sleep Problems</h2>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">Restorative techniques for deep sleep and cognitive recovery.</p>
-                <button onclick="openDetail('Sleep')" class="text-appleBlue font-bold text-xl hover:underline">Explore Our Approach ›</button>
+                <span class="section-emoji">🌙</span>
+                <h2 class="section-title">Sleep Problems</h2>
+                <p class="section-desc">Restorative techniques for deep sleep and cognitive recovery.</p>
+                <button onclick="openDetail('Sleep')" class="text-appleBlue font-bold hover:underline text-2xl">Explore Our Approach ›</button>
             </div>
         </section>
-        <!-- Trauma -->
-        <section class="py-32 px-6 md:px-20 border-b border-gray-50">
+
+        <section class="home-section">
             <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <span class="text-7xl mb-8 block">🛡️</span>
-                <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6">Trauma Support</h2>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">A safe space to process and heal past wounds with specialized trauma-informed care.</p>
-                <button onclick="openDetail('Trauma')" class="text-appleBlue font-bold text-xl hover:underline">Explore Our Approach ›</button>
+                <span class="section-emoji">🛡️</span>
+                <h2 class="section-title">Trauma Support</h2>
+                <p class="section-desc">A safe space to process and heal past wounds with trauma-informed care.</p>
+                <button onclick="openDetail('Trauma')" class="text-appleBlue font-bold hover:underline text-2xl">Explore Our Approach ›</button>
             </div>
         </section>
-        <!-- Career -->
-        <section class="py-32 px-6 md:px-20 border-b border-gray-50">
+
+        <section class="home-section">
             <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
-                <span class="text-7xl mb-8 block">💼</span>
-                <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-6">Career Counseling</h2>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-10">Clarity, growth, and burnout prevention for your professional path.</p>
-                <button onclick="openDetail('Career')" class="text-appleBlue font-bold text-xl hover:underline">Explore Our Approach ›</button>
+                <span class="section-emoji">💼</span>
+                <h2 class="section-title">Career Counseling</h2>
+                <p class="section-desc">Clarity, growth, and burnout prevention for your professional path.</p>
+                <button onclick="openDetail('Career')" class="text-appleBlue font-bold hover:underline text-2xl">Explore Our Approach ›</button>
             </div>
         </section>
     </div>
 
     <!-- Detail Panel -->
     <div id="detail-panel">
-        <div class="max-w-5xl mx-auto px-6 py-32">
-            <div class="flex justify-between items-center mb-20">
-                <div class="flex items-center gap-8">
-                    <span id="det-emoji" class="text-8xl"></span>
-                    <h1 id="det-title" class="text-6xl md:text-7xl font-extrabold tracking-tighter"></h1>
+        <div class="max-w-7xl mx-auto px-10 py-40">
+            <div class="flex justify-between items-center mb-32">
+                <div class="flex items-center gap-10">
+                    <span id="det-emoji" class="text-9xl"></span>
+                    <h1 id="det-title" class="text-6xl md:text-8xl font-extrabold tracking-tighter"></h1>
                 </div>
-                <button onclick="closeDetail()" class="text-5xl">&times;</button>
+                <button onclick="closeDetail()" class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center text-6xl hover:bg-black hover:text-white transition-all">&times;</button>
             </div>
-            <div id="det-content" class="space-y-16"></div>
-            <div class="mt-32 text-center reveal-block">
-                <a href="#booking-section" onclick="closeDetail()" class="bg-appleBlue text-white px-20 py-6 rounded-full font-bold text-xl">Book Your Session Now</a>
+            <div id="det-content" class="space-y-24"></div>
+            <div class="mt-48 text-center reveal-block">
+                <a href="#booking-section" onclick="closeDetail()" class="cta-btn px-28 py-8 text-2xl">Book Your Session Now</a>
             </div>
         </div>
     </div>
 
     <!-- Booking Section -->
-    <section id="booking-section" class="py-32 px-6 md:px-20 bg-appleGray">
-        <div class="max-w-5xl mx-auto bg-white p-10 md:p-24 rounded-[60px] shadow-2xl" data-aos="zoom-in">
+    <section id="booking-section" class="py-48 px-6 md:px-20 bg-[#fbfbfd]">
+        <div class="max-w-6xl mx-auto bg-white p-14 md:p-28 rounded-[80px] border border-gray-100 shadow-2xl" data-aos="zoom-in">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-8" onsubmit="event.preventDefault(); handleBooking();">
-                    <div class="text-center mb-16">
-                        <h2 class="text-5xl font-extrabold tracking-tighter mb-4">Schedule Session</h2>
-                        <p class="text-gray-500 text-lg">Take the first step towards a healthier mind.</p>
+                <form id="p-form" class="space-y-12" onsubmit="event.preventDefault(); handleBooking();">
+                    <div class="text-center mb-24">
+                        <h2 class="text-6xl md:text-7xl font-extrabold tracking-tighter mb-8">Schedule Session</h2>
+                        <p class="text-gray-500 text-2xl">Take the first step towards a healthier mind.</p>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
+                    <div class="grid md:grid-cols-2 gap-12">
                         <input type="text" id="p_name" placeholder="Full Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email Address" class="premium-input" required>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
+                    <div class="grid md:grid-cols-2 gap-12">
                         <input type="tel" id="p_wa" value="+91" class="premium-input" required>
                         <select id="p_counseling" class="premium-input" required>
                             <option value="Anxiety">Anxiety & Stress</option>
@@ -330,25 +487,27 @@
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-44" required></textarea>
-                    <button type="submit" class="w-full bg-appleBlue text-white py-6 rounded-2xl font-bold text-xl">Proceed to Secure Payment</button>
+                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-60" required></textarea>
+                    <button type="submit" class="cta-btn w-full py-8 text-2xl">Proceed to Secure Payment</button>
                 </form>
 
-                <div id="p-payment" class="hidden text-center space-y-12 py-10">
-                    <div class="max-w-sm mx-auto bg-white p-10 rounded-[50px] shadow-2xl border border-gray-50">
-                        <img id="p-qr" src="" class="w-full rounded-3xl">
-                        <p id="p-upi-text" class="mt-8 text-appleBlue font-bold text-lg"></p>
+                <div id="p-payment" class="hidden text-center space-y-20 py-10">
+                    <div class="max-w-md mx-auto bg-white p-14 rounded-[70px] shadow-2xl border border-gray-50">
+                        <img id="p-qr" src="" class="w-full rounded-[50px] border-[12px] border-gray-50">
+                        <p id="p-upi-text" class="mt-12 text-appleBlue font-bold text-2xl tracking-widest"></p>
                     </div>
-                    <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-widest text-2xl">
-                    <button onclick="verifyPayment()" class="w-full bg-appleBlue text-white py-6 rounded-2xl font-bold text-xl">Verify & Start Session</button>
+                    <div class="max-w-lg mx-auto space-y-10">
+                        <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-[0.4em] text-4xl">
+                        <button onclick="verifyPayment()" class="cta-btn w-full py-8 text-2xl">Verify & Start Session</button>
+                    </div>
                 </div>
 
-                <div id="p-success" class="hidden space-y-10">
-                    <div class="bg-green-50 text-green-600 p-10 rounded-[40px] font-bold text-center text-2xl">"Your healing starts now."</div>
+                <div id="p-success" class="hidden space-y-14">
+                    <div class="bg-green-50 text-green-600 p-14 rounded-[60px] font-bold text-center text-4xl border border-green-100">"Your healing starts now."</div>
                     <div id="chat-window"></div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-8">
                         <input id="chat-input" type="text" placeholder="Type message..." class="premium-input flex-1">
-                        <button onclick="sendChat()" class="bg-appleBlue text-white px-10 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
+                        <button onclick="sendChat()" class="cta-btn px-14"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
@@ -358,9 +517,9 @@
     <!-- Gallery Modals -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-3xl font-bold">Premium Image Library</h3>
-                <button onclick="closeImgGallery()" class="text-4xl">&times;</button>
+            <div class="flex justify-between items-center mb-14">
+                <h3 class="text-4xl md:text-5xl font-bold">Premium Image Library</h3>
+                <button onclick="closeImgGallery()" class="text-6xl text-gray-300 hover:text-black">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
@@ -368,31 +527,31 @@
 
     <div id="vid-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-3xl font-bold">Cinematic Video Library</h3>
-                <button onclick="closeVidGallery()" class="text-4xl">&times;</button>
+            <div class="flex justify-between items-center mb-14">
+                <h3 class="text-4xl md:text-5xl font-bold">Cinematic Video Library</h3>
+                <button onclick="closeVidGallery()" class="text-6xl text-gray-300 hover:text-black">&times;</button>
             </div>
             <div class="gallery-grid" id="vid-grid"></div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="py-32 text-center bg-white border-t border-gray-100">
-        <div class="w-14 h-14 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-lg mx-auto mb-10">NM</div>
-        <h2 class="text-4xl font-extrabold tracking-tighter uppercase mb-6">Nexus Mind</h2>
-        <p class="text-gray-500 text-lg mb-12">Greater Noida, Uttar Pradesh, India</p>
-        <div class="flex justify-center gap-8 mb-16">
+    <footer class="py-40 text-center bg-white border-t border-gray-100">
+        <div class="w-20 h-20 bg-black rounded-3xl flex items-center justify-center font-bold text-white text-2xl mx-auto mb-16">NM</div>
+        <h2 class="text-5xl md:text-6xl font-extrabold tracking-tighter uppercase mb-10">Nexus Mind</h2>
+        <p class="text-gray-500 text-2xl mb-20">Greater Noida, Uttar Pradesh, India</p>
+        <div class="flex justify-center gap-12 mb-24">
             <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
             <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
             <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p class="text-[11px] font-bold text-gray-300 tracking-[0.4em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY.</p>
+        <p class="text-[14px] font-bold text-gray-300 tracking-[0.6em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
     </footer>
 
     <script>
         // --- GLOBAL DATA ---
-        const premiumImages = [
+        const premiumImages =[
             { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" },
@@ -415,7 +574,7 @@
             { tag: "Career", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" }
         ];
 
-        const cinematicVideos = [
+        const cinematicVideos =[
             { name: "Ocean Sunset", url: "https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-shore-at-sunset-4473-large.mp4" },
             { name: "Forest Stream", url: "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" },
             { name: "Mountain Clouds", url: "https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-background-2408-large.mp4" },
@@ -428,7 +587,7 @@
             { name: "Aerial Forest", url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-dense-forest-42559-large.mp4" }
         ];
 
-        const counselingAreas = [
+        const counselingAreas =[
             { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠" },
             { key: "Relationship", label: "Relationship Issues", emoji: "❤️" },
             { key: "Sleep", label: "Sleep Problems", emoji: "🌙" },
@@ -441,11 +600,11 @@
             upi: "7830232077@ptsbi",
             email: "thenexusstudy3@gmail.com",
             details: {
-                Anxiety: { title: "Anxiety & Stress", blocks: [{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
-                Relationship: { title: "Relationship Issues", blocks: [{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
-                Sleep: { title: "Sleep Problems", blocks: [{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
-                Trauma: { title: "Trauma Support", blocks: [{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
-                Career: { title: "Career Counseling", blocks: [{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
+                Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
+                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
+                Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
+                Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
+                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
             }
         };
 
@@ -466,24 +625,20 @@
 
         // --- CORE FUNCTIONS ---
         function initApp() {
-            AOS.init({ duration: 1000, once: true });
-            renderMenu();
-            emailjs.init("jH5TwO1sLcWFwHHzu");
-            
-            db.ref('globalHero').on('value', (snap) => {
-                const data = snap.val();
-                if(data) updateHero(data);
-            });
-        }
+            try {
+                AOS.init({ duration: 1000, once: true });
+                emailjs.init("jH5TwO1sLcWFwHHzu");
+                
+                // Set default hero immediately to avoid blank screen
+                updateHero({ type: 'image', img: premiumImages[0].url, title: "Reclaim Your\nInner Peace", subtitle: "Premium online counseling for mental excellence" });
 
-        function renderMenu() {
-            const container = document.getElementById('menu-items-container');
-            container.innerHTML = counselingAreas.map(area => `
-                <div onclick="openDetail('${area.key}')" class="apple-menu-item">
-                    <span>${area.label}</span>
-                    <i class="fas fa-chevron-right text-gray-300"></i>
-                </div>
-            `).join('');
+                db.ref('globalHero').on('value', (snap) => {
+                    const data = snap.val();
+                    if(data) updateHero(data);
+                });
+            } catch(e) {
+                console.error(e);
+            }
         }
 
         function updateHero(data) {
@@ -504,10 +659,16 @@
             document.getElementById('hero-subtitle').textContent = data.subtitle;
         }
 
-        // --- ADMIN LOGIC ---
-        function openAdmin() { document.getElementById('admin-panel').classList.remove('translate-x-full'); }
-        function closeAdmin() { document.getElementById('admin-panel').classList.add('translate-x-full'); }
+        // --- SIDE PANEL TOGGLES (Fixed) ---
+        function toggleMenu() { 
+            const menu = document.getElementById('counseling-menu');
+            menu.classList.toggle('active');
+        }
 
+        function openAdmin() { document.getElementById('admin-panel').classList.add('active'); }
+        function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
+
+        // --- ADMIN AUTH ---
         function sendAdminOTP() {
             currentOTP = Math.floor(100000 + Math.random() * 900000);
             emailjs.send("service_w0vxgvf", "template_tt1b26p", { 
@@ -528,7 +689,12 @@
             } else alert("Invalid OTP");
         }
 
+        // --- ADMIN ENGINE ---
         function loadAdminData() {
+            document.getElementById('adm-wa').value = nexusConfig.wa;
+            document.getElementById('adm-upi').value = nexusConfig.upi;
+            document.getElementById('adm-email').value = nexusConfig.email;
+            
             db.ref('globalHero').once('value', s => {
                 const d = s.val();
                 if(d) {
@@ -540,6 +706,30 @@
                     toggleHeroAdminUI();
                 }
             });
+            renderAdminCounseling();
+        }
+
+        function renderAdminCounseling() {
+            const container = document.getElementById('admin-counseling-list');
+            container.innerHTML = counselingAreas.map(area => {
+                const det = nexusConfig.details[area.key];
+                const blocks = det.blocks.map((b, i) => `
+                    <div class="bg-white p-5 rounded-3xl mb-4 border">
+                        <div class="flex justify-between mb-4"><span class="text-[12px] font-bold uppercase text-appleBlue">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 text-base"><i class="fas fa-trash"></i></button></div>
+                        <textarea class="premium-input text-base h-24" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                    </div>
+                `).join('');
+                return `<div class="admin-card"><h5 class="font-bold mb-5 text-xl">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-appleBlue text-sm font-bold">+ Add Block</button></div>`;
+            }).join('');
+        }
+
+        function addBlock(key) { nexusConfig.details[key].blocks.push({ type: 'text', content: 'New Content' }); renderAdminCounseling(); }
+        function removeBlock(key, i) { nexusConfig.details[key].blocks.splice(i, 1); renderAdminCounseling(); }
+        function updateBlock(key, i, val) {
+            const b = nexusConfig.details[key].blocks[i];
+            if(b.type === 'list') b.items = val.split('\n');
+            else if(b.type === 'image') b.url = val;
+            else b.content = val;
         }
 
         function pushHeroUpdate() {
@@ -553,10 +743,18 @@
             db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
         }
 
+        function saveGlobalSettings() {
+            nexusConfig.wa = document.getElementById('adm-wa').value;
+            nexusConfig.upi = document.getElementById('adm-upi').value;
+            nexusConfig.email = document.getElementById('adm-email').value;
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+            alert("Settings Saved Locally!");
+        }
+
         // --- GALLERY ---
         function openImgGallery() {
             const grid = document.getElementById('img-grid');
-            grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" class="w-full h-full object-cover"><div class="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] px-2 py-1 rounded">${img.tag}</div></div>`).join('');
+            grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}"><div class="tag">${img.tag}</div></div>`).join('');
             document.getElementById('img-modal').style.display = 'flex';
         }
         function selectImg(url) { document.getElementById('adm-hero-img').value = url; closeImgGallery(); }
@@ -564,7 +762,7 @@
 
         function openVidGallery() {
             const grid = document.getElementById('vid-grid');
-            grid.innerHTML = cinematicVideos.map(vid => `<div class="gallery-item" onclick="selectVid('${vid.url}')"><video muted loop onmouseover="this.play()" onmouseout="this.pause()" class="w-full h-full object-cover"><source src="${vid.url}"></video><div class="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] px-2 py-1 rounded">${vid.name}</div></div>`).join('');
+            grid.innerHTML = cinematicVideos.map(vid => `<div class="gallery-item" onclick="selectVid('${vid.url}')"><video muted loop onmouseover="this.play()" onmouseout="this.pause()"><source src="${vid.url}"></video><div class="tag">${vid.name}</div></div>`).join('');
             document.getElementById('vid-modal').style.display = 'flex';
         }
         function selectVid(url) { document.getElementById('adm-hero-vid').value = url; closeVidGallery(); }
@@ -581,11 +779,17 @@
             reader.readAsDataURL(file);
         }
 
+        function toggleHeroAdminUI() {
+            const type = document.getElementById('adm-hero-type').value;
+            document.getElementById('adm-img-ui').classList.toggle('hidden', type !== 'image');
+            document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
+        }
+
         // --- BOOKING ---
         function handleBooking() {
             const fee = document.getElementById('p_type').value;
             const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusMind&am=${fee}&cu=INR`;
-            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiUrl)}`;
+            document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').textContent = nexusConfig.upi;
             document.getElementById('p-form').classList.add('hidden');
             document.getElementById('p-payment').classList.remove('hidden');
@@ -595,7 +799,7 @@
             if(document.getElementById('p_utr').value.length === 12) {
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
-                document.getElementById('chat-window').innerHTML = `<div class="msg bot">Hello! Your payment is verified. How can we help you today?</div>`;
+                document.getElementById('chat-window').innerHTML = `<div class="msg bot">Hello! Your payment is verified. Our specialist will connect soon. How are you feeling today?</div>`;
             } else alert("Enter 12-digit UTR ID");
         }
 
@@ -607,7 +811,7 @@
             document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
-        // --- DETAIL ---
+        // --- DETAIL PANEL ---
         function openDetail(key) {
             const det = nexusConfig.details[key];
             const area = counselingAreas.find(a => a.key === key);
@@ -615,24 +819,19 @@
             document.getElementById('det-title').textContent = det.title;
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
                 if(b.type === 'text') return `<p class="reveal-block text-3xl text-gray-600 leading-relaxed">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" class="w-full rounded-[60px] h-[600px] object-cover shadow-2xl"></div>`;
-                if(b.type === 'heading') return `<h3 class="reveal-block text-5xl font-extrabold">✨ ${b.content}</h3>`;
-                if(b.type === 'list') return `<ul class="reveal-block space-y-8 bg-gray-50 p-14 rounded-[60px]">${b.items.map(i => `<li class="text-2xl flex gap-8"><i class="fas fa-check-circle text-appleBlue mt-1"></i> ${i}</li>`).join('')}</ul>`;
+                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" class="w-full rounded-[60px] h-[650px] object-cover shadow-2xl"></div>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-4xl md:text-5xl font-extrabold">✨ ${b.content}</h3>`;
+                if(b.type === 'list') return `<ul class="reveal-block space-y-8 bg-appleGray p-14 rounded-[60px]">${b.items.map(i => `<li class="text-2xl flex gap-8"><i class="fas fa-check-circle text-appleBlue mt-1"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
-            document.getElementById('detail-panel').style.display = 'block';
+            document.getElementById('detail-panel').classList.add('active');
             document.body.style.overflow = 'hidden';
+            if(document.getElementById('counseling-menu').classList.contains('active')) toggleMenu();
             setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 100);
         }
 
-        function closeDetail() { document.getElementById('detail-panel').style.display = 'none'; document.body.style.overflow = 'auto'; }
-        function toggleMenu() { 
-            const menu = document.getElementById('counseling-menu');
-            menu.classList.toggle('-translate-x-full');
-        }
-        function toggleHeroAdminUI() {
-            const type = document.getElementById('adm-hero-type').value;
-            document.getElementById('adm-img-ui').classList.toggle('hidden', type !== 'image');
-            document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
+        function closeDetail() { 
+            document.getElementById('detail-panel').classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
         }
 
         // --- START APP ---
