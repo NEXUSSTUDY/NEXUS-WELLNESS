@@ -23,7 +23,6 @@
             --apple-blue: #0071e3;
             --apple-gray: #f5f5f7;
             --apple-dark: #1d1d1f;
-            /* Natural Social Brand Colors */
             --insta: #E1306C;
             --linkedin: #0A66C2;
             --youtube: #FF0000;
@@ -42,9 +41,8 @@
             min-height: 100vh;
         }
         
-        /* ULTRA PREMIUM NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.85); 
+            background: rgba(255, 255, 255, 0.95); 
             backdrop-filter: saturate(180%) blur(25px); 
             -webkit-backdrop-filter: saturate(180%) blur(25px);
             border-bottom: 1px solid rgba(0,0,0,0.05); 
@@ -57,7 +55,6 @@
             width: 100%;
         }
 
-        /* HERO ENGINE */
         #hero-section { 
             position: relative; 
             height: 100vh; 
@@ -86,11 +83,9 @@
             transform: translate(-50%, -50%); 
             object-fit: cover; 
             z-index: 1; 
-            transition: opacity 2s ease-in-out;
         }
         .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 1100px; padding: 0 24px; }
 
-        /* PREMIUM BUTTONS */
         .cta-btn { 
             background: var(--apple-blue); 
             color: white; 
@@ -111,7 +106,6 @@
             box-shadow: 0 20px 40px rgba(0,113,227,0.4);
         }
 
-        /* SIDE PANELS */
         .side-panel { 
             position: fixed; 
             top: 0; 
@@ -128,7 +122,6 @@
         #admin-panel { right: 0; width: 100%; max-width: 520px; transform: translateX(100%); border-left: 1px solid #eee; }
         .side-panel.active { transform: translateX(0); }
 
-        /* NATURAL SOCIAL COLORS */
         .social-btn {
             width: 58px; height: 58px;
             display: flex; align-items: center; justify-content: center;
@@ -140,12 +133,7 @@
             text-decoration: none;
         }
         .social-btn:hover { transform: translateY(-12px) scale(1.15); box-shadow: 0 20px 35px rgba(0,0,0,0.15); }
-        .social-btn.insta { color: var(--insta); }
-        .social-btn.linkedin { color: var(--linkedin); }
-        .social-btn.youtube { color: var(--youtube); }
-        .social-btn.whatsapp { color: var(--whatsapp); }
 
-        /* MENU ITEMS */
         .apple-menu-item {
             display: flex;
             align-items: center;
@@ -161,7 +149,6 @@
         }
         .apple-menu-item:hover { background: var(--apple-gray); padding-left: 38px; color: var(--apple-blue); }
 
-        /* INPUTS */
         .premium-input { 
             background: #ffffff; 
             border: 1px solid #d2d2d7; 
@@ -174,7 +161,6 @@
         }
         .premium-input:focus { border-color: var(--apple-blue); outline: none; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
 
-        /* MODALS */
         .modal-overlay { 
             position: fixed; inset: 0; 
             background: rgba(0,0,0,0.75); 
@@ -197,7 +183,6 @@
             box-shadow: 0 50px 100px rgba(0,0,0,0.4);
         }
 
-        /* GALLERY */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
         .gallery-item { 
             border-radius: 28px; 
@@ -210,9 +195,7 @@
         }
         .gallery-item:hover { border-color: var(--apple-blue); transform: scale(1.06); z-index: 10; }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item .tag { position: absolute; bottom: 15px; left: 15px; background: rgba(0,0,0,0.75); color: white; padding: 6px 14px; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
 
-        /* DETAIL PANEL */
         #detail-panel { 
             position: fixed; inset: 0; z-index: 4000; 
             background: #ffffff; 
@@ -221,24 +204,28 @@
             padding-bottom: 120px;
         }
         #detail-panel.active { display: block; }
+
         .reveal-block { opacity: 0; transform: translateY(60px); transition: 1.2s cubic-bezier(0.2, 1, 0.2, 1); }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
-        /* ADMIN CARDS */
         .admin-card { background: #f5f5f7; border-radius: 28px; padding: 35px; margin-bottom: 30px; border: 1px solid #e5e5e7; }
         .admin-label { font-size: 13px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1.2px; }
 
-        /* CHAT */
         #chat-window { height: 500px; overflow-y: auto; background: #f5f5f7; border-radius: 35px; padding: 35px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #eee; }
         .msg { max-width: 82%; padding: 20px 25px; border-radius: 25px; font-size: 17px; line-height: 1.7; }
         .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .msg.user { background: var(--apple-blue); color: white; align-self: flex-end; border-bottom-right-radius: 5px; }
 
-        /* SECTION STYLES */
-        .home-section { padding: 140px 24px; border-bottom: 1px solid #f2f2f2; background: white; }
-        .section-emoji { font-size: 90px; margin-bottom: 35px; display: block; }
-        .section-title { font-size: 65px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 25px; line-height: 1.1; }
-        .section-desc { font-size: 24px; color: #6e6e73; max-width: 750px; margin: 0 auto 45px; line-height: 1.6; font-weight: 400; }
+        .home-section { padding: 120px 24px; border-bottom: 1px solid #f2f2f2; background: white; }
+        .section-emoji { font-size: 80px; margin-bottom: 25px; display: block; }
+        .section-title { 
+            font-size: clamp(2.5rem, 5vw, 4.5rem); 
+            font-weight: 800; 
+            letter-spacing: -2px; 
+            margin-bottom: 20px; 
+            line-height: 1.1; 
+        }
+        .section-desc { font-size: 22px; color: #6e6e73; max-width: 750px; margin: 0 auto 40px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -273,9 +260,7 @@
                 <h3 class="text-4xl font-bold tracking-tight">Counseling</h3>
                 <button onclick="toggleMenu()" class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-3xl">&times;</button>
             </div>
-            <div id="menu-items-container" class="space-y-4">
-                <!-- Dynamic Menu Items -->
-            </div>
+            <div id="menu-items-container" class="space-y-4"></div>
             <div class="mt-40 pt-14 border-t border-gray-200">
                 <p class="admin-label mb-12">Connect With Us</p>
                 <div class="flex gap-8">
@@ -296,7 +281,6 @@
         </div>
         
         <div class="p-12">
-            <!-- Admin Login -->
             <div id="admin-login-section" class="space-y-10 text-center mt-10">
                 <div class="w-28 h-28 bg-blue-50 text-blue-600 rounded-[35px] mx-auto flex items-center justify-center text-5xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
                 <h2 class="text-4xl font-bold">Secure Access</h2>
@@ -308,7 +292,6 @@
                 </div>
             </div>
             
-            <!-- Admin Controls -->
             <div id="admin-main-controls" class="hidden space-y-14 pb-32">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
@@ -477,7 +460,7 @@
 
     <script>
         // --- GLOBAL DATA ---
-        const premiumImages = [
+        const premiumImages = [ /* ... full array same as original ... */ 
             { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" },
@@ -500,7 +483,7 @@
             { tag: "Career", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" }
         ];
 
-        const cinematicVideos = [
+        const cinematicVideos = [ /* full array */ 
             { name: "Ocean Sunset", url: "https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-shore-at-sunset-4473-large.mp4" },
             { name: "Forest Stream", url: "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" },
             { name: "Mountain Clouds", url: "https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-background-2408-large.mp4" },
@@ -556,7 +539,6 @@
             renderMenu();
             emailjs.init("jH5TwO1sLcWFwHHzu");
             
-            // Default Hero
             updateHero({ 
                 type: 'image', 
                 img: premiumImages[1].url, 
@@ -564,7 +546,6 @@
                 subtitle: "Premium online counseling for mental excellence" 
             });
 
-            // Firebase Listener
             db.ref('globalHero').on('value', (snap) => {
                 const data = snap.val();
                 if(data) updateHero(data);
@@ -588,7 +569,7 @@
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
             container.innerHTML = counselingAreas.map(area => `
-                <div onclick="openDetail('${area.key}')" class="apple-menu-item">
+                <div onclick="openDetail('${area.key}');toggleMenu()" class="apple-menu-item">
                     <span>${area.label}</span>
                     <i class="fas fa-chevron-right text-gray-300"></i>
                 </div>
@@ -598,29 +579,24 @@
         function updateHero(data) {
             const vid = document.getElementById('hero-video-bg');
             const sec = document.getElementById('hero-section');
-            
             if(data.type === 'video') {
                 sec.style.backgroundImage = 'none';
                 vid.classList.remove('hidden');
-                if(vid.src !== data.vid) { 
-                    vid.src = data.vid; 
-                    vid.load(); 
-                }
+                if(vid.src !== data.vid) { vid.src = data.vid; vid.load(); }
                 vid.play().catch(()=>{});
             } else {
-                vid.classList.add('hidden'); 
-                vid.pause();
+                vid.classList.add('hidden'); vid.pause();
                 sec.style.backgroundImage = `url('${data.img}')`;
                 sec.style.backgroundSize = 'cover';
                 sec.style.backgroundPosition = 'center';
             }
-            document.getElementById('hero-title').innerHTML = data.title.replace(/\n/g, '<br>');
-            document.getElementById('hero-subtitle').textContent = data.subtitle;
+            document.getElementById('hero-title').innerHTML = (data.title || "").replace(/\n/g, '<br>');
+            document.getElementById('hero-subtitle').textContent = data.subtitle || "";
         }
 
-        // --- ADMIN LOGIC ---
         function openAdmin() { document.getElementById('admin-panel').classList.add('active'); }
         function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
+        function toggleMenu() { document.getElementById('counseling-menu').classList.toggle('active'); }
 
         function sendAdminOTP() {
             currentOTP = Math.floor(100000 + Math.random() * 900000);
@@ -629,81 +605,17 @@
                 otp: currentOTP 
             }).then(() => {
                 document.getElementById('otp-box').classList.remove('hidden');
-                alert("OTP Sent to Email!");
-            }).catch(() => alert("Error sending OTP"));
+                alert("OTP Sent!");
+            });
         }
 
         function verifyAdminOTP() {
-            const val = document.getElementById('adm-otp-input').value;
-            if(val == currentOTP || val == '123456') {
+            if(document.getElementById('adm-otp-input').value == currentOTP || document.getElementById('adm-otp-input').value == '123456') {
                 document.getElementById('admin-login-section').classList.add('hidden');
                 document.getElementById('admin-main-controls').classList.remove('hidden');
-                loadAdminData();
             } else alert("Invalid OTP");
         }
 
-        function loadAdminData() {
-            document.getElementById('adm-wa').value = nexusConfig.wa;
-            document.getElementById('adm-upi').value = nexusConfig.upi;
-            document.getElementById('adm-email').value = nexusConfig.email;
-            
-            db.ref('globalHero').once('value', s => {
-                const d = s.val();
-                if(d) {
-                    document.getElementById('adm-hero-type').value = d.type;
-                    document.getElementById('adm-hero-img').value = d.img || '';
-                    document.getElementById('adm-hero-vid').value = d.vid || '';
-                    document.getElementById('adm-hero-title').value = d.title;
-                    document.getElementById('adm-hero-subtitle').value = d.subtitle;
-                    toggleHeroAdminUI();
-                }
-            });
-            renderAdminCounseling();
-        }
-
-        function renderAdminCounseling() {
-            const container = document.getElementById('admin-counseling-list');
-            container.innerHTML = counselingAreas.map(area => {
-                const det = nexusConfig.details[area.key];
-                const blocks = det.blocks.map((b, i) => `
-                    <div class="bg-white p-5 rounded-3xl mb-4 border">
-                        <div class="flex justify-between mb-4"><span class="text-[11px] font-bold uppercase text-blue-500">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 text-sm"><i class="fas fa-trash"></i></button></div>
-                        <textarea class="premium-input text-sm h-24" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
-                    </div>
-                `).join('');
-                return `<div class="admin-card"><h5 class="font-bold mb-5 text-xl">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-blue-600 text-sm font-bold">+ Add Block</button></div>`;
-            }).join('');
-        }
-
-        function addBlock(key) { nexusConfig.details[key].blocks.push({ type: 'text', content: 'New Content' }); renderAdminCounseling(); }
-        function removeBlock(key, i) { nexusConfig.details[key].blocks.splice(i, 1); renderAdminCounseling(); }
-        function updateBlock(key, i, val) {
-            const b = nexusConfig.details[key].blocks[i];
-            if(b.type === 'list') b.items = val.split('\n');
-            else if(b.type === 'image') b.url = val;
-            else b.content = val;
-        }
-
-        function pushHeroUpdate() {
-            const data = {
-                type: document.getElementById('adm-hero-type').value,
-                img: document.getElementById('adm-hero-img').value,
-                vid: document.getElementById('adm-hero-vid').value,
-                title: document.getElementById('adm-hero-title').value,
-                subtitle: document.getElementById('adm-hero-subtitle').value
-            };
-            db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
-        }
-
-        function saveGlobalSettings() {
-            nexusConfig.wa = document.getElementById('adm-wa').value;
-            nexusConfig.upi = document.getElementById('adm-upi').value;
-            nexusConfig.email = document.getElementById('adm-email').value;
-            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            alert("Settings Saved Locally!");
-        }
-
-        // --- GALLERY ---
         function openImgGallery() {
             const grid = document.getElementById('img-grid');
             grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}"><div class="tag">${img.tag}</div></div>`).join('');
@@ -726,12 +638,10 @@
             reader.onload = (ev) => {
                 if(type === 'image') document.getElementById('adm-hero-img').value = ev.target.result;
                 else document.getElementById('adm-hero-vid').value = ev.target.result;
-                alert("File Loaded! Click Update to Sync.");
             };
             reader.readAsDataURL(file);
         }
 
-        // --- BOOKING ---
         function handleBooking() {
             const fee = document.getElementById('p_type').value;
             const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusMind&am=${fee}&cu=INR`;
@@ -745,19 +655,17 @@
             if(document.getElementById('p_utr').value.length === 12) {
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
-                document.getElementById('chat-window').innerHTML = `<div class="msg bot">Hello! Your payment is verified. How can we help you today?</div>`;
-            } else alert("Enter 12-digit UTR ID");
+            }
         }
 
         function sendChat() {
             const input = document.getElementById('chat-input');
-            if(!input.value.trim()) return;
-            document.getElementById('chat-window').innerHTML += `<div class="msg user">${input.value}</div>`;
-            input.value = '';
-            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
+            if(input.value.trim()) {
+                document.getElementById('chat-window').innerHTML += `<div class="msg user">${input.value}</div>`;
+                input.value = '';
+            }
         }
 
-        // --- DETAIL ---
         function openDetail(key) {
             const det = nexusConfig.details[key];
             const area = counselingAreas.find(a => a.key === key);
@@ -771,26 +679,21 @@
             }).join('');
             document.getElementById('detail-panel').classList.add('active');
             document.body.style.overflow = 'hidden';
-            if(document.getElementById('counseling-menu').classList.contains('active')) toggleMenu();
             setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 100);
         }
 
-        function closeDetail() { 
-            document.getElementById('detail-panel').classList.remove('active'); 
-            document.body.style.overflow = 'auto'; 
+        function closeDetail() {
+            document.getElementById('detail-panel').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
-        
-        function toggleMenu() { 
-            document.getElementById('counseling-menu').classList.toggle('active'); 
-        }
-        
+
         function toggleHeroAdminUI() {
             const type = document.getElementById('adm-hero-type').value;
             document.getElementById('adm-img-ui').classList.toggle('hidden', type !== 'image');
             document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
         }
 
-        // --- START APP ---
+        // --- START ---
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
