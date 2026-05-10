@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- Firebase Compat SDKs -->
@@ -38,6 +39,7 @@
             scroll-behavior: smooth; 
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
         
         /* ULTRA PREMIUM NAVIGATION */
@@ -65,12 +67,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 1;
         }
         .hero-overlay { 
             position: absolute; 
             inset: 0; 
             background: linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); 
-            z-index: 1; 
+            z-index: 2; 
         }
         #hero-video-bg { 
             position: absolute; 
@@ -82,10 +85,10 @@
             height: auto; 
             transform: translate(-50%, -50%); 
             object-fit: cover; 
-            z-index: 0; 
+            z-index: 1; 
             transition: opacity 2s ease-in-out;
         }
-        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 1100px; padding: 0 24px; }
+        .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 1100px; padding: 0 24px; }
 
         /* PREMIUM BUTTONS */
         .cta-btn { 
@@ -548,26 +551,28 @@
 
         // --- CORE FUNCTIONS ---
         function initApp() {
-            try {
-                renderHome();
-                renderMenu();
-                emailjs.init("jH5TwO1sLcWFwHHzu");
-                
-                // Fail-safe Hero
-                updateHero({ type: 'image', img: premiumImages[0].url, title: "Reclaim Your\nInner Peace", subtitle: "Premium online counseling for mental excellence" });
+            AOS.init({ duration: 1000, once: true });
+            renderHome();
+            renderMenu();
+            emailjs.init("jH5TwO1sLcWFwHHzu");
+            
+            // Default Hero
+            updateHero({ 
+                type: 'image', 
+                img: premiumImages[1].url, 
+                title: "Reclaim Your\nInner Peace", 
+                subtitle: "Premium online counseling for mental excellence" 
+            });
 
-                db.ref('globalHero').on('value', (snap) => {
-                    const data = snap.val();
-                    if(data) updateHero(data);
-                });
-            } catch (e) {
-                console.error("Init Error:", e);
-            }
+            // Firebase Listener
+            db.ref('globalHero').on('value', (snap) => {
+                const data = snap.val();
+                if(data) updateHero(data);
+            });
         }
 
         function renderHome() {
             const container = document.getElementById('homepage-sections');
-            if(!container) return;
             container.innerHTML = counselingAreas.map(area => `
                 <section class="home-section">
                     <div class="max-w-7xl mx-auto text-center" data-aos="fade-up">
@@ -582,7 +587,6 @@
 
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
-            if(!container) return;
             container.innerHTML = counselingAreas.map(area => `
                 <div onclick="openDetail('${area.key}')" class="apple-menu-item">
                     <span>${area.label}</span>
@@ -594,13 +598,18 @@
         function updateHero(data) {
             const vid = document.getElementById('hero-video-bg');
             const sec = document.getElementById('hero-section');
+            
             if(data.type === 'video') {
                 sec.style.backgroundImage = 'none';
                 vid.classList.remove('hidden');
-                if(vid.src !== data.vid) { vid.src = data.vid; vid.load(); }
+                if(vid.src !== data.vid) { 
+                    vid.src = data.vid; 
+                    vid.load(); 
+                }
                 vid.play().catch(()=>{});
             } else {
-                vid.classList.add('hidden'); vid.pause();
+                vid.classList.add('hidden'); 
+                vid.pause();
                 sec.style.backgroundImage = `url('${data.img}')`;
                 sec.style.backgroundSize = 'cover';
                 sec.style.backgroundPosition = 'center';
@@ -621,7 +630,7 @@
             }).then(() => {
                 document.getElementById('otp-box').classList.remove('hidden');
                 alert("OTP Sent to Email!");
-            });
+            }).catch(() => alert("Error sending OTP"));
         }
 
         function verifyAdminOTP() {
@@ -766,8 +775,15 @@
             setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 100);
         }
 
-        function closeDetail() { document.getElementById('detail-panel').classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function toggleMenu() { document.getElementById('counseling-menu').classList.toggle('active'); }
+        function closeDetail() { 
+            document.getElementById('detail-panel').classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        }
+        
+        function toggleMenu() { 
+            document.getElementById('counseling-menu').classList.toggle('active'); 
+        }
+        
         function toggleHeroAdminUI() {
             const type = document.getElementById('adm-hero-type').value;
             document.getElementById('adm-img-ui').classList.toggle('hidden', type !== 'image');
