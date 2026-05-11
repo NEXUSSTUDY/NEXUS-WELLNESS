@@ -5,21 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Mind | Premium Psychological Excellence</title>
     
+    <!-- Preconnect for Speed of Light Loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    
     <!-- Dynamic Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     
-    <!-- World-Class SDKs -->
+    <!-- Tailwind CSS (Synchronous for layout stability) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
-    <!-- Firebase Compat SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-
-    <!-- AOS JS Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Deferred SDKs (Loads in background, doesn't block website speed) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
     <!-- Tailwind Stable Configuration -->
     <script>
@@ -30,10 +33,6 @@
                         appleBlue: '#0066cc',
                         appleGray: '#f5f5f7',
                         appleDark: '#1d1d1f',
-                        brandInsta: '#E1306C',
-                        brandLinkedin: '#0A66C2',
-                        brandYoutube: '#FF0000',
-                        brandWhatsapp: '#25D366',
                     },
                     fontFamily: {
                         sans:['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
@@ -46,188 +45,120 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+
+        /* Smooth Page Load Animation */
+        @keyframes smoothReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            background-color: #ffffff; 
-            color: #1d1d1f; 
-            scroll-behavior: smooth; 
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background-color: #ffffff; color: #1d1d1f; 
+            scroll-behavior: smooth; overflow-x: hidden;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            animation: smoothReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         
-        /* ULTRA PREMIUM GLASS NAVIGATION */
+        /* ULTRA PREMIUM GLASS NAVIGATION (GPU Accelerated) */
         .glass-nav { 
             background: rgba(255, 255, 255, 0.75); 
-            backdrop-filter: saturate(180%) blur(20px); 
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
             border-bottom: 1px solid rgba(0,0,0,0.05); 
-            z-index: 1000; 
-            height: 72px; 
-            display: flex;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            transition: all 0.4s ease;
+            z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
+            transform: translateZ(0); /* Forces GPU Rendering */
+            will-change: transform, backdrop-filter;
         }
 
         /* HERO ENGINE */
-        #hero-section { 
-            position: relative; 
-            height: 100vh; 
-            width: 100%; 
-            overflow: hidden; 
-            background-color: #000; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #hero-img-bg {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            transition: opacity 1s ease-in-out;
-        }
-        #hero-video-bg {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            transition: opacity 1s ease-in-out;
-        }
-        .hero-overlay { 
-            position: absolute; inset: 0; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 100%); 
-            z-index: 1; 
-        }
-        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; }
+        #hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
+        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1s ease-in-out; transform: translateZ(0); }
+        #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease-in-out; transform: translateZ(0); }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 100%); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; will-change: transform, opacity; }
 
-        /* ULTRA PREMIUM BUTTONS (Apple Style) */
+        /* APPLE SIGNATURE BUTTONS */
         .cta-btn { 
-            background: rgba(0, 102, 204, 0.95); 
-            backdrop-filter: blur(10px);
-            color: white; 
-            border-radius: 999px; 
-            font-weight: 500; 
-            font-size: 15px; 
-            padding: 14px 32px; 
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.25);
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: inline-block;
-            text-decoration: none;
-            letter-spacing: 0.3px;
+            background: rgba(0, 102, 204, 0.95); backdrop-filter: blur(10px); color: white; 
+            border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Apple Easing */
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.25); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+            display: inline-block; text-decoration: none; letter-spacing: 0.3px;
+            transform: translateZ(0);
         }
-        .cta-btn:hover { 
-            background: rgba(0, 102, 204, 1); 
-            transform: scale(1.03) translateY(-2px); 
-            box-shadow: 0 12px 32px rgba(0, 102, 204, 0.35);
-        }
+        .cta-btn:hover { background: rgba(0, 102, 204, 1); transform: scale(1.03) translateY(-2px); box-shadow: 0 12px 32px rgba(0, 102, 204, 0.35); }
 
-        /* SIDE PANELS WITH SMOOTH TRANSITIONS */
+        /* SIDE PANELS (Buttery Smooth) */
         .side-panel { 
             position: fixed; top: 0; height: 100vh; 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: saturate(200%) blur(40px); 
-            -webkit-backdrop-filter: saturate(200%) blur(40px); 
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); 
             z-index: 3000; 
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
-            box-shadow: 0 0 50px rgba(0,0,0,0.1); 
-            overflow-y: auto; 
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Apple Easing */
+            box-shadow: 0 0 50px rgba(0,0,0,0.1); overflow-y: auto; 
+            will-change: transform; transform: translateZ(0);
         }
         #counseling-menu { left: 0; width: 100%; max-width: 400px; transform: translateX(-100%); border-right: 1px solid rgba(0,0,0,0.05); }
         #admin-panel { right: 0; width: 100%; max-width: 480px; transform: translateX(100%); border-left: 1px solid rgba(0,0,0,0.05); }
         
-        /* FIXED CSS SPECIFICITY FOR ACTIVE CLASS */
         #counseling-menu.active, #admin-panel.active { transform: translateX(0) !important; }
 
-        /* NATURAL SOCIAL COLORS */
+        /* SOCIAL BUTTONS */
         .social-btn {
-            width: 48px; height: 48px; 
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            font-size: 20px; text-decoration: none;
-            border: 1px solid rgba(0,0,0,0.02);
+            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-size: 20px; text-decoration: none; border: 1px solid rgba(0,0,0,0.02);
+            transform: translateZ(0);
         }
         .social-btn:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
-        .social-btn.insta { color: #E1306C; }
-        .social-btn.linkedin { color: #0A66C2; }
-        .social-btn.youtube { color: #FF0000; }
-        .social-btn.whatsapp { color: #25D366; }
+        .social-btn.insta { color: #E1306C; } .social-btn.linkedin { color: #0A66C2; } .social-btn.youtube { color: #FF0000; } .social-btn.whatsapp { color: #25D366; }
 
         /* MENU ITEMS */
         .apple-menu-item {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 18px 20px; border-radius: 16px; margin-bottom: 8px;
-            transition: all 0.3s ease; cursor: pointer;
-            font-weight: 500; font-size: 16px; color: #1d1d1f;
-            background: transparent;
+            display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 16px; margin-bottom: 8px;
+            transition: all 0.3s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #1d1d1f; background: transparent;
         }
         .apple-menu-item:hover { background: rgba(0,0,0,0.03); padding-left: 26px; color: #0066cc; }
 
         /* PREMIUM INPUTS */
         .premium-input { 
-            background: rgba(255,255,255,0.8); 
-            border: 1px solid rgba(0,0,0,0.1); 
-            border-radius: 14px; 
-            padding: 16px 20px; width: 100%; font-size: 15px;
-            transition: all 0.3s ease; color: #1d1d1f;
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); border-radius: 14px; 
+            padding: 16px 20px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #1d1d1f; backdrop-filter: blur(10px);
         }
         .premium-input:focus { border-color: #0066cc; outline: none; box-shadow: 0 0 0 4px rgba(0,102,204,0.1); background: #fff; }
 
         /* MODALS */
         .modal-overlay { 
-            position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.4); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; 
-            opacity: 0; transition: opacity 0.4s ease;
+            opacity: 0; transition: opacity 0.4s ease; transform: translateZ(0);
         }
         .modal-overlay.active { opacity: 1; display: flex; }
         .modal-content { 
-            background: rgba(255,255,255,0.95); 
-            border-radius: 32px; width: 100%; max-width: 900px; max-height: 85vh; 
-            overflow-y: auto; padding: 40px; position: relative;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-            transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            background: rgba(255,255,255,0.95); border-radius: 32px; width: 100%; max-width: 900px; max-height: 85vh; 
+            overflow-y: auto; padding: 40px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+            transform: scale(0.95); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
 
         /* GALLERY */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
         .gallery-item { 
-            border-radius: 20px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; 
-            position: relative; border: 2px solid transparent; transition: 0.4s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 20px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; position: relative; border: 2px solid transparent; 
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
         }
         .gallery-item:hover { border-color: #0066cc; transform: scale(1.04); z-index: 10; box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
         .gallery-item .tag { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); color: white; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* DETAIL PANEL */
-        #detail-panel { 
-            position: fixed; inset: 0; z-index: 4000; 
-            background: #ffffff; display: none; overflow-y: auto; padding-bottom: 80px;
-        }
-        .reveal-block { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        #detail-panel { position: fixed; inset: 0; z-index: 4000; background: #ffffff; display: none; overflow-y: auto; padding-bottom: 80px; transform: translateZ(0); }
+        .reveal-block { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
         /* ADMIN CARDS */
         .admin-card { background: rgba(245,245,247,0.6); border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.04); }
         .admin-label { font-size: 11px; font-weight: 600; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
 
-        /* CHAT */
-        #chat-window { height: 350px; overflow-y: auto; background: #f5f5f7; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 12px; border: 1px solid rgba(0,0,0,0.05); }
-        .msg { max-width: 80%; padding: 14px 20px; border-radius: 20px; font-size: 14px; line-height: 1.5; }
-        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-        .msg.user { background: #0066cc; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
-
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d2d2d7; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #86868b; }
@@ -265,9 +196,7 @@
                 <h3 class="text-2xl font-bold tracking-tight text-appleDark">Counseling</h3>
                 <button id="close-menu-btn" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
             </div>
-            <div id="menu-items-container" class="space-y-1">
-                <!-- Dynamic Menu Items Populated by JS -->
-            </div>
+            <div id="menu-items-container" class="space-y-1"></div>
             <div class="mt-20 pt-8 border-t border-gray-200">
                 <p class="admin-label mb-6">Connect With Us</p>
                 <div class="flex gap-4">
@@ -288,7 +217,6 @@
         </div>
         
         <div class="p-8">
-            <!-- Admin Login -->
             <div id="admin-login-section" class="space-y-6 text-center mt-4">
                 <div class="w-20 h-20 bg-blue-50 text-appleBlue rounded-[20px] mx-auto flex items-center justify-center text-3xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
                 <h2 class="text-2xl font-bold text-appleDark">Secure Access</h2>
@@ -300,7 +228,6 @@
                 </div>
             </div>
             
-            <!-- Admin Controls -->
             <div id="admin-main-controls" class="hidden space-y-8 pb-20">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
@@ -309,7 +236,6 @@
                         <option value="video">Background Video</option>
                     </select>
                     
-                    <!-- Image UI -->
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-3">
                             <input id="adm-hero-img" class="premium-input flex-1 text-sm" placeholder="Image URL">
@@ -318,7 +244,6 @@
                         <button id="open-img-gallery-btn" class="text-appleBlue text-xs font-semibold mb-6 block hover:underline">Browse Premium Photos</button>
                     </div>
 
-                    <!-- Video UI -->
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-3">
                             <input id="adm-hero-vid" class="premium-input flex-1 text-sm" placeholder="Video URL">
@@ -351,7 +276,6 @@
 
     <!-- Hero Section -->
     <section id="hero-section">
-        <!-- Dynamic Backgrounds -->
         <div id="hero-img-bg" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80');"></div>
         <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline></video>
         
@@ -366,7 +290,6 @@
 
     <!-- Homepage Sections -->
     <div id="homepage-sections" class="bg-appleGray">
-        <!-- Anxiety -->
         <section class="py-24 px-6 md:px-16 bg-white rounded-b-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.02)] relative z-10">
             <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🧠</div>
@@ -376,7 +299,6 @@
             </div>
         </section>
 
-        <!-- Relationship -->
         <section class="py-24 px-6 md:px-16 bg-appleGray">
             <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">❤️</div>
@@ -386,7 +308,6 @@
             </div>
         </section>
 
-        <!-- Sleep -->
         <section class="py-24 px-6 md:px-16 bg-white rounded-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.02)] relative z-10">
             <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🌙</div>
@@ -396,7 +317,6 @@
             </div>
         </section>
 
-        <!-- Trauma -->
         <section class="py-24 px-6 md:px-16 bg-appleGray">
             <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🛡️</div>
@@ -406,7 +326,6 @@
             </div>
         </section>
 
-        <!-- Career -->
         <section class="py-24 px-6 md:px-16 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.02)] relative z-10">
             <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">💼</div>
@@ -467,7 +386,7 @@
 
                 <div id="p-payment" class="hidden text-center space-y-10 py-6">
                     <div class="max-w-sm mx-auto bg-white p-8 rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100">
-                        <img id="p-qr" src="" class="w-full rounded-2xl border-[4px] border-gray-50">
+                        <img id="p-qr" src="" class="w-full rounded-2xl border-[4px] border-gray-50" loading="lazy" decoding="async">
                         <p id="p-upi-text" class="mt-6 text-appleBlue font-bold text-lg tracking-wider"></p>
                     </div>
                     <div class="max-w-md mx-auto space-y-6">
@@ -526,26 +445,26 @@
     <script>
         // --- GLOBAL DATA ---
         const premiumImages =[
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1516589174184-c685266d430c?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1520206159572-77dec125bb2a?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1511295742364-91190082d10e?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" }
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1516589174184-c685266d430c?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1520206159572-77dec125bb2a?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1511295742364-91190082d10e?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=70" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=70" }
         ];
 
         const cinematicVideos =[
@@ -587,7 +506,7 @@
         // --- DOMContentLoaded EVENT LISTENER ---
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. ATTACH UI EVENT LISTENERS FIRST
+            // 1. ATTACH UI EVENT LISTENERS FIRST (Instant Interaction)
             const menuBtn = document.getElementById('menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const counselingMenu = document.getElementById('counseling-menu');
@@ -669,34 +588,36 @@
             // 2. RENDER DYNAMIC CONTENT
             renderMenu();
 
-            // 3. INITIALIZE EXTERNAL LIBRARIES SAFELY
-            try { AOS.init({ duration: 1000, once: true, easing: 'ease-out-cubic' }); } catch(e) { console.warn("AOS Error:", e); }
-            try { emailjs.init("jH5TwO1sLcWFwHHzu"); } catch(e) { console.warn("EmailJS Error:", e); }
+            // 3. DEFER HEAVY LIBRARIES (Speed of Light Optimization)
+            const initHeavyLibraries = () => {
+                try { if(window.AOS) AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' }); } catch(e) {}
+                try { if(window.emailjs) emailjs.init("jH5TwO1sLcWFwHHzu"); } catch(e) {}
+                
+                try {
+                    if(window.firebase && !firebase.apps.length) {
+                        firebase.initializeApp({
+                            apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
+                            authDomain: "nexus-mind-41ffc.firebaseapp.com",
+                            projectId: "nexus-mind-41ffc",
+                            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
+                            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
+                            messagingSenderId: "1902762667",
+                            appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
+                        });
+                        window.db = firebase.database();
+                        window.db.ref('globalHero').on('value', (snap) => {
+                            const data = snap.val();
+                            if(data) updateHero(data);
+                        });
+                    }
+                } catch(e) {}
+            };
 
-            // 4. FIREBASE INITIALIZATION SAFELY
-            try {
-                const firebaseConfig = {
-                    apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
-                    authDomain: "nexus-mind-41ffc.firebaseapp.com",
-                    projectId: "nexus-mind-41ffc",
-                    storageBucket: "nexus-mind-41ffc.firebasestorage.app",
-                    databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
-                    messagingSenderId: "1902762667",
-                    appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
-                };
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(firebaseConfig);
-                }
-                const db = firebase.database();
-                
-                db.ref('globalHero').on('value', (snap) => {
-                    const data = snap.val();
-                    if(data) updateHero(data);
-                });
-                
-                window.db = db;
-            } catch(e) {
-                console.warn("Firebase Error:", e);
+            // Run heavy scripts only when browser is idle
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(initHeavyLibraries);
+            } else {
+                setTimeout(initHeavyLibraries, 200);
             }
         });
 
@@ -847,7 +768,7 @@
         // --- GALLERY & UPLOADS ---
         function openImgGallery() {
             const grid = document.getElementById('img-grid');
-            grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}"><div class="tag">${img.tag}</div></div>`).join('');
+            grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" loading="lazy" decoding="async"><div class="tag">${img.tag}</div></div>`).join('');
             document.getElementById('img-modal').classList.add('active');
         }
         window.selectImg = function(url) { document.getElementById('adm-hero-img').value = url; document.getElementById('img-modal').classList.remove('active'); }
@@ -863,9 +784,8 @@
             const file = e.target.files[0];
             if(!file) return;
             
-            // Size check for video (Warn if > 5MB)
             if(type === 'video' && file.size > 5 * 1024 * 1024) {
-                alert("Warning: Video is larger than 5MB. It may cause the website to load slowly or fail to sync.");
+                alert("Warning: Video is larger than 5MB. It may cause the website to load slowly.");
             }
 
             const reader = new FileReader();
@@ -911,7 +831,7 @@
             document.getElementById('det-title').textContent = det.title;
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
                 if(b.type === 'text') return `<p class="reveal-block text-lg md:text-xl text-gray-500 leading-relaxed font-medium">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" class="w-full rounded-[2rem] h-[300px] md:h-[450px] object-cover shadow-[0_20px_50px_rgba(0,0,0,0.1)]"></div>`;
+                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" decoding="async" class="w-full rounded-[2rem] h-[300px] md:h-[450px] object-cover shadow-[0_20px_50px_rgba(0,0,0,0.1)]"></div>`;
                 if(b.type === 'heading') return `<h3 class="reveal-block text-2xl md:text-3xl font-bold text-appleDark mt-8">✨ ${b.content}</h3>`;
                 if(b.type === 'list') return `<ul class="reveal-block space-y-4 bg-appleGray/50 p-6 md:p-10 rounded-[2rem] border border-gray-100">${b.items.map(i => `<li class="text-base md:text-lg flex gap-4 font-medium text-gray-700"><i class="fas fa-check-circle text-appleBlue mt-1"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
@@ -924,7 +844,10 @@
                 counselingMenu.classList.remove('active');
             }
             
-            setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 50);
+            // RequestAnimationFrame for buttery smooth reveal
+            requestAnimationFrame(() => {
+                setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 50);
+            });
         }
 
         function closeDetail() { 
