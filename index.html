@@ -13,10 +13,10 @@
     <!-- Dynamic Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     
-    <!-- Tailwind CSS (Synchronous for layout stability) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Deferred SDKs (Loads in background, doesn't block website speed) -->
+    <!-- Deferred SDKs -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -35,7 +35,7 @@
                         appleDark: '#1d1d1f',
                     },
                     fontFamily: {
-                        sans:['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        sans:['Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'sans-serif'],
                     }
                 }
             }
@@ -43,11 +43,10 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
-        /* Smooth Page Load Animation */
         @keyframes smoothReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         body { 
@@ -56,112 +55,109 @@
             scroll-behavior: smooth; overflow-x: hidden;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
             animation: smoothReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            font-size: 16px;
+            line-height: 1.6;
         }
         
-        /* ULTRA PREMIUM GLASS NAVIGATION (GPU Accelerated) */
+        /* ULTRA PREMIUM GLASS NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.75); 
+            background: rgba(255, 255, 255, 0.8); 
             backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
-            z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
-            transform: translateZ(0); /* Forces GPU Rendering */
-            will-change: transform, backdrop-filter;
+            border-bottom: 1px solid rgba(0,0,0,0.04); 
+            z-index: 1000; height: 60px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
+            transform: translateZ(0); will-change: transform, backdrop-filter;
         }
 
         /* HERO ENGINE */
         #hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
         #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1s ease-in-out; transform: translateZ(0); }
         #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease-in-out; transform: translateZ(0); }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 100%); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; will-change: transform, opacity; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; width: 100%; max-width: 800px; padding: 0 24px; will-change: transform, opacity; }
 
-        /* APPLE SIGNATURE BUTTONS */
+        /* SLEEK BUTTONS */
         .cta-btn { 
-            background: rgba(0, 102, 204, 0.95); backdrop-filter: blur(10px); color: white; 
-            border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Apple Easing */
-            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.25); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
-            display: inline-block; text-decoration: none; letter-spacing: 0.3px;
-            transform: translateZ(0);
+            background: rgba(0, 102, 204, 0.9); backdrop-filter: blur(10px); color: white; 
+            border-radius: 999px; font-weight: 400; font-size: 14px; padding: 10px 24px; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+            box-shadow: 0 4px 14px rgba(0, 102, 204, 0.15); cursor: pointer; border: 1px solid rgba(255,255,255,0.05);
+            display: inline-block; text-decoration: none; letter-spacing: 0.3px; transform: translateZ(0);
         }
-        .cta-btn:hover { background: rgba(0, 102, 204, 1); transform: scale(1.03) translateY(-2px); box-shadow: 0 12px 32px rgba(0, 102, 204, 0.35); }
+        .cta-btn:hover { background: rgba(0, 102, 204, 1); transform: scale(1.02) translateY(-1px); box-shadow: 0 6px 20px rgba(0, 102, 204, 0.2); }
 
-        /* SIDE PANELS (Buttery Smooth) */
+        /* SIDE PANELS */
         .side-panel { 
             position: fixed; top: 0; height: 100vh; 
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); 
-            z-index: 3000; 
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* Apple Easing */
-            box-shadow: 0 0 50px rgba(0,0,0,0.1); overflow-y: auto; 
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); 
+            z-index: 3000; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+            box-shadow: 0 0 40px rgba(0,0,0,0.05); overflow-y: auto; 
             will-change: transform; transform: translateZ(0);
         }
-        #counseling-menu { left: 0; width: 100%; max-width: 400px; transform: translateX(-100%); border-right: 1px solid rgba(0,0,0,0.05); }
-        #admin-panel { right: 0; width: 100%; max-width: 480px; transform: translateX(100%); border-left: 1px solid rgba(0,0,0,0.05); }
-        
+        #counseling-menu { left: 0; width: 100%; max-width: 340px; transform: translateX(-100%); border-right: 1px solid rgba(0,0,0,0.04); }
+        #admin-panel { right: 0; width: 100%; max-width: 420px; transform: translateX(100%); border-left: 1px solid rgba(0,0,0,0.04); }
         #counseling-menu.active, #admin-panel.active { transform: translateX(0) !important; }
 
         /* SOCIAL BUTTONS */
         .social-btn {
-            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-size: 20px; text-decoration: none; border: 1px solid rgba(0,0,0,0.02);
-            transform: translateZ(0);
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-size: 16px; text-decoration: none; border: 1px solid rgba(0,0,0,0.02);
+            color: #1d1d1f;
         }
-        .social-btn:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
-        .social-btn.insta { color: #E1306C; } .social-btn.linkedin { color: #0A66C2; } .social-btn.youtube { color: #FF0000; } .social-btn.whatsapp { color: #25D366; }
+        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); color: #0066cc; }
 
         /* MENU ITEMS */
         .apple-menu-item {
-            display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 16px; margin-bottom: 8px;
-            transition: all 0.3s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #1d1d1f; background: transparent;
+            display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 12px; margin-bottom: 4px;
+            transition: all 0.3s ease; cursor: pointer; font-weight: 400; font-size: 14px; color: #1d1d1f; background: transparent;
         }
-        .apple-menu-item:hover { background: rgba(0,0,0,0.03); padding-left: 26px; color: #0066cc; }
+        .apple-menu-item:hover { background: rgba(0,0,0,0.02); padding-left: 20px; color: #0066cc; }
 
-        /* PREMIUM INPUTS */
+        /* REFINED INPUTS */
         .premium-input { 
-            background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); border-radius: 14px; 
-            padding: 16px 20px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #1d1d1f; backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; 
+            padding: 12px 16px; width: 100%; font-size: 14px; font-weight: 300; transition: all 0.3s ease; color: #1d1d1f;
         }
-        .premium-input:focus { border-color: #0066cc; outline: none; box-shadow: 0 0 0 4px rgba(0,102,204,0.1); background: #fff; }
+        .premium-input:focus { border-color: #0066cc; outline: none; box-shadow: 0 0 0 3px rgba(0,102,204,0.08); background: #fff; }
 
         /* MODALS */
         .modal-overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; 
             opacity: 0; transition: opacity 0.4s ease; transform: translateZ(0);
         }
         .modal-overlay.active { opacity: 1; display: flex; }
         .modal-content { 
-            background: rgba(255,255,255,0.95); border-radius: 32px; width: 100%; max-width: 900px; max-height: 85vh; 
-            overflow-y: auto; padding: 40px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-            transform: scale(0.95); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
+            background: rgba(255,255,255,0.98); border-radius: 24px; width: 100%; max-width: 800px; max-height: 85vh; 
+            overflow-y: auto; padding: 32px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: scale(0.98); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
 
         /* GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
         .gallery-item { 
-            border-radius: 20px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; position: relative; border: 2px solid transparent; 
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
+            border-radius: 12px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; position: relative; border: 1px solid rgba(0,0,0,0.05); 
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); transform: translateZ(0);
         }
-        .gallery-item:hover { border-color: #0066cc; transform: scale(1.04); z-index: 10; box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .gallery-item:hover { border-color: #0066cc; transform: scale(1.02); z-index: 10; box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item .tag { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); color: white; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .gallery-item .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); color: white; padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* DETAIL PANEL */
         #detail-panel { position: fixed; inset: 0; z-index: 4000; background: #ffffff; display: none; overflow-y: auto; padding-bottom: 80px; transform: translateZ(0); }
-        .reveal-block { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
+        .reveal-block { opacity: 0; transform: translateY(20px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
         /* ADMIN CARDS */
-        .admin-card { background: rgba(245,245,247,0.6); border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.04); }
-        .admin-label { font-size: 11px; font-weight: 600; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        .admin-card { background: rgba(245,245,247,0.5); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.03); }
+        .admin-label { font-size: 10px; font-weight: 500; color: #86868b; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #d2d2d7; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #86868b; }
+        ::-webkit-scrollbar-thumb { background: #e5e5e7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d2d2d7; }
     </style>
 </head>
 <body>
@@ -171,39 +167,39 @@
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden">
 
     <!-- Navigation -->
-    <nav class="glass-nav px-6 md:px-16 flex justify-between items-center">
-        <div class="flex items-center gap-6">
-            <button id="menu-btn" class="text-2xl text-gray-800 hover:text-black transition-all active:scale-90">
-                <i class="fas fa-bars-staggered"></i>
+    <nav class="glass-nav px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center gap-5">
+            <button id="menu-btn" class="text-lg text-gray-600 hover:text-black transition-colors active:scale-95">
+                <i class="fas fa-bars"></i>
             </button>
             <div class="flex items-center gap-3 cursor-pointer" id="logo-btn">
-                <div class="w-10 h-10 bg-black rounded-[12px] flex items-center justify-center font-bold text-white text-sm shadow-md">NM</div>
-                <span class="text-xl font-bold tracking-tight uppercase hidden md:block text-appleDark">Nexus Mind</span>
+                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center font-medium text-white text-xs shadow-sm">NM</div>
+                <span class="text-sm font-medium tracking-tight uppercase hidden md:block text-appleDark">Nexus Mind</span>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <a href="#booking-section" class="cta-btn px-6 py-2 text-[13px] shadow-none">Book Session</a>
-            <button id="admin-btn" class="w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-black hover:text-white transition-all flex items-center justify-center text-lg border border-gray-200">
-                <i class="fas fa-user-shield"></i>
+            <a href="#booking-section" class="cta-btn shadow-none">Book Session</a>
+            <button id="admin-btn" class="w-8 h-8 rounded-full bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-black transition-colors flex items-center justify-center text-sm border border-gray-200/50">
+                <i class="fas fa-user"></i>
             </button>
         </div>
     </nav>
 
     <!-- Counseling Menu Sidebar -->
     <div id="counseling-menu" class="side-panel">
-        <div class="p-8 md:p-10">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-2xl font-bold tracking-tight text-appleDark">Counseling</h3>
-                <button id="close-menu-btn" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-lg font-medium tracking-tight text-appleDark">Counseling</h3>
+                <button id="close-menu-btn" class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center text-lg hover:bg-gray-100 transition-colors text-gray-400">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-1"></div>
-            <div class="mt-20 pt-8 border-t border-gray-200">
-                <p class="admin-label mb-6">Connect With Us</p>
-                <div class="flex gap-4">
-                    <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <div class="mt-16 pt-6 border-t border-gray-100">
+                <p class="admin-label mb-4">Connect</p>
+                <div class="flex gap-3">
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -211,65 +207,65 @@
 
     <!-- Admin Panel Sidebar -->
     <div id="admin-panel" class="side-panel">
-        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-8 py-6 flex justify-between items-center">
-            <h3 class="font-bold text-xl text-appleDark">Admin Control</h3>
-            <button id="close-admin-btn" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
+        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-8 py-5 flex justify-between items-center">
+            <h3 class="font-medium text-sm text-appleDark">Admin Control</h3>
+            <button id="close-admin-btn" class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center text-lg hover:bg-gray-100 transition-colors text-gray-400">&times;</button>
         </div>
         
         <div class="p-8">
-            <div id="admin-login-section" class="space-y-6 text-center mt-4">
-                <div class="w-20 h-20 bg-blue-50 text-appleBlue rounded-[20px] mx-auto flex items-center justify-center text-3xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
-                <h2 class="text-2xl font-bold text-appleDark">Secure Access</h2>
+            <div id="admin-login-section" class="space-y-5 text-center mt-4">
+                <div class="w-16 h-16 bg-gray-50 text-gray-400 rounded-2xl mx-auto flex items-center justify-center text-xl border border-gray-100"><i class="fas fa-lock"></i></div>
+                <h2 class="text-lg font-medium text-appleDark">Secure Access</h2>
                 <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center">
-                <button id="send-otp-btn" class="cta-btn w-full py-3">Send Access Code</button>
-                <div id="otp-box" class="hidden space-y-6 pt-6 border-t border-gray-100">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-3xl tracking-[0.4em] font-mono">
-                    <button id="verify-otp-btn" class="cta-btn w-full bg-black py-3 border-none">Verify & Unlock</button>
+                <button id="send-otp-btn" class="cta-btn w-full py-2.5">Send Code</button>
+                <div id="otp-box" class="hidden space-y-5 pt-5 border-t border-gray-100">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-2xl tracking-[0.3em] font-mono font-light">
+                    <button id="verify-otp-btn" class="cta-btn w-full bg-black py-2.5 border-none">Verify</button>
                 </div>
             </div>
             
-            <div id="admin-main-controls" class="hidden space-y-8 pb-20">
+            <div id="admin-main-controls" class="hidden space-y-6 pb-16">
                 <div class="admin-card">
-                    <h4 class="admin-label">Hero Media Engine</h4>
-                    <select id="adm-hero-type" class="premium-input mb-4 text-sm font-medium">
+                    <h4 class="admin-label">Hero Media</h4>
+                    <select id="adm-hero-type" class="premium-input mb-3 text-xs">
                         <option value="image">Static Image</option>
                         <option value="video">Background Video</option>
                     </select>
                     
                     <div id="adm-img-ui">
-                        <div class="flex gap-2 mb-3">
-                            <input id="adm-hero-img" class="premium-input flex-1 text-sm" placeholder="Image URL">
-                            <button id="trigger-img-upload" class="bg-white px-4 rounded-xl border hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
+                        <div class="flex gap-2 mb-2">
+                            <input id="adm-hero-img" class="premium-input flex-1 text-xs" placeholder="Image URL">
+                            <button id="trigger-img-upload" class="bg-white px-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-400 text-xs"></i></button>
                         </div>
-                        <button id="open-img-gallery-btn" class="text-appleBlue text-xs font-semibold mb-6 block hover:underline">Browse Premium Photos</button>
+                        <button id="open-img-gallery-btn" class="text-appleBlue text-[11px] font-medium mb-4 block hover:underline">Browse Photos</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
-                        <div class="flex gap-2 mb-3">
-                            <input id="adm-hero-vid" class="premium-input flex-1 text-sm" placeholder="Video URL">
-                            <button id="trigger-vid-upload" class="bg-white px-4 rounded-xl border hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
+                        <div class="flex gap-2 mb-2">
+                            <input id="adm-hero-vid" class="premium-input flex-1 text-xs" placeholder="Video URL">
+                            <button id="trigger-vid-upload" class="bg-white px-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-400 text-xs"></i></button>
                         </div>
-                        <p class="text-[10px] text-gray-500 mb-2 leading-relaxed">Recommended: MP4/WebM, 720p, Max 5MB, 10-15s loop.</p>
-                        <button id="open-vid-gallery-btn" class="text-appleBlue text-xs font-semibold mb-6 block hover:underline">Browse Cinematic Videos</button>
+                        <p class="text-[9px] text-gray-400 mb-2">MP4/WebM, 720p, Max 5MB.</p>
+                        <button id="open-vid-gallery-btn" class="text-appleBlue text-[11px] font-medium mb-4 block hover:underline">Browse Videos</button>
                     </div>
 
-                    <label class="admin-label">Hero Title</label>
-                    <textarea id="adm-hero-title" class="premium-input h-20 mb-4 text-sm" placeholder="Hero Title"></textarea>
-                    <label class="admin-label">Hero Subtitle</label>
-                    <input id="adm-hero-subtitle" class="premium-input mb-6 text-sm" placeholder="Hero Subtitle">
-                    <button id="push-hero-btn" class="cta-btn w-full bg-black py-3 text-sm border-none">Update Global Hero</button>
+                    <label class="admin-label">Title</label>
+                    <textarea id="adm-hero-title" class="premium-input h-16 mb-3 text-xs resize-none" placeholder="Hero Title"></textarea>
+                    <label class="admin-label">Subtitle</label>
+                    <input id="adm-hero-subtitle" class="premium-input mb-4 text-xs" placeholder="Hero Subtitle">
+                    <button id="push-hero-btn" class="cta-btn w-full bg-black py-2.5 text-xs border-none">Update Hero</button>
                 </div>
 
-                <div id="admin-counseling-list" class="space-y-6"></div>
+                <div id="admin-counseling-list" class="space-y-4"></div>
 
                 <div class="admin-card">
-                    <h4 class="admin-label">Global Settings</h4>
-                    <input id="adm-wa" class="premium-input mb-3 text-sm" placeholder="WhatsApp (+91...)">
-                    <input id="adm-upi" class="premium-input mb-3 text-sm" placeholder="UPI ID">
-                    <input id="adm-email" class="premium-input mb-6 text-sm" placeholder="Admin Email">
-                    <button id="save-settings-btn" class="cta-btn w-full py-3 text-sm">Save Settings</button>
+                    <h4 class="admin-label">Settings</h4>
+                    <input id="adm-wa" class="premium-input mb-2 text-xs" placeholder="WhatsApp (+91...)">
+                    <input id="adm-upi" class="premium-input mb-2 text-xs" placeholder="UPI ID">
+                    <input id="adm-email" class="premium-input mb-4 text-xs" placeholder="Admin Email">
+                    <button id="save-settings-btn" class="cta-btn w-full py-2.5 text-xs">Save Settings</button>
                 </div>
-                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-4 hover:bg-red-50 rounded-xl transition-all">Lock Admin Panel</button>
+                <button id="lock-admin-btn" class="w-full text-red-400 font-medium text-[11px] py-3 hover:bg-red-50 rounded-lg transition-colors">Lock Panel</button>
             </div>
         </div>
     </div>
@@ -280,95 +276,95 @@
         <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline></video>
         
         <div class="hero-overlay"></div>
-        <div data-aos="fade-up" data-aos-duration="1200" class="hero-content">
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-lg">Reclaim Your<br>Inner Peace</h1>
-            <p id="hero-subtitle" class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium tracking-wide">Premium online counseling for mental excellence.</p>
-            <a href="#booking-section" class="cta-btn">Start Your Journey</a>
+        <div data-aos="fade-up" data-aos-duration="1000" class="hero-content">
+            <h1 id="hero-title" class="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1] mb-6 text-white drop-shadow-sm">Reclaim Your<br>Inner Peace</h1>
+            <p id="hero-subtitle" class="text-base md:text-lg font-light text-white/80 mb-10 max-w-xl mx-auto tracking-wide">Premium online counseling for mental excellence.</p>
+            <a href="#booking-section" class="cta-btn px-8 py-3 text-sm">Start Your Journey</a>
         </div>
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/40 text-2xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
     <!-- Homepage Sections -->
-    <div id="homepage-sections" class="bg-appleGray">
-        <section class="py-24 px-6 md:px-16 bg-white rounded-b-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.02)] relative z-10">
-            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🧠</div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Anxiety & Stress</h2>
-                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Finding stillness in a chaotic world through evidence-based clinical techniques.</p>
-                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Anxiety">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+    <div id="homepage-sections" class="bg-white">
+        
+        <section class="py-32 px-6 md:px-12 border-b border-gray-100">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-3xl md:text-4xl mb-6 opacity-90">🧠</div>
+                <h2 class="text-2xl md:text-3xl font-medium tracking-tight mb-4 text-appleDark">Anxiety & Stress</h2>
+                <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed mb-8 font-light">Finding stillness in a chaotic world through evidence-based clinical techniques.</p>
+                <button class="open-detail-btn text-appleBlue font-medium text-sm hover:underline transition-all" data-key="Anxiety">Explore Approach <i class="fas fa-angle-right text-xs ml-1"></i></button>
             </div>
         </section>
 
-        <section class="py-24 px-6 md:px-16 bg-appleGray">
-            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">❤️</div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Relationship Issues</h2>
-                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Healing emotional bonds and building trust in a safe, confidential environment.</p>
-                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Relationship">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+        <section class="py-32 px-6 md:px-12 bg-appleGray border-b border-gray-100">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-3xl md:text-4xl mb-6 opacity-90">❤️</div>
+                <h2 class="text-2xl md:text-3xl font-medium tracking-tight mb-4 text-appleDark">Relationship Issues</h2>
+                <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed mb-8 font-light">Healing emotional bonds and building trust in a safe, confidential environment.</p>
+                <button class="open-detail-btn text-appleBlue font-medium text-sm hover:underline transition-all" data-key="Relationship">Explore Approach <i class="fas fa-angle-right text-xs ml-1"></i></button>
             </div>
         </section>
 
-        <section class="py-24 px-6 md:px-16 bg-white rounded-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.02)] relative z-10">
-            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🌙</div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Sleep Problems</h2>
-                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Restorative techniques for deep sleep and cognitive recovery.</p>
-                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Sleep">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+        <section class="py-32 px-6 md:px-12 border-b border-gray-100">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-3xl md:text-4xl mb-6 opacity-90">🌙</div>
+                <h2 class="text-2xl md:text-3xl font-medium tracking-tight mb-4 text-appleDark">Sleep Problems</h2>
+                <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed mb-8 font-light">Restorative techniques for deep sleep and cognitive recovery.</p>
+                <button class="open-detail-btn text-appleBlue font-medium text-sm hover:underline transition-all" data-key="Sleep">Explore Approach <i class="fas fa-angle-right text-xs ml-1"></i></button>
             </div>
         </section>
 
-        <section class="py-24 px-6 md:px-16 bg-appleGray">
-            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🛡️</div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Trauma Support</h2>
-                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">A safe space to process and heal past wounds with specialized trauma-informed care.</p>
-                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Trauma">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+        <section class="py-32 px-6 md:px-12 bg-appleGray border-b border-gray-100">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-3xl md:text-4xl mb-6 opacity-90">🛡️</div>
+                <h2 class="text-2xl md:text-3xl font-medium tracking-tight mb-4 text-appleDark">Trauma Support</h2>
+                <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed mb-8 font-light">A safe space to process and heal past wounds with specialized trauma-informed care.</p>
+                <button class="open-detail-btn text-appleBlue font-medium text-sm hover:underline transition-all" data-key="Trauma">Explore Approach <i class="fas fa-angle-right text-xs ml-1"></i></button>
             </div>
         </section>
 
-        <section class="py-24 px-6 md:px-16 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.02)] relative z-10">
-            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">💼</div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Career Counseling</h2>
-                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Clarity, growth, and burnout prevention for your professional path.</p>
-                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Career">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+        <section class="py-32 px-6 md:px-12 border-b border-gray-100">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-3xl md:text-4xl mb-6 opacity-90">💼</div>
+                <h2 class="text-2xl md:text-3xl font-medium tracking-tight mb-4 text-appleDark">Career Counseling</h2>
+                <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed mb-8 font-light">Clarity, growth, and burnout prevention for your professional path.</p>
+                <button class="open-detail-btn text-appleBlue font-medium text-sm hover:underline transition-all" data-key="Career">Explore Approach <i class="fas fa-angle-right text-xs ml-1"></i></button>
             </div>
         </section>
     </div>
 
     <!-- Detail Panel -->
     <div id="detail-panel">
-        <div class="max-w-4xl mx-auto px-6 py-24">
+        <div class="max-w-3xl mx-auto px-6 py-24">
             <div class="flex justify-between items-center mb-16">
-                <div class="flex items-center gap-6">
-                    <span id="det-emoji" class="text-5xl md:text-6xl drop-shadow-md"></span>
-                    <h1 id="det-title" class="text-4xl md:text-5xl font-extrabold tracking-tight text-appleDark"></h1>
+                <div class="flex items-center gap-4">
+                    <span id="det-emoji" class="text-3xl md:text-4xl opacity-90"></span>
+                    <h1 id="det-title" class="text-2xl md:text-4xl font-medium tracking-tight text-appleDark"></h1>
                 </div>
-                <button id="close-detail-btn" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
+                <button id="close-detail-btn" class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors text-gray-400">&times;</button>
             </div>
-            <div id="det-content" class="space-y-12"></div>
-            <div class="mt-24 text-center reveal-block">
-                <a href="#booking-section" id="book-now-btn" class="cta-btn px-12 py-4 text-lg">Book Your Session Now</a>
+            <div id="det-content" class="space-y-10"></div>
+            <div class="mt-20 text-center reveal-block">
+                <a href="#booking-section" id="book-now-btn" class="cta-btn px-8 py-3 text-sm">Book Session</a>
             </div>
         </div>
     </div>
 
     <!-- Booking Section -->
-    <section id="booking-section" class="py-24 px-6 md:px-16 bg-appleGray">
-        <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-xl p-8 md:p-16 rounded-[2.5rem] border border-white shadow-[0_20px_60px_rgba(0,0,0,0.05)]" data-aos="zoom-in" data-aos-duration="1000">
+    <section id="booking-section" class="py-32 px-6 md:px-12 bg-appleGray">
+        <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-3xl border border-gray-100 shadow-sm" data-aos="zoom-in" data-aos-duration="800">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-8">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-appleDark">Schedule Session</h2>
-                        <p class="text-gray-500 text-base md:text-lg font-medium">Take the first step towards a healthier mind.</p>
+                <form id="p-form" class="space-y-6">
+                    <div class="text-center mb-10">
+                        <h2 class="text-2xl md:text-3xl font-medium tracking-tight mb-3 text-appleDark">Schedule Session</h2>
+                        <p class="text-gray-500 text-sm font-light">Take the first step towards a healthier mind.</p>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <input type="text" id="p_name" placeholder="Full Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email Address" class="premium-input" required>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <input type="tel" id="p_wa" value="+91" class="premium-input" required>
-                        <select id="p_counseling" class="premium-input" required>
+                        <select id="p_counseling" class="premium-input text-gray-500" required>
                             <option value="Anxiety">Anxiety & Stress</option>
                             <option value="Relationship">Relationship Issues</option>
                             <option value="Sleep">Sleep Problems</option>
@@ -376,31 +372,33 @@
                             <option value="Career">Career Counseling</option>
                         </select>
                     </div>
-                    <select id="p_type" class="premium-input" required>
+                    <select id="p_type" class="premium-input text-gray-500" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-32 resize-none" required></textarea>
-                    <button type="submit" class="cta-btn w-full py-4 text-lg">Proceed to Secure Payment</button>
+                    <textarea id="p_concern" placeholder="Briefly describe your concern..." class="premium-input h-28 resize-none" required></textarea>
+                    <div class="pt-4">
+                        <button type="submit" class="cta-btn w-full py-3 text-sm">Proceed to Payment</button>
+                    </div>
                 </form>
 
-                <div id="p-payment" class="hidden text-center space-y-10 py-6">
-                    <div class="max-w-sm mx-auto bg-white p-8 rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100">
-                        <img id="p-qr" src="" class="w-full rounded-2xl border-[4px] border-gray-50" loading="lazy" decoding="async">
-                        <p id="p-upi-text" class="mt-6 text-appleBlue font-bold text-lg tracking-wider"></p>
+                <div id="p-payment" class="hidden text-center space-y-8 py-4">
+                    <div class="max-w-xs mx-auto bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <img id="p-qr" src="" class="w-full rounded-xl border border-gray-50" loading="lazy" decoding="async">
+                        <p id="p-upi-text" class="mt-4 text-appleBlue font-medium text-sm tracking-wide"></p>
                     </div>
-                    <div class="max-w-md mx-auto space-y-6">
-                        <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-[0.2em] text-xl uppercase">
-                        <button id="verify-payment-btn" class="cta-btn w-full py-4 text-lg">Verify & Start Session</button>
+                    <div class="max-w-sm mx-auto space-y-5">
+                        <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-medium tracking-widest text-sm uppercase">
+                        <button id="verify-payment-btn" class="cta-btn w-full py-3 text-sm">Verify Payment</button>
                     </div>
                 </div>
 
-                <div id="p-success" class="hidden space-y-8">
-                    <div class="bg-green-50/80 backdrop-blur-md text-green-700 p-8 rounded-[2rem] font-bold text-center text-xl border border-green-200 shadow-sm">"Your healing starts now."</div>
-                    <div id="chat-window"></div>
-                    <div class="flex gap-4">
-                        <input id="chat-input" type="text" placeholder="Type message..." class="premium-input flex-1">
-                        <button id="send-chat-btn" class="cta-btn px-8"><i class="fas fa-paper-plane"></i></button>
+                <div id="p-success" class="hidden space-y-6">
+                    <div class="bg-gray-50 text-gray-600 p-6 rounded-2xl font-light text-center text-sm border border-gray-100">Your session is confirmed. A specialist will connect shortly.</div>
+                    <div id="chat-window" class="h-64"></div>
+                    <div class="flex gap-3">
+                        <input id="chat-input" type="text" placeholder="Type a message..." class="premium-input flex-1 text-sm">
+                        <button id="send-chat-btn" class="cta-btn px-6"><i class="fas fa-paper-plane text-xs"></i></button>
                     </div>
                 </div>
             </div>
@@ -410,9 +408,9 @@
     <!-- Gallery Modals -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-bold text-appleDark">Premium Image Library</h3>
-                <button id="close-img-modal" class="text-3xl text-gray-400 hover:text-black transition-colors">&times;</button>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-medium text-appleDark">Image Library</h3>
+                <button id="close-img-modal" class="text-2xl text-gray-400 hover:text-black transition-colors">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
@@ -420,9 +418,9 @@
 
     <div id="vid-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-bold text-appleDark">Cinematic Video Library</h3>
-                <button id="close-vid-modal" class="text-3xl text-gray-400 hover:text-black transition-colors">&times;</button>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-medium text-appleDark">Video Library</h3>
+                <button id="close-vid-modal" class="text-2xl text-gray-400 hover:text-black transition-colors">&times;</button>
             </div>
             <div class="gallery-grid" id="vid-grid"></div>
         </div>
@@ -430,16 +428,15 @@
 
     <!-- Footer -->
     <footer class="py-16 text-center bg-white border-t border-gray-100">
-        <div class="w-12 h-12 bg-black rounded-[12px] flex items-center justify-center font-bold text-white text-lg mx-auto mb-6 shadow-md">NM</div>
-        <h2 class="text-2xl font-extrabold tracking-tight uppercase mb-4 text-appleDark">Nexus Mind</h2>
-        <p class="text-gray-500 text-sm mb-10 font-medium">Greater Noida, Uttar Pradesh, India</p>
-        <div class="flex justify-center gap-6 mb-12">
-            <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center font-medium text-white text-xs mx-auto mb-4 shadow-sm">NM</div>
+        <h2 class="text-sm font-medium tracking-tight uppercase mb-2 text-appleDark">Nexus Mind</h2>
+        <p class="text-gray-400 text-xs mb-8 font-light">Greater Noida, Uttar Pradesh, India</p>
+        <div class="flex justify-center gap-4 mb-10">
+            <a href="#" class="text-gray-400 hover:text-gray-800 transition-colors text-lg"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-400 hover:text-gray-800 transition-colors text-lg"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-gray-400 hover:text-gray-800 transition-colors text-lg"><i class="fab fa-youtube"></i></a>
         </div>
-        <p class="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
+        <p class="text-[9px] font-medium text-gray-300 tracking-widest uppercase">© 2026 Nexus Mind. All rights reserved.</p>
     </footer>
 
     <script>
@@ -493,11 +490,11 @@
             upi: "7830232077@ptsbi",
             email: "thenexusstudy3@gmail.com",
             details: {
-                Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
-                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
-                Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
-                Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
-                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
+                Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Approach" }, { type: "list", items:["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
+                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Approach" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
+                Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Approach" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
+                Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Approach" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
+                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Approach" }, { type: "list", items:["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
             }
         };
 
@@ -506,7 +503,7 @@
         // --- DOMContentLoaded EVENT LISTENER ---
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. ATTACH UI EVENT LISTENERS FIRST (Instant Interaction)
+            // 1. ATTACH UI EVENT LISTENERS FIRST
             const menuBtn = document.getElementById('menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const counselingMenu = document.getElementById('counseling-menu');
@@ -588,7 +585,7 @@
             // 2. RENDER DYNAMIC CONTENT
             renderMenu();
 
-            // 3. DEFER HEAVY LIBRARIES (Speed of Light Optimization)
+            // 3. DEFER HEAVY LIBRARIES
             const initHeavyLibraries = () => {
                 try { if(window.AOS) AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' }); } catch(e) {}
                 try { if(window.emailjs) emailjs.init("jH5TwO1sLcWFwHHzu"); } catch(e) {}
@@ -613,7 +610,6 @@
                 } catch(e) {}
             };
 
-            // Run heavy scripts only when browser is idle
             if ('requestIdleCallback' in window) {
                 requestIdleCallback(initHeavyLibraries);
             } else {
@@ -627,7 +623,7 @@
             container.innerHTML = counselingAreas.map(area => `
                 <div class="apple-menu-item" data-key="${area.key}">
                     <span>${area.label}</span>
-                    <i class="fas fa-chevron-right text-gray-300 text-sm"></i>
+                    <i class="fas fa-angle-right text-gray-300 text-xs"></i>
                 </div>
             `).join('');
         }
@@ -670,16 +666,16 @@
                 emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: emailInput, otp: currentOTP })
                 .then(() => {
                     document.getElementById('otp-box').classList.remove('hidden');
-                    btn.innerText = "Send Access Code";
+                    btn.innerText = "Send Code";
                     alert("OTP Sent to Email!");
                 }).catch((err) => {
                     document.getElementById('otp-box').classList.remove('hidden');
-                    btn.innerText = "Send Access Code";
+                    btn.innerText = "Send Code";
                     alert("EmailJS Quota Exceeded. For testing, your OTP is: " + currentOTP);
                 });
             } catch(e) {
                 document.getElementById('otp-box').classList.remove('hidden');
-                btn.innerText = "Send Access Code";
+                btn.innerText = "Send Code";
                 alert("EmailJS Error. For testing, your OTP is: " + currentOTP);
             }
         }
@@ -720,15 +716,15 @@
             container.innerHTML = counselingAreas.map(area => {
                 const det = nexusConfig.details[area.key];
                 const blocks = det.blocks.map((b, i) => `
-                    <div class="bg-white p-4 rounded-2xl mb-3 border border-gray-100 shadow-sm">
+                    <div class="bg-white p-3 rounded-xl mb-2 border border-gray-100 shadow-sm">
                         <div class="flex justify-between mb-2">
-                            <span class="text-[10px] font-bold uppercase text-appleBlue tracking-wider">${b.type}</span>
-                            <button onclick="removeBlock('${area.key}', ${i})" class="text-red-400 hover:text-red-600 transition-colors text-xs"><i class="fas fa-trash"></i></button>
+                            <span class="text-[9px] font-medium uppercase text-appleBlue tracking-wider">${b.type}</span>
+                            <button onclick="removeBlock('${area.key}', ${i})" class="text-gray-300 hover:text-red-400 transition-colors text-xs"><i class="fas fa-times"></i></button>
                         </div>
-                        <textarea class="premium-input text-xs h-16 bg-gray-50" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                        <textarea class="premium-input text-xs h-12 bg-gray-50/50" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
                     </div>
                 `).join('');
-                return `<div class="admin-card"><h5 class="font-bold mb-4 text-sm text-appleDark">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-appleBlue text-[11px] font-bold hover:underline">+ Add Block</button></div>`;
+                return `<div class="admin-card"><h5 class="font-medium mb-3 text-xs text-appleDark">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-appleBlue text-[10px] font-medium hover:underline">+ Add Block</button></div>`;
             }).join('');
         }
 
@@ -830,10 +826,10 @@
             document.getElementById('det-emoji').textContent = area.emoji;
             document.getElementById('det-title').textContent = det.title;
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
-                if(b.type === 'text') return `<p class="reveal-block text-lg md:text-xl text-gray-500 leading-relaxed font-medium">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" decoding="async" class="w-full rounded-[2rem] h-[300px] md:h-[450px] object-cover shadow-[0_20px_50px_rgba(0,0,0,0.1)]"></div>`;
-                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl md:text-3xl font-bold text-appleDark mt-8">✨ ${b.content}</h3>`;
-                if(b.type === 'list') return `<ul class="reveal-block space-y-4 bg-appleGray/50 p-6 md:p-10 rounded-[2rem] border border-gray-100">${b.items.map(i => `<li class="text-base md:text-lg flex gap-4 font-medium text-gray-700"><i class="fas fa-check-circle text-appleBlue mt-1"></i> ${i}</li>`).join('')}</ul>`;
+                if(b.type === 'text') return `<p class="reveal-block text-base md:text-lg text-gray-500 leading-relaxed font-light">${b.content}</p>`;
+                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" decoding="async" class="w-full rounded-2xl h-[250px] md:h-[400px] object-cover shadow-sm border border-gray-100"></div>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-xl md:text-2xl font-medium text-appleDark mt-6">✨ ${b.content}</h3>`;
+                if(b.type === 'list') return `<ul class="reveal-block space-y-3 bg-gray-50/50 p-6 md:p-8 rounded-2xl border border-gray-100">${b.items.map(i => `<li class="text-sm md:text-base flex gap-3 font-light text-gray-600"><i class="fas fa-check text-appleBlue mt-1 text-xs"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
             
             document.getElementById('detail-panel').style.display = 'block';
@@ -844,7 +840,6 @@
                 counselingMenu.classList.remove('active');
             }
             
-            // RequestAnimationFrame for buttery smooth reveal
             requestAnimationFrame(() => {
                 setTimeout(() => document.querySelectorAll('.reveal-block').forEach(b => b.classList.add('visible')), 50);
             });
