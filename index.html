@@ -47,7 +47,7 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
-        /* Strict Overflow Control to Prevent Accidental Swipes */
+        /* Strict Overflow Control */
         html, body { 
             overflow-x: hidden; 
             overscroll-behavior-x: none; 
@@ -55,7 +55,6 @@
             position: relative;
         }
 
-        /* Smooth Page Load Animation */
         @keyframes smoothReveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         body { 
@@ -68,71 +67,70 @@
         
         /* ULTRA PREMIUM GLASS NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.75); 
-            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0,0,0,0.05); 
             z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
-            transform: translateZ(0); will-change: transform, backdrop-filter;
+            transform: translateZ(0); will-change: transform;
         }
 
-        /* HERO ENGINE (TCS-Like Smooth Loading) */
+        /* HERO ENGINE (Zero Lag, Speed of Light) */
         #hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
-        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.8s ease-in-out; transform: translateZ(0); z-index: 0; }
+        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.6s ease-out; transform: translateZ(0); z-index: 0; will-change: opacity; }
         
-        /* Video is hardware accelerated and fades in smoothly */
+        /* Hardware Accelerated Video */
         #hero-video-bg { 
             position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; 
-            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            transition: opacity 0.8s ease-out; 
             transform: translateZ(0); opacity: 0; z-index: 1; pointer-events: none;
+            will-change: opacity;
         }
         
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 100%); z-index: 2; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.85) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; will-change: transform, opacity; }
 
-        /* APPLE SIGNATURE BUTTONS & ULTRA FAST CLICK ANIMATIONS */
+        /* APPLE SIGNATURE BUTTONS */
         .cta-btn { 
-            background: rgba(0, 102, 204, 0.95); backdrop-filter: blur(10px); color: white; 
+            background: rgba(0, 102, 204, 0.95); color: white; 
             border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+            transition: all 0.3s ease; 
             box-shadow: 0 8px 24px rgba(0, 102, 204, 0.25); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
             display: inline-block; text-decoration: none; letter-spacing: 0.3px; transform: translateZ(0);
         }
         .cta-btn:hover { background: rgba(0, 102, 204, 1); transform: scale(1.03) translateY(-2px); box-shadow: 0 12px 32px rgba(0, 102, 204, 0.35); }
         
-        /* Lightning Fast Active State */
         .cta-btn:active, button:active, .social-btn:active, .apple-menu-item:active {
             transform: scale(0.92) !important;
-            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: transform 0.1s ease !important;
         }
 
-        /* PANEL OVERLAY (Dark Blur Background) */
+        /* PANEL OVERLAY (No Blur for Speed & Sharpness) */
         .panel-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.4); 
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.65); 
             z-index: 2500; opacity: 0; pointer-events: none; 
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.3s ease;
         }
         .panel-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* SIDE PANELS (Half Screen, Rounded, Buttery Smooth) */
+        /* SIDE PANELS (Solid Background for Zero Lag) */
         .side-panel { 
             position: fixed; top: 0; height: 100vh; 
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: saturate(200%) blur(40px); -webkit-backdrop-filter: saturate(200%) blur(40px); 
+            background: rgba(255, 255, 255, 0.98); /* Solid color, removed heavy blur */
             z-index: 3000; 
-            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.5s; 
-            box-shadow: 0 0 50px rgba(0,0,0,0.15); overflow-y: auto; 
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.4s; 
+            box-shadow: -10px 0 50px rgba(0,0,0,0.2); overflow-y: auto; 
             will-change: transform; transform: translateZ(0);
-            visibility: hidden; /* Prevents swipe detection when closed */
+            visibility: hidden;
         }
         
         #counseling-menu { 
             left: 0; width: 85%; max-width: 380px; transform: translateX(-100%); 
-            border-radius: 0 32px 32px 0; border-right: 1px solid rgba(255,255,255,0.5); 
+            border-radius: 0 32px 32px 0; 
         }
         
         #admin-panel { 
             right: 0; width: 85%; max-width: 420px; transform: translateX(100%); 
-            border-radius: 32px 0 0 32px; border-left: 1px solid rgba(255,255,255,0.5); 
+            border-radius: 32px 0 0 32px; 
         }
         
         #counseling-menu.active, #admin-panel.active { 
@@ -144,7 +142,7 @@
         .social-btn {
             width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
             border-radius: 50%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-size: 20px; text-decoration: none; border: 1px solid rgba(0,0,0,0.02);
+            transition: all 0.3s ease; font-size: 20px; text-decoration: none; border: 1px solid rgba(0,0,0,0.02);
         }
         .social-btn:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
         .social-btn.insta { color: #E1306C; } .social-btn.linkedin { color: #0A66C2; } .social-btn.youtube { color: #FF0000; } .social-btn.whatsapp { color: #25D366; }
@@ -152,29 +150,29 @@
         /* MENU ITEMS */
         .apple-menu-item {
             display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 16px; margin-bottom: 8px;
-            transition: all 0.3s ease; cursor: pointer; font-weight: 600; font-size: 16px; color: #1d1d1f; background: transparent;
+            transition: all 0.2s ease; cursor: pointer; font-weight: 600; font-size: 16px; color: #1d1d1f; background: transparent;
         }
         .apple-menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 26px; color: #0066cc; }
 
         /* PREMIUM INPUTS */
         .premium-input { 
-            background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); border-radius: 14px; 
-            padding: 16px 20px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #1d1d1f; backdrop-filter: blur(10px);
+            background: rgba(245,245,247,0.8); border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
+            padding: 16px 20px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #1d1d1f;
         }
         .premium-input:focus { border-color: #0066cc; outline: none; box-shadow: 0 0 0 4px rgba(0,102,204,0.1); background: #fff; }
 
-        /* MODALS (Fixed to Top) */
+        /* MODALS */
         .modal-overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
             z-index: 5000; display: none; align-items: flex-start; justify-content: center; 
             padding: 4vh 20px 20px 20px; 
             opacity: 0; transition: opacity 0.3s ease; transform: translateZ(0);
         }
         .modal-overlay.active { opacity: 1; display: flex; }
         .modal-content { 
-            background: rgba(255,255,255,0.95); border-radius: 32px; width: 100%; max-width: 900px; max-height: 85vh; 
+            background: #fff; border-radius: 32px; width: 100%; max-width: 900px; max-height: 85vh; 
             overflow-y: auto; padding: 30px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-            transform: translateY(-30px) scale(0.98); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform;
+            transform: translateY(-20px) scale(0.98); transition: all 0.3s ease; will-change: transform;
         }
         .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
 
@@ -182,33 +180,31 @@
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
         .gallery-item { 
             border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; position: relative; border: 2px solid transparent; 
-            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
+            transition: 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
         }
-        .gallery-item:hover { border-color: #0066cc; transform: scale(1.05); z-index: 10; box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-        .gallery-item:active { transform: scale(0.95); }
+        .gallery-item:hover { border-color: #0066cc; transform: scale(1.03); z-index: 10; box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); color: white; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .gallery-item .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: white; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* ULTRA PREMIUM DETAIL PANEL */
         #detail-panel { 
             position: fixed; inset: 0; z-index: 4000; 
-            background: rgba(255,255,255,0.97); backdrop-filter: saturate(180%) blur(30px); -webkit-backdrop-filter: saturate(180%) blur(30px);
+            background: #ffffff;
             overflow-y: auto; padding-bottom: 80px; 
             opacity: 0; visibility: hidden;
-            transform: scale(0.95) translateY(30px); 
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: scale(0.98) translateY(20px); 
+            transition: all 0.4s ease;
         }
         #detail-panel.active {
             opacity: 1; visibility: visible;
             transform: scale(1) translateY(0);
         }
         
-        /* Staggered Reveal Blocks */
-        .reveal-block { opacity: 0; transform: translateY(30px); will-change: transform, opacity; }
+        .reveal-block { opacity: 0; transform: translateY(20px); will-change: transform, opacity; }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
         /* ADMIN CARDS */
-        .admin-card { background: rgba(245,245,247,0.6); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.04); }
+        .admin-card { background: #f5f5f7; border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.04); }
         .admin-label { font-size: 11px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
 
         /* Custom Scrollbar */
@@ -237,17 +233,16 @@
         </div>
         <div class="flex items-center gap-4">
             <a href="#booking-section" class="cta-btn px-6 py-2 text-[13px] shadow-none">Book Session</a>
-            <!-- Ultra Premium Admin Button (Fingerprint) -->
             <button id="admin-btn" class="w-10 h-10 rounded-full bg-appleDark text-white hover:bg-black transition-all flex items-center justify-center text-lg shadow-[0_8px_16px_rgba(0,0,0,0.2)] border border-gray-700">
                 <i class="fas fa-fingerprint"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Panel Overlay (Click to close menus) -->
+    <!-- Panel Overlay (No Blur, Pure Speed) -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- Counseling Menu Sidebar (Half Screen) -->
+    <!-- Counseling Menu Sidebar -->
     <div id="counseling-menu" class="side-panel">
         <div class="p-6 md:p-10">
             <div class="flex justify-between items-center mb-8">
@@ -267,9 +262,9 @@
         </div>
     </div>
 
-    <!-- Admin Panel Sidebar (Half Screen) -->
+    <!-- Admin Panel Sidebar -->
     <div id="admin-panel" class="side-panel">
-        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-100 px-6 py-5 flex justify-between items-center rounded-tl-[32px]">
+        <div class="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-5 flex justify-between items-center rounded-tl-[32px]">
             <h3 class="font-bold text-xl text-appleDark">Admin Control</h3>
             <button id="close-admin-btn" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
         </div>
@@ -335,20 +330,23 @@
     <!-- Hero Section -->
     <section id="hero-section">
         <div id="hero-img-bg"></div>
-        <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline></video>
+        <!-- Video is strictly muted and preloaded for speed -->
+        <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline preload="auto"></video>
         
-        <!-- ZERO-FLASH REFRESH SCRIPT: Instantly loads saved photo before page renders -->
+        <!-- ZERO-FLASH REFRESH SCRIPT -->
         <script>
             (function() {
                 const savedHero = JSON.parse(localStorage.getItem('nexusHero')) || {
                     type: 'image',
-                    img: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1920&q=80'
+                    img: 'https://images.unsplash.com/photo-1426604908151-3e1d8311713f?auto=format&fit=crop&w=1080&q=80&fm=webp'
                 };
                 if(savedHero.type === 'image' && savedHero.img) {
                     document.getElementById('hero-img-bg').style.backgroundImage = `url('${savedHero.img}')`;
                 } else if(savedHero.type === 'video' && savedHero.vid) {
                     const v = document.getElementById('hero-video-bg');
                     v.src = savedHero.vid;
+                    v.muted = true;
+                    v.setAttribute('muted', '');
                     v.classList.remove('hidden');
                     v.style.opacity = '1';
                 }
@@ -356,7 +354,7 @@
         </script>
 
         <div class="hero-overlay"></div>
-        <div data-aos="fade-up" data-aos-duration="1200" class="hero-content">
+        <div data-aos="fade-up" data-aos-duration="1000" class="hero-content">
             <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-lg">Reclaim Your<br>Inner Peace</h1>
             <p id="hero-subtitle" class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium tracking-wide">Premium online counseling for mental excellence.</p>
             <a href="#booking-section" class="cta-btn">Start Your Journey</a>
@@ -429,9 +427,9 @@
         </div>
     </div>
 
-    <!-- Booking Section (Medium Size) -->
+    <!-- Booking Section -->
     <section id="booking-section" class="py-24 px-6 md:px-16 bg-appleGray">
-        <div class="max-w-2xl mx-auto bg-white/80 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] border border-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]" data-aos="zoom-in" data-aos-duration="1000">
+        <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)]" data-aos="zoom-in" data-aos-duration="800">
             <div id="booking-flow">
                 <form id="p-form" class="space-y-6">
                     <div class="text-center mb-10">
@@ -472,7 +470,7 @@
                 </div>
 
                 <div id="p-success" class="hidden space-y-8">
-                    <div class="bg-green-50/80 backdrop-blur-md text-green-700 p-8 rounded-[2rem] font-bold text-center text-xl border border-green-200 shadow-sm">"Your healing starts now."</div>
+                    <div class="bg-green-50 text-green-700 p-8 rounded-[2rem] font-bold text-center text-xl border border-green-200 shadow-sm">"Your healing starts now."</div>
                     <div id="chat-window"></div>
                     <div class="flex gap-4">
                         <input id="chat-input" type="text" placeholder="Type message..." class="premium-input flex-1">
@@ -483,7 +481,7 @@
         </div>
     </section>
 
-    <!-- Gallery Modals (Fixed to Top) -->
+    <!-- Gallery Modals -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
@@ -519,27 +517,27 @@
     </footer>
 
     <script>
-        // --- GLOBAL DATA (Verified Reliable Images) ---
+        // --- NEW HIGH-SPEED, HIGH-QUALITY WEBP IMAGES ---
         const premiumImages =[
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1516589174184-c685266d430c?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1529156069898-76396c8c4e8c?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1511295742364-91190082d10e?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1520206159572-77dec125bb2a?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" }
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1426604908151-3e1d8311713f?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1447752809965-9761f274280b?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1518241353312-28810ad2c292?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1522529599102-1b714c197624?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1511884645262-0d5028398c30?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1080&q=80&fm=webp" }
         ];
 
         const cinematicVideos =[
@@ -578,10 +576,8 @@
 
         let currentOTP = null;
 
-        // --- DOMContentLoaded EVENT LISTENER ---
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. ATTACH UI EVENT LISTENERS FIRST (Instant Interaction)
             const menuBtn = document.getElementById('menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const counselingMenu = document.getElementById('counseling-menu');
@@ -593,7 +589,6 @@
             const panelOverlay = document.getElementById('panel-overlay');
             const logoBtn = document.getElementById('logo-btn');
 
-            // Open/Close Logic with Overlay
             const openMenu = (menu) => { menu.classList.add('active'); panelOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; };
             const closeMenus = () => { 
                 counselingMenu.classList.remove('active'); 
@@ -612,13 +607,11 @@
 
             if(logoBtn) logoBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 
-            // Admin Login Listeners
             const sendOtpBtn = document.getElementById('send-otp-btn');
             const verifyOtpBtn = document.getElementById('verify-otp-btn');
             if(sendOtpBtn) sendOtpBtn.addEventListener('click', sendAdminOTP);
             if(verifyOtpBtn) verifyOtpBtn.addEventListener('click', verifyAdminOTP);
 
-            // Admin Controls Listeners (Instant Preview Attached)
             const admHeroType = document.getElementById('adm-hero-type');
             if(admHeroType) admHeroType.addEventListener('change', () => { toggleHeroAdminUI(); previewHero(); });
 
@@ -636,7 +629,6 @@
             const lockAdminBtn = document.getElementById('lock-admin-btn');
             if(lockAdminBtn) lockAdminBtn.addEventListener('click', () => location.reload());
 
-            // File Uploads & Galleries
             document.getElementById('trigger-img-upload').addEventListener('click', () => document.getElementById('local-img-upload').click());
             document.getElementById('local-img-upload').addEventListener('change', (e) => handleLocalUpload(e, 'image'));
 
@@ -649,7 +641,6 @@
             document.getElementById('open-vid-gallery-btn').addEventListener('click', openVidGallery);
             document.getElementById('close-vid-modal').addEventListener('click', () => document.getElementById('vid-modal').classList.remove('active'));
 
-            // Detail Panel & Booking
             document.querySelectorAll('.open-detail-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const key = e.target.closest('button').getAttribute('data-key');
@@ -668,22 +659,19 @@
             document.getElementById('verify-payment-btn').addEventListener('click', verifyPayment);
             document.getElementById('send-chat-btn').addEventListener('click', sendChat);
 
-            // Event Delegation for Dynamic Menu Items
             document.getElementById('menu-items-container').addEventListener('click', (e) => {
                 const item = e.target.closest('.apple-menu-item');
                 if(item) {
                     const key = item.getAttribute('data-key');
-                    closeMenus(); // Close sidebar before opening detail
-                    setTimeout(() => openDetail(key), 300); // Wait for sidebar to close
+                    closeMenus();
+                    setTimeout(() => openDetail(key), 300);
                 }
             });
 
-            // 2. RENDER DYNAMIC CONTENT
             renderMenu();
 
-            // 3. DEFER HEAVY LIBRARIES
             const initHeavyLibraries = () => {
-                try { if(window.AOS) AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic' }); } catch(e) {}
+                try { if(window.AOS) AOS.init({ duration: 800, once: true, easing: 'ease-out' }); } catch(e) {}
                 try { if(window.emailjs) emailjs.init("jH5TwO1sLcWFwHHzu"); } catch(e) {}
                 
                 try {
@@ -716,7 +704,6 @@
             }
         });
 
-        // --- CORE FUNCTIONS ---
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
             container.innerHTML = counselingAreas.map(area => `
@@ -727,7 +714,6 @@
             `).join('');
         }
 
-        // INSTANT PREVIEW ENGINE
         function previewHero() {
             const data = {
                 type: document.getElementById('adm-hero-type').value,
@@ -739,7 +725,7 @@
             updateHero(data);
         }
 
-        // TCS-LIKE ENTERPRISE VIDEO PRELOADER ENGINE
+        // SPEED OF LIGHT VIDEO ENGINE WITH STRICT MUTING
         function updateHero(data) {
             const imgBg = document.getElementById('hero-img-bg');
             const vidBg = document.getElementById('hero-video-bg');
@@ -747,29 +733,36 @@
             if(data.type === 'video' && data.vid) {
                 if(vidBg.src !== data.vid) {
                     vidBg.classList.remove('hidden');
-                    vidBg.style.opacity = '0'; // Keep hidden while loading
+                    vidBg.style.opacity = '0';
                     vidBg.src = data.vid;
+                    
+                    // STRICT MUTING TO PREVENT LAG & AUTOPLAY BLOCKS
+                    vidBg.muted = true;
+                    vidBg.defaultMuted = true;
+                    vidBg.setAttribute('muted', '');
+                    vidBg.playsInline = true;
+                    
                     vidBg.load();
                     
-                    // Wait until video is 100% ready to play smoothly without buffering
                     vidBg.oncanplaythrough = () => {
+                        vidBg.muted = true; // Double check mute
                         vidBg.play().then(() => {
-                            vidBg.style.opacity = '1'; // Smooth fade in
-                            setTimeout(() => { imgBg.style.opacity = '0'; }, 600); // Fade out image behind it
+                            vidBg.style.opacity = '1';
+                            setTimeout(() => { imgBg.style.opacity = '0'; }, 400);
                         }).catch(()=>{});
                     };
                 } else {
                     vidBg.classList.remove('hidden');
+                    vidBg.muted = true;
+                    vidBg.setAttribute('muted', '');
                     vidBg.play().catch(()=>{});
                     vidBg.style.opacity = '1';
                     imgBg.style.opacity = '0';
                 }
             } else {
-                // Image handling (with preloader)
                 vidBg.style.opacity = '0';
-                setTimeout(() => { vidBg.classList.add('hidden'); vidBg.pause(); }, 1200);
+                setTimeout(() => { vidBg.classList.add('hidden'); vidBg.pause(); }, 800);
                 
-                // Only crossfade if the image URL actually changed
                 const currentBg = imgBg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
                 if(data.img && currentBg !== data.img) {
                     const tempImg = new Image();
@@ -779,7 +772,7 @@
                         setTimeout(() => {
                             imgBg.style.backgroundImage = `url('${data.img}')`;
                             imgBg.style.opacity = '1';
-                        }, 150);
+                        }, 100);
                     };
                 } else {
                     imgBg.style.opacity = '1';
@@ -796,7 +789,6 @@
             document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
         }
 
-        // --- ADMIN AUTH (Clean Notification) ---
         function sendAdminOTP() {
             const emailInput = document.getElementById('adm-email-input').value;
             if(!emailInput) { alert("Please enter an email address."); return; }
@@ -808,8 +800,8 @@
             const showOtpBox = () => {
                 document.getElementById('otp-box').classList.remove('hidden');
                 btn.innerText = "Send Access Code";
-                alert("OTP Sent!"); // Clean notification
-                console.log("Test OTP:", currentOTP); // Hidden fallback for testing
+                alert("OTP Sent!");
+                console.log("Test OTP:", currentOTP);
             };
 
             try {
@@ -829,7 +821,6 @@
             } else alert("Invalid OTP");
         }
 
-        // --- ADMIN ENGINE ---
         function loadAdminData() {
             document.getElementById('adm-wa').value = nexusConfig.wa;
             document.getElementById('adm-upi').value = nexusConfig.upi;
@@ -886,7 +877,6 @@
                 subtitle: document.getElementById('adm-hero-subtitle').value
             };
             
-            // Save locally instantly to prevent flash on refresh
             localStorage.setItem('nexusHero', JSON.stringify(data));
             
             if(window.db) {
@@ -904,7 +894,6 @@
             alert("Settings Saved Locally!");
         }
 
-        // --- GALLERY & UPLOADS (Instant Preview) ---
         function openImgGallery() {
             const grid = document.getElementById('img-grid');
             grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" loading="lazy" decoding="async"><div class="tag">${img.tag}</div></div>`).join('');
@@ -913,7 +902,7 @@
         window.selectImg = function(url) { 
             document.getElementById('adm-hero-img').value = url; 
             document.getElementById('img-modal').classList.remove('active'); 
-            previewHero(); // Instantly update background
+            previewHero();
         }
 
         function openVidGallery() {
@@ -924,7 +913,7 @@
         window.selectVid = function(url) { 
             document.getElementById('adm-hero-vid').value = url; 
             document.getElementById('vid-modal').classList.remove('active'); 
-            previewHero(); // Instantly update background
+            previewHero();
         }
 
         function handleLocalUpload(e, type) {
@@ -939,12 +928,11 @@
             reader.onload = (ev) => {
                 if(type === 'image') document.getElementById('adm-hero-img').value = ev.target.result;
                 else document.getElementById('adm-hero-vid').value = ev.target.result;
-                previewHero(); // Instantly update background
+                previewHero();
             };
             reader.readAsDataURL(file);
         }
 
-        // --- BOOKING ---
         function handleBooking() {
             const fee = document.getElementById('p_type').value;
             const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusMind&am=${fee}&cu=INR`;
@@ -970,7 +958,6 @@
             document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
-        // --- ULTRA PREMIUM DETAIL PANEL ---
         function openDetail(key) {
             const det = nexusConfig.details[key];
             const area = counselingAreas.find(a => a.key === key);
@@ -987,20 +974,18 @@
             panel.classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // Reset blocks for staggered animation
             document.querySelectorAll('.reveal-block').forEach(b => {
                 b.classList.remove('visible');
                 b.style.transition = 'none';
             });
 
-            // Staggered Reveal Animation
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     document.querySelectorAll('.reveal-block').forEach((b, i) => {
-                        b.style.transition = `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`;
+                        b.style.transition = `all 0.6s ease-out ${i * 0.1}s`;
                         b.classList.add('visible');
                     });
-                }, 100);
+                }, 50);
             });
         }
 
