@@ -115,7 +115,7 @@
         /* SIDE PANELS (Solid Background for Zero Lag) */
         .side-panel { 
             position: fixed; top: 0; height: 100vh; 
-            background: rgba(255, 255, 255, 0.98); /* Solid color, removed heavy blur */
+            background: rgba(255, 255, 255, 0.98); 
             z-index: 3000; 
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.4s; 
             box-shadow: -10px 0 50px rgba(0,0,0,0.2); overflow-y: auto; 
@@ -183,7 +183,7 @@
             transition: 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
         }
         .gallery-item:hover { border-color: #0066cc; transform: scale(1.03); z-index: 10; box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-        .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
         .gallery-item .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: white; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* ULTRA PREMIUM DETAIL PANEL */
@@ -239,7 +239,7 @@
         </div>
     </nav>
 
-    <!-- Panel Overlay (No Blur, Pure Speed) -->
+    <!-- Panel Overlay -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
     <!-- Counseling Menu Sidebar -->
@@ -302,8 +302,8 @@
                             <input id="adm-hero-vid" class="premium-input flex-1 text-xs" placeholder="Video URL">
                             <button id="trigger-vid-upload" class="bg-white px-4 rounded-xl border hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
                         </div>
-                        <p class="text-[10px] text-gray-500 mb-2 leading-relaxed">Recommended: MP4/WebM, 720p, Max 5MB, 10-15s loop.</p>
-                        <button id="open-vid-gallery-btn" class="text-appleBlue text-xs font-bold mb-6 block hover:underline">Browse Cinematic Videos</button>
+                        <!-- Updated Video Size Limit Text -->
+                        <p class="text-[10px] text-gray-500 mb-6 leading-relaxed">Recommended: MP4/WebM, 1080p/720p, Max 20MB, 10-15s loop.</p>
                     </div>
 
                     <label class="admin-label">Hero Title</label>
@@ -338,7 +338,7 @@
             (function() {
                 const savedHero = JSON.parse(localStorage.getItem('nexusHero')) || {
                     type: 'image',
-                    img: 'https://images.unsplash.com/photo-1426604908151-3e1d8311713f?auto=format&fit=crop&w=1080&q=80&fm=webp'
+                    img: 'https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1080&q=80&fm=webp'
                 };
                 if(savedHero.type === 'image' && savedHero.img) {
                     document.getElementById('hero-img-bg').style.backgroundImage = `url('${savedHero.img}')`;
@@ -481,7 +481,7 @@
         </div>
     </section>
 
-    <!-- Gallery Modals -->
+    <!-- Gallery Modal (Images Only) -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
@@ -489,16 +489,6 @@
                 <button id="close-img-modal" class="text-3xl text-gray-400 hover:text-black transition-colors">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
-        </div>
-    </div>
-
-    <div id="vid-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-appleDark">Cinematic Video Library</h3>
-                <button id="close-vid-modal" class="text-3xl text-gray-400 hover:text-black transition-colors">&times;</button>
-            </div>
-            <div class="gallery-grid" id="vid-grid"></div>
         </div>
     </div>
 
@@ -517,40 +507,17 @@
     </footer>
 
     <script>
-        // --- NEW HIGH-SPEED, HIGH-QUALITY WEBP IMAGES ---
+        // --- NEW HIGHLY RELEVANT, STRESS-RELIEF & NATURE PHOTOS ---
         const premiumImages =[
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1426604908151-3e1d8311713f?auto=format&fit=crop&w=1080&q=80&fm=webp" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1080&q=80&fm=webp" },
             { tag: "Nature", url: "https://images.unsplash.com/photo-1447752809965-9761f274280b?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1518241353312-28810ad2c292?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1493836512294-502baa1986e2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1522529599102-1b714c197624?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1511884645262-0d5028398c30?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1080&q=80&fm=webp" }
-        ];
-
-        const cinematicVideos =[
-            { name: "Ocean Sunset", url: "https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-shore-at-sunset-4473-large.mp4" },
-            { name: "Forest Stream", url: "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" },
-            { name: "Mountain Clouds", url: "https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-background-2408-large.mp4" },
-            { name: "Rainy Window", url: "https://assets.mixkit.co/videos/preview/mixkit-rain-drops-on-a-window-pane-1558-large.mp4" },
-            { name: "Starry Sky", url: "https://assets.mixkit.co/videos/preview/mixkit-stars-in-the-night-sky-11640-large.mp4" },
-            { name: "Autumn Park", url: "https://assets.mixkit.co/videos/preview/mixkit-autumn-leaves-falling-from-trees-in-a-park-11634-large.mp4" },
-            { name: "Snowy Peaks", url: "https://assets.mixkit.co/videos/preview/mixkit-snowy-mountain-peaks-under-a-blue-sky-42571-large.mp4" },
-            { name: "Desert Sun", url: "https://assets.mixkit.co/videos/preview/mixkit-sun-setting-over-a-desert-landscape-42575-large.mp4" },
-            { name: "River Flow", url: "https://assets.mixkit.co/videos/preview/mixkit-river-water-flowing-over-rocks-42565-large.mp4" },
-            { name: "Aerial Forest", url: "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-dense-forest-42559-large.mp4" }
+            { tag: "Peace", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Stress Relief", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Stress Relief", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Mindfulness", url: "https://images.unsplash.com/photo-1518241353312-28810ad2c292?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Therapy", url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Therapy", url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Support", url: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1080&q=80&fm=webp" }
         ];
 
         const counselingAreas =[
@@ -566,11 +533,11 @@
             upi: "7830232077@ptsbi",
             email: "thenexusstudy3@gmail.com",
             details: {
-                Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
-                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
-                Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
-                Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
-                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
+                Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[3].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
+                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[8].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
+                Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[2].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
+                Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[6].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
+                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
             }
         };
 
@@ -637,9 +604,6 @@
 
             document.getElementById('open-img-gallery-btn').addEventListener('click', openImgGallery);
             document.getElementById('close-img-modal').addEventListener('click', () => document.getElementById('img-modal').classList.remove('active'));
-
-            document.getElementById('open-vid-gallery-btn').addEventListener('click', openVidGallery);
-            document.getElementById('close-vid-modal').addEventListener('click', () => document.getElementById('vid-modal').classList.remove('active'));
 
             document.querySelectorAll('.open-detail-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -744,8 +708,9 @@
                     
                     vidBg.load();
                     
+                    // Waits until video is fully buffered to prevent lag
                     vidBg.oncanplaythrough = () => {
-                        vidBg.muted = true; // Double check mute
+                        vidBg.muted = true; 
                         vidBg.play().then(() => {
                             vidBg.style.opacity = '1';
                             setTimeout(() => { imgBg.style.opacity = '0'; }, 400);
@@ -905,23 +870,14 @@
             previewHero();
         }
 
-        function openVidGallery() {
-            const grid = document.getElementById('vid-grid');
-            grid.innerHTML = cinematicVideos.map(vid => `<div class="gallery-item" onclick="selectVid('${vid.url}')"><video muted loop onmouseover="this.play()" onmouseout="this.pause()"><source src="${vid.url}"></video><div class="tag">${vid.name}</div></div>`).join('');
-            document.getElementById('vid-modal').classList.add('active');
-        }
-        window.selectVid = function(url) { 
-            document.getElementById('adm-hero-vid').value = url; 
-            document.getElementById('vid-modal').classList.remove('active'); 
-            previewHero();
-        }
-
         function handleLocalUpload(e, type) {
             const file = e.target.files[0];
             if(!file) return;
             
-            if(type === 'video' && file.size > 5 * 1024 * 1024) {
-                alert("Warning: Video is larger than 5MB. It may cause the website to load slowly.");
+            // Increased limit to 20MB
+            if(type === 'video' && file.size > 20 * 1024 * 1024) {
+                alert("Warning: Video is larger than 20MB. Please upload a smaller file to ensure the website remains fast.");
+                return; // Stop upload if it exceeds 20MB
             }
 
             const reader = new FileReader();
