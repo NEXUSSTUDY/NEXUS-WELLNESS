@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Mind | Premium Psychological Excellence</title>
+    <title>Nexus Wellness | Premium Psychological Excellence</title>
+    
+    <!-- Favicon Fix to prevent 404 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     
     <!-- World-Class SDKs -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,6 +17,9 @@
     <!-- Firebase Compat SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <!-- AOS JS Library (Fix for Uncaught ReferenceError: AOS is not defined) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <script>
         tailwind.config = {
@@ -251,8 +257,8 @@
                 <i class="fas fa-bars-staggered"></i>
             </button>
             <div class="flex items-center gap-4 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-base">NM</div>
-                <span class="text-2xl font-bold tracking-tighter uppercase hidden md:block">Nexus Mind</span>
+                <div class="w-12 h-12 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-base">NW</div>
+                <span class="text-2xl font-bold tracking-tighter uppercase hidden md:block">Nexus Wellness</span>
             </div>
         </div>
         <div class="flex items-center gap-6">
@@ -297,7 +303,7 @@
             <div id="admin-login-section" class="space-y-8 text-center mt-8">
                 <div class="w-24 h-24 bg-blue-50 text-appleBlue rounded-[30px] mx-auto flex items-center justify-center text-4xl shadow-sm"><i class="fas fa-shield-halved"></i></div>
                 <h2 class="text-3xl font-bold">Secure Access</h2>
-                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center">
+                <input type="email" id="adm-email-input" placeholder="admin@nexuswellness.com" class="premium-input text-center">
                 <button id="send-otp-btn" onclick="sendAdminOTP()" class="cta-btn w-full py-5">Send Access Code</button>
                 <div id="otp-box" class="hidden space-y-8 pt-8 border-t border-gray-100">
                     <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-4xl tracking-[0.5em] font-mono">
@@ -363,7 +369,7 @@
         <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-white/40 text-3xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Homepage Sections (Hardcoded with Tailwind for 100% Visibility) -->
+    <!-- Homepage Sections -->
     <div id="homepage-sections">
         <!-- Anxiety -->
         <section class="py-32 px-6 md:px-20 bg-white border-b border-gray-50">
@@ -510,8 +516,8 @@
 
     <!-- Footer -->
     <footer class="py-32 text-center bg-white border-t border-gray-100">
-        <div class="w-16 h-16 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-xl mx-auto mb-12">NM</div>
-        <h2 class="text-5xl font-extrabold tracking-tighter uppercase mb-8">Nexus Mind</h2>
+        <div class="w-16 h-16 bg-black rounded-2xl flex items-center justify-center font-bold text-white text-xl mx-auto mb-12">NW</div>
+        <h2 class="text-5xl font-extrabold tracking-tighter uppercase mb-8">Nexus Wellness</h2>
         <p class="text-gray-500 text-xl mb-16">Greater Noida, Uttar Pradesh, India</p>
         <div class="flex justify-center gap-10 mb-20">
             <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
@@ -519,7 +525,7 @@
             <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
             <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p class="text-[12px] font-bold text-gray-300 tracking-[0.5em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
+        <p class="text-[12px] font-bold text-gray-300 tracking-[0.5em] uppercase">© 2026 NEXUS WELLNESS. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
     </footer>
 
     <script>
@@ -574,10 +580,10 @@
             email: "thenexusstudy3@gmail.com",
             details: {
                 Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
-                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
+                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
                 Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[10].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
                 Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[13].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
-                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items: ["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
+                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[16].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
             }
         };
 
@@ -598,7 +604,9 @@
 
         // --- CORE FUNCTIONS ---
         function initApp() {
+            // AOS Initialization (Now works perfectly because aos.js is included)
             AOS.init({ duration: 1000, once: true });
+            
             renderMenu();
             emailjs.init("jH5TwO1sLcWFwHHzu");
             
@@ -781,7 +789,7 @@
         // --- BOOKING ---
         function handleBooking() {
             const fee = document.getElementById('p_type').value;
-            const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusMind&am=${fee}&cu=INR`;
+            const upiUrl = `upi://pay?pa=${nexusConfig.upi}&pn=NexusWellness&am=${fee}&cu=INR`;
             document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${encodeURIComponent(upiUrl)}`;
             document.getElementById('p-upi-text').textContent = nexusConfig.upi;
             document.getElementById('p-form').classList.add('hidden');
