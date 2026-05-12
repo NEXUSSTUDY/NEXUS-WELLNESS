@@ -149,10 +149,10 @@
 
         /* Gallery */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
-        .gallery-item { border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; transition: all 0.3s ease; }
+        .gallery-item { border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; transition: all 0.3s ease; background: #000; }
         .gallery-item:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); transition: filter 0.3s ease; }
-        .gallery-item:hover img { filter: saturate(1); }
+        .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); transition: filter 0.3s ease; }
+        .gallery-item:hover img, .gallery-item:hover video { filter: saturate(1); }
 
         /* Detail Panel */
         #detail-panel { 
@@ -183,11 +183,12 @@
     <div id="upload-spinner">
         <i class="fas fa-circle-notch fa-spin text-3xl text-textMain mb-4"></i>
         <p class="text-base font-medium text-textMain">Syncing to Cloud...</p>
+        <p class="text-xs text-textMuted mt-2">Please wait, large files may take a moment.</p>
     </div>
 
     <!-- Hidden File Inputs -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
-    <input type="file" id="local-vid-upload" accept="video/*" class="hidden">
+    <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg" class="hidden">
 
     <!-- Luminous Glass Header -->
     <nav class="glass-nav px-5 md:px-12 flex justify-between items-center">
@@ -264,17 +265,18 @@
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-4">
                             <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" onchange="autoSaveHeroToFirebase()">
-                            <button onclick="triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-xl border border-borderLight hover:bg-white transition-colors"><i class="fas fa-upload text-textMain"></i></button>
+                            <button onclick="triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-xl border border-borderLight hover:bg-white transition-colors" title="Upload from Device"><i class="fas fa-upload text-textMain"></i></button>
                         </div>
-                        <button onclick="openGalleryForHero()" class="text-textMain hover:opacity-70 text-[13px] font-medium mb-4 block transition-opacity underline underline-offset-4">Browse Library</button>
+                        <button onclick="openGalleryForHero()" class="text-textMain hover:opacity-70 text-[13px] font-medium mb-4 block transition-opacity underline underline-offset-4">Browse Image Library</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-4">
                             <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL" onchange="autoSaveHeroToFirebase()">
-                            <button onclick="triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-xl border border-borderLight hover:bg-white transition-colors"><i class="fas fa-upload text-textMain"></i></button>
+                            <button onclick="triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-xl border border-borderLight hover:bg-white transition-colors" title="Upload from Device"><i class="fas fa-upload text-textMain"></i></button>
                         </div>
-                        <p class="text-[12px] text-textMuted mb-4">Max 20MB. Uploads directly to cloud.</p>
+                        <button onclick="openGalleryForHero()" class="text-textMain hover:opacity-70 text-[13px] font-medium mb-4 block transition-opacity underline underline-offset-4">Browse Video Library</button>
+                        <p class="text-[12px] text-textMuted mb-4">Max 20MB. Uploads directly to cloud instantly.</p>
                     </div>
 
                     <textarea id="adm-hero-title" class="sleek-input h-24 mb-3 resize-none" placeholder="Hero Title" onchange="autoSaveHeroToFirebase()"></textarea>
@@ -324,7 +326,7 @@
                 let savedHero;
                 try { savedHero = JSON.parse(localStorage.getItem('nexusHero')); } catch(e) {}
                 if (!savedHero || !savedHero.type) {
-                    savedHero = { type: 'image', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80&fm=webp' };
+                    savedHero = { type: 'image', img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80' };
                 }
                 if(savedHero.type === 'image' && savedHero.img) {
                     document.getElementById('hero-img-bg').style.backgroundImage = `url('${savedHero.img}')`;
@@ -416,11 +418,11 @@
         </div>
     </section>
 
-    <!-- Gallery Modal -->
+    <!-- Media Gallery Modal -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-medium text-textMain tracking-tightest">Media Library</h3>
+                <h3 class="text-2xl font-medium text-textMain tracking-tightest" id="gallery-title">Media Library</h3>
                 <button id="close-img-modal" class="w-10 h-10 rounded-full bg-bgSurface flex items-center justify-center text-textMain hover:bg-white transition-colors text-xl border border-borderLight">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
@@ -469,45 +471,36 @@
     </footer>
 
     <script>
-        // Expanded Premium Images Library (37 Images)
+        // Highly Relevant Premium Images Library for Mental Health & Wellness
         const premiumImages =[
-            { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1518241353312-28810ad2c292?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1493804714600-6edf1cd87e98?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1522881451255-f59ad836fdf8?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1588196749561-c14a58915f21?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1499803845384-515d78ea2fd6?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1523285367489-dca8a7f4c4a8?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1551847677-dc82d762e1dc?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1474418397713-71377c100250?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1510832842233-156f6d4f924b?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1494587351196-bbf5f29cff42?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1512436991641-dc74eb789fbd?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1080&q=80&fm=webp" },
-            { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1080&q=80&fm=webp" }
+            { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80" }, // Therapy session
+            { url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1080&q=80" }, // Couple counseling
+            { url: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&w=1080&q=80" }, // Sleep/Rest
+            { url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80" }, // Calm water/Anxiety relief
+            { url: "https://images.unsplash.com/photo-1497032205916-ac5376d46f8a?auto=format&fit=crop&w=1080&q=80" }, // Career/Desk
+            { url: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=1080&q=80" }, // Gen Z / Phone
+            { url: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=1080&q=80" }, // Depression/Sadness
+            { url: "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1080&q=80" }, // Support/Holding hands
+            { url: "https://images.unsplash.com/photo-1588196749561-c14a58915f21?auto=format&fit=crop&w=1080&q=80" }, // Mindfulness/Meditation
+            { url: "https://images.unsplash.com/photo-1523285367489-dca8a7f4c4a8?auto=format&fit=crop&w=1080&q=80" }, // Calm environment
+            { url: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1080&q=80" }, // Peaceful nature
+            { url: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&w=1080&q=80" }, // Journaling/Therapy homework
+            { url: "https://images.unsplash.com/photo-1551847677-dc82d762e1dc?auto=format&fit=crop&w=1080&q=80" }, // Online therapy/Laptop
+            { url: "https://images.unsplash.com/photo-1474418397713-71377c100250?auto=format&fit=crop&w=1080&q=80" }, // Solitude/Thinking
+            { url: "https://images.unsplash.com/photo-1510832842233-156f6d4f924b?auto=format&fit=crop&w=1080&q=80" }, // Healing/Wellness
+            { url: "https://images.unsplash.com/photo-1494587351196-bbf5f29cff42?auto=format&fit=crop&w=1080&q=80" }, // Abstract calm
+            { url: "https://images.unsplash.com/photo-1512436991641-dc74eb789fbd?auto=format&fit=crop&w=1080&q=80" }, // Group/Family therapy
+            { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1080&q=80" }, // Professional counselor
+            { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1080&q=80" }, // Team/Support
+            { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1080&q=80" }  // Student/Gen Z stress
+        ];
+
+        // Reliable Premium Video Placeholders for Hero Section
+        const premiumVideos =[
+            { url: "https://cdn.pixabay.com/video/2020/05/25/40131-424923170_large.mp4" }, // Calm ocean waves
+            { url: "https://cdn.pixabay.com/video/2019/11/20/29366-374213797_large.mp4" }, // Forest sunlight
+            { url: "https://cdn.pixabay.com/video/2023/10/22/186005-876824335_large.mp4" }, // Abstract calm gradient
+            { url: "https://cdn.pixabay.com/video/2016/08/22/4344-178287106_large.mp4" }  // Rain/Relaxing
         ];
 
         const counselingAreas =[
@@ -577,7 +570,7 @@
         localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
 
         let currentOTP = null;
-        let activeImageTarget = { type: null, key: null, index: null };
+        let activeImageTarget = { type: null, key: null, index: null, mediaType: 'image' };
         let uploadContext = { type: null, target: null, key: null, index: null };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -855,8 +848,8 @@
                     <h5 class="font-medium mb-3 text-[15px] text-textMain">${area.label}</h5>
                     <div class="flex gap-2 mb-3">
                         <input type="text" class="sleek-input flex-1" value="${sec.img}" onchange="updateSection('${area.key}', 'img', this.value)">
-                        <button onclick="triggerUpload('image', 'section', '${area.key}')" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50"><i class="fas fa-upload text-textMain"></i></button>
-                        <button onclick="openGalleryForSection('${area.key}')" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50"><i class="fas fa-image text-textMain"></i></button>
+                        <button onclick="triggerUpload('image', 'section', '${area.key}')" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50" title="Upload from Device"><i class="fas fa-upload text-textMain"></i></button>
+                        <button onclick="openGalleryForSection('${area.key}')" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50" title="Browse Library"><i class="fas fa-image text-textMain"></i></button>
                     </div>
                     <input type="text" class="sleek-input mb-3" value="${sec.title}" onchange="updateSection('${area.key}', 'title', this.value)">
                     <textarea class="sleek-input h-24 resize-none" onchange="updateSection('${area.key}', 'desc', this.value)">${sec.desc}</textarea>
@@ -875,8 +868,8 @@
                             <div class="flex justify-between mb-3"><span class="text-[11px] font-semibold uppercase text-textMuted tracking-widest">IMAGE</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-700"><i class="fas fa-times"></i></button></div>
                             <div class="flex gap-2">
                                 <input type="text" class="sleek-input flex-1" value="${b.url}" onchange="updateBlock('${area.key}', ${i}, this.value)">
-                                <button onclick="triggerUpload('image', 'block', '${area.key}', ${i})" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50"><i class="fas fa-upload text-textMain"></i></button>
-                                <button onclick="openGalleryForBlock('${area.key}', ${i})" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50"><i class="fas fa-image text-textMain"></i></button>
+                                <button onclick="triggerUpload('image', 'block', '${area.key}', ${i})" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50" title="Upload from Device"><i class="fas fa-upload text-textMain"></i></button>
+                                <button onclick="openGalleryForBlock('${area.key}', ${i})" class="bg-white px-4 rounded-xl border border-borderLight hover:bg-gray-50" title="Browse Library"><i class="fas fa-image text-textMain"></i></button>
                             </div>
                         </div>`;
                     } else {
@@ -937,17 +930,36 @@
             localStorage.setItem('nexusHero', JSON.stringify(data)); if(window.db) window.db.ref('globalHero').set(data); updateHero(data);
         }
 
-        window.openGalleryForHero = function() { activeImageTarget = { type: 'hero' }; openImgGallery(); }
-        window.openGalleryForSection = function(key) { activeImageTarget = { type: 'section', key: key }; openImgGallery(); }
-        window.openGalleryForBlock = function(key, index) { activeImageTarget = { type: 'block', key: key, index: index }; openImgGallery(); }
+        // Media Gallery Logic (Supports Images and Videos)
+        window.openGalleryForHero = function() { 
+            const type = document.getElementById('adm-hero-type').value;
+            activeImageTarget = { type: 'hero', mediaType: type }; 
+            openMediaGallery(type); 
+        }
+        window.openGalleryForSection = function(key) { activeImageTarget = { type: 'section', key: key, mediaType: 'image' }; openMediaGallery('image'); }
+        window.openGalleryForBlock = function(key, index) { activeImageTarget = { type: 'block', key: key, index: index, mediaType: 'image' }; openMediaGallery('image'); }
 
-        function openImgGallery() {
-            document.getElementById('img-grid').innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" loading="lazy"></div>`).join('');
+        function openMediaGallery(mediaType) {
+            const grid = document.getElementById('img-grid');
+            document.getElementById('gallery-title').innerText = mediaType === 'video' ? 'Video Library' : 'Image Library';
+            
+            if (mediaType === 'video') {
+                grid.innerHTML = premiumVideos.map(vid => `<div class="gallery-item" onclick="selectMedia('${vid.url}')"><video src="${vid.url}" autoplay muted loop playsinline></video></div>`).join('');
+            } else {
+                grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectMedia('${img.url}')"><img src="${img.url}" loading="lazy"></div>`).join('');
+            }
             document.getElementById('img-modal').classList.add('active');
         }
 
-        window.selectImg = function(url) { 
-            if (activeImageTarget.type === 'hero') { document.getElementById('adm-hero-img').value = url; autoSaveHeroToFirebase(); } 
+        window.selectMedia = function(url) { 
+            if (activeImageTarget.type === 'hero') { 
+                if(activeImageTarget.mediaType === 'video') {
+                    document.getElementById('adm-hero-vid').value = url; 
+                } else {
+                    document.getElementById('adm-hero-img').value = url; 
+                }
+                autoSaveHeroToFirebase(); 
+            } 
             else if (activeImageTarget.type === 'section') { updateSection(activeImageTarget.key, 'img', url); renderAdminHomepage(); } 
             else if (activeImageTarget.type === 'block') { updateBlock(activeImageTarget.key, activeImageTarget.index, url); renderAdminCounseling(); }
             document.getElementById('img-modal').classList.remove('active'); 
@@ -963,6 +975,7 @@
             const file = e.target.files[0]; 
             if(!file) return;
             
+            // 20MB Limit Check
             if(file.size > 20 * 1024 * 1024) { 
                 alert("File is too large. Maximum allowed size is 20MB."); 
                 e.target.value = ''; 
@@ -978,7 +991,8 @@
             spinner.classList.add('active');
 
             try {
-                const storageRef = window.storage.ref('nexus_uploads/' + Date.now() + '_' + file.name);
+                const folder = uploadContext.type === 'video' ? 'videos/' : 'images/';
+                const storageRef = window.storage.ref('nexus_uploads/' + folder + Date.now() + '_' + file.name);
                 const snapshot = await storageRef.put(file);
                 const downloadURL = await snapshot.ref.getDownloadURL();
 
@@ -1000,7 +1014,7 @@
                 alert("Upload failed. Please check your connection and try again.");
             } finally {
                 spinner.classList.remove('active');
-                e.target.value = '';
+                e.target.value = ''; // Reset input so same file can be uploaded again if needed
             }
         }
 
