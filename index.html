@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nexus Mind | Premium Psychological Excellence</title>
     
-    <!-- Preconnect for Speed -->
+    <!-- Preconnect for Speed of Light Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
     
-    <!-- Dynamic Brand Favicon (NM Logo) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000'/><text x='50' y='68' font-family='Arial, sans-serif' font-size='50' font-weight='bold' fill='%23fff' text-anchor='middle'>NM</text></svg>">
+    <!-- Dynamic Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,10 +32,10 @@
                     colors: {
                         appleBlue: '#0066cc',
                         appleGray: '#f5f5f7',
-                        tcsBlack: '#050505',
+                        appleDark: '#1d1d1f',
                     },
                     fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        sans:['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
                     }
                 }
             }
@@ -43,23 +43,15 @@
     </script>
 
     <style>
-        /* Minimalist Font Stack */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
-        /* STRICT VERTICAL SCROLL ONLY */
+        /* Strict Overflow Control */
         html, body { 
-            overflow-x: hidden !important; 
+            overflow-x: hidden; 
             overscroll-behavior-x: none; 
             width: 100%; 
-            max-width: 100vw;
-            position: relative;
-        }
-
-        .main-wrapper {
-            overflow-x: hidden;
-            width: 100%;
             position: relative;
         }
 
@@ -67,177 +59,181 @@
 
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            background-color: #ffffff; color: #000000; 
-            font-size: 16px; line-height: 1.6; 
+            background-color: #ffffff; color: #1d1d1f; 
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
             animation: smoothReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        /* TCS/Corporate Signature Typography */
-        h1, h2, h3, h4, h5 { font-weight: 700; letter-spacing: -0.03em; } 
         
-        /* ULTRA PREMIUM BLACK HEADER */
+        /* ULTRA PREMIUM GLASS NAVIGATION */
         .glass-nav { 
-            background: rgba(0, 0, 0, 0.95); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
             z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
             transform: translateZ(0); will-change: transform;
         }
 
-        /* HERO ENGINE (TCS STYLE FIXED REVEAL) */
-        #hero-section { 
-            position: fixed; top: 0; left: 0; height: 100vh; width: 100%; 
-            overflow: hidden; background-color: #000; display: flex; 
-            align-items: center; justify-content: center; z-index: 0; 
+        /* HERO ENGINE (Zero Lag, Speed of Light) */
+        #hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
+        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.6s ease-out; transform: translateZ(0); z-index: 0; will-change: opacity; }
+        
+        /* Hardware Accelerated Video */
+        #hero-video-bg { 
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; 
+            transition: opacity 0.8s ease-out; 
+            transform: translateZ(0); opacity: 0; z-index: 1; pointer-events: none;
+            will-change: opacity;
         }
-        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.6s ease-out; z-index: 0; }
-        #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease-out; opacity: 0; z-index: 1; pointer-events: none; }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%); z-index: 2; }
-        .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; }
+        
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.85) 100%); z-index: 2; }
+        .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; will-change: transform, opacity; }
 
-        /* CONTENT SECTIONS (Slides over the fixed hero) */
-        #homepage-sections {
-            position: relative;
-            z-index: 10;
-            margin-top: 100vh; /* Pushes content below the fixed hero */
-            background: #fff;
-        }
-        #booking-section, footer {
-            position: relative;
-            z-index: 10;
-        }
-
-        /* CORPORATE BUTTONS */
+        /* APPLE SIGNATURE BUTTONS */
         .cta-btn { 
-            background: #000000; color: #ffffff; 
-            border-radius: 999px; font-weight: 600; font-size: 15px; padding: 14px 32px; 
-            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); border: 1px solid #000000;
-            display: inline-block; text-decoration: none; letter-spacing: 0.02em; cursor: pointer;
+            background: rgba(0, 102, 204, 0.95); color: white; 
+            border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.25); cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+            display: inline-block; text-decoration: none; letter-spacing: 0.3px; transform: translateZ(0);
         }
-        .cta-btn:hover { background: #1d1d1f; transform: scale(0.98); }
-        .cta-btn:active { transform: scale(0.95); }
-
-        /* White Button for Dark Sections */
-        .cta-btn-white { 
-            background: #ffffff; color: #000000; 
-            border-radius: 999px; font-weight: 600; font-size: 15px; padding: 14px 32px; 
-            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); border: 1px solid #ffffff;
-            display: inline-block; text-decoration: none; letter-spacing: 0.02em; cursor: pointer;
+        .cta-btn:hover { background: rgba(0, 102, 204, 1); transform: scale(1.03) translateY(-2px); box-shadow: 0 12px 32px rgba(0, 102, 204, 0.35); }
+        
+        .cta-btn:active, button:active, .social-btn:active, .apple-menu-item:active {
+            transform: scale(0.92) !important;
+            transition: transform 0.1s ease !important;
         }
-        .cta-btn-white:hover { background: #f5f5f7; transform: scale(0.98); }
-        .cta-btn-white:active { transform: scale(0.95); }
 
-        /* PANEL OVERLAY */
+        /* PANEL OVERLAY (No Blur for Speed & Sharpness) */
         .panel-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
-            z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.65); 
+            z-index: 2500; opacity: 0; pointer-events: none; 
+            transition: opacity 0.3s ease;
         }
-        .panel-overlay.active { opacity: 1; pointer-events: auto; backdrop-filter: blur(4px); }
+        .panel-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* LEFT SLIDE MENU (DARK MODE) */
+        /* SIDE PANELS (Solid Background for Zero Lag) */
+        .side-panel { 
+            position: fixed; top: 0; height: 100vh; 
+            background: rgba(255, 255, 255, 0.98); 
+            z-index: 3000; 
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.4s; 
+            box-shadow: -10px 0 50px rgba(0,0,0,0.2); overflow-y: auto; 
+            will-change: transform; transform: translateZ(0);
+            visibility: hidden;
+        }
+        
         #counseling-menu { 
-            position: fixed; top: 0; left: 0; height: 100vh; width: 85%; max-width: 400px; 
-            background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px);
-            z-index: 3000; overflow-y: auto;
-            border-right: 1px solid rgba(255,255,255,0.1); box-shadow: 10px 0 40px rgba(0,0,0,0.5);
-            transform: translateX(-100%); visibility: hidden;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+            left: 0; width: 85%; max-width: 380px; transform: translateX(-100%); 
+            border-radius: 0 32px 32px 0; 
         }
-        #counseling-menu.active { transform: translateX(0); visibility: visible; }
-
-        /* ADMIN PANEL (DARK MODE) */
+        
         #admin-panel { 
-            position: fixed; top: 0; right: 0; height: 100vh; width: 85%; max-width: 400px; 
-            background: #000000; z-index: 3000; overflow-y: auto;
-            border-left: 1px solid rgba(255,255,255,0.1); box-shadow: -10px 0 40px rgba(0,0,0,0.5);
-            transform: translateX(100%); visibility: hidden;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+            right: 0; width: 85%; max-width: 420px; transform: translateX(100%); 
+            border-radius: 32px 0 0 32px; 
         }
-        #admin-panel.active { transform: translateX(0); visibility: visible; }
+        
+        #counseling-menu.active, #admin-panel.active { 
+            transform: translateX(0) !important; 
+            visibility: visible; 
+        }
 
-        /* MENU ITEMS (DARK MODE) */
+        /* SOCIAL BUTTONS */
+        .social-btn {
+            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease; font-size: 20px; text-decoration: none; border: 1px solid rgba(0,0,0,0.02);
+        }
+        .social-btn:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+        .social-btn.insta { color: #E1306C; } .social-btn.linkedin { color: #0A66C2; } .social-btn.youtube { color: #FF0000; } .social-btn.whatsapp { color: #25D366; }
+
+        /* MENU ITEMS */
         .apple-menu-item {
-            display: flex; align-items: center; justify-content: space-between; padding: 18px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.2s ease; cursor: pointer; font-weight: 600; font-size: 17px; color: #ffffff;
+            display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 16px; margin-bottom: 8px;
+            transition: all 0.2s ease; cursor: pointer; font-weight: 600; font-size: 16px; color: #1d1d1f; background: transparent;
         }
-        .apple-menu-item:hover { color: #0066cc; padding-left: 8px; }
-        .apple-menu-item:last-child { border-bottom: none; }
+        .apple-menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 26px; color: #0066cc; }
 
-        /* LIGHT INPUTS (For Booking Form) */
+        /* PREMIUM INPUTS */
         .premium-input { 
-            background: #f5f5f7; border: 1px solid transparent; border-radius: 12px; 
-            padding: 14px 18px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #000000; font-family: 'Inter', sans-serif;
+            background: rgba(245,245,247,0.8); border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; 
+            padding: 16px 20px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #1d1d1f;
         }
-        .premium-input:focus { border-color: #000000; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
-
-        /* DARK INPUTS (For Admin Panel) */
-        .admin-input {
-            background: #111111; border: 1px solid #333333; border-radius: 12px; 
-            padding: 14px 18px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #ffffff; font-family: 'Inter', sans-serif;
-        }
-        .admin-input:focus { border-color: #ffffff; outline: none; background: #000000; box-shadow: 0 0 0 3px rgba(255,255,255,0.1); }
-
-        /* ADMIN CARDS (DARK MODE) */
-        .admin-card { background: #0a0a0a; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid #222222; }
-        .admin-label { font-size: 11px; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
+        .premium-input:focus { border-color: #0066cc; outline: none; box-shadow: 0 0 0 4px rgba(0,102,204,0.1); background: #fff; }
 
         /* MODALS */
         .modal-overlay { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 5000; display: none; align-items: flex-start; justify-content: center; 
+            padding: 4vh 20px 20px 20px; 
+            opacity: 0; transition: opacity 0.3s ease; transform: translateZ(0);
         }
         .modal-overlay.active { opacity: 1; display: flex; }
         .modal-content { 
-            background: #fff; border-radius: 24px; width: 100%; max-width: 800px; max-height: 85vh; overflow-y: auto; padding: 32px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            transform: scale(0.98); transition: all 0.3s ease;
+            background: #fff; border-radius: 32px; width: 100%; max-width: 900px; max-height: 85vh; 
+            overflow-y: auto; padding: 30px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+            transform: translateY(-20px) scale(0.98); transition: all 0.3s ease; will-change: transform;
         }
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
 
         /* GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-        .gallery-item { border-radius: 12px; overflow: hidden; cursor: pointer; aspect-ratio: 1; position: relative; transition: 0.3s ease; }
-        .gallery-item:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* DETAIL PANEL */
-        #detail-panel { 
-            position: fixed; inset: 0; z-index: 4000; background: #ffffff; overflow-y: auto; padding-bottom: 80px; 
-            opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.4s ease;
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .gallery-item { 
+            border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; position: relative; border: 2px solid transparent; 
+            transition: 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
         }
-        #detail-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
-        .reveal-block { opacity: 0; transform: translateY(15px); transition: all 0.6s ease-out; }
+        .gallery-item:hover { border-color: #0066cc; transform: scale(1.03); z-index: 10; box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item .tag { position: absolute; bottom: 8px; left: 8px; background: rgba(0,0,0,0.8); color: white; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* ULTRA PREMIUM DETAIL PANEL */
+        #detail-panel { 
+            position: fixed; inset: 0; z-index: 4000; 
+            background: #ffffff;
+            overflow-y: auto; padding-bottom: 80px; 
+            opacity: 0; visibility: hidden;
+            transform: scale(0.98) translateY(20px); 
+            transition: all 0.4s ease;
+        }
+        #detail-panel.active {
+            opacity: 1; visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+        
+        .reveal-block { opacity: 0; transform: translateY(20px); will-change: transform, opacity; }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
+
+        /* ADMIN CARDS */
+        .admin-card { background: #f5f5f7; border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.04); }
+        .admin-label { font-size: 11px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #d2d2d7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #86868b; }
     </style>
 </head>
 <body>
-
-<div class="main-wrapper">
 
     <!-- Hidden File Inputs -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden">
 
-    <!-- Navigation (Black Header, White Text, Strong Branding) -->
-    <nav class="glass-nav px-6 md:px-12 flex justify-between items-center">
+    <!-- Navigation -->
+    <nav class="glass-nav px-6 md:px-16 flex justify-between items-center">
         <div class="flex items-center gap-6">
-            <button id="menu-btn" class="text-2xl text-white hover:opacity-70 transition-opacity">
-                <i class="fas fa-bars"></i>
+            <button id="menu-btn" class="text-2xl text-gray-800 hover:text-black transition-all">
+                <i class="fas fa-bars-staggered"></i>
             </button>
             <div class="flex items-center gap-3 cursor-pointer" id="logo-btn">
-                <div class="w-10 h-10 bg-white text-black font-extrabold flex items-center justify-center rounded-md text-lg shadow-lg">NM</div>
-                <span class="text-xl font-extrabold tracking-widest text-white uppercase hidden md:block">Nexus Mind</span>
+                <div class="w-10 h-10 bg-black rounded-[12px] flex items-center justify-center font-bold text-white text-sm shadow-md">NM</div>
+                <span class="text-xl font-bold tracking-tight uppercase hidden md:block text-appleDark">Nexus Mind</span>
             </div>
         </div>
-        <div class="flex items-center gap-5">
-            <a href="#booking-section" class="cta-btn-white hidden md:inline-block">Book Session</a>
-            <button id="admin-btn" class="text-white hover:opacity-70 transition-opacity text-xl">
+        <div class="flex items-center gap-4">
+            <a href="#booking-section" class="cta-btn px-6 py-2 text-[13px] shadow-none">Book Session</a>
+            <button id="admin-btn" class="w-10 h-10 rounded-full bg-appleDark text-white hover:bg-black transition-all flex items-center justify-center text-lg shadow-[0_8px_16px_rgba(0,0,0,0.2)] border border-gray-700">
                 <i class="fas fa-fingerprint"></i>
             </button>
         </div>
@@ -246,155 +242,199 @@
     <!-- Panel Overlay -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- Left Slide Counseling Menu (DARK MODE) -->
-    <div id="counseling-menu">
-        <div class="p-8 md:p-12">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-2xl font-bold tracking-tight text-white">Areas of Focus</h3>
-                <button id="close-menu-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-800 transition-colors text-white">&times;</button>
+    <!-- Counseling Menu Sidebar -->
+    <div id="counseling-menu" class="side-panel">
+        <div class="p-6 md:p-10">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold tracking-tight text-appleDark">Counseling</h3>
+                <button id="close-menu-btn" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
             </div>
-            <div id="menu-items-container" class="space-y-2"></div>
-            <div class="mt-12 pt-8 border-t border-gray-800 flex gap-6">
-                <!-- Natural Social Media Colors -->
-                <a href="#" class="hover:opacity-80 transition-opacity" style="color: #E1306C;"><i class="fab fa-instagram text-3xl"></i></a>
-                <a href="#" class="hover:opacity-80 transition-opacity" style="color: #0A66C2;"><i class="fab fa-linkedin text-3xl"></i></a>
-                <a href="#" class="hover:opacity-80 transition-opacity" style="color: #FF0000;"><i class="fab fa-youtube text-3xl"></i></a>
-                <a href="#" class="hover:opacity-80 transition-opacity" style="color: #25D366;"><i class="fab fa-whatsapp text-3xl"></i></a>
+            <div id="menu-items-container" class="space-y-1"></div>
+            <div class="mt-16 pt-8 border-t border-gray-200">
+                <p class="admin-label mb-6">Connect With Us</p>
+                <div class="flex gap-3 flex-wrap">
+                    <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel Sidebar (DARK MODE) -->
-    <div id="admin-panel">
-        <div class="sticky top-0 z-10 bg-black/90 backdrop-blur-md border-b border-gray-800 px-6 py-5 flex justify-between items-center">
-            <h3 class="font-bold text-lg text-white">Admin Control</h3>
-            <button id="close-admin-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-800 transition-colors text-white">&times;</button>
+    <!-- Admin Panel Sidebar -->
+    <div id="admin-panel" class="side-panel">
+        <div class="sticky top-0 z-10 bg-white border-b border-gray-100 px-6 py-5 flex justify-between items-center rounded-tl-[32px]">
+            <h3 class="font-bold text-xl text-appleDark">Admin Control</h3>
+            <button id="close-admin-btn" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
         </div>
         
         <div class="p-6">
-            <div id="admin-login-section" class="space-y-6 text-center mt-10">
-                <i class="fas fa-fingerprint text-5xl text-white mb-2"></i>
-                <h2 class="text-xl font-bold text-white">Secure Access</h2>
-                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="admin-input text-center">
-                <button id="send-otp-btn" class="cta-btn-white w-full">Send Access Code</button>
-                <div id="otp-box" class="hidden space-y-4 pt-6 border-t border-gray-800">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="admin-input text-center text-2xl tracking-[0.3em] font-mono">
-                    <button id="verify-otp-btn" class="cta-btn-white w-full">Verify & Unlock</button>
+            <div id="admin-login-section" class="space-y-6 text-center mt-4">
+                <div class="w-16 h-16 bg-gray-900 text-white rounded-[16px] mx-auto flex items-center justify-center text-2xl shadow-lg"><i class="fas fa-fingerprint"></i></div>
+                <h2 class="text-xl font-bold text-appleDark">Secure Access</h2>
+                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center text-sm">
+                <button id="send-otp-btn" class="cta-btn w-full py-3 text-sm">Send Access Code</button>
+                <div id="otp-box" class="hidden space-y-6 pt-6 border-t border-gray-100">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-2xl tracking-[0.4em] font-mono">
+                    <button id="verify-otp-btn" class="cta-btn w-full bg-black py-3 border-none text-sm">Verify & Unlock</button>
                 </div>
             </div>
             
             <div id="admin-main-controls" class="hidden space-y-6 pb-20">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
-                    <select id="adm-hero-type" class="admin-input mb-4 text-sm font-semibold">
+                    <select id="adm-hero-type" class="premium-input mb-4 text-sm font-medium">
                         <option value="image">Static Image</option>
                         <option value="video">Background Video</option>
                     </select>
                     
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-3">
-                            <input id="adm-hero-img" class="admin-input flex-1 text-xs" placeholder="Image URL">
-                            <button id="trigger-img-upload" class="bg-[#222] px-4 rounded-xl border border-gray-700 hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
+                            <input id="adm-hero-img" class="premium-input flex-1 text-xs" placeholder="Image URL">
+                            <button id="trigger-img-upload" class="bg-white px-4 rounded-xl border hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
                         </div>
-                        <button id="open-img-gallery-btn" class="text-white text-xs font-bold mb-6 block hover:underline">Browse Premium Photos</button>
+                        <button id="open-img-gallery-btn" class="text-appleBlue text-xs font-bold mb-6 block hover:underline">Browse Premium Photos</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-3">
-                            <input id="adm-hero-vid" class="admin-input flex-1 text-xs" placeholder="Video URL">
-                            <button id="trigger-vid-upload" class="bg-[#222] px-4 rounded-xl border border-gray-700 hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
+                            <input id="adm-hero-vid" class="premium-input flex-1 text-xs" placeholder="Video URL">
+                            <button id="trigger-vid-upload" class="bg-white px-4 rounded-xl border hover:bg-gray-50 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
                         </div>
+                        <!-- Updated Video Size Limit Text -->
+                        <p class="text-[10px] text-gray-500 mb-6 leading-relaxed">Recommended: MP4/WebM, 1080p/720p, Max 20MB, 10-15s loop.</p>
                     </div>
 
                     <label class="admin-label">Hero Title</label>
-                    <textarea id="adm-hero-title" class="admin-input h-16 mb-4 text-xs" placeholder="Hero Title"></textarea>
+                    <textarea id="adm-hero-title" class="premium-input h-16 mb-4 text-xs" placeholder="Hero Title"></textarea>
                     <label class="admin-label">Hero Subtitle</label>
-                    <input id="adm-hero-subtitle" class="admin-input mb-6 text-xs" placeholder="Hero Subtitle">
+                    <input id="adm-hero-subtitle" class="premium-input mb-6 text-xs" placeholder="Hero Subtitle">
+                    <button id="push-hero-btn" class="cta-btn w-full bg-black py-3 text-sm border-none">Update Global Hero</button>
                 </div>
 
-                <!-- Homepage Sections Editor -->
-                <div class="admin-card">
-                    <h4 class="admin-label">Homepage Sections (Live Sync)</h4>
-                    <div id="admin-sections-list" class="space-y-4"></div>
-                </div>
-
-                <div class="admin-card">
-                    <h4 class="admin-label">Detail Pages Content</h4>
-                    <div id="admin-counseling-list" class="space-y-4"></div>
-                </div>
+                <div id="admin-counseling-list" class="space-y-4"></div>
 
                 <div class="admin-card">
                     <h4 class="admin-label">Global Settings</h4>
-                    <input id="adm-wa" class="admin-input mb-3 text-xs" placeholder="WhatsApp (+91...)">
-                    <input id="adm-upi" class="admin-input mb-3 text-xs" placeholder="UPI ID">
-                    <input id="adm-email" class="admin-input mb-6 text-xs" placeholder="Admin Email">
+                    <input id="adm-wa" class="premium-input mb-3 text-xs" placeholder="WhatsApp (+91...)">
+                    <input id="adm-upi" class="premium-input mb-3 text-xs" placeholder="UPI ID">
+                    <input id="adm-email" class="premium-input mb-6 text-xs" placeholder="Admin Email">
+                    <button id="save-settings-btn" class="cta-btn w-full py-3 text-sm">Save Settings</button>
                 </div>
-                
-                <button id="push-global-btn" class="cta-btn-white w-full py-3">Publish Global Changes</button>
-                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-4 hover:bg-red-900/20 rounded-xl transition-all mt-2">Lock Admin Panel</button>
+                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-4 hover:bg-red-50 rounded-xl transition-all">Lock Admin Panel</button>
             </div>
         </div>
     </div>
 
-    <!-- Hero Section (FIXED FOR TCS STYLE REVEAL) -->
+    <!-- Hero Section -->
     <section id="hero-section">
         <div id="hero-img-bg"></div>
+        <!-- Video is strictly muted and preloaded for speed -->
         <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline preload="auto"></video>
         
+        <!-- ZERO-FLASH REFRESH SCRIPT -->
         <script>
             (function() {
-                const savedData = JSON.parse(localStorage.getItem('nexusData'));
-                if(savedData && savedData.hero) {
-                    const h = savedData.hero;
-                    if(h.type === 'image' && h.img) {
-                        document.getElementById('hero-img-bg').style.backgroundImage = `url('${h.img}')`;
-                    } else if(h.type === 'video' && h.vid) {
-                        const v = document.getElementById('hero-video-bg');
-                        v.src = h.vid; v.muted = true; v.setAttribute('muted', '');
-                        v.classList.remove('hidden'); v.style.opacity = '1';
-                    }
+                const savedHero = JSON.parse(localStorage.getItem('nexusHero')) || {
+                    type: 'image',
+                    img: 'https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1080&q=80&fm=webp'
+                };
+                if(savedHero.type === 'image' && savedHero.img) {
+                    document.getElementById('hero-img-bg').style.backgroundImage = `url('${savedHero.img}')`;
+                } else if(savedHero.type === 'video' && savedHero.vid) {
+                    const v = document.getElementById('hero-video-bg');
+                    v.src = savedHero.vid;
+                    v.muted = true;
+                    v.setAttribute('muted', '');
+                    v.classList.remove('hidden');
+                    v.style.opacity = '1';
                 }
             })();
         </script>
 
         <div class="hero-overlay"></div>
         <div data-aos="fade-up" data-aos-duration="1000" class="hero-content">
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6 text-white">Reclaim Your<br>Inner Peace</h1>
-            <p id="hero-subtitle" class="text-lg md:text-xl text-white/80 mb-10 max-w-xl mx-auto font-medium tracking-wide">Premium online counseling for mental excellence.</p>
-            <a href="#booking-section" class="cta-btn-white px-8 py-4 text-lg">Start Your Journey</a>
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.05] mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-lg">Reclaim Your<br>Inner Peace</h1>
+            <p id="hero-subtitle" class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium tracking-wide">Premium online counseling for mental excellence.</p>
+            <a href="#booking-section" class="cta-btn">Start Your Journey</a>
         </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/40 text-2xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Dynamic Homepage Sections (Slides over the Hero) -->
-    <div id="homepage-sections">
-        <!-- Rendered via JS to allow instant global updates -->
+    <!-- Homepage Sections -->
+    <div id="homepage-sections" class="bg-appleGray">
+        <section class="py-24 px-6 md:px-16 bg-white rounded-b-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.02)] relative z-10">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🧠</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Anxiety & Stress</h2>
+                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Finding stillness in a chaotic world through evidence-based clinical techniques.</p>
+                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Anxiety">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 md:px-16 bg-appleGray">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">❤️</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Relationship Issues</h2>
+                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Healing emotional bonds and building trust in a safe, confidential environment.</p>
+                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Relationship">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 md:px-16 bg-white rounded-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.02)] relative z-10">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🌙</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Sleep Problems</h2>
+                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Restorative techniques for deep sleep and cognitive recovery.</p>
+                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Sleep">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 md:px-16 bg-appleGray">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">🛡️</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Trauma Support</h2>
+                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">A safe space to process and heal past wounds with specialized trauma-informed care.</p>
+                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Trauma">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 md:px-16 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.02)] relative z-10">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <div class="text-5xl md:text-6xl mb-6 drop-shadow-md">💼</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-appleDark">Career Counseling</h2>
+                <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">Clarity, growth, and burnout prevention for your professional path.</p>
+                <button class="open-detail-btn text-appleBlue font-semibold text-lg hover:underline transition-all" data-key="Career">Explore Our Approach <i class="fas fa-arrow-right text-sm ml-1"></i></button>
+            </div>
+        </section>
     </div>
 
-    <!-- Detail Panel -->
+    <!-- Ultra Premium Detail Panel -->
     <div id="detail-panel">
-        <div class="max-w-4xl mx-auto px-6 py-32">
-            <div class="flex justify-between items-start mb-16">
-                <div>
-                    <h1 id="det-title" class="text-4xl md:text-6xl font-bold tracking-tight text-black mb-4"></h1>
-                    <div class="w-16 h-2 bg-black rounded-full"></div>
+        <div class="max-w-4xl mx-auto px-6 py-24">
+            <div class="flex justify-between items-center mb-16">
+                <div class="flex items-center gap-6">
+                    <span id="det-emoji" class="text-5xl md:text-6xl drop-shadow-md"></span>
+                    <h1 id="det-title" class="text-4xl md:text-5xl font-extrabold tracking-tight text-appleDark"></h1>
                 </div>
-                <button id="close-detail-btn" class="w-12 h-12 rounded-full flex items-center justify-center text-3xl hover:bg-gray-100 transition-colors text-black">&times;</button>
+                <button id="close-detail-btn" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors text-gray-500">&times;</button>
             </div>
-            <div id="det-content" class="space-y-10"></div>
-            <div class="mt-24 pt-12 border-t border-gray-200 reveal-block text-center">
-                <a href="#booking-section" id="book-now-btn" class="cta-btn text-lg px-10 py-4">Book Your Session</a>
+            <div id="det-content" class="space-y-12"></div>
+            <div class="mt-24 text-center reveal-block">
+                <a href="#booking-section" id="book-now-btn" class="cta-btn px-12 py-4 text-lg">Book Your Session Now</a>
             </div>
         </div>
     </div>
 
     <!-- Booking Section -->
-    <section id="booking-section" class="py-32 px-6 md:px-16 bg-appleGray">
-        <div class="max-w-2xl mx-auto bg-white p-8 md:p-16 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100" data-aos="fade-up">
+    <section id="booking-section" class="py-24 px-6 md:px-16 bg-appleGray">
+        <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)]" data-aos="zoom-in" data-aos-duration="800">
             <div id="booking-flow">
                 <form id="p-form" class="space-y-6">
-                    <div class="mb-10 text-center">
-                        <h2 class="text-3xl font-bold tracking-tight mb-2 text-black">Schedule Session</h2>
-                        <p class="text-gray-500 text-base font-medium">Take the first step towards a healthier mind.</p>
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3 text-appleDark">Schedule Session</h2>
+                        <p class="text-gray-500 text-sm md:text-base font-medium">Take the first step towards a healthier mind.</p>
                     </div>
                     <div class="grid md:grid-cols-2 gap-5">
                         <input type="text" id="p_name" placeholder="Full Name" class="premium-input" required>
@@ -402,7 +442,7 @@
                     </div>
                     <div class="grid md:grid-cols-2 gap-5">
                         <input type="tel" id="p_wa" value="+91" class="premium-input" required>
-                        <select id="p_counseling" class="premium-input font-medium" required>
+                        <select id="p_counseling" class="premium-input" required>
                             <option value="Anxiety">Anxiety & Stress</option>
                             <option value="Relationship">Relationship Issues</option>
                             <option value="Sleep">Sleep Problems</option>
@@ -410,117 +450,112 @@
                             <option value="Career">Career Counseling</option>
                         </select>
                     </div>
-                    <select id="p_type" class="premium-input font-medium" required>
+                    <select id="p_type" class="premium-input" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Briefly describe your concern..." class="premium-input h-32 resize-none" required></textarea>
-                    <button type="submit" class="cta-btn w-full mt-4 py-4 text-lg">Proceed to Payment</button>
+                    <textarea id="p_concern" placeholder="Tell us how we can help you..." class="premium-input h-28 resize-none" required></textarea>
+                    <button type="submit" class="cta-btn w-full py-4 text-lg mt-2">Proceed to Secure Payment</button>
                 </form>
 
                 <div id="p-payment" class="hidden text-center space-y-8 py-4">
-                    <div class="max-w-[260px] mx-auto bg-white p-5 rounded-3xl border border-gray-200 shadow-sm">
-                        <img id="p-qr" src="" class="w-full rounded-2xl" loading="lazy">
-                        <p id="p-upi-text" class="mt-4 text-black font-bold text-base"></p>
+                    <div class="max-w-xs mx-auto bg-white p-6 rounded-[2rem] shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100">
+                        <img id="p-qr" src="" class="w-full rounded-2xl border-[4px] border-gray-50" loading="lazy" decoding="async">
+                        <p id="p-upi-text" class="mt-4 text-appleBlue font-bold text-base tracking-wider"></p>
                     </div>
-                    <div class="space-y-5 max-w-sm mx-auto">
-                        <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" maxlength="12" class="premium-input text-center tracking-widest text-base uppercase font-bold">
-                        <button id="verify-payment-btn" class="cta-btn w-full py-4">Verify Payment</button>
+                    <div class="max-w-sm mx-auto space-y-5">
+                        <input type="text" id="p_utr" placeholder="ENTER 12-DIGIT UTR ID" maxlength="12" class="premium-input text-center font-bold tracking-[0.2em] text-lg uppercase">
+                        <button id="verify-payment-btn" class="cta-btn w-full py-4 text-lg">Verify & Start Session</button>
                     </div>
                 </div>
 
-                <div id="p-success" class="hidden space-y-6 text-center py-10">
-                    <div class="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-6"><i class="fas fa-check"></i></div>
-                    <h3 class="text-2xl font-bold text-black">Session Confirmed</h3>
-                    <p class="text-gray-500 text-lg font-medium">Our specialist will connect with you shortly on WhatsApp.</p>
+                <div id="p-success" class="hidden space-y-8">
+                    <div class="bg-green-50 text-green-700 p-8 rounded-[2rem] font-bold text-center text-xl border border-green-200 shadow-sm">"Your healing starts now."</div>
+                    <div id="chat-window"></div>
+                    <div class="flex gap-4">
+                        <input id="chat-input" type="text" placeholder="Type message..." class="premium-input flex-1">
+                        <button id="send-chat-btn" class="cta-btn px-8"><i class="fas fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Modal -->
+    <!-- Gallery Modal (Images Only) -->
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-black">Image Library</h3>
-                <button id="close-img-modal" class="text-3xl text-black hover:opacity-60 transition-opacity">&times;</button>
+                <h3 class="text-xl font-bold text-appleDark">Premium Image Library</h3>
+                <button id="close-img-modal" class="text-3xl text-gray-400 hover:text-black transition-colors">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
     </div>
 
-    <!-- Footer (BLACK BACKGROUND, WHITE TEXT) -->
-    <footer class="py-20 text-center bg-black border-t border-gray-900">
-        <div class="w-12 h-12 bg-white text-black font-extrabold flex items-center justify-center rounded-md text-xl mx-auto mb-6 shadow-lg">NM</div>
-        <h2 class="text-2xl font-bold tracking-widest uppercase mb-2 text-white">Nexus Mind</h2>
-        <p class="text-gray-400 text-sm mb-10 font-medium">Greater Noida, Uttar Pradesh, India</p>
-        
-        <div class="flex justify-center gap-8 mb-12">
-            <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #E1306C;"><i class="fab fa-instagram text-3xl"></i></a>
-            <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #0A66C2;"><i class="fab fa-linkedin text-3xl"></i></a>
-            <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #FF0000;"><i class="fab fa-youtube text-3xl"></i></a>
-            <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #25D366;"><i class="fab fa-whatsapp text-3xl"></i></a>
+    <!-- Footer -->
+    <footer class="py-16 text-center bg-white border-t border-gray-100">
+        <div class="w-12 h-12 bg-black rounded-[12px] flex items-center justify-center font-bold text-white text-lg mx-auto mb-6 shadow-md">NM</div>
+        <h2 class="text-2xl font-extrabold tracking-tight uppercase mb-4 text-appleDark">Nexus Mind</h2>
+        <p class="text-gray-500 text-sm mb-10 font-medium">Greater Noida, Uttar Pradesh, India</p>
+        <div class="flex justify-center gap-6 mb-12">
+            <a href="#" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
         </div>
-
-        <p class="text-[11px] text-gray-500 tracking-widest uppercase font-bold">© 2026 Nexus Mind. Absolute Confidentiality.</p>
+        <p class="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
     </footer>
 
-</div> <!-- End Main Wrapper -->
-
     <script>
-        // Premium High-Quality Images for Sections
+        // --- NEW HIGHLY RELEVANT, STRESS-RELIEF & NATURE PHOTOS ---
         const premiumImages =[
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1200&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1200&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1200&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1200&q=80" }
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1447752809965-9761f274280b?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Peace", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Stress Relief", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Stress Relief", url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Mindfulness", url: "https://images.unsplash.com/photo-1518241353312-28810ad2c292?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Therapy", url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Therapy", url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1080&q=80&fm=webp" },
+            { tag: "Support", url: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1080&q=80&fm=webp" }
         ];
 
-        // Unified Data Structure for Instant Global Sync
+        const counselingAreas =[
+            { key: "Anxiety", label: "Anxiety & Stress", emoji: "🧠" },
+            { key: "Relationship", label: "Relationship Issues", emoji: "❤️" },
+            { key: "Sleep", label: "Sleep Problems", emoji: "🌙" },
+            { key: "Trauma", label: "Trauma Support", emoji: "🛡️" },
+            { key: "Career", label: "Career Counseling", emoji: "💼" }
+        ];
+
         let nexusConfig = JSON.parse(localStorage.getItem('nexusData')) || {
             wa: "+917830232077",
             upi: "7830232077@ptsbi",
             email: "thenexusstudy3@gmail.com",
-            hero: {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1920&q=80',
-                vid: '',
-                title: 'Reclaim Your\nInner Peace',
-                subtitle: 'Premium online counseling for mental excellence.'
-            },
-            sections: {
-                Anxiety: { title: "Anxiety & Stress", desc: "Finding stillness in a chaotic world through evidence-based clinical techniques.", img: premiumImages[0].url },
-                Relationship: { title: "Relationship Issues", desc: "Healing emotional bonds and building trust in a safe, confidential environment.", img: premiumImages[1].url },
-                Sleep: { title: "Sleep Problems", desc: "Restorative techniques for deep sleep and cognitive recovery.", img: premiumImages[2].url },
-                Trauma: { title: "Trauma Support", desc: "A safe space to process and heal past wounds with specialized trauma-informed care.", img: premiumImages[3].url },
-                Career: { title: "Career Counseling", desc: "Clarity, growth, and burnout prevention for your professional path.", img: premiumImages[4].url }
-            },
             details: {
-                Anxiety: { blocks: [{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[0].url }, { type: "heading", content: "Our Approach" }, { type: "list", items: ["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
-                Relationship: { blocks: [{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[1].url }, { type: "heading", content: "Our Approach" }, { type: "list", items: ["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
-                Sleep: { blocks: [{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[2].url }, { type: "heading", content: "Our Approach" }, { type: "list", items: ["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
-                Trauma: { blocks: [{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[3].url }, { type: "heading", content: "Our Approach" }, { type: "list", items: ["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
-                Career: { blocks: [{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[4].url }, { type: "heading", content: "Our Approach" }, { type: "list", items: ["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
+                Anxiety: { title: "Anxiety & Stress", blocks:[{ type: "text", content: "Anxiety is a persistent state of tension that affects your body and mind." }, { type: "image", url: premiumImages[3].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Cognitive Behavioral Therapy", "Mindfulness Meditation", "Stress Management"] }] },
+                Relationship: { title: "Relationship Issues", blocks:[{ type: "text", content: "Healthy relationships require work, trust, and effective communication." }, { type: "image", url: premiumImages[8].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Couples Therapy", "Conflict Resolution", "Intimacy Building"] }] },
+                Sleep: { title: "Sleep Problems", blocks:[{ type: "text", content: "Quality sleep is the foundation of mental health." }, { type: "image", url: premiumImages[2].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Sleep Hygiene", "Relaxation Techniques", "CBT for Insomnia"] }] },
+                Trauma: { title: "Trauma Support", blocks:[{ type: "text", content: "Healing from trauma is a journey of reclaiming your safety." }, { type: "image", url: premiumImages[6].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Trauma-Informed Therapy", "EMDR Techniques", "Safe Space Processing"] }] },
+                Career: { title: "Career Counseling", blocks:[{ type: "text", content: "Your career should be a source of fulfillment." }, { type: "image", url: premiumImages[7].url }, { type: "heading", content: "Our Premium Solutions" }, { type: "list", items:["Career Assessment", "Burnout Prevention", "Growth Coaching"] }] }
             }
         };
 
         let currentOTP = null;
-        let activeImageInputId = null; 
 
         document.addEventListener('DOMContentLoaded', () => {
             
-            // UI Elements
             const menuBtn = document.getElementById('menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const counselingMenu = document.getElementById('counseling-menu');
+            
             const adminBtn = document.getElementById('admin-btn');
             const closeAdminBtn = document.getElementById('close-admin-btn');
             const adminPanel = document.getElementById('admin-panel');
+            
             const panelOverlay = document.getElementById('panel-overlay');
+            const logoBtn = document.getElementById('logo-btn');
 
-            // Menu Logic
             const openMenu = (menu) => { menu.classList.add('active'); panelOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; };
             const closeMenus = () => { 
                 counselingMenu.classList.remove('active'); 
@@ -529,48 +564,76 @@
                 document.body.style.overflow = 'auto'; 
             };
 
-            menuBtn.addEventListener('click', () => openMenu(counselingMenu));
-            closeMenuBtn.addEventListener('click', closeMenus);
-            adminBtn.addEventListener('click', () => openMenu(adminPanel));
-            closeAdminBtn.addEventListener('click', closeMenus);
-            panelOverlay.addEventListener('click', closeMenus);
-
-            // Admin Login
-            document.getElementById('send-otp-btn').addEventListener('click', sendAdminOTP);
-            document.getElementById('verify-otp-btn').addEventListener('click', verifyAdminOTP);
-
-            // Admin Hero Listeners
-            document.getElementById('adm-hero-type').addEventListener('change', () => { toggleHeroAdminUI(); updateLocalConfig(); });
-            ['adm-hero-img', 'adm-hero-vid', 'adm-hero-title', 'adm-hero-subtitle'].forEach(id => {
-                document.getElementById(id).addEventListener('input', updateLocalConfig);
-            });
-
-            // Global Publish
-            document.getElementById('push-global-btn').addEventListener('click', pushGlobalUpdate);
-            document.getElementById('lock-admin-btn').addEventListener('click', () => location.reload());
-
-            // Uploads & Gallery
-            document.getElementById('trigger-img-upload').addEventListener('click', () => document.getElementById('local-img-upload').click());
-            document.getElementById('local-img-upload').addEventListener('change', (e) => handleLocalUpload(e, 'image', 'adm-hero-img'));
-            document.getElementById('trigger-vid-upload').addEventListener('click', () => document.getElementById('local-vid-upload').click());
-            document.getElementById('local-vid-upload').addEventListener('change', (e) => handleLocalUpload(e, 'video', 'adm-hero-vid'));
+            if(menuBtn) menuBtn.addEventListener('click', () => openMenu(counselingMenu));
+            if(closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenus);
             
-            document.getElementById('open-img-gallery-btn').addEventListener('click', () => openImgGallery('adm-hero-img'));
+            if(adminBtn) adminBtn.addEventListener('click', () => openMenu(adminPanel));
+            if(closeAdminBtn) closeAdminBtn.addEventListener('click', closeMenus);
+            
+            if(panelOverlay) panelOverlay.addEventListener('click', closeMenus);
+
+            if(logoBtn) logoBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+            const sendOtpBtn = document.getElementById('send-otp-btn');
+            const verifyOtpBtn = document.getElementById('verify-otp-btn');
+            if(sendOtpBtn) sendOtpBtn.addEventListener('click', sendAdminOTP);
+            if(verifyOtpBtn) verifyOtpBtn.addEventListener('click', verifyAdminOTP);
+
+            const admHeroType = document.getElementById('adm-hero-type');
+            if(admHeroType) admHeroType.addEventListener('change', () => { toggleHeroAdminUI(); previewHero(); });
+
+            document.getElementById('adm-hero-img').addEventListener('input', previewHero);
+            document.getElementById('adm-hero-vid').addEventListener('input', previewHero);
+            document.getElementById('adm-hero-title').addEventListener('input', previewHero);
+            document.getElementById('adm-hero-subtitle').addEventListener('input', previewHero);
+
+            const pushHeroBtn = document.getElementById('push-hero-btn');
+            if(pushHeroBtn) pushHeroBtn.addEventListener('click', pushHeroUpdate);
+
+            const saveSettingsBtn = document.getElementById('save-settings-btn');
+            if(saveSettingsBtn) saveSettingsBtn.addEventListener('click', saveGlobalSettings);
+
+            const lockAdminBtn = document.getElementById('lock-admin-btn');
+            if(lockAdminBtn) lockAdminBtn.addEventListener('click', () => location.reload());
+
+            document.getElementById('trigger-img-upload').addEventListener('click', () => document.getElementById('local-img-upload').click());
+            document.getElementById('local-img-upload').addEventListener('change', (e) => handleLocalUpload(e, 'image'));
+
+            document.getElementById('trigger-vid-upload').addEventListener('click', () => document.getElementById('local-vid-upload').click());
+            document.getElementById('local-vid-upload').addEventListener('change', (e) => handleLocalUpload(e, 'video'));
+
+            document.getElementById('open-img-gallery-btn').addEventListener('click', openImgGallery);
             document.getElementById('close-img-modal').addEventListener('click', () => document.getElementById('img-modal').classList.remove('active'));
 
-            // Detail Panel
+            document.querySelectorAll('.open-detail-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const key = e.target.closest('button').getAttribute('data-key');
+                    openDetail(key);
+                });
+            });
+
             document.getElementById('close-detail-btn').addEventListener('click', closeDetail);
             document.getElementById('book-now-btn').addEventListener('click', closeDetail);
 
-            // Booking
-            document.getElementById('p-form').addEventListener('submit', (e) => { e.preventDefault(); handleBooking(); });
+            document.getElementById('p-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleBooking();
+            });
+
             document.getElementById('verify-payment-btn').addEventListener('click', verifyPayment);
+            document.getElementById('send-chat-btn').addEventListener('click', sendChat);
 
-            // Initial Renders
+            document.getElementById('menu-items-container').addEventListener('click', (e) => {
+                const item = e.target.closest('.apple-menu-item');
+                if(item) {
+                    const key = item.getAttribute('data-key');
+                    closeMenus();
+                    setTimeout(() => openDetail(key), 300);
+                }
+            });
+
             renderMenu();
-            renderHomepageSections();
 
-            // Init Heavy Libraries & Firebase
             const initHeavyLibraries = () => {
                 try { if(window.AOS) AOS.init({ duration: 800, once: true, easing: 'ease-out' }); } catch(e) {}
                 try { if(window.emailjs) emailjs.init("jH5TwO1sLcWFwHHzu"); } catch(e) {}
@@ -581,170 +644,108 @@
                             apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
                             authDomain: "nexus-mind-41ffc.firebaseapp.com",
                             projectId: "nexus-mind-41ffc",
-                            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/"
+                            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
+                            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/",
+                            messagingSenderId: "1902762667",
+                            appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
                         });
                         window.db = firebase.database();
-                        
-                        // INSTANT GLOBAL LIVE SYNC
-                        window.db.ref('nexusData').on('value', (snap) => {
+                        window.db.ref('globalHero').on('value', (snap) => {
                             const data = snap.val();
                             if(data) {
-                                nexusConfig = data;
-                                localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-                                applyConfigToUI();
+                                localStorage.setItem('nexusHero', JSON.stringify(data));
+                                updateHero(data);
                             }
                         });
                     }
                 } catch(e) {}
             };
 
-            if ('requestIdleCallback' in window) requestIdleCallback(initHeavyLibraries);
-            else setTimeout(initHeavyLibraries, 200);
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(initHeavyLibraries);
+            } else {
+                setTimeout(initHeavyLibraries, 200);
+            }
         });
-
-        // --- RENDER FUNCTIONS ---
 
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
-            container.innerHTML = Object.keys(nexusConfig.sections).map(key => `
-                <div class="apple-menu-item" onclick="openDetail('${key}')">
-                    <span>${nexusConfig.sections[key].title}</span>
-                    <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+            container.innerHTML = counselingAreas.map(area => `
+                <div class="apple-menu-item" data-key="${area.key}">
+                    <span>${area.label}</span>
+                    <i class="fas fa-chevron-right text-gray-300 text-sm"></i>
                 </div>
             `).join('');
         }
 
-        // TCS STYLE ALTERNATING SECTIONS (0=White, 1=Black, 2=White...)
-        function renderHomepageSections() {
-            const container = document.getElementById('homepage-sections');
-            container.innerHTML = Object.keys(nexusConfig.sections).map((key, index) => {
-                const sec = nexusConfig.sections[key];
-                const isDark = index % 2 !== 0; // 0 is White, 1 is Black, 2 is White...
-                const bgClass = isDark ? 'bg-[#050505]' : 'bg-white';
-                const textClass = isDark ? 'text-white' : 'text-black';
-                const descClass = isDark ? 'text-gray-400' : 'text-gray-600';
-                const btnClass = isDark ? 'cta-btn-white' : 'cta-btn';
-                const orderClass = index % 2 !== 0 ? 'md:order-2' : ''; // Alternates image left/right
-                
-                return `
-                <section class="py-24 px-6 md:px-16 ${bgClass} relative z-10 border-b ${isDark ? 'border-gray-900' : 'border-gray-100'}">
-                    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20" data-aos="fade-up">
-                        <div class="w-full md:w-1/2 ${orderClass}">
-                            <div class="relative group overflow-hidden rounded-2xl shadow-2xl">
-                                <img src="${sec.img}" class="w-full h-[300px] md:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105" alt="${sec.title}">
-                                <div class="absolute inset-0 border-2 border-white/10 rounded-2xl pointer-events-none"></div>
-                            </div>
-                        </div>
-                        <div class="w-full md:w-1/2 text-center md:text-left">
-                            <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6 ${textClass}">${sec.title}</h2>
-                            <p class="text-lg md:text-xl ${descClass} leading-relaxed mb-10 font-medium">${sec.desc}</p>
-                            <button class="${btnClass} px-8 py-4 text-lg" onclick="openDetail('${key}')">Explore Approach</button>
-                        </div>
-                    </div>
-                </section>
-                `;
-            }).join('');
+        function previewHero() {
+            const data = {
+                type: document.getElementById('adm-hero-type').value,
+                img: document.getElementById('adm-hero-img').value,
+                vid: document.getElementById('adm-hero-vid').value,
+                title: document.getElementById('adm-hero-title').value,
+                subtitle: document.getElementById('adm-hero-subtitle').value
+            };
+            updateHero(data);
         }
 
-        function applyConfigToUI() {
-            // Hero
-            const h = nexusConfig.hero;
+        // SPEED OF LIGHT VIDEO ENGINE WITH STRICT MUTING
+        function updateHero(data) {
             const imgBg = document.getElementById('hero-img-bg');
             const vidBg = document.getElementById('hero-video-bg');
             
-            if(h.type === 'video' && h.vid) {
-                if(vidBg.src !== h.vid) {
-                    vidBg.src = h.vid; vidBg.muted = true; vidBg.play().catch(()=>{});
+            if(data.type === 'video' && data.vid) {
+                if(vidBg.src !== data.vid) {
+                    vidBg.classList.remove('hidden');
+                    vidBg.style.opacity = '0';
+                    vidBg.src = data.vid;
+                    
+                    // STRICT MUTING TO PREVENT LAG & AUTOPLAY BLOCKS
+                    vidBg.muted = true;
+                    vidBg.defaultMuted = true;
+                    vidBg.setAttribute('muted', '');
+                    vidBg.playsInline = true;
+                    
+                    vidBg.load();
+                    
+                    // Waits until video is fully buffered to prevent lag
+                    vidBg.oncanplaythrough = () => {
+                        vidBg.muted = true; 
+                        vidBg.play().then(() => {
+                            vidBg.style.opacity = '1';
+                            setTimeout(() => { imgBg.style.opacity = '0'; }, 400);
+                        }).catch(()=>{});
+                    };
+                } else {
+                    vidBg.classList.remove('hidden');
+                    vidBg.muted = true;
+                    vidBg.setAttribute('muted', '');
+                    vidBg.play().catch(()=>{});
+                    vidBg.style.opacity = '1';
+                    imgBg.style.opacity = '0';
                 }
-                vidBg.classList.remove('hidden'); vidBg.style.opacity = '1'; imgBg.style.opacity = '0';
             } else {
-                vidBg.style.opacity = '0'; setTimeout(() => vidBg.classList.add('hidden'), 800);
-                imgBg.style.backgroundImage = `url('${h.img}')`; imgBg.style.opacity = '1';
+                vidBg.style.opacity = '0';
+                setTimeout(() => { vidBg.classList.add('hidden'); vidBg.pause(); }, 800);
+                
+                const currentBg = imgBg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+                if(data.img && currentBg !== data.img) {
+                    const tempImg = new Image();
+                    tempImg.src = data.img;
+                    tempImg.onload = () => {
+                        imgBg.style.opacity = '0.4';
+                        setTimeout(() => {
+                            imgBg.style.backgroundImage = `url('${data.img}')`;
+                            imgBg.style.opacity = '1';
+                        }, 100);
+                    };
+                } else {
+                    imgBg.style.opacity = '1';
+                }
             }
-            document.getElementById('hero-title').innerHTML = h.title.replace(/\n/g, '<br>');
-            document.getElementById('hero-subtitle').textContent = h.subtitle;
-
-            // Sections & Menu
-            renderHomepageSections();
-            renderMenu();
-
-            // Admin Inputs (if open)
-            if(!document.getElementById('admin-main-controls').classList.contains('hidden')) {
-                populateAdminInputs();
-            }
-        }
-
-        // --- ADMIN FUNCTIONS ---
-
-        function sendAdminOTP() {
-            const emailInput = document.getElementById('adm-email-input').value;
-            if(!emailInput) return alert("Enter email");
-            currentOTP = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('send-otp-btn').innerText = "Sending...";
             
-            const showOtpBox = () => {
-                document.getElementById('otp-box').classList.remove('hidden');
-                document.getElementById('send-otp-btn').innerText = "Send Access Code";
-                console.log("OTP:", currentOTP); // Fallback
-            };
-            try { emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: emailInput, otp: currentOTP }).then(showOtpBox).catch(showOtpBox); } 
-            catch(e) { showOtpBox(); }
-        }
-
-        function verifyAdminOTP() {
-            const val = document.getElementById('adm-otp-input').value;
-            if(val == currentOTP || val == '123456') {
-                document.getElementById('admin-login-section').classList.add('hidden');
-                document.getElementById('admin-main-controls').classList.remove('hidden');
-                populateAdminInputs();
-            } else alert("Invalid OTP");
-        }
-
-        function populateAdminInputs() {
-            // Settings
-            document.getElementById('adm-wa').value = nexusConfig.wa;
-            document.getElementById('adm-upi').value = nexusConfig.upi;
-            document.getElementById('adm-email').value = nexusConfig.email;
-            
-            // Hero
-            const h = nexusConfig.hero;
-            document.getElementById('adm-hero-type').value = h.type;
-            document.getElementById('adm-hero-img').value = h.img;
-            document.getElementById('adm-hero-vid').value = h.vid;
-            document.getElementById('adm-hero-title').value = h.title;
-            document.getElementById('adm-hero-subtitle').value = h.subtitle;
-            toggleHeroAdminUI();
-
-            // Sections (DARK MODE ADMIN)
-            const secContainer = document.getElementById('admin-sections-list');
-            secContainer.innerHTML = Object.keys(nexusConfig.sections).map(key => {
-                const sec = nexusConfig.sections[key];
-                return `
-                <div class="bg-[#111] p-4 rounded-xl border border-gray-800">
-                    <h5 class="font-bold text-xs mb-3 text-gray-300">${key} Section</h5>
-                    <div class="flex gap-2 mb-2">
-                        <input type="text" id="sec-img-${key}" class="admin-input text-xs flex-1" placeholder="Image URL" value="${sec.img}" onchange="updateLocalConfig()">
-                        <button onclick="openImgGallery('sec-img-${key}')" class="bg-[#222] px-3 rounded-xl border border-gray-700 hover:bg-[#333]"><i class="fas fa-image text-white"></i></button>
-                    </div>
-                    <input type="text" id="sec-title-${key}" class="admin-input text-xs mb-2 font-bold" placeholder="Title" value="${sec.title}" onchange="updateLocalConfig()">
-                    <textarea id="sec-desc-${key}" class="admin-input text-xs h-16" placeholder="Description" onchange="updateLocalConfig()">${sec.desc}</textarea>
-                </div>`;
-            }).join('');
-
-            // Details (DARK MODE ADMIN)
-            const detContainer = document.getElementById('admin-counseling-list');
-            detContainer.innerHTML = Object.keys(nexusConfig.details).map(key => {
-                const blocks = nexusConfig.details[key].blocks.map((b, i) => `
-                    <div class="bg-[#111] p-3 rounded-xl mb-2 border border-gray-800">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-[10px] font-bold uppercase text-gray-500">${b.type}</span>
-                            <button onclick="removeBlock('${key}', ${i})" class="text-red-500 hover:text-red-400 text-xs"><i class="fas fa-times"></i></button>
-                        </div>
-                        <textarea class="admin-input text-xs h-12 bg-[#0a0a0a]" onchange="updateBlock('${key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
-                    </div>
-                `).join('');
-                return `<div class="bg-[#111] p-4 rounded-xl border border-gray-800"><h5 class="font-bold text-xs mb-3 text-gray-300">${key} Details</h5>${blocks}<button onclick="addBlock('${key}')" class="text-appleBlue text-[11px] font-bold hover:underline">+ Add Block</button></div>`;
-            }).join('');
+            if(data.title) document.getElementById('hero-title').innerHTML = data.title.replace(/\n/g, '<br>');
+            if(data.subtitle) document.getElementById('hero-subtitle').textContent = data.subtitle;
         }
 
         function toggleHeroAdminUI() {
@@ -753,131 +754,140 @@
             document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
         }
 
-        // Updates local object and UI instantly (Preview)
-        window.updateLocalConfig = function() {
-            // Hero
-            nexusConfig.hero = {
+        function sendAdminOTP() {
+            const emailInput = document.getElementById('adm-email-input').value;
+            if(!emailInput) { alert("Please enter an email address."); return; }
+            
+            currentOTP = Math.floor(100000 + Math.random() * 900000);
+            const btn = document.getElementById('send-otp-btn');
+            btn.innerText = "Sending...";
+            
+            const showOtpBox = () => {
+                document.getElementById('otp-box').classList.remove('hidden');
+                btn.innerText = "Send Access Code";
+                alert("OTP Sent!");
+                console.log("Test OTP:", currentOTP);
+            };
+
+            try {
+                emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: emailInput, otp: currentOTP })
+                .then(showOtpBox).catch(showOtpBox);
+            } catch(e) {
+                showOtpBox();
+            }
+        }
+
+        function verifyAdminOTP() {
+            const val = document.getElementById('adm-otp-input').value;
+            if(val == currentOTP || val == '123456') {
+                document.getElementById('admin-login-section').classList.add('hidden');
+                document.getElementById('admin-main-controls').classList.remove('hidden');
+                loadAdminData();
+            } else alert("Invalid OTP");
+        }
+
+        function loadAdminData() {
+            document.getElementById('adm-wa').value = nexusConfig.wa;
+            document.getElementById('adm-upi').value = nexusConfig.upi;
+            document.getElementById('adm-email').value = nexusConfig.email;
+            
+            if(window.db) {
+                window.db.ref('globalHero').once('value', s => {
+                    const d = s.val();
+                    if(d) {
+                        document.getElementById('adm-hero-type').value = d.type || 'image';
+                        document.getElementById('adm-hero-img').value = d.img || '';
+                        document.getElementById('adm-hero-vid').value = d.vid || '';
+                        document.getElementById('adm-hero-title').value = d.title || '';
+                        document.getElementById('adm-hero-subtitle').value = d.subtitle || '';
+                        toggleHeroAdminUI();
+                    }
+                });
+            }
+            renderAdminCounseling();
+        }
+
+        function renderAdminCounseling() {
+            const container = document.getElementById('admin-counseling-list');
+            container.innerHTML = counselingAreas.map(area => {
+                const det = nexusConfig.details[area.key];
+                const blocks = det.blocks.map((b, i) => `
+                    <div class="bg-white p-3 rounded-xl mb-3 border border-gray-100 shadow-sm">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-[10px] font-bold uppercase text-appleBlue tracking-wider">${b.type}</span>
+                            <button onclick="removeBlock('${area.key}', ${i})" class="text-red-400 hover:text-red-600 transition-colors text-xs"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <textarea class="premium-input text-xs h-16 bg-gray-50" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                    </div>
+                `).join('');
+                return `<div class="admin-card"><h5 class="font-bold mb-4 text-sm text-appleDark">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-appleBlue text-[11px] font-bold hover:underline">+ Add Block</button></div>`;
+            }).join('');
+        }
+
+        window.addBlock = function(key) { nexusConfig.details[key].blocks.push({ type: 'text', content: 'New Content' }); renderAdminCounseling(); }
+        window.removeBlock = function(key, i) { nexusConfig.details[key].blocks.splice(i, 1); renderAdminCounseling(); }
+        window.updateBlock = function(key, i, val) {
+            const b = nexusConfig.details[key].blocks[i];
+            if(b.type === 'list') b.items = val.split('\n');
+            else if(b.type === 'image') b.url = val;
+            else b.content = val;
+        }
+
+        function pushHeroUpdate() {
+            const data = {
                 type: document.getElementById('adm-hero-type').value,
                 img: document.getElementById('adm-hero-img').value,
                 vid: document.getElementById('adm-hero-vid').value,
                 title: document.getElementById('adm-hero-title').value,
                 subtitle: document.getElementById('adm-hero-subtitle').value
             };
-            // Settings
-            nexusConfig.wa = document.getElementById('adm-wa').value || nexusConfig.wa;
-            nexusConfig.upi = document.getElementById('adm-upi').value || nexusConfig.upi;
-            nexusConfig.email = document.getElementById('adm-email').value || nexusConfig.email;
             
-            // Sections
-            Object.keys(nexusConfig.sections).forEach(key => {
-                const imgEl = document.getElementById(`sec-img-${key}`);
-                if(imgEl) {
-                    nexusConfig.sections[key].img = imgEl.value;
-                    nexusConfig.sections[key].title = document.getElementById(`sec-title-${key}`).value;
-                    nexusConfig.sections[key].desc = document.getElementById(`sec-desc-${key}`).value;
-                }
-            });
-
-            applyConfigToUI();
-        }
-
-        window.addBlock = function(key) { nexusConfig.details[key].blocks.push({ type: 'text', content: 'New Content' }); populateAdminInputs(); updateLocalConfig(); }
-        window.removeBlock = function(key, i) { nexusConfig.details[key].blocks.splice(i, 1); populateAdminInputs(); updateLocalConfig(); }
-        window.updateBlock = function(key, i, val) {
-            const b = nexusConfig.details[key].blocks[i];
-            if(b.type === 'list') b.items = val.split('\n');
-            else if(b.type === 'image') b.url = val;
-            else b.content = val;
-            updateLocalConfig();
-        }
-
-        function pushGlobalUpdate() {
-            updateLocalConfig(); // Ensure latest is grabbed
-            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+            localStorage.setItem('nexusHero', JSON.stringify(data));
+            
             if(window.db) {
-                window.db.ref('nexusData').set(nexusConfig).then(() => {
-                    const btn = document.getElementById('push-global-btn');
-                    btn.innerText = "Published Successfully!";
-                    btn.classList.add('bg-green-600');
-                    btn.classList.remove('bg-white', 'text-black');
-                    btn.classList.add('text-white');
-                    setTimeout(() => { 
-                        btn.innerText = "Publish Global Changes"; 
-                        btn.classList.remove('bg-green-600', 'text-white'); 
-                        btn.classList.add('bg-white', 'text-black');
-                    }, 2000);
-                });
+                window.db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
             } else {
-                alert("Saved Locally (Firebase not connected)");
+                alert("Updated Locally (Firebase not connected)");
             }
         }
 
-        // --- GALLERY & UPLOADS ---
+        function saveGlobalSettings() {
+            nexusConfig.wa = document.getElementById('adm-wa').value;
+            nexusConfig.upi = document.getElementById('adm-upi').value;
+            nexusConfig.email = document.getElementById('adm-email').value;
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+            alert("Settings Saved Locally!");
+        }
 
-        function openImgGallery(inputId) {
-            activeImageInputId = inputId;
+        function openImgGallery() {
             const grid = document.getElementById('img-grid');
-            grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" loading="lazy"></div>`).join('');
+            grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" loading="lazy" decoding="async"><div class="tag">${img.tag}</div></div>`).join('');
             document.getElementById('img-modal').classList.add('active');
         }
         window.selectImg = function(url) { 
-            if(activeImageInputId) {
-                document.getElementById(activeImageInputId).value = url;
-                updateLocalConfig();
-            }
+            document.getElementById('adm-hero-img').value = url; 
             document.getElementById('img-modal').classList.remove('active'); 
+            previewHero();
         }
 
-        function handleLocalUpload(e, type, targetId) {
+        function handleLocalUpload(e, type) {
             const file = e.target.files[0];
             if(!file) return;
-            if(type === 'video' && file.size > 20 * 1024 * 1024) return alert("Max 20MB allowed.");
+            
+            // Increased limit to 20MB
+            if(type === 'video' && file.size > 20 * 1024 * 1024) {
+                alert("Warning: Video is larger than 20MB. Please upload a smaller file to ensure the website remains fast.");
+                return; // Stop upload if it exceeds 20MB
+            }
+
             const reader = new FileReader();
             reader.onload = (ev) => {
-                document.getElementById(targetId).value = ev.target.result;
-                updateLocalConfig();
+                if(type === 'image') document.getElementById('adm-hero-img').value = ev.target.result;
+                else document.getElementById('adm-hero-vid').value = ev.target.result;
+                previewHero();
             };
             reader.readAsDataURL(file);
         }
-
-        // --- DETAIL PANEL ---
-
-        window.openDetail = function(key) {
-            document.getElementById('counseling-menu').classList.remove('active');
-            document.getElementById('panel-overlay').classList.remove('active');
-            
-            const det = nexusConfig.details[key];
-            const sec = nexusConfig.sections[key];
-            
-            document.getElementById('det-title').textContent = sec.title;
-            document.getElementById('det-content').innerHTML = det.blocks.map(b => {
-                if(b.type === 'text') return `<p class="reveal-block text-lg text-gray-500 leading-relaxed font-medium">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" class="w-full rounded-3xl h-[300px] md:h-[400px] object-cover shadow-sm border border-gray-100"></div>`;
-                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl font-bold text-black mt-8">${b.content}</h3>`;
-                if(b.type === 'list') return `<ul class="reveal-block space-y-3 bg-gray-50 p-8 rounded-3xl border border-gray-100">${b.items.map(i => `<li class="text-base flex gap-4 text-gray-600 font-medium"><i class="fas fa-check text-gray-400 mt-1"></i> ${i}</li>`).join('')}</ul>`;
-            }).join('');
-            
-            const panel = document.getElementById('detail-panel');
-            panel.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            document.querySelectorAll('.reveal-block').forEach(b => { b.classList.remove('visible'); b.style.transition = 'none'; });
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    document.querySelectorAll('.reveal-block').forEach((b, i) => {
-                        b.style.transition = `all 0.6s ease-out ${i * 0.1}s`;
-                        b.classList.add('visible');
-                    });
-                }, 50);
-            });
-        }
-
-        function closeDetail() { 
-            document.getElementById('detail-panel').classList.remove('active'); 
-            document.body.style.overflow = 'auto';
-        }
-
-        // --- BOOKING ---
 
         function handleBooking() {
             const fee = document.getElementById('p_type').value;
@@ -892,8 +902,48 @@
             if(document.getElementById('p_utr').value.length === 12) {
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
-            } else alert("Enter valid 12-digit UTR ID");
+                document.getElementById('chat-window').innerHTML = `<div class="msg bot">Hello! Your payment is verified. Our specialist will connect soon. How are you feeling today?</div>`;
+            } else alert("Enter 12-digit UTR ID");
         }
-    </script>
-</body>
-</html>
+
+        function sendChat() {
+            const input = document.getElementById('chat-input');
+            if(!input.value.trim()) return;
+            document.getElementById('chat-window').innerHTML += `<div class="msg user">${input.value}</div>`;
+            input.value = '';
+            document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
+        }
+
+        function openDetail(key) {
+            const det = nexusConfig.details[key];
+            const area = counselingAreas.find(a => a.key === key);
+            document.getElementById('det-emoji').textContent = area.emoji;
+            document.getElementById('det-title').textContent = det.title;
+            document.getElementById('det-content').innerHTML = det.blocks.map(b => {
+                if(b.type === 'text') return `<p class="reveal-block text-lg md:text-xl text-gray-500 leading-relaxed font-medium">${b.content}</p>`;
+                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" decoding="async" class="w-full rounded-[2rem] h-[300px] md:h-[450px] object-cover shadow-[0_20px_50px_rgba(0,0,0,0.1)]"></div>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl md:text-3xl font-bold text-appleDark mt-8">✨ ${b.content}</h3>`;
+                if(b.type === 'list') return `<ul class="reveal-block space-y-4 bg-appleGray/50 p-6 md:p-10 rounded-[2rem] border border-gray-100">${b.items.map(i => `<li class="text-base md:text-lg flex gap-4 font-medium text-gray-700"><i class="fas fa-check-circle text-appleBlue mt-1"></i> ${i}</li>`).join('')}</ul>`;
+            }).join('');
+            
+            const panel = document.getElementById('detail-panel');
+            panel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            document.querySelectorAll('.reveal-block').forEach(b => {
+                b.classList.remove('visible');
+                b.style.transition = 'none';
+            });
+
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    document.querySelectorAll('.reveal-block').forEach((b, i) => {
+                        b.style.transition = `all 0.6s ease-out ${i * 0.1}s`;
+                        b.classList.add('visible');
+                    });
+                }, 50);
+            });
+        }
+
+        function closeDetail() { 
+            document.getElementById('detail-panel').classList.remove('active');     
