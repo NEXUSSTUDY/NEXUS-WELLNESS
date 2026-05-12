@@ -64,7 +64,7 @@
         
         /* ULTRA PREMIUM DARK NAVIGATION */
         .glass-nav { 
-            background: rgba(0, 0, 0, 0.9); 
+            background: rgba(0, 0, 0, 0.95); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.1); 
             z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
@@ -132,7 +132,7 @@
         }
         .panel-overlay.active { opacity: 1; pointer-events: auto; backdrop-filter: blur(5px); }
 
-        /* DARK SIDE PANELS */
+        /* DARK SIDE PANELS (TCS STYLE - SLEEK 320px WIDTH) */
         .side-panel { 
             position: fixed; top: 0; height: 100vh; 
             background: #050505; /* Deep Black */
@@ -146,11 +146,11 @@
         }
         
         #counseling-menu { 
-            left: 0; width: 85%; max-width: 380px; transform: translateX(-100%); 
+            left: 0; width: 100%; max-width: 320px; transform: translateX(-100%); 
         }
         
         #admin-panel { 
-            right: 0; width: 85%; max-width: 420px; transform: translateX(100%); 
+            right: 0; width: 100%; max-width: 320px; transform: translateX(100%); 
         }
         
         #counseling-menu.active, #admin-panel.active { 
@@ -160,19 +160,19 @@
 
         /* SOCIAL BUTTONS (DARK MODE) */
         .social-btn-dark {
-            width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
             border-radius: 50%; background: #1a1a1a; color: white;
-            transition: all 0.3s ease; font-size: 20px; text-decoration: none; border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease; font-size: 18px; text-decoration: none; border: 1px solid rgba(255,255,255,0.1);
         }
         .social-btn-dark:hover { transform: translateY(-4px) scale(1.08); background: #333; }
 
         /* MENU ITEMS (DARK MODE) */
         .apple-menu-item {
-            display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 12px; margin-bottom: 8px;
-            transition: all 0.2s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #ffffff; background: transparent;
+            display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-radius: 12px; margin-bottom: 8px;
+            transition: all 0.2s ease; cursor: pointer; font-weight: 500; font-size: 15px; color: #ffffff; background: transparent;
             border: 1px solid transparent;
         }
-        .apple-menu-item:hover { background: rgba(255,255,255,0.05); padding-left: 26px; border-color: rgba(255,255,255,0.1); }
+        .apple-menu-item:hover { background: rgba(255,255,255,0.05); padding-left: 24px; border-color: rgba(255,255,255,0.1); }
 
         /* LIGHT INPUTS (For Booking) */
         .premium-input { 
@@ -184,13 +184,13 @@
         /* DARK INPUTS (For Admin) */
         .dark-input { 
             background: #111111; border: 1px solid #333333; border-radius: 12px; 
-            padding: 14px 18px; width: 100%; font-size: 14px; transition: all 0.3s ease; color: #ffffff;
+            padding: 12px 16px; width: 100%; font-size: 13px; transition: all 0.3s ease; color: #ffffff;
         }
         .dark-input:focus { border-color: #ffffff; outline: none; background: #000000; }
 
         /* ADMIN CARDS (DARK MODE) */
-        .admin-card { background: #0a0a0a; border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid #222222; }
-        .admin-label { font-size: 11px; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        .admin-card { background: #0a0a0a; border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid #222222; }
+        .admin-label { font-size: 10px; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
 
         /* MODALS */
         .modal-overlay { 
@@ -208,7 +208,7 @@
         .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
 
         /* GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
         .gallery-item { 
             border-radius: 12px; overflow: hidden; cursor: pointer; aspect-ratio: 16/9; position: relative; border: 2px solid transparent; 
             transition: 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateZ(0);
@@ -268,17 +268,17 @@
     <!-- Panel Overlay -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- Counseling Menu Sidebar (DARK MODE) -->
+    <!-- Counseling Menu Sidebar (DARK MODE - SLEEK) -->
     <div id="counseling-menu" class="side-panel">
-        <div class="p-6 md:p-10">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-2xl font-bold tracking-tight text-white">Counseling</h3>
-                <button id="close-menu-btn" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-xl hover:bg-white/20 transition-colors text-white">&times;</button>
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-xl font-bold tracking-tight text-white">Counseling</h3>
+                <button id="close-menu-btn" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center text-lg hover:bg-white/20 transition-colors text-white">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-2"></div>
-            <div class="mt-16 pt-8 border-t border-white/10">
-                <p class="admin-label mb-6">Connect With Us</p>
-                <div class="flex gap-4 flex-wrap">
+            <div class="mt-12 pt-6 border-t border-white/10">
+                <p class="admin-label mb-4">Connect With Us</p>
+                <div class="flex gap-3 flex-wrap">
                     <a href="#" class="social-btn-dark"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-btn-dark"><i class="fab fa-linkedin"></i></a>
                     <a href="#" class="social-btn-dark"><i class="fab fa-youtube"></i></a>
@@ -288,29 +288,29 @@
         </div>
     </div>
 
-    <!-- Admin Panel Sidebar (DARK MODE) -->
+    <!-- Admin Panel Sidebar (DARK MODE - SLEEK) -->
     <div id="admin-panel" class="side-panel">
-        <div class="sticky top-0 z-10 bg-black/90 backdrop-blur-md border-b border-white/10 px-6 py-5 flex justify-between items-center">
-            <h3 class="font-bold text-xl text-white">Admin Control</h3>
-            <button id="close-admin-btn" class="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center text-xl hover:bg-white/20 transition-colors text-white">&times;</button>
+        <div class="sticky top-0 z-10 bg-black/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+            <h3 class="font-bold text-lg text-white">Admin Control</h3>
+            <button id="close-admin-btn" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center text-lg hover:bg-white/20 transition-colors text-white">&times;</button>
         </div>
         
         <div class="p-6">
             <div id="admin-login-section" class="space-y-6 text-center mt-4">
-                <div class="w-16 h-16 bg-white/10 text-white rounded-[16px] mx-auto flex items-center justify-center text-2xl border border-white/20"><i class="fas fa-fingerprint"></i></div>
-                <h2 class="text-xl font-bold text-white">Secure Access</h2>
+                <div class="w-14 h-14 bg-white/10 text-white rounded-[12px] mx-auto flex items-center justify-center text-xl border border-white/20"><i class="fas fa-fingerprint"></i></div>
+                <h2 class="text-lg font-bold text-white">Secure Access</h2>
                 <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="dark-input text-center">
-                <button id="send-otp-btn" class="cta-btn-white w-full py-3">Send Access Code</button>
-                <div id="otp-box" class="hidden space-y-6 pt-6 border-t border-white/10">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="dark-input text-center text-2xl tracking-[0.4em] font-mono">
-                    <button id="verify-otp-btn" class="cta-btn-white w-full py-3">Verify & Unlock</button>
+                <button id="send-otp-btn" class="cta-btn-white w-full py-2">Send Access Code</button>
+                <div id="otp-box" class="hidden space-y-4 pt-4 border-t border-white/10">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="dark-input text-center text-xl tracking-[0.4em] font-mono">
+                    <button id="verify-otp-btn" class="cta-btn-white w-full py-2">Verify & Unlock</button>
                 </div>
             </div>
             
             <div id="admin-main-controls" class="hidden space-y-6 pb-20">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
-                    <select id="adm-hero-type" class="dark-input mb-4 font-medium">
+                    <select id="adm-hero-type" class="dark-input mb-3 font-medium">
                         <option value="image">Static Image</option>
                         <option value="video">Background Video</option>
                     </select>
@@ -318,36 +318,39 @@
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-3">
                             <input id="adm-hero-img" class="dark-input flex-1 text-xs" placeholder="Image URL">
-                            <button id="trigger-img-upload" class="bg-[#222] px-4 rounded-xl border border-[#444] hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
+                            <button id="trigger-img-upload" class="bg-[#222] px-3 rounded-xl border border-[#444] hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
                         </div>
-                        <button id="open-img-gallery-btn" class="text-appleBlue text-xs font-bold mb-6 block hover:underline">Browse Premium Photos</button>
+                        <button onclick="openGalleryForHero()" class="text-appleBlue text-xs font-bold mb-4 block hover:underline">Browse Premium Photos</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-3">
                             <input id="adm-hero-vid" class="dark-input flex-1 text-xs" placeholder="Video URL">
-                            <button id="trigger-vid-upload" class="bg-[#222] px-4 rounded-xl border border-[#444] hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
+                            <button id="trigger-vid-upload" class="bg-[#222] px-3 rounded-xl border border-[#444] hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
                         </div>
-                        <p class="text-[10px] text-gray-500 mb-6 leading-relaxed">Recommended: MP4/WebM, 1080p/720p, Max 20MB, 10-15s loop.</p>
+                        <p class="text-[9px] text-gray-500 mb-4 leading-relaxed">Recommended: MP4/WebM, Max 20MB.</p>
                     </div>
 
                     <label class="admin-label">Hero Title</label>
-                    <textarea id="adm-hero-title" class="dark-input h-16 mb-4 text-xs" placeholder="Hero Title"></textarea>
+                    <textarea id="adm-hero-title" class="dark-input h-12 mb-3 text-xs" placeholder="Hero Title"></textarea>
                     <label class="admin-label">Hero Subtitle</label>
-                    <input id="adm-hero-subtitle" class="dark-input mb-6 text-xs" placeholder="Hero Subtitle">
-                    <button id="push-hero-btn" class="cta-btn-white w-full py-3 text-sm">Update Global Hero</button>
+                    <input id="adm-hero-subtitle" class="dark-input mb-4 text-xs" placeholder="Hero Subtitle">
+                    <button id="push-hero-btn" class="cta-btn-white w-full py-2 text-xs">Update Global Hero</button>
                 </div>
 
                 <div id="admin-counseling-list" class="space-y-4"></div>
+                
+                <!-- NEW: Publish Content Globally Button -->
+                <button id="push-content-btn" class="cta-btn-white w-full py-3 text-sm font-bold shadow-lg">Publish Content Globally</button>
 
-                <div class="admin-card">
+                <div class="admin-card mt-6">
                     <h4 class="admin-label">Global Settings</h4>
                     <input id="adm-wa" class="dark-input mb-3 text-xs" placeholder="WhatsApp (+91...)">
                     <input id="adm-upi" class="dark-input mb-3 text-xs" placeholder="UPI ID">
-                    <input id="adm-email" class="dark-input mb-6 text-xs" placeholder="Admin Email">
-                    <button id="save-settings-btn" class="cta-btn-white w-full py-3 text-sm">Save Settings</button>
+                    <input id="adm-email" class="dark-input mb-4 text-xs" placeholder="Admin Email">
+                    <button id="save-settings-btn" class="cta-btn-white w-full py-2 text-xs">Save Settings</button>
                 </div>
-                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-4 hover:bg-red-900/20 rounded-xl transition-all">Lock Admin Panel</button>
+                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-3 hover:bg-red-900/20 rounded-xl transition-all">Lock Admin Panel</button>
             </div>
         </div>
     </div>
@@ -396,7 +399,7 @@
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/40 text-2xl animate-bounce z-10"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- Dynamic Homepage Sections (White Background, Black Text, Photos) -->
+    <!-- Dynamic Homepage Sections (White Background, Black Text, Medium Photos) -->
     <div id="homepage-sections">
         <!-- Rendered via JS -->
     </div>
@@ -540,6 +543,7 @@
         }
 
         let currentOTP = null;
+        let activeImageTarget = { type: null, key: null, index: null };
 
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -588,6 +592,9 @@
             const pushHeroBtn = document.getElementById('push-hero-btn');
             if(pushHeroBtn) pushHeroBtn.addEventListener('click', pushHeroUpdate);
 
+            const pushContentBtn = document.getElementById('push-content-btn');
+            if(pushContentBtn) pushContentBtn.addEventListener('click', pushContentUpdate);
+
             const saveSettingsBtn = document.getElementById('save-settings-btn');
             if(saveSettingsBtn) saveSettingsBtn.addEventListener('click', saveGlobalSettings);
 
@@ -605,9 +612,6 @@
             
             const localVidUpload = document.getElementById('local-vid-upload');
             if(localVidUpload) localVidUpload.addEventListener('change', (e) => handleLocalUpload(e, 'video'));
-
-            const openImgGalleryBtn = document.getElementById('open-img-gallery-btn');
-            if(openImgGalleryBtn) openImgGalleryBtn.addEventListener('click', openImgGallery);
             
             const closeImgModal = document.getElementById('close-img-modal');
             if(closeImgModal) closeImgModal.addEventListener('click', () => document.getElementById('img-modal').classList.remove('active'));
@@ -662,11 +666,26 @@
                             appId: "1:1902762667:web:83dc32d099fa6807e6f5ee"
                         });
                         window.db = firebase.database();
+                        
+                        // Sync Hero
                         window.db.ref('globalHero').on('value', (snap) => {
                             const data = snap.val();
                             if(data) {
                                 localStorage.setItem('nexusHero', JSON.stringify(data));
                                 updateHero(data);
+                            }
+                        });
+
+                        // Sync Content (Instant Global Change for Photos & Text)
+                        window.db.ref('nexusData').on('value', (snap) => {
+                            const data = snap.val();
+                            if(data) {
+                                nexusConfig = data;
+                                localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+                                renderHomepageSections();
+                                if(!document.getElementById('admin-main-controls').classList.contains('hidden')) {
+                                    renderAdminCounseling();
+                                }
                             }
                         });
                     }
@@ -679,7 +698,7 @@
                 setTimeout(initHeavyLibraries, 200);
             }
 
-            // SAFETY FALLBACK: If AOS fails to load, force elements to be visible
+            // SAFETY FALLBACK
             setTimeout(() => {
                 if (!window.AOS) {
                     document.querySelectorAll('[data-aos]').forEach(el => {
@@ -701,7 +720,7 @@
             `).join('');
         }
 
-        // DYNAMIC HOMEPAGE SECTIONS (WHITE BACKGROUND, BLACK TEXT, PHOTOS)
+        // DYNAMIC HOMEPAGE SECTIONS (WHITE BACKGROUND, BLACK TEXT, MEDIUM PHOTOS)
         function renderHomepageSections() {
             const container = document.getElementById('homepage-sections');
             if(!container) return;
@@ -721,9 +740,9 @@
                 return `
                 <section class="py-24 px-6 md:px-16 bg-white border-b border-gray-100 relative z-10">
                     <div class="max-w-6xl mx-auto flex flex-col ${flexDir} items-center gap-12 md:gap-20" data-aos="fade-up">
-                        <div class="w-full md:w-1/2">
-                            <div class="overflow-hidden rounded-[2rem] shadow-lg">
-                                <img src="${imgSrc}" class="w-full h-[300px] md:h-[450px] object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="w-full md:w-1/2 flex justify-center">
+                            <div class="overflow-hidden rounded-[1.5rem] shadow-lg w-full max-w-md">
+                                <img src="${imgSrc}" class="w-full h-[240px] md:h-[320px] object-cover hover:scale-105 transition-transform duration-700">
                             </div>
                         </div>
                         <div class="w-full md:w-1/2 text-center md:text-left">
@@ -879,28 +898,46 @@
             container.innerHTML = counselingAreas.map(area => {
                 const det = nexusConfig.details[area.key];
                 if(!det) return '';
-                const blocks = det.blocks.map((b, i) => `
-                    <div class="bg-[#111] p-3 rounded-xl mb-3 border border-[#333] shadow-sm">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-[10px] font-bold uppercase text-white tracking-wider">${b.type}</span>
-                            <button onclick="removeBlock('${area.key}', ${i})" class="text-red-400 hover:text-red-600 transition-colors text-xs"><i class="fas fa-trash"></i></button>
-                        </div>
-                        <textarea class="dark-input text-xs h-16" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
-                    </div>
-                `).join('');
+                const blocks = det.blocks.map((b, i) => {
+                    if(b.type === 'image') {
+                        return `
+                        <div class="bg-[#111] p-3 rounded-xl mb-3 border border-[#333] shadow-sm">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-[10px] font-bold uppercase text-white tracking-wider">IMAGE</span>
+                                <button onclick="removeBlock('${area.key}', ${i})" class="text-red-400 hover:text-red-600 transition-colors text-xs"><i class="fas fa-trash"></i></button>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" class="dark-input text-xs flex-1" value="${b.url}" onchange="updateBlock('${area.key}', ${i}, this.value)">
+                                <button onclick="openGalleryForBlock('${area.key}', ${i})" class="bg-[#222] px-3 rounded-xl border border-[#444] hover:bg-[#333] transition-colors"><i class="fas fa-image text-white"></i></button>
+                            </div>
+                        </div>`;
+                    } else {
+                        return `
+                        <div class="bg-[#111] p-3 rounded-xl mb-3 border border-[#333] shadow-sm">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-[10px] font-bold uppercase text-white tracking-wider">${b.type}</span>
+                                <button onclick="removeBlock('${area.key}', ${i})" class="text-red-400 hover:text-red-600 transition-colors text-xs"><i class="fas fa-trash"></i></button>
+                            </div>
+                            <textarea class="dark-input text-xs h-16" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                        </div>`;
+                    }
+                }).join('');
                 return `<div class="admin-card"><h5 class="font-bold mb-4 text-sm text-white">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-appleBlue text-[11px] font-bold hover:underline">+ Add Block</button></div>`;
             }).join('');
         }
 
         window.addBlock = function(key) { nexusConfig.details[key].blocks.push({ type: 'text', content: 'New Content' }); renderAdminCounseling(); }
-        window.removeBlock = function(key, i) { nexusConfig.details[key].blocks.splice(i, 1); renderAdminCounseling(); }
+        window.removeBlock = function(key, i) { nexusConfig.details[key].blocks.splice(i, 1); renderAdminCounseling(); updateLocalConfig(); }
         window.updateBlock = function(key, i, val) {
             const b = nexusConfig.details[key].blocks[i];
             if(b.type === 'list') b.items = val.split('\n');
             else if(b.type === 'image') b.url = val;
             else b.content = val;
-            
-            // Re-render homepage sections to reflect image changes instantly
+            updateLocalConfig();
+        }
+
+        function updateLocalConfig() {
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             renderHomepageSections();
         }
 
@@ -916,7 +953,16 @@
             localStorage.setItem('nexusHero', JSON.stringify(data));
             
             if(window.db) {
-                window.db.ref('globalHero').set(data).then(() => alert("Global Sync Successful!"));
+                window.db.ref('globalHero').set(data).then(() => alert("Global Hero Sync Successful!"));
+            } else {
+                alert("Updated Locally (Firebase not connected)");
+            }
+        }
+
+        function pushContentUpdate() {
+            localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+            if(window.db) {
+                window.db.ref('nexusData').set(nexusConfig).then(() => alert("Global Content Sync Successful!"));
             } else {
                 alert("Updated Locally (Firebase not connected)");
             }
@@ -930,15 +976,32 @@
             alert("Settings Saved Locally!");
         }
 
+        // GALLERY LOGIC FOR BOTH HERO AND CONTENT BLOCKS
+        window.openGalleryForHero = function() {
+            activeImageTarget = { type: 'hero' };
+            openImgGallery();
+        }
+
+        window.openGalleryForBlock = function(key, index) {
+            activeImageTarget = { type: 'block', key: key, index: index };
+            openImgGallery();
+        }
+
         function openImgGallery() {
             const grid = document.getElementById('img-grid');
             grid.innerHTML = premiumImages.map(img => `<div class="gallery-item" onclick="selectImg('${img.url}')"><img src="${img.url}" loading="lazy" decoding="async"></div>`).join('');
             document.getElementById('img-modal').classList.add('active');
         }
+
         window.selectImg = function(url) { 
-            document.getElementById('adm-hero-img').value = url; 
+            if (activeImageTarget.type === 'hero') {
+                document.getElementById('adm-hero-img').value = url; 
+                previewHero();
+            } else if (activeImageTarget.type === 'block') {
+                updateBlock(activeImageTarget.key, activeImageTarget.index, url);
+                renderAdminCounseling();
+            }
             document.getElementById('img-modal').classList.remove('active'); 
-            previewHero();
         }
 
         function handleLocalUpload(e, type) {
@@ -991,7 +1054,7 @@
             document.getElementById('det-title').textContent = det.title;
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
                 if(b.type === 'text') return `<p class="reveal-block text-lg md:text-xl text-gray-600 leading-relaxed font-medium">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" decoding="async" class="w-full rounded-[2rem] h-[300px] md:h-[450px] object-cover shadow-[0_20px_50px_rgba(0,0,0,0.1)]"></div>`;
+                if(b.type === 'image') return `<div class="reveal-block flex justify-center"><img src="${b.url}" loading="lazy" decoding="async" class="w-full max-w-2xl rounded-[2rem] h-[300px] md:h-[450px] object-cover shadow-[0_20px_50px_rgba(0,0,0,0.1)]"></div>`;
                 if(b.type === 'heading') return `<h3 class="reveal-block text-2xl md:text-3xl font-bold text-black mt-8">${b.content}</h3>`;
                 if(b.type === 'list') return `<ul class="reveal-block space-y-4 bg-gray-50 p-6 md:p-10 rounded-[2rem] border border-gray-100">${b.items.map(i => `<li class="text-base md:text-lg flex gap-4 font-medium text-gray-700"><i class="fas fa-check-circle text-black mt-1"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
