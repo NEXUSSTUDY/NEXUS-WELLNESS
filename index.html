@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://api.fontshare.com">
     
     <!-- Dynamic Favicon -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='50' font-weight='300' fill='%23fff' text-anchor='middle'%3ENM%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23000'/%3E%3Ctext x='50' y='68' font-family='Arial' font-size='50' font-weight='bold' fill='%23fff' text-anchor='middle'%3ENM%3C/text%3E%3C/svg%3E">
     
     <!-- Satoshi Font (Ultra-Premium Apple Aesthetic) -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,23 +23,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- Firebase SDKs (Including Storage for Lag-Free Uploads) -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
 
     <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        bgBase: '#000000',
-                        bgSurface: '#0a0a0a',
-                        bgElevated: '#111111',
-                        textMain: '#f5f5f7',
+                        bgBase: '#ffffff',
+                        bgSurface: '#f5f5f7',
+                        textMain: '#1d1d1f',
                         textMuted: '#86868b',
-                        borderSubtle: 'rgba(255, 255, 255, 0.08)',
                     },
                     fontFamily: {
                         sans: ['Satoshi', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
@@ -56,28 +56,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         html, body { 
-            overflow-x: hidden; 
-            overscroll-behavior-x: none; 
-            width: 100%; 
-            position: relative;
-            background-color: #000000; 
-            color: #f5f5f7; 
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased; 
-            -moz-osx-font-smoothing: grayscale;
-            font-size: 16px;
-            line-height: 1.6;
-            font-weight: 300;
+            overflow-x: hidden; overscroll-behavior-x: none; width: 100%; position: relative;
+            background-color: #ffffff; color: #1d1d1f; scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            font-size: 16px; line-height: 1.6; font-weight: 300;
         }
 
         h1, h2, h3, h4, h5, h6 { font-weight: 300; letter-spacing: -0.05em; }
 
-        /* SLEEK NAVIGATION */
+        /* ORIGINAL BRANDING HEADER (DARK GLASS) */
         .glass-nav { 
-            background: rgba(0, 0, 0, 0.7); 
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            border-bottom: 0.5px solid rgba(255,255,255,0.05); 
-            z-index: 1000; height: 64px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.95); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
             transform: translateZ(0);
         }
 
@@ -87,114 +79,129 @@
             overflow: hidden; background-color: #000; display: flex; 
             align-items: center; justify-content: center; z-index: 0; 
         }
-        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.8s ease-out; z-index: 0; opacity: 0.6; }
+        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.8s ease-out; z-index: 0; opacity: 0.8; }
         #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease-out; opacity: 0; z-index: 1; pointer-events: none; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%); z-index: 2; }
-        .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; max-width: 800px; padding: 0 24px; }
+        .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; max-width: 800px; padding: 0 24px; color: white; }
 
         /* CONTENT SECTIONS */
-        #homepage-sections { position: relative; z-index: 10; margin-top: 100vh; background-color: #000000; }
+        #homepage-sections { position: relative; z-index: 10; margin-top: 100vh; background-color: #ffffff; }
         #booking-section, footer { position: relative; z-index: 10; }
 
-        /* REFINED BUTTONS */
+        /* REFINED LIGHT THEME BUTTONS */
         .btn-primary { 
-            background: #ffffff; color: #000000; 
-            border-radius: 999px; font-weight: 400; font-size: 14px; padding: 10px 28px; 
+            background: #000000; color: #ffffff; 
+            border-radius: 999px; font-weight: 400; font-size: 14px; padding: 12px 32px; 
             transition: all 0.3s ease; border: none;
             display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer;
         }
-        .btn-primary:hover { background: #e5e5e5; transform: scale(1.02); }
+        .btn-primary:hover { background: #1d1d1f; transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         
         .btn-secondary {
-            background: transparent; color: #ffffff;
-            border-radius: 999px; font-weight: 300; font-size: 14px; padding: 10px 28px;
-            transition: all 0.3s ease; border: 0.5px solid rgba(255,255,255,0.2);
+            background: #ffffff; color: #000000;
+            border-radius: 999px; font-weight: 400; font-size: 14px; padding: 12px 32px;
+            transition: all 0.3s ease; border: 1px solid #e5e5e5;
             display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer;
         }
-        .btn-secondary:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.4); }
+        .btn-secondary:hover { background: #f5f5f7; transform: scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
         .btn-primary:active, .btn-secondary:active { transform: scale(0.96) !important; }
 
-        /* PANELS */
-        .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(8px); }
+        /* PANELS (LIGHT THEME) */
+        .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(4px); }
         .panel-overlay.active { opacity: 1; pointer-events: auto; }
 
         .side-panel { 
-            position: fixed; top: 0; height: 100vh; background: #050505; z-index: 3000; 
+            position: fixed; top: 0; height: 100vh; background: #ffffff; z-index: 3000; 
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s; 
-            overflow-y: auto; visibility: hidden; border-left: 0.5px solid rgba(255,255,255,0.05); border-right: 0.5px solid rgba(255,255,255,0.05);
+            overflow-y: auto; visibility: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.1);
         }
         #counseling-menu { left: 0; width: 100%; max-width: 380px; transform: translateX(-100%); }
-        #admin-panel { right: 0; width: 100%; max-width: 400px; transform: translateX(100%); }
+        #admin-panel { right: 0; width: 100%; max-width: 420px; transform: translateX(100%); }
         #counseling-menu.active, #admin-panel.active { transform: translateX(0) !important; visibility: visible; }
 
         /* MENU ITEMS */
         .menu-item {
             display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: 12px; margin-bottom: 4px;
-            transition: all 0.3s ease; cursor: pointer; font-weight: 300; font-size: 15px; color: #f5f5f7; border: 0.5px solid transparent;
+            transition: all 0.3s ease; cursor: pointer; font-weight: 400; font-size: 15px; color: #1d1d1f; border: 1px solid transparent;
         }
-        .menu-item:hover { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.05); padding-left: 24px; }
+        .menu-item:hover { background: #f5f5f7; padding-left: 24px; }
 
-        /* SLEEK INPUTS */
+        /* SLEEK INPUTS (LIGHT THEME) */
         .sleek-input { 
-            background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; 
-            padding: 14px 18px; width: 100%; font-size: 14px; font-weight: 300; transition: all 0.3s ease; color: #ffffff; font-family: 'Satoshi', sans-serif;
+            background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 12px; 
+            padding: 14px 18px; width: 100%; font-size: 14px; font-weight: 400; transition: all 0.3s ease; color: #1d1d1f; font-family: 'Satoshi', sans-serif;
         }
-        .sleek-input:focus { border-color: rgba(255,255,255,0.4); outline: none; background: rgba(255,255,255,0.04); }
-        .sleek-input::placeholder { color: #555; }
+        .sleek-input:focus { border-color: #000000; outline: none; background: #ffffff; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
+        .sleek-input::placeholder { color: #86868b; }
 
         /* ADMIN CARDS */
-        .admin-card { background: #0a0a0a; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 0.5px solid rgba(255,255,255,0.05); }
-        .admin-label { font-size: 10px; font-weight: 400; color: #86868b; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 0.05em; }
+        .admin-card { background: #ffffff; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid #e5e5e5; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .admin-label { font-size: 11px; font-weight: 500; color: #86868b; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
 
         /* MODALS */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s ease; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s ease; }
         .modal-overlay.active { opacity: 1; display: flex; }
-        .modal-content { background: #0a0a0a; border-radius: 16px; width: 100%; max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 32px; border: 0.5px solid rgba(255,255,255,0.08); transform: scale(0.98); transition: all 0.4s ease; }
+        .modal-content { background: #ffffff; border-radius: 24px; width: 100%; max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 32px; transform: scale(0.98); transition: all 0.4s ease; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .modal-overlay.active .modal-content { transform: scale(1); }
 
         /* GALLERY */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
-        .gallery-item { border-radius: 8px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; border: 0.5px solid transparent; transition: 0.3s ease; opacity: 0.7; }
-        .gallery-item:hover { border-color: #fff; opacity: 1; transform: scale(1.02); z-index: 10; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+        .gallery-item { border-radius: 12px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; border: 2px solid transparent; transition: 0.3s ease; }
+        .gallery-item:hover { border-color: #000; transform: scale(1.03); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
         /* DETAIL PANEL */
         #detail-panel { 
-            position: fixed; inset: 0; z-index: 4000; background: #000000; overflow-y: auto; padding-bottom: 80px; 
+            position: fixed; inset: 0; z-index: 4000; background: #ffffff; overflow-y: auto; padding-bottom: 80px; 
             opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #detail-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
         .reveal-block { opacity: 0; transform: translateY(15px); transition: all 0.6s ease-out; }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
+        /* UPLOAD SPINNER OVERLAY */
+        #upload-spinner {
+            position: fixed; inset: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+            z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        #upload-spinner.active { display: flex; }
+
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f5f5f7; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #999; }
     </style>
 </head>
 <body>
+
+    <!-- Global Upload Spinner -->
+    <div id="upload-spinner">
+        <i class="fas fa-circle-notch fa-spin text-4xl text-black mb-4"></i>
+        <p class="text-lg font-light text-black">Uploading to Global Server...</p>
+        <p class="text-sm text-gray-500 mt-2">Please do not close this window.</p>
+    </div>
 
     <!-- Hidden File Inputs -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden">
 
-    <!-- Navigation -->
-    <nav class="glass-nav px-6 md:px-12 flex justify-between items-center">
+    <!-- ORIGINAL BRANDING HEADER -->
+    <nav class="glass-nav px-6 md:px-16 flex justify-between items-center">
         <div class="flex items-center gap-6">
-            <button id="menu-btn" class="text-lg text-white/70 hover:text-white transition-colors">
-                <i class="fas fa-bars"></i>
+            <button id="menu-btn" class="text-2xl text-white hover:text-gray-300 transition-all">
+                <i class="fas fa-bars-staggered"></i>
             </button>
-            <div class="flex items-center gap-2 cursor-pointer" id="logo-btn">
-                <span class="text-lg font-light tracking-tightest text-white">NEXUS<span class="text-gray-500">MIND</span></span>
+            <div class="flex items-center gap-3 cursor-pointer" id="logo-btn">
+                <div class="w-10 h-10 bg-white rounded-[10px] flex items-center justify-center font-extrabold text-black text-sm shadow-md">NM</div>
+                <span class="text-xl font-bold tracking-widest uppercase hidden md:block text-white">Nexus Mind</span>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <a href="#booking-section" class="btn-secondary hidden md:inline-flex py-1.5 px-5 text-xs">Book Session</a>
-            <button id="admin-btn" class="w-8 h-8 rounded-full text-white/50 hover:text-white transition-colors flex items-center justify-center text-sm">
-                <i class="fas fa-lock"></i>
+            <a href="#booking-section" class="btn-secondary hidden md:inline-flex py-2 px-6 text-sm">Book Session</a>
+            <button id="admin-btn" class="w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all flex items-center justify-center text-lg border border-white/20">
+                <i class="fas fa-fingerprint"></i>
             </button>
         </div>
     </nav>
@@ -202,40 +209,41 @@
     <!-- Panel Overlay -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- Counseling Menu Sidebar -->
+    <!-- Counseling Menu Sidebar (Light Theme) -->
     <div id="counseling-menu" class="side-panel">
         <div class="p-8 pt-12">
             <div class="flex justify-between items-center mb-12">
-                <h3 class="text-xl font-light tracking-tightest text-white">Counseling</h3>
-                <button id="close-menu-btn" class="text-white/50 hover:text-white transition-colors text-2xl font-light">&times;</button>
+                <h3 class="text-2xl font-light tracking-tightest text-black">Counseling</h3>
+                <button id="close-menu-btn" class="text-gray-400 hover:text-black transition-colors text-3xl font-light">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-2"></div>
-            <div class="mt-20 pt-8 border-t border-white/5">
-                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-6">Connect</p>
+            <div class="mt-20 pt-8 border-t border-gray-100">
+                <p class="text-[11px] uppercase tracking-widest text-gray-400 mb-6 font-medium">Connect With Us</p>
                 <div class="flex gap-5">
-                    <a href="#" class="text-white/50 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white/50 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="text-white/50 hover:text-white transition-colors"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-black text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-black text-xl transition-colors"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-black text-xl transition-colors"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel Sidebar -->
-    <div id="admin-panel" class="side-panel">
-        <div class="sticky top-0 z-10 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 px-8 py-6 flex justify-between items-center">
-            <h3 class="font-light tracking-tightest text-lg text-white">System Access</h3>
-            <button id="close-admin-btn" class="text-white/50 hover:text-white transition-colors text-2xl font-light">&times;</button>
+    <!-- Admin Panel Sidebar (Light Theme) -->
+    <div id="admin-panel" class="side-panel bg-gray-50">
+        <div class="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-gray-200 px-8 py-6 flex justify-between items-center">
+            <h3 class="font-light tracking-tightest text-xl text-black">System Access</h3>
+            <button id="close-admin-btn" class="text-gray-400 hover:text-black transition-colors text-3xl font-light">&times;</button>
         </div>
         
         <div class="p-8">
-            <div id="admin-login-section" class="space-y-6 mt-4">
-                <p class="text-sm text-gray-400 font-light mb-8">Authenticate to access the global configuration matrix.</p>
-                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="sleek-input">
-                <button id="send-otp-btn" class="btn-primary w-full py-3">Request Access</button>
-                <div id="otp-box" class="hidden space-y-5 pt-6 border-t border-white/5 mt-6">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="sleek-input text-center tracking-[0.5em] font-mono">
-                    <button id="verify-otp-btn" class="btn-primary w-full py-3">Verify Identity</button>
+            <div id="admin-login-section" class="space-y-6 mt-4 text-center">
+                <div class="w-16 h-16 bg-black text-white rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-lg"><i class="fas fa-fingerprint"></i></div>
+                <p class="text-sm text-gray-500 font-light mb-8">Authenticate to access the global configuration matrix.</p>
+                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="sleek-input text-center">
+                <button id="send-otp-btn" class="btn-primary w-full py-3.5">Request Access</button>
+                <div id="otp-box" class="hidden space-y-5 pt-6 border-t border-gray-200 mt-6">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="sleek-input text-center tracking-[0.5em] font-mono text-xl">
+                    <button id="verify-otp-btn" class="btn-primary w-full py-3.5">Verify Identity</button>
                 </div>
             </div>
             
@@ -243,28 +251,29 @@
                 <!-- HERO ENGINE CONTROL -->
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Engine</h4>
-                    <select id="adm-hero-type" class="sleek-input mb-4 text-xs">
+                    <select id="adm-hero-type" class="sleek-input mb-4">
                         <option value="image">Static Image</option>
                         <option value="video">Cinematic Video</option>
                     </select>
                     
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-4">
-                            <input id="adm-hero-img" class="sleek-input flex-1 text-xs" placeholder="Image URL" onchange="autoSaveHeroToFirebase()">
-                            <button id="trigger-img-upload" class="bg-white/5 px-4 rounded-lg border border-white/10 hover:bg-white/10 transition-colors"><i class="fas fa-upload text-white/70 text-xs"></i></button>
+                            <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" onchange="autoSaveHeroToFirebase()">
+                            <button onclick="triggerUpload('image', 'hero')" class="bg-gray-100 px-4 rounded-xl border border-gray-200 hover:bg-gray-200 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
                         </div>
-                        <button onclick="openGalleryForHero()" class="text-gray-400 hover:text-white text-xs font-light mb-4 block transition-colors">Browse Library</button>
+                        <button onclick="openGalleryForHero()" class="text-blue-600 hover:text-blue-800 text-sm font-medium mb-4 block transition-colors">Browse Library</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-4">
-                            <input id="adm-hero-vid" class="sleek-input flex-1 text-xs" placeholder="Video URL" onchange="autoSaveHeroToFirebase()">
-                            <button id="trigger-vid-upload" class="bg-white/5 px-4 rounded-lg border border-white/10 hover:bg-white/10 transition-colors"><i class="fas fa-upload text-white/70 text-xs"></i></button>
+                            <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL" onchange="autoSaveHeroToFirebase()">
+                            <button onclick="triggerUpload('video', 'hero')" class="bg-gray-100 px-4 rounded-xl border border-gray-200 hover:bg-gray-200 transition-colors"><i class="fas fa-upload text-gray-600"></i></button>
                         </div>
+                        <p class="text-xs text-gray-500 mb-4">Max 20MB. Uploads directly to global server.</p>
                     </div>
 
-                    <textarea id="adm-hero-title" class="sleek-input h-16 mb-3 text-xs" placeholder="Hero Title" onchange="autoSaveHeroToFirebase()"></textarea>
-                    <input id="adm-hero-subtitle" class="sleek-input mb-2 text-xs" placeholder="Hero Subtitle" onchange="autoSaveHeroToFirebase()">
+                    <textarea id="adm-hero-title" class="sleek-input h-20 mb-3" placeholder="Hero Title" onchange="autoSaveHeroToFirebase()"></textarea>
+                    <input id="adm-hero-subtitle" class="sleek-input mb-2" placeholder="Hero Subtitle" onchange="autoSaveHeroToFirebase()">
                 </div>
 
                 <!-- HOMEPAGE SECTIONS CONTROL -->
@@ -282,12 +291,12 @@
                 <!-- GLOBAL SETTINGS -->
                 <div class="admin-card">
                     <h4 class="admin-label">Global Variables</h4>
-                    <input id="adm-wa" class="sleek-input mb-3 text-xs" placeholder="WhatsApp (+91...)" onchange="autoSaveToFirebase()">
-                    <input id="adm-upi" class="sleek-input mb-3 text-xs" placeholder="UPI ID" onchange="autoSaveToFirebase()">
-                    <input id="adm-email" class="sleek-input text-xs" placeholder="Admin Email" onchange="autoSaveToFirebase()">
+                    <input id="adm-wa" class="sleek-input mb-3" placeholder="WhatsApp (+91...)" onchange="autoSaveToFirebase()">
+                    <input id="adm-upi" class="sleek-input mb-3" placeholder="UPI ID" onchange="autoSaveToFirebase()">
+                    <input id="adm-email" class="sleek-input" placeholder="Admin Email" onchange="autoSaveToFirebase()">
                 </div>
                 
-                <button id="lock-admin-btn" class="w-full text-red-400/70 font-light text-xs py-4 hover:text-red-400 transition-colors">Lock Session</button>
+                <button id="lock-admin-btn" class="w-full text-red-500 font-medium text-sm py-4 hover:bg-red-50 rounded-xl transition-colors">Lock Session</button>
             </div>
         </div>
     </div>
@@ -309,52 +318,52 @@
                 } else if(savedHero.type === 'video' && savedHero.vid) {
                     const v = document.getElementById('hero-video-bg');
                     v.src = savedHero.vid; v.muted = true; v.setAttribute('muted', '');
-                    v.classList.remove('hidden'); v.style.opacity = '0.6';
+                    v.classList.remove('hidden'); v.style.opacity = '0.8';
                 }
             })();
         </script>
 
         <div class="hero-overlay"></div>
         <div data-aos="fade-up" data-aos-duration="1200" class="hero-content">
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-light tracking-tightest leading-[1.1] mb-6 text-white">Reclaim Your<br>Inner Peace</h1>
-            <p id="hero-subtitle" class="text-base md:text-lg text-gray-400 mb-10 max-w-xl mx-auto font-light">Premium online counseling for mental excellence.</p>
-            <a href="#booking-section" class="btn-primary px-8 py-3.5 text-sm">Begin Journey</a>
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-light tracking-tightest leading-[1.1] mb-6">Reclaim Your<br>Inner Peace</h1>
+            <p id="hero-subtitle" class="text-lg md:text-xl text-white/80 mb-10 max-w-xl mx-auto font-light">Premium online counseling for mental excellence.</p>
+            <a href="#booking-section" class="btn-secondary px-8 py-4 text-base">Begin Journey</a>
         </div>
     </section>
 
-    <!-- Dynamic Homepage Sections -->
+    <!-- Dynamic Homepage Sections (Light Theme) -->
     <div id="homepage-sections"></div>
 
-    <!-- Detail Panel -->
+    <!-- Detail Panel (Light Theme) -->
     <div id="detail-panel">
         <div class="max-w-3xl mx-auto px-6 py-32">
             <div class="flex justify-between items-center mb-20">
-                <h1 id="det-title" class="text-3xl md:text-5xl font-light tracking-tightest text-white"></h1>
-                <button id="close-detail-btn" class="text-white/50 hover:text-white transition-colors text-3xl font-light">&times;</button>
+                <h1 id="det-title" class="text-4xl md:text-5xl font-light tracking-tightest text-black"></h1>
+                <button id="close-detail-btn" class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl hover:bg-gray-200 transition-colors text-black font-light">&times;</button>
             </div>
             <div id="det-content" class="space-y-8"></div>
             <div class="mt-32 text-center reveal-block">
-                <a href="#booking-section" id="book-now-btn" class="btn-primary px-10 py-3.5 text-sm">Schedule Consultation</a>
+                <a href="#booking-section" id="book-now-btn" class="btn-primary px-10 py-4 text-base">Schedule Consultation</a>
             </div>
         </div>
     </div>
 
-    <!-- Booking Section -->
-    <section id="booking-section" class="py-40 px-6 md:px-16 bg-bgBase border-t border-white/5">
-        <div class="max-w-xl mx-auto bg-bgSurface p-8 md:p-12 rounded-2xl border border-white/5 shadow-2xl" data-aos="fade-up" data-aos-duration="1000">
+    <!-- Booking Section (Light Theme) -->
+    <section id="booking-section" class="py-40 px-6 md:px-16 bg-bgSurface border-t border-gray-200">
+        <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.05)]" data-aos="fade-up" data-aos-duration="1000">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-5">
+                <form id="p-form" class="space-y-6">
                     <div class="text-center mb-10">
-                        <h2 class="text-2xl md:text-3xl font-light tracking-tightest mb-2 text-white">Schedule Session</h2>
-                        <p class="text-gray-500 text-sm font-light">Confidential, secure, and professional.</p>
+                        <h2 class="text-3xl md:text-4xl font-light tracking-tightest mb-3 text-black">Schedule Session</h2>
+                        <p class="text-gray-500 text-base font-light">Confidential, secure, and professional.</p>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <input type="text" id="p_name" placeholder="Full Name" class="sleek-input" required>
                         <input type="email" id="p_email" placeholder="Email Address" class="sleek-input" required>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <input type="tel" id="p_wa" value="+91" class="sleek-input" required>
-                        <select id="p_counseling" class="sleek-input text-gray-300" required>
+                        <select id="p_counseling" class="sleek-input" required>
                             <option value="Anxiety">Anxiety & Stress</option>
                             <option value="Relationship">Relationship Issues</option>
                             <option value="Sleep">Sleep Problems</option>
@@ -362,31 +371,31 @@
                             <option value="Career">Career Counseling</option>
                         </select>
                     </div>
-                    <select id="p_type" class="sleek-input text-gray-300" required>
+                    <select id="p_type" class="sleek-input" required>
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Briefly describe your concern..." class="sleek-input h-24 resize-none" required></textarea>
-                    <button type="submit" class="btn-primary w-full py-3.5 mt-4">Proceed to Payment</button>
+                    <textarea id="p_concern" placeholder="Briefly describe your concern..." class="sleek-input h-28 resize-none" required></textarea>
+                    <button type="submit" class="btn-primary w-full py-4 text-base mt-4">Proceed to Payment</button>
                 </form>
 
                 <div id="p-payment" class="hidden text-center space-y-8 py-4">
-                    <div class="max-w-[240px] mx-auto bg-white p-4 rounded-xl shadow-lg">
-                        <img id="p-qr" src="" class="w-full rounded-lg" loading="lazy">
-                        <p id="p-upi-text" class="mt-3 text-black font-medium text-xs tracking-wider"></p>
+                    <div class="max-w-[260px] mx-auto bg-white p-5 rounded-2xl shadow-xl border border-gray-100">
+                        <img id="p-qr" src="" class="w-full rounded-xl" loading="lazy">
+                        <p id="p-upi-text" class="mt-4 text-blue-600 font-bold text-sm tracking-wider"></p>
                     </div>
-                    <div class="max-w-sm mx-auto space-y-4">
-                        <input type="text" id="p_utr" placeholder="12-DIGIT UTR" maxlength="12" class="sleek-input text-center tracking-[0.2em] uppercase">
-                        <button id="verify-payment-btn" class="btn-primary w-full py-3.5">Verify Transaction</button>
+                    <div class="max-w-sm mx-auto space-y-5">
+                        <input type="text" id="p_utr" placeholder="12-DIGIT UTR" maxlength="12" class="sleek-input text-center tracking-[0.2em] uppercase font-medium text-lg">
+                        <button id="verify-payment-btn" class="btn-primary w-full py-4 text-base">Verify Transaction</button>
                     </div>
                 </div>
 
                 <div id="p-success" class="hidden space-y-6">
-                    <div class="bg-white/5 text-white p-6 rounded-xl font-light text-center text-sm border border-white/10">Verification complete. A specialist will connect shortly.</div>
-                    <div id="chat-window" class="space-y-3 max-h-48 overflow-y-auto p-2"></div>
+                    <div class="bg-green-50 text-green-700 p-6 rounded-2xl font-medium text-center text-base border border-green-100">Verification complete. A specialist will connect shortly.</div>
+                    <div id="chat-window" class="space-y-3 max-h-60 overflow-y-auto p-4"></div>
                     <div class="flex gap-3">
                         <input id="chat-input" type="text" placeholder="Message..." class="sleek-input flex-1">
-                        <button id="send-chat-btn" class="btn-secondary px-6"><i class="fas fa-paper-plane text-xs"></i></button>
+                        <button id="send-chat-btn" class="btn-primary px-8"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
@@ -397,23 +406,24 @@
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-lg font-light text-white">Media Library</h3>
-                <button id="close-img-modal" class="text-2xl text-gray-500 hover:text-white transition-colors font-light">&times;</button>
+                <h3 class="text-xl font-light text-black">Media Library</h3>
+                <button id="close-img-modal" class="text-3xl text-gray-400 hover:text-black transition-colors font-light">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="py-20 text-center bg-bgBase border-t border-white/5">
-        <div class="text-xl font-light tracking-tightest text-white mb-4">NEXUS<span class="text-gray-500">MIND</span></div>
-        <p class="text-gray-600 text-sm mb-10 font-light">Greater Noida, Uttar Pradesh, India</p>
-        <div class="flex justify-center gap-6 mb-12">
-            <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-whatsapp"></i></a>
+    <!-- ORIGINAL BRANDING FOOTER -->
+    <footer class="py-24 text-center bg-black border-t border-gray-900">
+        <div class="w-16 h-16 bg-white rounded-[16px] flex items-center justify-center font-extrabold text-black text-2xl mx-auto mb-8 shadow-lg">NM</div>
+        <h2 class="text-4xl font-extrabold tracking-widest uppercase mb-4 text-white">Nexus Mind</h2>
+        <p class="text-gray-400 text-base mb-12 font-medium">Greater Noida, Uttar Pradesh, India</p>
+        <div class="flex justify-center gap-6 mb-16">
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all text-xl"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all text-xl"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all text-xl"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p class="text-[10px] font-light text-gray-700 tracking-[0.1em] uppercase">© 2026 Nexus Mind. Absolute Confidentiality.</p>
+        <p class="text-xs font-bold text-gray-600 tracking-[0.2em] uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY GUARANTEED.</p>
     </footer>
 
     <script>
@@ -472,6 +482,7 @@
 
         let currentOTP = null;
         let activeImageTarget = { type: null, key: null, index: null };
+        let uploadContext = { type: null, target: null, key: null, index: null };
 
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('menu-btn');
@@ -504,15 +515,11 @@
             const lockAdminBtn = document.getElementById('lock-admin-btn');
             if(lockAdminBtn) lockAdminBtn.addEventListener('click', () => location.reload());
 
-            const triggerImgUpload = document.getElementById('trigger-img-upload');
-            if(triggerImgUpload) triggerImgUpload.addEventListener('click', () => document.getElementById('local-img-upload').click());
+            // Local Upload Listeners
             const localImgUpload = document.getElementById('local-img-upload');
-            if(localImgUpload) localImgUpload.addEventListener('change', (e) => handleLocalUpload(e, 'image'));
-
-            const triggerVidUpload = document.getElementById('trigger-vid-upload');
-            if(triggerVidUpload) triggerVidUpload.addEventListener('click', () => document.getElementById('local-vid-upload').click());
+            if(localImgUpload) localImgUpload.addEventListener('change', (e) => processFirebaseUpload(e));
             const localVidUpload = document.getElementById('local-vid-upload');
-            if(localVidUpload) localVidUpload.addEventListener('change', (e) => handleLocalUpload(e, 'video'));
+            if(localVidUpload) localVidUpload.addEventListener('change', (e) => processFirebaseUpload(e));
             
             const closeImgModal = document.getElementById('close-img-modal');
             if(closeImgModal) closeImgModal.addEventListener('click', () => document.getElementById('img-modal').classList.remove('active'));
@@ -553,9 +560,12 @@
                             apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
                             authDomain: "nexus-mind-41ffc.firebaseapp.com",
                             projectId: "nexus-mind-41ffc",
+                            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
                             databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/"
                         });
                         window.db = firebase.database();
+                        window.storage = firebase.storage(); // Initialize Storage
+
                         window.db.ref('globalHero').on('value', (snap) => {
                             const data = snap.val();
                             if(data) { localStorage.setItem('nexusHero', JSON.stringify(data)); updateHero(data); }
@@ -588,7 +598,7 @@
             container.innerHTML = counselingAreas.map(area => `
                 <div class="menu-item" data-key="${area.key}">
                     <span>${area.label}</span>
-                    <i class="fas fa-chevron-right text-white/30 text-xs"></i>
+                    <i class="fas fa-chevron-right text-gray-300 text-xs"></i>
                 </div>
             `).join('');
         }
@@ -601,21 +611,22 @@
                 const sec = nexusConfig.sections[area.key];
                 if(!sec) return '';
                 const flexDir = index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse';
+                const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                 
                 return `
-                <section class="py-32 md:py-40 px-6 md:px-16 bg-bgBase border-b border-white/5 relative z-10 overflow-hidden">
+                <section class="py-32 md:py-40 px-6 md:px-16 ${bgClass} border-b border-gray-100 relative z-10 overflow-hidden">
                     <div class="max-w-6xl mx-auto flex flex-col ${flexDir} items-center gap-16 lg:gap-32" data-aos="fade-up">
                         <div class="w-full lg:w-1/2 relative">
-                            <div class="relative overflow-hidden rounded-2xl w-full aspect-[4/5] md:aspect-square border border-white/5">
-                                <img src="${sec.img}" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700 ease-out">
+                            <div class="relative overflow-hidden rounded-[2rem] w-full aspect-[4/5] md:aspect-square shadow-2xl">
+                                <img src="${sec.img}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out">
                             </div>
                         </div>
                         <div class="w-full lg:w-1/2 text-center lg:text-left relative z-10">
-                            <div class="inline-block px-3 py-1 rounded-full border border-white/10 text-[10px] font-medium tracking-widest uppercase mb-8 text-gray-500">0${index + 1} // ${area.label}</div>
-                            <h2 class="text-4xl md:text-5xl font-light tracking-tightest mb-6 text-white leading-[1.1]">${sec.title}</h2>
-                            <p class="text-base md:text-lg text-textMuted leading-[1.6] mb-10 font-light max-w-md mx-auto lg:mx-0">${sec.desc}</p>
-                            <button class="btn-secondary flex items-center justify-center lg:justify-start gap-3 mx-auto lg:mx-0 open-detail-btn group" data-key="${area.key}">
-                                Explore Approach <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform opacity-70"></i>
+                            <div class="inline-block px-4 py-1.5 rounded-full border border-gray-200 text-[11px] font-bold tracking-widest uppercase mb-8 text-gray-500 bg-white shadow-sm">0${index + 1} // ${area.label}</div>
+                            <h2 class="text-4xl md:text-5xl font-light tracking-tightest mb-6 text-black leading-[1.1]">${sec.title}</h2>
+                            <p class="text-base md:text-lg text-gray-600 leading-[1.6] mb-10 font-light max-w-md mx-auto lg:mx-0">${sec.desc}</p>
+                            <button class="btn-primary flex items-center justify-center lg:justify-start gap-3 mx-auto lg:mx-0 open-detail-btn group" data-key="${area.key}">
+                                Explore Approach <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
                     </div>
@@ -638,18 +649,18 @@
                     vidBg.muted = true; vidBg.defaultMuted = true; vidBg.setAttribute('muted', ''); vidBg.playsInline = true;
                     vidBg.load();
                     vidBg.oncanplaythrough = () => {
-                        vidBg.play().then(() => { vidBg.style.opacity = '0.6'; setTimeout(() => { imgBg.style.opacity = '0'; }, 400); }).catch(()=>{});
+                        vidBg.play().then(() => { vidBg.style.opacity = '0.8'; setTimeout(() => { imgBg.style.opacity = '0'; }, 400); }).catch(()=>{});
                     };
                 } else {
-                    vidBg.classList.remove('hidden'); vidBg.play().catch(()=>{}); vidBg.style.opacity = '0.6'; imgBg.style.opacity = '0';
+                    vidBg.classList.remove('hidden'); vidBg.play().catch(()=>{}); vidBg.style.opacity = '0.8'; imgBg.style.opacity = '0';
                 }
             } else {
                 vidBg.style.opacity = '0'; setTimeout(() => { vidBg.classList.add('hidden'); vidBg.pause(); }, 800);
                 const currentBg = imgBg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
                 if(data.img && currentBg !== data.img) {
                     const tempImg = new Image(); tempImg.src = data.img;
-                    tempImg.onload = () => { imgBg.style.opacity = '0.2'; setTimeout(() => { imgBg.style.backgroundImage = `url('${data.img}')`; imgBg.style.opacity = '0.6'; }, 100); };
-                } else { imgBg.style.opacity = '0.6'; }
+                    tempImg.onload = () => { imgBg.style.opacity = '0.4'; setTimeout(() => { imgBg.style.backgroundImage = `url('${data.img}')`; imgBg.style.opacity = '0.8'; }, 100); };
+                } else { imgBg.style.opacity = '0.8'; }
             }
             if(data.title) document.getElementById('hero-title').innerHTML = data.title.replace(/\n/g, '<br>');
             if(data.subtitle) document.getElementById('hero-subtitle').textContent = data.subtitle;
@@ -704,14 +715,15 @@
                 const sec = nexusConfig.sections[area.key];
                 if(!sec) return '';
                 return `
-                <div class="bg-white/5 p-4 rounded-xl mb-3 border border-white/5">
-                    <h5 class="font-light mb-3 text-xs text-white">${area.label}</h5>
+                <div class="bg-gray-50 p-4 rounded-xl mb-3 border border-gray-200">
+                    <h5 class="font-medium mb-3 text-sm text-black">${area.label}</h5>
                     <div class="flex gap-2 mb-3">
-                        <input type="text" class="sleek-input text-xs flex-1" value="${sec.img}" onchange="updateSection('${area.key}', 'img', this.value)">
-                        <button onclick="openGalleryForSection('${area.key}')" class="bg-white/5 px-3 rounded-lg border border-white/10 hover:bg-white/10"><i class="fas fa-image text-white/70 text-xs"></i></button>
+                        <input type="text" class="sleek-input flex-1" value="${sec.img}" onchange="updateSection('${area.key}', 'img', this.value)">
+                        <button onclick="triggerUpload('image', 'section', '${area.key}')" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-100"><i class="fas fa-upload text-gray-600"></i></button>
+                        <button onclick="openGalleryForSection('${area.key}')" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-100"><i class="fas fa-image text-gray-600"></i></button>
                     </div>
-                    <input type="text" class="sleek-input text-xs mb-3" value="${sec.title}" onchange="updateSection('${area.key}', 'title', this.value)">
-                    <textarea class="sleek-input text-xs h-16" onchange="updateSection('${area.key}', 'desc', this.value)">${sec.desc}</textarea>
+                    <input type="text" class="sleek-input mb-3" value="${sec.title}" onchange="updateSection('${area.key}', 'title', this.value)">
+                    <textarea class="sleek-input h-20" onchange="updateSection('${area.key}', 'desc', this.value)">${sec.desc}</textarea>
                 </div>`;
             }).join('');
         }
@@ -723,19 +735,23 @@
                 const blocks = det.blocks.map((b, i) => {
                     if(b.type === 'image') {
                         return `
-                        <div class="bg-white/5 p-4 rounded-xl mb-3 border border-white/5">
-                            <div class="flex justify-between mb-3"><span class="text-[9px] font-medium uppercase text-gray-500 tracking-widest">IMAGE</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-400/70 hover:text-red-400 text-xs"><i class="fas fa-times"></i></button></div>
-                            <div class="flex gap-2"><input type="text" class="sleek-input text-xs flex-1" value="${b.url}" onchange="updateBlock('${area.key}', ${i}, this.value)"><button onclick="openGalleryForBlock('${area.key}', ${i})" class="bg-white/5 px-3 rounded-lg border border-white/10 hover:bg-white/10"><i class="fas fa-image text-white/70 text-xs"></i></button></div>
+                        <div class="bg-gray-50 p-4 rounded-xl mb-3 border border-gray-200">
+                            <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-gray-500 tracking-widest">IMAGE</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-700"><i class="fas fa-times"></i></button></div>
+                            <div class="flex gap-2">
+                                <input type="text" class="sleek-input flex-1" value="${b.url}" onchange="updateBlock('${area.key}', ${i}, this.value)">
+                                <button onclick="triggerUpload('image', 'block', '${area.key}', ${i})" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-100"><i class="fas fa-upload text-gray-600"></i></button>
+                                <button onclick="openGalleryForBlock('${area.key}', ${i})" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-100"><i class="fas fa-image text-gray-600"></i></button>
+                            </div>
                         </div>`;
                     } else {
                         return `
-                        <div class="bg-white/5 p-4 rounded-xl mb-3 border border-white/5">
-                            <div class="flex justify-between mb-3"><span class="text-[9px] font-medium uppercase text-gray-500 tracking-widest">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-400/70 hover:text-red-400 text-xs"><i class="fas fa-times"></i></button></div>
-                            <textarea class="sleek-input text-xs h-16" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                        <div class="bg-gray-50 p-4 rounded-xl mb-3 border border-gray-200">
+                            <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-gray-500 tracking-widest">${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-500 hover:text-red-700"><i class="fas fa-times"></i></button></div>
+                            <textarea class="sleek-input h-20" onchange="updateBlock('${area.key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
                         </div>`;
                     }
                 }).join('');
-                return `<div class="admin-card"><h5 class="font-light mb-4 text-xs text-white">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-gray-400 hover:text-white text-xs font-light transition-colors">+ Add Block</button></div>`;
+                return `<div class="admin-card"><h5 class="font-medium mb-4 text-sm text-black">${area.label}</h5>${blocks}<button onclick="addBlock('${area.key}')" class="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">+ Add Block</button></div>`;
             }).join('');
         }
 
@@ -766,16 +782,57 @@
             document.getElementById('img-modal').classList.remove('active'); 
         }
 
-        function handleLocalUpload(e, type) {
-            const file = e.target.files[0]; if(!file) return;
-            if(type === 'video' && file.size > 20 * 1024 * 1024) { alert("Max 20MB allowed."); return; }
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                if(type === 'image') document.getElementById('adm-hero-img').value = ev.target.result;
-                else document.getElementById('adm-hero-vid').value = ev.target.result;
-                autoSaveHeroToFirebase();
-            };
-            reader.readAsDataURL(file);
+        // FIREBASE STORAGE UPLOAD LOGIC (LAG-FREE)
+        window.triggerUpload = function(type, target, key = null, index = null) {
+            uploadContext = { type, target, key, index };
+            if(type === 'image') document.getElementById('local-img-upload').click();
+            else document.getElementById('local-vid-upload').click();
+        }
+
+        async function processFirebaseUpload(e) {
+            const file = e.target.files[0]; 
+            if(!file) return;
+            
+            // 20MB Limit Check
+            if(file.size > 20 * 1024 * 1024) { 
+                alert("File is too large. Maximum allowed size is 20MB."); 
+                e.target.value = ''; 
+                return; 
+            }
+
+            if(!window.storage) {
+                alert("Storage system initializing. Please try again in a few seconds.");
+                return;
+            }
+
+            const spinner = document.getElementById('upload-spinner');
+            spinner.classList.add('active');
+
+            try {
+                const storageRef = window.storage.ref('nexus_uploads/' + Date.now() + '_' + file.name);
+                const snapshot = await storageRef.put(file);
+                const downloadURL = await snapshot.ref.getDownloadURL();
+
+                if(uploadContext.target === 'hero') {
+                    if(uploadContext.type === 'image') document.getElementById('adm-hero-img').value = downloadURL;
+                    else document.getElementById('adm-hero-vid').value = downloadURL;
+                    autoSaveHeroToFirebase();
+                } 
+                else if(uploadContext.target === 'section') {
+                    updateSection(uploadContext.key, 'img', downloadURL);
+                    renderAdminHomepage();
+                } 
+                else if(uploadContext.target === 'block') {
+                    updateBlock(uploadContext.key, uploadContext.index, downloadURL);
+                    renderAdminCounseling();
+                }
+            } catch (error) {
+                console.error("Upload failed:", error);
+                alert("Upload failed. Please check your connection and try again.");
+            } finally {
+                spinner.classList.remove('active');
+                e.target.value = ''; // Reset input
+            }
         }
 
         function handleBooking() {
@@ -791,13 +848,13 @@
             if(document.getElementById('p_utr').value.length === 12) {
                 document.getElementById('p-payment').classList.add('hidden');
                 document.getElementById('p-success').classList.remove('hidden');
-                document.getElementById('chat-window').innerHTML = `<div class="bg-white/5 p-3 rounded-lg text-sm text-gray-300 w-fit max-w-[80%] border border-white/10">System verified. A specialist will connect shortly. How are you feeling today?</div>`;
-            } else alert("Invalid UTR");
+                document.getElementById('chat-window').innerHTML = `<div class="bg-gray-100 p-4 rounded-xl text-sm text-gray-700 w-fit max-w-[80%] border border-gray-200">System verified. A specialist will connect shortly. How are you feeling today?</div>`;
+            } else alert("Invalid UTR. Please enter exactly 12 digits.");
         }
 
         function sendChat() {
             const input = document.getElementById('chat-input'); if(!input.value.trim()) return;
-            document.getElementById('chat-window').innerHTML += `<div class="bg-white text-black p-3 rounded-lg text-sm w-fit max-w-[80%] ml-auto">${input.value}</div>`;
+            document.getElementById('chat-window').innerHTML += `<div class="bg-black text-white p-4 rounded-xl text-sm w-fit max-w-[80%] ml-auto">${input.value}</div>`;
             input.value = ''; document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
@@ -805,10 +862,10 @@
             const det = nexusConfig.details[key]; if(!det) return;
             document.getElementById('det-title').textContent = nexusConfig.sections[key].title;
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
-                if(b.type === 'text') return `<p class="reveal-block text-base md:text-lg text-textMuted leading-[1.6] font-light">${b.content}</p>`;
-                if(b.type === 'image') return `<div class="reveal-block flex justify-center my-12"><img src="${b.url}" loading="lazy" class="w-full max-w-4xl rounded-2xl h-[300px] md:h-[450px] object-cover border border-white/5 opacity-80"></div>`;
-                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl md:text-3xl font-light tracking-tightest text-white mt-12 mb-6">${b.content}</h3>`;
-                if(b.type === 'list') return `<ul class="reveal-block space-y-3 bg-bgSurface p-8 rounded-2xl border border-white/5">${b.items.map(i => `<li class="text-sm md:text-base flex gap-4 font-light text-gray-400"><i class="fas fa-minus text-white/20 mt-1.5 text-xs"></i> ${i}</li>`).join('')}</ul>`;
+                if(b.type === 'text') return `<p class="reveal-block text-lg md:text-xl text-gray-600 leading-[1.6] font-light">${b.content}</p>`;
+                if(b.type === 'image') return `<div class="reveal-block flex justify-center my-12"><img src="${b.url}" loading="lazy" class="w-full max-w-4xl rounded-[2rem] h-[350px] md:h-[500px] object-cover shadow-2xl"></div>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl md:text-3xl font-light tracking-tightest text-black mt-12 mb-6">${b.content}</h3>`;
+                if(b.type === 'list') return `<ul class="reveal-block space-y-4 bg-gray-50 p-8 md:p-10 rounded-[2rem] border border-gray-100">${b.items.map(i => `<li class="text-base md:text-lg flex gap-4 font-light text-gray-700"><i class="fas fa-check text-black mt-1.5 text-sm"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
             
             const panel = document.getElementById('detail-panel');
