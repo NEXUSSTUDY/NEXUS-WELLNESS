@@ -55,7 +55,6 @@
             width: 100%; 
             max-width: 100vw;
             position: relative;
-            background-color: #000; /* Prevents white flash during scroll */
         }
 
         .main-wrapper {
@@ -68,7 +67,7 @@
 
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            color: #000000; 
+            background-color: #ffffff; color: #000000; 
             font-size: 16px; line-height: 1.6; 
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
@@ -83,74 +82,27 @@
             background: rgba(0, 0, 0, 0.95); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.1); 
-            z-index: 2000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
+            z-index: 1000; height: 72px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
             transform: translateZ(0); will-change: transform;
         }
 
-        /* =========================================
-           HERO ENGINE (FIXED SCROLL-OVER + COLLAGE)
-           ========================================= */
+        /* HERO ENGINE (TCS STYLE FIXED REVEAL) */
         #hero-section { 
-            position: fixed; /* Keeps hero locked in place */
-            top: 0; 
-            left: 0; 
-            height: 100vh; 
-            width: 100%; 
-            overflow: hidden; 
-            background-color: #050505; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 0; /* Stays behind the scrolling content */
+            position: fixed; top: 0; left: 0; height: 100vh; width: 100%; 
+            overflow: hidden; background-color: #000; display: flex; 
+            align-items: center; justify-content: center; z-index: 0; 
         }
-        
-        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.3; z-index: 0; }
+        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.6s ease-out; z-index: 0; }
         #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease-out; opacity: 0; z-index: 1; pointer-events: none; }
-        
-        /* Floating Profile Collage */
-        .floating-profiles {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .profile-bubble {
-            position: absolute;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            opacity: 0.6;
-            animation: floatAnim 12s infinite ease-in-out alternate;
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-        
-        /* Individual Profile Positions & Animation Delays */
-        .p1 { width: 90px; height: 90px; top: 15%; left: 10%; animation-delay: 0s; }
-        .p2 { width: 140px; height: 140px; top: 20%; right: 12%; animation-delay: -3s; }
-        .p3 { width: 110px; height: 110px; bottom: 20%; left: 18%; animation-delay: -5s; }
-        .p4 { width: 130px; height: 130px; bottom: 25%; right: 20%; animation-delay: -7s; }
-        .p5 { width: 80px; height: 80px; top: 45%; left: 5%; animation-delay: -2s; }
-        .p6 { width: 100px; height: 100px; top: 12%; left: 50%; animation-delay: -9s; }
-        .p7 { width: 120px; height: 120px; bottom: 15%; right: 5%; animation-delay: -4s; }
-
-        @keyframes floatAnim {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-40px) scale(1.05); }
-        }
-
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); z-index: 2; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; }
 
         /* CONTENT SECTIONS (Slides over the fixed hero) */
         #homepage-sections {
             position: relative;
-            z-index: 10; /* Higher than hero */
-            margin-top: 100vh; /* Pushes content exactly below the fixed hero */
+            z-index: 10;
+            margin-top: 100vh; /* Pushes content below the fixed hero */
             background: #fff;
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.5); /* Adds a shadow edge when scrolling over */
         }
         #booking-section, footer {
             position: relative;
@@ -384,22 +336,11 @@
         </div>
     </div>
 
-    <!-- Hero Section (FIXED FOR TCS STYLE REVEAL + FLOATING COLLAGE) -->
+    <!-- Hero Section (FIXED FOR TCS STYLE REVEAL) -->
     <section id="hero-section">
         <div id="hero-img-bg"></div>
         <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline preload="auto"></video>
         
-        <!-- Floating Profile Collage -->
-        <div class="floating-profiles">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="profile-bubble p1">
-            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80" class="profile-bubble p2">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" class="profile-bubble p3">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="profile-bubble p4">
-            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80" class="profile-bubble p5">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80" class="profile-bubble p6">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" class="profile-bubble p7">
-        </div>
-
         <script>
             (function() {
                 const savedData = JSON.parse(localStorage.getItem('nexusData'));
@@ -718,7 +659,7 @@
                 vidBg.classList.remove('hidden'); vidBg.style.opacity = '1'; imgBg.style.opacity = '0';
             } else {
                 vidBg.style.opacity = '0'; setTimeout(() => vidBg.classList.add('hidden'), 800);
-                imgBg.style.backgroundImage = `url('${h.img}')`; imgBg.style.opacity = '0.3';
+                imgBg.style.backgroundImage = `url('${h.img}')`; imgBg.style.opacity = '1';
             }
             document.getElementById('hero-title').innerHTML = h.title.replace(/\n/g, '<br>');
             document.getElementById('hero-subtitle').textContent = h.subtitle;
