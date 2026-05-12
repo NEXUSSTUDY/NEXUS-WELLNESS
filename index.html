@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
     
-    <!-- Dynamic Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <!-- Dynamic Brand Favicon (NM Logo) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000'/><text x='50' y='68' font-family='Arial, sans-serif' font-size='50' font-weight='bold' fill='%23fff' text-anchor='middle'>NM</text></svg>">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -86,12 +86,28 @@
             transform: translateZ(0); will-change: transform;
         }
 
-        /* HERO ENGINE */
-        #hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
+        /* HERO ENGINE (TCS STYLE FIXED REVEAL) */
+        #hero-section { 
+            position: fixed; top: 0; left: 0; height: 100vh; width: 100%; 
+            overflow: hidden; background-color: #000; display: flex; 
+            align-items: center; justify-content: center; z-index: 0; 
+        }
         #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.6s ease-out; z-index: 0; }
         #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease-out; opacity: 0; z-index: 1; pointer-events: none; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; }
+
+        /* CONTENT SECTIONS (Slides over the fixed hero) */
+        #homepage-sections {
+            position: relative;
+            z-index: 10;
+            margin-top: 100vh; /* Pushes content below the fixed hero */
+            background: #fff;
+        }
+        #booking-section, footer {
+            position: relative;
+            z-index: 10;
+        }
 
         /* CORPORATE BUTTONS */
         .cta-btn { 
@@ -242,6 +258,7 @@
                 <!-- Natural Social Media Colors -->
                 <a href="#" class="hover:opacity-80 transition-opacity" style="color: #E1306C;"><i class="fab fa-instagram text-3xl"></i></a>
                 <a href="#" class="hover:opacity-80 transition-opacity" style="color: #0A66C2;"><i class="fab fa-linkedin text-3xl"></i></a>
+                <a href="#" class="hover:opacity-80 transition-opacity" style="color: #FF0000;"><i class="fab fa-youtube text-3xl"></i></a>
                 <a href="#" class="hover:opacity-80 transition-opacity" style="color: #25D366;"><i class="fab fa-whatsapp text-3xl"></i></a>
             </div>
         </div>
@@ -319,7 +336,7 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (FIXED FOR TCS STYLE REVEAL) -->
     <section id="hero-section">
         <div id="hero-img-bg"></div>
         <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline preload="auto"></video>
@@ -348,7 +365,7 @@
         </div>
     </section>
 
-    <!-- Dynamic Homepage Sections (TCS Style Alternating White/Black) -->
+    <!-- Dynamic Homepage Sections (Slides over the Hero) -->
     <div id="homepage-sections">
         <!-- Rendered via JS to allow instant global updates -->
     </div>
@@ -441,6 +458,7 @@
         <div class="flex justify-center gap-8 mb-12">
             <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #E1306C;"><i class="fab fa-instagram text-3xl"></i></a>
             <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #0A66C2;"><i class="fab fa-linkedin text-3xl"></i></a>
+            <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #FF0000;"><i class="fab fa-youtube text-3xl"></i></a>
             <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #25D366;"><i class="fab fa-whatsapp text-3xl"></i></a>
         </div>
 
