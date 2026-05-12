@@ -32,7 +32,7 @@
                     colors: {
                         appleBlue: '#0066cc',
                         appleGray: '#f5f5f7',
-                        appleDark: '#1d1d1f',
+                        appleDark: '#000000',
                     },
                     fontFamily: {
                         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
@@ -44,7 +44,7 @@
 
     <style>
         /* Minimalist Font Stack */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
@@ -59,20 +59,21 @@
 
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            background-color: #ffffff; color: #1d1d1f; 
-            font-size: 16px; line-height: 1.6; /* Breathable body text */
+            background-color: #ffffff; color: #000000; 
+            font-size: 16px; line-height: 1.6; 
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
             animation: smoothReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        h1, h2, h3, h4, h5 { font-weight: 300; letter-spacing: -0.03em; } /* Slim, elegant headings */
+        /* Apple Signature Typography */
+        h1, h2, h3, h4, h5 { font-weight: 600; letter-spacing: -0.03em; color: #000000; } 
         
-        /* ULTRA PREMIUM GLASS NAVIGATION */
+        /* ULTRA PREMIUM WHITE GLASS NAVIGATION */
         .glass-nav { 
-            background: rgba(255, 255, 255, 0.75); 
+            background: rgba(255, 255, 255, 0.9); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.04); 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
             z-index: 1000; height: 64px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
             transform: translateZ(0); will-change: transform;
         }
@@ -81,22 +82,28 @@
         #hero-section { position: relative; height: 100vh; width: 100%; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
         #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.6s ease-out; z-index: 0; }
         #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease-out; opacity: 0; z-index: 1; pointer-events: none; }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%); z-index: 2; }
-        .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 800px; padding: 0 24px; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%); z-index: 2; }
+        .hero-content { position: relative; z-index: 3; text-align: center; color: white; width: 100%; max-width: 900px; padding: 0 24px; }
 
-        /* REFINED BUTTONS */
+        /* APPLE STYLE BUTTONS (Solid Black) */
         .cta-btn { 
-            background: #1d1d1f; color: white; 
-            border-radius: 999px; font-weight: 400; font-size: 14px; padding: 12px 28px; 
-            transition: all 0.3s ease; border: 1px solid transparent;
-            display: inline-block; text-decoration: none; letter-spacing: 0.02em;
+            background: #000000; color: #ffffff; 
+            border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); border: none;
+            display: inline-block; text-decoration: none; letter-spacing: -0.01em; cursor: pointer;
         }
-        .cta-btn:hover { background: #000; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .cta-btn-outline {
-            background: transparent; color: #1d1d1f; border: 1px solid rgba(0,0,0,0.15);
-            border-radius: 999px; font-weight: 400; font-size: 14px; padding: 12px 28px; transition: all 0.3s ease;
+        .cta-btn:hover { background: #1d1d1f; transform: scale(0.98); }
+        .cta-btn:active { transform: scale(0.95); }
+
+        /* White Button for Dark Sections */
+        .cta-btn-white { 
+            background: #ffffff; color: #000000; 
+            border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); border: none;
+            display: inline-block; text-decoration: none; letter-spacing: -0.01em; cursor: pointer;
         }
-        .cta-btn-outline:hover { background: rgba(0,0,0,0.03); }
+        .cta-btn-white:hover { background: #f5f5f7; transform: scale(0.98); }
+        .cta-btn-white:active { transform: scale(0.95); }
 
         /* PANEL OVERLAY */
         .panel-overlay {
@@ -105,16 +112,16 @@
         }
         .panel-overlay.active { opacity: 1; pointer-events: auto; backdrop-filter: blur(4px); }
 
-        /* TOP-TO-BOTTOM MENU ANIMATION */
+        /* LEFT SLIDE MENU */
         #counseling-menu { 
-            position: fixed; top: 0; left: 0; width: 100%; max-height: 85vh; 
+            position: fixed; top: 0; left: 0; height: 100vh; width: 85%; max-width: 400px; 
             background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px);
             z-index: 3000; overflow-y: auto;
-            border-radius: 0 0 32px 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            transform: translateY(-100%); visibility: hidden;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+            border-right: 1px solid rgba(0,0,0,0.05); box-shadow: 10px 0 40px rgba(0,0,0,0.04);
+            transform: translateX(-100%); visibility: hidden;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
         }
-        #counseling-menu.active { transform: translateY(0); visibility: visible; }
+        #counseling-menu.active { transform: translateX(0); visibility: visible; }
 
         /* ADMIN PANEL (Right Slide) */
         #admin-panel { 
@@ -128,9 +135,9 @@
 
         /* MENU ITEMS */
         .apple-menu-item {
-            display: flex; align-items: center; justify-content: space-between; padding: 16px 0; 
+            display: flex; align-items: center; justify-content: space-between; padding: 18px 0; 
             border-bottom: 1px solid rgba(0,0,0,0.04);
-            transition: all 0.2s ease; cursor: pointer; font-weight: 400; font-size: 16px; color: #1d1d1f;
+            transition: all 0.2s ease; cursor: pointer; font-weight: 500; font-size: 17px; color: #000000;
         }
         .apple-menu-item:hover { color: #0066cc; padding-left: 8px; }
         .apple-menu-item:last-child { border-bottom: none; }
@@ -138,9 +145,9 @@
         /* PREMIUM INPUTS */
         .premium-input { 
             background: #f5f5f7; border: 1px solid transparent; border-radius: 12px; 
-            padding: 14px 18px; width: 100%; font-size: 14px; transition: all 0.3s ease; color: #1d1d1f; font-family: 'Inter', sans-serif;
+            padding: 14px 18px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #000000; font-family: 'Inter', sans-serif;
         }
-        .premium-input:focus { border-color: #1d1d1f; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.03); }
+        .premium-input:focus { border-color: #000000; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
 
         /* MODALS */
         .modal-overlay { 
@@ -170,13 +177,12 @@
 
         /* ADMIN CARDS */
         .admin-card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .admin-label { font-size: 11px; font-weight: 500; color: #86868b; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
+        .admin-label { font-size: 11px; font-weight: 600; color: #86868b; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #e5e5ea; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #d2d2d7; }
+        ::-webkit-scrollbar-thumb { background: #000000; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -185,19 +191,19 @@
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/*" class="hidden">
 
-    <!-- Navigation -->
+    <!-- Navigation (White Header, Black Text) -->
     <nav class="glass-nav px-6 md:px-12 flex justify-between items-center">
         <div class="flex items-center gap-5">
-            <button id="menu-btn" class="text-xl text-gray-600 hover:text-black transition-colors">
+            <button id="menu-btn" class="text-2xl text-black hover:opacity-60 transition-opacity">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="flex items-center gap-3 cursor-pointer" id="logo-btn">
-                <span class="text-lg font-medium tracking-tight text-appleDark">Nexus Mind</span>
+                <span class="text-xl font-semibold tracking-tight text-black">Nexus Mind</span>
             </div>
         </div>
         <div class="flex items-center gap-4">
             <a href="#booking-section" class="cta-btn hidden md:inline-block">Book Session</a>
-            <button id="admin-btn" class="text-gray-400 hover:text-black transition-colors text-lg">
+            <button id="admin-btn" class="text-black hover:opacity-60 transition-opacity text-xl">
                 <i class="fas fa-fingerprint"></i>
             </button>
         </div>
@@ -206,18 +212,18 @@
     <!-- Panel Overlay -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- Top-to-Bottom Counseling Menu -->
+    <!-- Left Slide Counseling Menu -->
     <div id="counseling-menu">
-        <div class="max-w-3xl mx-auto p-8 md:p-12">
+        <div class="p-8 md:p-12">
             <div class="flex justify-between items-center mb-10">
-                <h3 class="text-2xl font-light tracking-tight text-appleDark">Areas of Focus</h3>
-                <button id="close-menu-btn" class="w-8 h-8 rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors text-gray-400">&times;</button>
+                <h3 class="text-2xl font-semibold tracking-tight text-black">Areas of Focus</h3>
+                <button id="close-menu-btn" class="w-8 h-8 rounded-full flex items-center justify-center text-2xl hover:bg-gray-100 transition-colors text-black">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-2"></div>
-            <div class="mt-12 pt-8 border-t border-gray-100 flex gap-6">
-                <a href="#" class="text-gray-400 hover:text-black transition-colors"><i class="fab fa-instagram text-xl"></i></a>
-                <a href="#" class="text-gray-400 hover:text-black transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
-                <a href="#" class="text-gray-400 hover:text-black transition-colors"><i class="fab fa-whatsapp text-xl"></i></a>
+            <div class="mt-12 pt-8 border-t border-gray-200 flex gap-6">
+                <a href="#" class="text-black hover:opacity-60 transition-opacity"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="#" class="text-black hover:opacity-60 transition-opacity"><i class="fab fa-linkedin text-2xl"></i></a>
+                <a href="#" class="text-black hover:opacity-60 transition-opacity"><i class="fab fa-whatsapp text-2xl"></i></a>
             </div>
         </div>
     </div>
@@ -225,18 +231,18 @@
     <!-- Admin Panel Sidebar -->
     <div id="admin-panel">
         <div class="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-5 flex justify-between items-center">
-            <h3 class="font-medium text-lg text-appleDark">Admin Control</h3>
-            <button id="close-admin-btn" class="w-8 h-8 rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors text-gray-400">&times;</button>
+            <h3 class="font-semibold text-lg text-black">Admin Control</h3>
+            <button id="close-admin-btn" class="w-8 h-8 rounded-full flex items-center justify-center text-2xl hover:bg-gray-100 transition-colors text-black">&times;</button>
         </div>
         
         <div class="p-6">
             <div id="admin-login-section" class="space-y-6 text-center mt-10">
-                <i class="fas fa-fingerprint text-4xl text-gray-300 mb-2"></i>
-                <h2 class="text-lg font-medium text-appleDark">Secure Access</h2>
+                <i class="fas fa-fingerprint text-5xl text-black mb-2"></i>
+                <h2 class="text-xl font-semibold text-black">Secure Access</h2>
                 <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center">
                 <button id="send-otp-btn" class="cta-btn w-full">Send Access Code</button>
                 <div id="otp-box" class="hidden space-y-4 pt-6 border-t border-gray-100">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-xl tracking-[0.3em] font-mono">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-2xl tracking-[0.3em] font-mono">
                     <button id="verify-otp-btn" class="cta-btn w-full">Verify & Unlock</button>
                 </div>
             </div>
@@ -252,15 +258,15 @@
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-3">
                             <input id="adm-hero-img" class="premium-input flex-1 text-xs" placeholder="Image URL">
-                            <button id="trigger-img-upload" class="bg-gray-50 px-4 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"><i class="fas fa-upload text-gray-500"></i></button>
+                            <button id="trigger-img-upload" class="bg-gray-50 px-4 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"><i class="fas fa-upload text-black"></i></button>
                         </div>
-                        <button id="open-img-gallery-btn" class="text-appleBlue text-xs font-medium mb-6 block hover:underline">Browse Premium Photos</button>
+                        <button id="open-img-gallery-btn" class="text-black text-xs font-semibold mb-6 block hover:underline">Browse Premium Photos</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-3">
                             <input id="adm-hero-vid" class="premium-input flex-1 text-xs" placeholder="Video URL">
-                            <button id="trigger-vid-upload" class="bg-gray-50 px-4 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"><i class="fas fa-upload text-gray-500"></i></button>
+                            <button id="trigger-vid-upload" class="bg-gray-50 px-4 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"><i class="fas fa-upload text-black"></i></button>
                         </div>
                     </div>
 
@@ -270,7 +276,7 @@
                     <input id="adm-hero-subtitle" class="premium-input mb-6 text-xs" placeholder="Hero Subtitle">
                 </div>
 
-                <!-- NEW: Homepage Sections Editor -->
+                <!-- Homepage Sections Editor -->
                 <div class="admin-card">
                     <h4 class="admin-label">Homepage Sections (Live Sync)</h4>
                     <div id="admin-sections-list" class="space-y-4"></div>
@@ -289,7 +295,7 @@
                 </div>
                 
                 <button id="push-global-btn" class="cta-btn w-full py-3">Publish Global Changes</button>
-                <button id="lock-admin-btn" class="w-full text-red-400 font-medium text-xs py-4 hover:bg-red-50 rounded-xl transition-all mt-2">Lock Admin Panel</button>
+                <button id="lock-admin-btn" class="w-full text-red-500 font-semibold text-xs py-4 hover:bg-red-50 rounded-xl transition-all mt-2">Lock Admin Panel</button>
             </div>
         </div>
     </div>
@@ -317,48 +323,48 @@
 
         <div class="hero-overlay"></div>
         <div data-aos="fade-up" data-aos-duration="1000" class="hero-content">
-            <h1 id="hero-title" class="text-5xl md:text-7xl font-light tracking-tight leading-[1.1] mb-6 text-white">Reclaim Your<br>Inner Peace</h1>
-            <p id="hero-subtitle" class="text-base md:text-lg text-white/70 mb-10 max-w-xl mx-auto font-light tracking-wide">Premium online counseling for mental excellence.</p>
-            <a href="#booking-section" class="cta-btn bg-white text-black hover:bg-gray-100">Start Your Journey</a>
+            <h1 id="hero-title" class="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1] mb-6 text-white">Reclaim Your<br>Inner Peace</h1>
+            <p id="hero-subtitle" class="text-lg md:text-xl text-white/80 mb-10 max-w-xl mx-auto font-medium tracking-wide">Premium online counseling for mental excellence.</p>
+            <a href="#booking-section" class="cta-btn-white">Start Your Journey</a>
         </div>
     </section>
 
-    <!-- Dynamic Homepage Sections -->
+    <!-- Dynamic Homepage Sections (Massive Premium Images) -->
     <div id="homepage-sections" class="bg-white">
         <!-- Rendered via JS to allow instant global updates -->
     </div>
 
     <!-- Detail Panel -->
     <div id="detail-panel">
-        <div class="max-w-3xl mx-auto px-6 py-32">
+        <div class="max-w-4xl mx-auto px-6 py-32">
             <div class="flex justify-between items-start mb-16">
                 <div>
-                    <h1 id="det-title" class="text-4xl md:text-5xl font-light tracking-tight text-appleDark mb-4"></h1>
-                    <div class="w-12 h-1 bg-black rounded-full"></div>
+                    <h1 id="det-title" class="text-4xl md:text-6xl font-semibold tracking-tight text-black mb-4"></h1>
+                    <div class="w-16 h-1 bg-black rounded-full"></div>
                 </div>
-                <button id="close-detail-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-100 transition-colors text-gray-400">&times;</button>
+                <button id="close-detail-btn" class="w-12 h-12 rounded-full flex items-center justify-center text-3xl hover:bg-gray-100 transition-colors text-black">&times;</button>
             </div>
             <div id="det-content" class="space-y-10"></div>
-            <div class="mt-24 pt-12 border-t border-gray-100 reveal-block">
-                <a href="#booking-section" id="book-now-btn" class="cta-btn">Book Your Session</a>
+            <div class="mt-24 pt-12 border-t border-gray-200 reveal-block text-center">
+                <a href="#booking-section" id="book-now-btn" class="cta-btn text-lg px-10 py-4">Book Your Session</a>
             </div>
         </div>
     </div>
 
     <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-6 md:px-16 bg-appleGray">
-        <div class="max-w-xl mx-auto bg-white p-8 md:p-12 rounded-[24px] shadow-sm border border-gray-100" data-aos="fade-up">
+        <div class="max-w-2xl mx-auto bg-white p-8 md:p-16 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100" data-aos="fade-up">
             <div id="booking-flow">
-                <form id="p-form" class="space-y-5">
-                    <div class="mb-8">
-                        <h2 class="text-2xl font-light tracking-tight mb-2 text-appleDark">Schedule Session</h2>
-                        <p class="text-gray-500 text-sm">Take the first step towards a healthier mind.</p>
+                <form id="p-form" class="space-y-6">
+                    <div class="mb-10 text-center">
+                        <h2 class="text-3xl font-semibold tracking-tight mb-2 text-black">Schedule Session</h2>
+                        <p class="text-gray-500 text-base font-medium">Take the first step towards a healthier mind.</p>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <input type="text" id="p_name" placeholder="Full Name" class="premium-input" required>
                         <input type="email" id="p_email" placeholder="Email Address" class="premium-input" required>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <input type="tel" id="p_wa" value="+91" class="premium-input" required>
                         <select id="p_counseling" class="premium-input" required>
                             <option value="Anxiety">Anxiety & Stress</option>
@@ -372,25 +378,25 @@
                         <option value="300">Audio Consultation - ₹300</option>
                         <option value="500">Video Consultation - ₹500</option>
                     </select>
-                    <textarea id="p_concern" placeholder="Briefly describe your concern..." class="premium-input h-24 resize-none" required></textarea>
-                    <button type="submit" class="cta-btn w-full mt-4">Proceed to Payment</button>
+                    <textarea id="p_concern" placeholder="Briefly describe your concern..." class="premium-input h-32 resize-none" required></textarea>
+                    <button type="submit" class="cta-btn w-full mt-4 py-4 text-lg">Proceed to Payment</button>
                 </form>
 
-                <div id="p-payment" class="hidden text-center space-y-6 py-4">
-                    <div class="max-w-[240px] mx-auto bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
-                        <img id="p-qr" src="" class="w-full rounded-xl" loading="lazy">
-                        <p id="p-upi-text" class="mt-3 text-gray-600 font-medium text-sm"></p>
+                <div id="p-payment" class="hidden text-center space-y-8 py-4">
+                    <div class="max-w-[260px] mx-auto bg-white p-5 rounded-3xl border border-gray-200 shadow-sm">
+                        <img id="p-qr" src="" class="w-full rounded-2xl" loading="lazy">
+                        <p id="p-upi-text" class="mt-4 text-black font-semibold text-base"></p>
                     </div>
-                    <div class="space-y-4">
-                        <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" maxlength="12" class="premium-input text-center tracking-widest text-sm uppercase">
-                        <button id="verify-payment-btn" class="cta-btn w-full">Verify Payment</button>
+                    <div class="space-y-5 max-w-sm mx-auto">
+                        <input type="text" id="p_utr" placeholder="12-DIGIT UTR ID" maxlength="12" class="premium-input text-center tracking-widest text-base uppercase font-semibold">
+                        <button id="verify-payment-btn" class="cta-btn w-full py-4">Verify Payment</button>
                     </div>
                 </div>
 
-                <div id="p-success" class="hidden space-y-6 text-center py-8">
-                    <div class="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-4"><i class="fas fa-check"></i></div>
-                    <h3 class="text-xl font-medium text-appleDark">Session Confirmed</h3>
-                    <p class="text-gray-500 text-sm">Our specialist will connect with you shortly on WhatsApp.</p>
+                <div id="p-success" class="hidden space-y-6 text-center py-10">
+                    <div class="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-6"><i class="fas fa-check"></i></div>
+                    <h3 class="text-2xl font-semibold text-black">Session Confirmed</h3>
+                    <p class="text-gray-500 text-lg font-medium">Our specialist will connect with you shortly on WhatsApp.</p>
                 </div>
             </div>
         </div>
@@ -400,29 +406,29 @@
     <div id="img-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-lg font-medium text-appleDark">Image Library</h3>
-                <button id="close-img-modal" class="text-2xl text-gray-400 hover:text-black transition-colors">&times;</button>
+                <h3 class="text-xl font-semibold text-black">Image Library</h3>
+                <button id="close-img-modal" class="text-3xl text-black hover:opacity-60 transition-opacity">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="py-16 text-center bg-white border-t border-gray-100">
-        <h2 class="text-lg font-medium tracking-tight mb-2 text-appleDark">Nexus Mind</h2>
-        <p class="text-gray-400 text-sm mb-8">Greater Noida, Uttar Pradesh, India</p>
-        <p class="text-[11px] text-gray-400 tracking-widest uppercase">© 2026 Nexus Mind. Absolute Confidentiality.</p>
+    <footer class="py-20 text-center bg-white border-t border-gray-200">
+        <h2 class="text-xl font-semibold tracking-tight mb-2 text-black">Nexus Mind</h2>
+        <p class="text-gray-500 text-sm mb-8">Greater Noida, Uttar Pradesh, India</p>
+        <p class="text-[11px] text-gray-400 tracking-widest uppercase font-semibold">© 2026 Nexus Mind. Absolute Confidentiality.</p>
     </footer>
 
     <script>
         // Premium High-Quality Images for Sections
         const premiumImages =[
-            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Relationship", url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Sleep", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Trauma", url: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Career", url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" },
-            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=800&q=80" }
+            { tag: "Anxiety", url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1200&q=80" },
+            { tag: "Relationship", url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1200&q=80" },
+            { tag: "Sleep", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" },
+            { tag: "Trauma", url: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1200&q=80" },
+            { tag: "Career", url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80" },
+            { tag: "Nature", url: "https://images.unsplash.com/photo-1470071131384-001b85755b36?auto=format&fit=crop&w=1200&q=80" }
         ];
 
         // Unified Data Structure for Instant Global Sync
@@ -454,7 +460,7 @@
         };
 
         let currentOTP = null;
-        let activeImageInputId = null; // To track which input triggered the gallery
+        let activeImageInputId = null; 
 
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -561,18 +567,23 @@
             `).join('');
         }
 
+        // MASSIVE APPLE-STYLE CINEMATIC IMAGES FOR HOMEPAGE
         function renderHomepageSections() {
             const container = document.getElementById('homepage-sections');
             container.innerHTML = Object.keys(nexusConfig.sections).map((key, index) => {
                 const sec = nexusConfig.sections[key];
                 const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-appleGray';
                 return `
-                <section class="py-32 px-6 md:px-16 ${bgClass} relative z-10 transition-all duration-500">
-                    <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
-                        <img src="${sec.img}" class="w-24 h-24 md:w-28 md:h-28 object-cover rounded-2xl mx-auto mb-8 shadow-sm border border-gray-100" alt="${sec.title}">
-                        <h2 class="text-3xl md:text-4xl font-light tracking-tight mb-6 text-appleDark">${sec.title}</h2>
-                        <p class="text-base text-gray-500 max-w-xl mx-auto leading-relaxed mb-10">${sec.desc}</p>
-                        <button class="cta-btn-outline" onclick="openDetail('${key}')">Explore Approach</button>
+                <section class="py-24 px-6 md:px-16 ${bgClass} relative z-10">
+                    <div class="max-w-6xl mx-auto" data-aos="fade-up">
+                        <div class="rounded-[2rem] overflow-hidden shadow-2xl relative group cursor-pointer" onclick="openDetail('${key}')">
+                            <img src="${sec.img}" class="w-full h-[400px] md:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105" alt="${sec.title}">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-16">
+                                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-4 text-white">${sec.title}</h2>
+                                <p class="text-lg text-white/80 max-w-2xl leading-relaxed mb-8">${sec.desc}</p>
+                                <div><button class="cta-btn-white">Explore Approach</button></div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 `;
@@ -657,7 +668,7 @@
                     <h5 class="font-medium text-xs mb-3 text-gray-600">${key} Section</h5>
                     <div class="flex gap-2 mb-2">
                         <input type="text" id="sec-img-${key}" class="premium-input text-xs flex-1 bg-white" placeholder="Image URL" value="${sec.img}" onchange="updateLocalConfig()">
-                        <button onclick="openImgGallery('sec-img-${key}')" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-50"><i class="fas fa-image text-gray-500"></i></button>
+                        <button onclick="openImgGallery('sec-img-${key}')" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-50"><i class="fas fa-image text-black"></i></button>
                     </div>
                     <input type="text" id="sec-title-${key}" class="premium-input text-xs mb-2 bg-white" placeholder="Title" value="${sec.title}" onchange="updateLocalConfig()">
                     <textarea id="sec-desc-${key}" class="premium-input text-xs h-16 bg-white" placeholder="Description" onchange="updateLocalConfig()">${sec.desc}</textarea>
@@ -780,7 +791,7 @@
             document.getElementById('det-content').innerHTML = det.blocks.map(b => {
                 if(b.type === 'text') return `<p class="reveal-block text-lg text-gray-500 leading-relaxed">${b.content}</p>`;
                 if(b.type === 'image') return `<div class="reveal-block"><img src="${b.url}" loading="lazy" class="w-full rounded-3xl h-[300px] md:h-[400px] object-cover shadow-sm border border-gray-100"></div>`;
-                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl font-medium text-appleDark mt-8">${b.content}</h3>`;
+                if(b.type === 'heading') return `<h3 class="reveal-block text-2xl font-medium text-black mt-8">${b.content}</h3>`;
                 if(b.type === 'list') return `<ul class="reveal-block space-y-3 bg-gray-50 p-8 rounded-3xl border border-gray-100">${b.items.map(i => `<li class="text-base flex gap-4 text-gray-600"><i class="fas fa-check text-gray-400 mt-1"></i> ${i}</li>`).join('')}</ul>`;
             }).join('');
             
