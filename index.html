@@ -48,10 +48,18 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
+        /* STRICT VERTICAL SCROLL ONLY */
         html, body { 
-            overflow-x: hidden; 
+            overflow-x: hidden !important; 
             overscroll-behavior-x: none; 
             width: 100%; 
+            max-width: 100vw;
+            position: relative;
+        }
+
+        .main-wrapper {
+            overflow-x: hidden;
+            width: 100%;
             position: relative;
         }
 
@@ -107,47 +115,58 @@
 
         /* PANEL OVERLAY */
         .panel-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
             z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
         .panel-overlay.active { opacity: 1; pointer-events: auto; backdrop-filter: blur(4px); }
 
-        /* LEFT SLIDE MENU */
+        /* LEFT SLIDE MENU (DARK MODE) */
         #counseling-menu { 
             position: fixed; top: 0; left: 0; height: 100vh; width: 85%; max-width: 400px; 
-            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(20px);
             z-index: 3000; overflow-y: auto;
-            border-right: 1px solid rgba(0,0,0,0.05); box-shadow: 10px 0 40px rgba(0,0,0,0.04);
+            border-right: 1px solid rgba(255,255,255,0.1); box-shadow: 10px 0 40px rgba(0,0,0,0.5);
             transform: translateX(-100%); visibility: hidden;
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
         }
         #counseling-menu.active { transform: translateX(0); visibility: visible; }
 
-        /* ADMIN PANEL (Right Slide) */
+        /* ADMIN PANEL (DARK MODE) */
         #admin-panel { 
             position: fixed; top: 0; right: 0; height: 100vh; width: 85%; max-width: 400px; 
-            background: #ffffff; z-index: 3000; overflow-y: auto;
-            border-left: 1px solid rgba(0,0,0,0.05); box-shadow: -10px 0 40px rgba(0,0,0,0.04);
+            background: #000000; z-index: 3000; overflow-y: auto;
+            border-left: 1px solid rgba(255,255,255,0.1); box-shadow: -10px 0 40px rgba(0,0,0,0.5);
             transform: translateX(100%); visibility: hidden;
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
         }
         #admin-panel.active { transform: translateX(0); visibility: visible; }
 
-        /* MENU ITEMS */
+        /* MENU ITEMS (DARK MODE) */
         .apple-menu-item {
             display: flex; align-items: center; justify-content: space-between; padding: 18px 0; 
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-            transition: all 0.2s ease; cursor: pointer; font-weight: 600; font-size: 17px; color: #000000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease; cursor: pointer; font-weight: 600; font-size: 17px; color: #ffffff;
         }
         .apple-menu-item:hover { color: #0066cc; padding-left: 8px; }
         .apple-menu-item:last-child { border-bottom: none; }
 
-        /* PREMIUM INPUTS */
+        /* LIGHT INPUTS (For Booking Form) */
         .premium-input { 
             background: #f5f5f7; border: 1px solid transparent; border-radius: 12px; 
             padding: 14px 18px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #000000; font-family: 'Inter', sans-serif;
         }
         .premium-input:focus { border-color: #000000; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
+
+        /* DARK INPUTS (For Admin Panel) */
+        .admin-input {
+            background: #111111; border: 1px solid #333333; border-radius: 12px; 
+            padding: 14px 18px; width: 100%; font-size: 15px; transition: all 0.3s ease; color: #ffffff; font-family: 'Inter', sans-serif;
+        }
+        .admin-input:focus { border-color: #ffffff; outline: none; background: #000000; box-shadow: 0 0 0 3px rgba(255,255,255,0.1); }
+
+        /* ADMIN CARDS (DARK MODE) */
+        .admin-card { background: #0a0a0a; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid #222222; }
+        .admin-label { font-size: 11px; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
 
         /* MODALS */
         .modal-overlay { 
@@ -175,17 +194,15 @@
         .reveal-block { opacity: 0; transform: translateY(15px); transition: all 0.6s ease-out; }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
-        /* ADMIN CARDS */
-        .admin-card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .admin-label { font-size: 11px; font-weight: 700; color: #86868b; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #000000; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
+
+<div class="main-wrapper">
 
     <!-- Hidden File Inputs -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
@@ -213,15 +230,15 @@
     <!-- Panel Overlay -->
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- Left Slide Counseling Menu -->
+    <!-- Left Slide Counseling Menu (DARK MODE) -->
     <div id="counseling-menu">
         <div class="p-8 md:p-12">
             <div class="flex justify-between items-center mb-10">
-                <h3 class="text-2xl font-bold tracking-tight text-black">Areas of Focus</h3>
-                <button id="close-menu-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-100 transition-colors text-black">&times;</button>
+                <h3 class="text-2xl font-bold tracking-tight text-white">Areas of Focus</h3>
+                <button id="close-menu-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-800 transition-colors text-white">&times;</button>
             </div>
             <div id="menu-items-container" class="space-y-2"></div>
-            <div class="mt-12 pt-8 border-t border-gray-200 flex gap-6">
+            <div class="mt-12 pt-8 border-t border-gray-800 flex gap-6">
                 <!-- Natural Social Media Colors -->
                 <a href="#" class="hover:opacity-80 transition-opacity" style="color: #E1306C;"><i class="fab fa-instagram text-3xl"></i></a>
                 <a href="#" class="hover:opacity-80 transition-opacity" style="color: #0A66C2;"><i class="fab fa-linkedin text-3xl"></i></a>
@@ -230,52 +247,52 @@
         </div>
     </div>
 
-    <!-- Admin Panel Sidebar -->
+    <!-- Admin Panel Sidebar (DARK MODE) -->
     <div id="admin-panel">
-        <div class="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-5 flex justify-between items-center">
-            <h3 class="font-bold text-lg text-black">Admin Control</h3>
-            <button id="close-admin-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-100 transition-colors text-black">&times;</button>
+        <div class="sticky top-0 z-10 bg-black/90 backdrop-blur-md border-b border-gray-800 px-6 py-5 flex justify-between items-center">
+            <h3 class="font-bold text-lg text-white">Admin Control</h3>
+            <button id="close-admin-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-2xl hover:bg-gray-800 transition-colors text-white">&times;</button>
         </div>
         
         <div class="p-6">
             <div id="admin-login-section" class="space-y-6 text-center mt-10">
-                <i class="fas fa-fingerprint text-5xl text-black mb-2"></i>
-                <h2 class="text-xl font-bold text-black">Secure Access</h2>
-                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="premium-input text-center">
-                <button id="send-otp-btn" class="cta-btn w-full">Send Access Code</button>
-                <div id="otp-box" class="hidden space-y-4 pt-6 border-t border-gray-100">
-                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="premium-input text-center text-2xl tracking-[0.3em] font-mono">
-                    <button id="verify-otp-btn" class="cta-btn w-full">Verify & Unlock</button>
+                <i class="fas fa-fingerprint text-5xl text-white mb-2"></i>
+                <h2 class="text-xl font-bold text-white">Secure Access</h2>
+                <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="admin-input text-center">
+                <button id="send-otp-btn" class="cta-btn-white w-full">Send Access Code</button>
+                <div id="otp-box" class="hidden space-y-4 pt-6 border-t border-gray-800">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="admin-input text-center text-2xl tracking-[0.3em] font-mono">
+                    <button id="verify-otp-btn" class="cta-btn-white w-full">Verify & Unlock</button>
                 </div>
             </div>
             
             <div id="admin-main-controls" class="hidden space-y-6 pb-20">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Media Engine</h4>
-                    <select id="adm-hero-type" class="premium-input mb-4 text-sm font-semibold">
+                    <select id="adm-hero-type" class="admin-input mb-4 text-sm font-semibold">
                         <option value="image">Static Image</option>
                         <option value="video">Background Video</option>
                     </select>
                     
                     <div id="adm-img-ui">
                         <div class="flex gap-2 mb-3">
-                            <input id="adm-hero-img" class="premium-input flex-1 text-xs" placeholder="Image URL">
-                            <button id="trigger-img-upload" class="bg-gray-50 px-4 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"><i class="fas fa-upload text-black"></i></button>
+                            <input id="adm-hero-img" class="admin-input flex-1 text-xs" placeholder="Image URL">
+                            <button id="trigger-img-upload" class="bg-[#222] px-4 rounded-xl border border-gray-700 hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
                         </div>
-                        <button id="open-img-gallery-btn" class="text-black text-xs font-bold mb-6 block hover:underline">Browse Premium Photos</button>
+                        <button id="open-img-gallery-btn" class="text-white text-xs font-bold mb-6 block hover:underline">Browse Premium Photos</button>
                     </div>
 
                     <div id="adm-vid-ui" class="hidden">
                         <div class="flex gap-2 mb-3">
-                            <input id="adm-hero-vid" class="premium-input flex-1 text-xs" placeholder="Video URL">
-                            <button id="trigger-vid-upload" class="bg-gray-50 px-4 rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"><i class="fas fa-upload text-black"></i></button>
+                            <input id="adm-hero-vid" class="admin-input flex-1 text-xs" placeholder="Video URL">
+                            <button id="trigger-vid-upload" class="bg-[#222] px-4 rounded-xl border border-gray-700 hover:bg-[#333] transition-colors"><i class="fas fa-upload text-white"></i></button>
                         </div>
                     </div>
 
                     <label class="admin-label">Hero Title</label>
-                    <textarea id="adm-hero-title" class="premium-input h-16 mb-4 text-xs" placeholder="Hero Title"></textarea>
+                    <textarea id="adm-hero-title" class="admin-input h-16 mb-4 text-xs" placeholder="Hero Title"></textarea>
                     <label class="admin-label">Hero Subtitle</label>
-                    <input id="adm-hero-subtitle" class="premium-input mb-6 text-xs" placeholder="Hero Subtitle">
+                    <input id="adm-hero-subtitle" class="admin-input mb-6 text-xs" placeholder="Hero Subtitle">
                 </div>
 
                 <!-- Homepage Sections Editor -->
@@ -291,13 +308,13 @@
 
                 <div class="admin-card">
                     <h4 class="admin-label">Global Settings</h4>
-                    <input id="adm-wa" class="premium-input mb-3 text-xs" placeholder="WhatsApp (+91...)">
-                    <input id="adm-upi" class="premium-input mb-3 text-xs" placeholder="UPI ID">
-                    <input id="adm-email" class="premium-input mb-6 text-xs" placeholder="Admin Email">
+                    <input id="adm-wa" class="admin-input mb-3 text-xs" placeholder="WhatsApp (+91...)">
+                    <input id="adm-upi" class="admin-input mb-3 text-xs" placeholder="UPI ID">
+                    <input id="adm-email" class="admin-input mb-6 text-xs" placeholder="Admin Email">
                 </div>
                 
-                <button id="push-global-btn" class="cta-btn w-full py-3">Publish Global Changes</button>
-                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-4 hover:bg-red-50 rounded-xl transition-all mt-2">Lock Admin Panel</button>
+                <button id="push-global-btn" class="cta-btn-white w-full py-3">Publish Global Changes</button>
+                <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-xs py-4 hover:bg-red-900/20 rounded-xl transition-all mt-2">Lock Admin Panel</button>
             </div>
         </div>
     </div>
@@ -331,7 +348,7 @@
         </div>
     </section>
 
-    <!-- Dynamic Homepage Sections (TCS Style Alternating Black/White) -->
+    <!-- Dynamic Homepage Sections (TCS Style Alternating White/Black) -->
     <div id="homepage-sections">
         <!-- Rendered via JS to allow instant global updates -->
     </div>
@@ -415,11 +432,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="py-20 text-center bg-white border-t border-gray-200">
-        <div class="w-12 h-12 bg-black text-white font-extrabold flex items-center justify-center rounded-md text-xl mx-auto mb-6 shadow-lg">NM</div>
-        <h2 class="text-2xl font-bold tracking-widest uppercase mb-2 text-black">Nexus Mind</h2>
-        <p class="text-gray-500 text-sm mb-10 font-medium">Greater Noida, Uttar Pradesh, India</p>
+    <!-- Footer (BLACK BACKGROUND, WHITE TEXT) -->
+    <footer class="py-20 text-center bg-black border-t border-gray-900">
+        <div class="w-12 h-12 bg-white text-black font-extrabold flex items-center justify-center rounded-md text-xl mx-auto mb-6 shadow-lg">NM</div>
+        <h2 class="text-2xl font-bold tracking-widest uppercase mb-2 text-white">Nexus Mind</h2>
+        <p class="text-gray-400 text-sm mb-10 font-medium">Greater Noida, Uttar Pradesh, India</p>
         
         <div class="flex justify-center gap-8 mb-12">
             <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #E1306C;"><i class="fab fa-instagram text-3xl"></i></a>
@@ -427,8 +444,10 @@
             <a href="#" class="hover:opacity-80 transition-opacity transform hover:scale-110" style="color: #25D366;"><i class="fab fa-whatsapp text-3xl"></i></a>
         </div>
 
-        <p class="text-[11px] text-gray-400 tracking-widest uppercase font-bold">© 2026 Nexus Mind. Absolute Confidentiality.</p>
+        <p class="text-[11px] text-gray-500 tracking-widest uppercase font-bold">© 2026 Nexus Mind. Absolute Confidentiality.</p>
     </footer>
+
+</div> <!-- End Main Wrapper -->
 
     <script>
         // Premium High-Quality Images for Sections
@@ -572,17 +591,17 @@
             container.innerHTML = Object.keys(nexusConfig.sections).map(key => `
                 <div class="apple-menu-item" onclick="openDetail('${key}')">
                     <span>${nexusConfig.sections[key].title}</span>
-                    <i class="fas fa-chevron-right text-gray-300 text-xs"></i>
+                    <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
                 </div>
             `).join('');
         }
 
-        // TCS STYLE ALTERNATING SECTIONS WITH MEDIUM IMAGES
+        // TCS STYLE ALTERNATING SECTIONS (0=White, 1=Black, 2=White...)
         function renderHomepageSections() {
             const container = document.getElementById('homepage-sections');
             container.innerHTML = Object.keys(nexusConfig.sections).map((key, index) => {
                 const sec = nexusConfig.sections[key];
-                const isDark = index % 2 === 0; // Alternates Black and White
+                const isDark = index % 2 !== 0; // 0 is White, 1 is Black, 2 is White...
                 const bgClass = isDark ? 'bg-[#050505]' : 'bg-white';
                 const textClass = isDark ? 'text-white' : 'text-black';
                 const descClass = isDark ? 'text-gray-400' : 'text-gray-600';
@@ -678,35 +697,35 @@
             document.getElementById('adm-hero-subtitle').value = h.subtitle;
             toggleHeroAdminUI();
 
-            // Sections
+            // Sections (DARK MODE ADMIN)
             const secContainer = document.getElementById('admin-sections-list');
             secContainer.innerHTML = Object.keys(nexusConfig.sections).map(key => {
                 const sec = nexusConfig.sections[key];
                 return `
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <h5 class="font-bold text-xs mb-3 text-gray-600">${key} Section</h5>
+                <div class="bg-[#111] p-4 rounded-xl border border-gray-800">
+                    <h5 class="font-bold text-xs mb-3 text-gray-300">${key} Section</h5>
                     <div class="flex gap-2 mb-2">
-                        <input type="text" id="sec-img-${key}" class="premium-input text-xs flex-1 bg-white" placeholder="Image URL" value="${sec.img}" onchange="updateLocalConfig()">
-                        <button onclick="openImgGallery('sec-img-${key}')" class="bg-white px-3 rounded-xl border border-gray-200 hover:bg-gray-50"><i class="fas fa-image text-black"></i></button>
+                        <input type="text" id="sec-img-${key}" class="admin-input text-xs flex-1" placeholder="Image URL" value="${sec.img}" onchange="updateLocalConfig()">
+                        <button onclick="openImgGallery('sec-img-${key}')" class="bg-[#222] px-3 rounded-xl border border-gray-700 hover:bg-[#333]"><i class="fas fa-image text-white"></i></button>
                     </div>
-                    <input type="text" id="sec-title-${key}" class="premium-input text-xs mb-2 bg-white font-bold" placeholder="Title" value="${sec.title}" onchange="updateLocalConfig()">
-                    <textarea id="sec-desc-${key}" class="premium-input text-xs h-16 bg-white" placeholder="Description" onchange="updateLocalConfig()">${sec.desc}</textarea>
+                    <input type="text" id="sec-title-${key}" class="admin-input text-xs mb-2 font-bold" placeholder="Title" value="${sec.title}" onchange="updateLocalConfig()">
+                    <textarea id="sec-desc-${key}" class="admin-input text-xs h-16" placeholder="Description" onchange="updateLocalConfig()">${sec.desc}</textarea>
                 </div>`;
             }).join('');
 
-            // Details
+            // Details (DARK MODE ADMIN)
             const detContainer = document.getElementById('admin-counseling-list');
             detContainer.innerHTML = Object.keys(nexusConfig.details).map(key => {
                 const blocks = nexusConfig.details[key].blocks.map((b, i) => `
-                    <div class="bg-white p-3 rounded-xl mb-2 border border-gray-100">
+                    <div class="bg-[#111] p-3 rounded-xl mb-2 border border-gray-800">
                         <div class="flex justify-between mb-2">
-                            <span class="text-[10px] font-bold uppercase text-gray-400">${b.type}</span>
-                            <button onclick="removeBlock('${key}', ${i})" class="text-red-400 hover:text-red-600 text-xs"><i class="fas fa-times"></i></button>
+                            <span class="text-[10px] font-bold uppercase text-gray-500">${b.type}</span>
+                            <button onclick="removeBlock('${key}', ${i})" class="text-red-500 hover:text-red-400 text-xs"><i class="fas fa-times"></i></button>
                         </div>
-                        <textarea class="premium-input text-xs h-12 bg-gray-50" onchange="updateBlock('${key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                        <textarea class="admin-input text-xs h-12 bg-[#0a0a0a]" onchange="updateBlock('${key}', ${i}, this.value)">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
                     </div>
                 `).join('');
-                return `<div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><h5 class="font-bold text-xs mb-3 text-gray-600">${key} Details</h5>${blocks}<button onclick="addBlock('${key}')" class="text-appleBlue text-[11px] font-bold hover:underline">+ Add Block</button></div>`;
+                return `<div class="bg-[#111] p-4 rounded-xl border border-gray-800"><h5 class="font-bold text-xs mb-3 text-gray-300">${key} Details</h5>${blocks}<button onclick="addBlock('${key}')" class="text-appleBlue text-[11px] font-bold hover:underline">+ Add Block</button></div>`;
             }).join('');
         }
 
@@ -761,8 +780,14 @@
                 window.db.ref('nexusData').set(nexusConfig).then(() => {
                     const btn = document.getElementById('push-global-btn');
                     btn.innerText = "Published Successfully!";
-                    btn.classList.add('bg-green-500');
-                    setTimeout(() => { btn.innerText = "Publish Global Changes"; btn.classList.remove('bg-green-500'); }, 2000);
+                    btn.classList.add('bg-green-600');
+                    btn.classList.remove('bg-white', 'text-black');
+                    btn.classList.add('text-white');
+                    setTimeout(() => { 
+                        btn.innerText = "Publish Global Changes"; 
+                        btn.classList.remove('bg-green-600', 'text-white'); 
+                        btn.classList.add('bg-white', 'text-black');
+                    }, 2000);
                 });
             } else {
                 alert("Saved Locally (Firebase not connected)");
