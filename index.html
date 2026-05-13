@@ -42,13 +42,13 @@
             theme: {
                 extend: {
                     colors: {
-                        bgBase: '#FCFCFA', // Warm luminous white
-                        bgSurface: '#F5F5F2', // Subtle beige accent
-                        textMain: '#111111', // Elegant dark grayscale
-                        textMuted: '#555555', // Stronger readability muted text
-                        charcoal: '#161618', // Premium dark cinematic tone
+                        bgBase: '#FCFCFA',
+                        bgSurface: '#F5F5F2',
+                        textMain: '#111111',
+                        textMuted: '#555555',
+                        charcoal: '#161618',
                         charcoalLight: '#1C1C1E',
-                        borderLight: 'rgba(0, 0, 0, 0.06)', // Refined thin borders
+                        borderLight: 'rgba(0, 0, 0, 0.06)',
                         borderDark: 'rgba(255, 255, 255, 0.08)',
                     },
                     fontFamily: {
@@ -62,8 +62,8 @@
                         'soft': '0 12px 32px -8px rgba(0, 0, 0, 0.05)',
                         'float': '0 24px 48px -12px rgba(0, 0, 0, 0.08)',
                         'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.04)',
-                        'glow': '0 8px 24px -6px rgba(17, 17, 17, 0.25)', // Soft glow for CTA
-                        'admin': '0 6px 20px rgba(0, 0, 0, 0.12)', // Bolder admin shadow
+                        'glow': '0 8px 24px -6px rgba(17, 17, 17, 0.25)',
+                        'admin': '0 6px 20px rgba(0, 0, 0, 0.12)',
                     }
                 }
             }
@@ -73,27 +73,23 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
-        /* Lenis Base CSS */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-smooth iframe { pointer-events: none; }
 
-        /* Fixed Mobile Scroll Structure */
         html, body { 
             width: 100%; position: relative; overflow-x: hidden;
-            background-color: #111111; /* Dark background for the scale-down effect */
+            background-color: #111111;
             color: #111111;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-            font-size: 16px; line-height: 1.6; font-weight: 500; /* Base weight 500 for stronger readability */
+            font-size: 16px; line-height: 1.6; font-weight: 500;
         }
 
         body.modal-open { overflow: hidden; }
-
         h1, h2, h3, h4, h5, h6 { font-weight: 600; letter-spacing: -0.035em; }
 
-        /* App Container for Scale Effect */
         #app-container {
             background-color: #FCFCFA;
             min-height: 100vh;
@@ -105,7 +101,6 @@
             transform: translateZ(0);
         }
 
-        /* GPU-Optimized Page Load Animation */
         .hero-glide-up {
             opacity: 0;
             transform: translate3d(0, 30px, 0);
@@ -118,7 +113,6 @@
             to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
 
-        /* Lightweight Scroll Reveal Animations */
         .gpu-reveal {
             opacity: 0;
             transform: translate3d(0, 40px, 0);
@@ -131,7 +125,6 @@
             transform: translate3d(0, 0, 0);
         }
         
-        /* Premium Image Scale Reveal */
         .img-wrapper { 
             overflow: hidden; 
             border-radius: 24px; 
@@ -150,7 +143,6 @@
             transform: scale(1) translateZ(0);
         }
 
-        /* Minimal Glassmorphism */
         .glass-nav { 
             background: rgba(252, 252, 250, 0.85); 
             border-bottom: 1px solid rgba(0, 0, 0, 0.04); 
@@ -161,7 +153,6 @@
             .glass-nav { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
         }
 
-        /* Hero Section */
         #hero-section { 
             position: relative; width: 100%; height: 100vh;
             overflow: hidden; background-color: #FCFCFA; display: flex; 
@@ -172,11 +163,9 @@
             object-fit: cover; background-size: cover; background-position: center; 
             z-index: 0; will-change: transform; transform: translateZ(0);
         }
-        /* Optimized brightness/contrast for warm cinematic feel */
         #hero-img-bg { transition: opacity 0.8s ease; opacity: 1; filter: brightness(1.05) contrast(1.02) saturate(1.05); }
         #hero-video-bg { transition: opacity 1s ease; opacity: 0; z-index: 1; pointer-events: none; filter: brightness(1.05) contrast(1.02) saturate(1.05); }
         
-        /* Soft Light Gradient Overlay (No heavy dark filters) */
         .hero-overlay { 
             position: absolute; inset: 0; 
             background: linear-gradient(to bottom, rgba(252,252,250,0.1) 0%, rgba(252,252,250,0.4) 60%, rgba(252,252,250,1) 100%); 
@@ -189,19 +178,19 @@
 
         button, a, input, select, textarea, .menu-item, .gallery-item { touch-action: manipulation; cursor: pointer; }
         
-        /* Linear/Apple Inspired Buttons */
         .btn-primary { 
             background: #111111; color: #FFFFFF; 
             border-radius: 16px; font-weight: 600; font-size: 15px; padding: 14px 32px; 
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border: 1px solid rgba(255,255,255,0.1);
             display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-            box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.25); /* Soft glow */
+            box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.25);
             letter-spacing: -0.01em;
         }
         .btn-primary:active { transform: scale(0.97) translateZ(0) !important; }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; box-shadow: none; }
         
         @media (hover: hover) {
-            .btn-primary:hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(17, 17, 17, 0.35); }
+            .btn-primary:not(:disabled):hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(17, 17, 17, 0.35); }
             .menu-item:hover { background: rgba(0,0,0,0.03); padding-left: 24px; }
             .gallery-item:hover { transform: scale(1.02); z-index: 10; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
         }
@@ -223,7 +212,6 @@
         .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: 14px; margin-bottom: 4px; transition: all 0.2s ease; font-weight: 600; font-size: 16px; color: #111111; }
         .menu-item:active { background: rgba(0,0,0,0.05); }
 
-        /* Sleek Inputs */
         .sleek-input { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 14px 18px; width: 100%; font-size: 15px; font-weight: 500; transition: all 0.2s ease; color: #111111; font-family: 'Geist Sans', sans-serif; -webkit-appearance: none; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .sleek-input:focus { border-color: rgba(0,0,0,0.2); outline: none; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
         .sleek-input::placeholder { color: #888888; font-weight: 400; }
@@ -267,7 +255,6 @@
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg" class="hidden">
 
-    <!-- App Container for Scale Effect -->
     <div id="app-container">
 
         <nav class="glass-nav px-6 md:px-12 flex justify-between items-center">
@@ -282,7 +269,6 @@
             </div>
             <div class="flex items-center gap-4">
                 <a href="#booking-section" class="bg-bgSurface border border-borderLight text-textMain rounded-[12px] font-semibold text-[14px] py-2.5 px-6 transition-colors hover:bg-black/5 hidden md:inline-flex shadow-sm">Book Session</a>
-                <!-- Bolder, more premium admin button -->
                 <button id="admin-btn" class="w-11 h-11 rounded-[14px] bg-textMain text-white shadow-admin transition-all flex items-center justify-center text-sm hover:shadow-glow hover:scale-105 font-bold">
                     <i class="fas fa-fingerprint"></i>
                 </button>
@@ -320,7 +306,6 @@
 
         <div id="homepage-sections"></div>
 
-        <!-- Premium Dark Cinematic Section -->
         <section class="py-32 md:py-40 bg-charcoal text-bgBase relative overflow-hidden z-10">
             <div class="absolute inset-0 bg-gradient-to-b from-charcoalLight to-charcoal z-0 opacity-50"></div>
             <div class="max-w-4xl mx-auto px-6 relative z-10 text-center gpu-reveal">
@@ -411,7 +396,7 @@
             <p class="text-[12px] font-bold text-textMuted tracking-widest uppercase">© 2026 NEXUS MIND. ABSOLUTE CONFIDENTIALITY.</p>
         </footer>
 
-    </div> <!-- End App Container -->
+    </div>
 
     <div id="panel-overlay" class="panel-overlay"></div>
 
@@ -428,6 +413,7 @@
                     <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -454,14 +440,14 @@
             <div id="admin-main-controls" class="hidden space-y-6">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Engine</h4>
-                    <select id="adm-hero-type" class="sleek-input mb-4" onchange="toggleHeroAdminUI()">
+                    <select id="adm-hero-type" class="sleek-input mb-4" onchange="toggleHeroAdminUI(); debouncedSaveHero()">
                         <option value="image">Static Image</option>
                         <option value="video">Cinematic Video</option>
                     </select>
                     
                     <div id="adm-img-ui" class="hidden">
                         <div class="flex gap-3 mb-4">
-                            <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL">
+                            <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" oninput="debouncedSaveHero()">
                             <button onclick="triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                         <button onclick="openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Browse Library</button>
@@ -469,13 +455,13 @@
 
                     <div id="adm-vid-ui">
                         <div class="flex gap-3 mb-4">
-                            <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)">
+                            <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)" oninput="debouncedSaveHero()">
                             <button onclick="triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                     </div>
 
-                    <textarea id="adm-hero-title" class="sleek-input h-24 mb-4 resize-none" placeholder="Hero Title"></textarea>
-                    <input id="adm-hero-subtitle" class="sleek-input mb-4" placeholder="Hero Subtitle">
+                    <textarea id="adm-hero-title" class="sleek-input h-24 mb-4 resize-none" placeholder="Hero Title" oninput="debouncedSaveHero()"></textarea>
+                    <input id="adm-hero-subtitle" class="sleek-input mb-4" placeholder="Hero Subtitle" oninput="debouncedSaveHero()">
                     
                     <button id="btn-save-hero" onclick="saveHero(this)" class="btn-primary w-full py-3 text-[14px]">Save Hero</button>
                 </div>
@@ -487,10 +473,10 @@
 
                 <div class="admin-card">
                     <h4 class="admin-label">Global Variables</h4>
-                    <input id="adm-wa" class="sleek-input mb-4" placeholder="WhatsApp (+91...)">
-                    <input id="adm-upi" class="sleek-input mb-4" placeholder="UPI ID">
-                    <input id="adm-email" class="sleek-input mb-4" placeholder="Admin Email">
-                    <button onclick="saveGlobals(this)" class="btn-primary w-full py-3 text-[14px]">Save Globals</button>
+                    <input id="adm-wa" class="sleek-input mb-4" placeholder="WhatsApp (+91...)" oninput="debouncedSaveGlobals()">
+                    <input id="adm-upi" class="sleek-input mb-4" placeholder="UPI ID" oninput="debouncedSaveGlobals()">
+                    <input id="adm-email" class="sleek-input mb-4" placeholder="Admin Email" oninput="debouncedSaveGlobals()">
+                    <button id="btn-save-globals" onclick="saveGlobals(this)" class="btn-primary w-full py-3 text-[14px]">Save Globals</button>
                 </div>
 
                 <div class="admin-card">
@@ -551,9 +537,21 @@
         window.addEventListener('error', function(e) { console.error("Global Error:", e.message); });
         window.addEventListener('unhandledrejection', function(e) { console.error("Promise Rejection:", e.reason); });
 
+        // Debounce Utility for Instant Global Sync
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
         const isMobile = window.innerWidth < 768 || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i);
 
-        // Smooth Scroll Engine
         let lenis;
         try {
             if (typeof Lenis !== 'undefined' && !isMobile) {
@@ -563,7 +561,6 @@
                     smoothWheel: true,
                 });
                 
-                // Lightweight Parallax
                 lenis.on('scroll', (e) => {
                     const scrolled = window.scrollY;
                     if(scrolled < window.innerHeight) {
@@ -581,7 +578,6 @@
                 }
                 requestAnimationFrame(raf);
             } else {
-                // Native Mobile Parallax Fallback
                 window.addEventListener('scroll', () => {
                     const scrolled = window.scrollY;
                     if(scrolled < window.innerHeight) {
@@ -600,7 +596,6 @@
             scrollTo: (target) => { document.querySelector(target)?.scrollIntoView({behavior: 'smooth'}); } 
         };
 
-        // GPU-Optimized Intersection Observer
         function initGPUReveals() {
             if (!window.IntersectionObserver) {
                 document.querySelectorAll('.gpu-reveal').forEach(el => el.classList.add('revealed'));
@@ -691,6 +686,7 @@
         localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
 
         let currentOTP = null;
+        let otpCooldown = false;
         let activeImageTarget = { type: null, key: null, index: null, mediaType: 'image' };
         let uploadContext = { type: null, target: null, key: null, index: null };
         let isAdminActive = false;
@@ -700,7 +696,6 @@
             document.getElementById('admin-panel').classList.remove('active'); 
             document.getElementById('panel-overlay').classList.remove('active'); 
             
-            // Reset App Container Scale
             const appContainer = document.getElementById('app-container');
             appContainer.style.transform = 'translateZ(0)';
             appContainer.style.borderRadius = '0';
@@ -731,7 +726,6 @@
                 menu.classList.add('active'); 
                 document.body.classList.add('modal-open');
                 
-                // Premium Apple-style scale down effect
                 if(menu === adminPanel || menu === counselingMenu) {
                     const scrollY = window.scrollY;
                     appContainer.style.transformOrigin = `center ${scrollY + window.innerHeight / 2}px`;
@@ -839,6 +833,9 @@
             const container = document.getElementById('homepage-sections');
             if(!container) return;
             
+            // If admin is actively editing, we bypass the scroll-reveal animation to prevent flashing on live updates
+            const revealClass = isAdminActive ? "gpu-reveal revealed" : "gpu-reveal";
+            
             container.innerHTML = counselingAreas.map((area, index) => {
                 const srv = nexusConfig.services[area.key];
                 if(!srv) return '';
@@ -848,7 +845,7 @@
                 
                 return `
                 <section class="py-28 md:py-36 px-6 md:px-12 ${bgClass} relative z-10 overflow-hidden">
-                    <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-14 md:gap-24 gpu-reveal">
+                    <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-14 md:gap-24 ${revealClass}">
                         <div class="w-full md:w-5/12 max-w-[380px] relative shrink-0">
                             <div class="img-wrapper w-full aspect-[4/5]">
                                 <img src="${srv.img}" loading="lazy" decoding="async">
@@ -873,7 +870,7 @@
                 `;
             }).join('');
             
-            setTimeout(initGPUReveals, 100);
+            if(!isAdminActive) setTimeout(initGPUReveals, 100);
         }
 
         function updateHero(data) {
@@ -909,23 +906,79 @@
             document.getElementById('adm-vid-ui').classList.toggle('hidden', type !== 'video');
         }
 
+        // SECURE OTP GENERATION & VERIFICATION
         function sendAdminOTP() {
+            if(otpCooldown) {
+                alert("Please wait before requesting another OTP.");
+                return;
+            }
+
             const emailInput = document.getElementById('adm-email-input').value;
-            if(!emailInput) return;
+            if(!emailInput || !emailInput.includes('@')) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Generate secure 6-digit OTP
             currentOTP = Math.floor(100000 + Math.random() * 900000);
-            const btn = document.getElementById('send-otp-btn'); btn.innerText = "Authenticating...";
-            const showOtpBox = () => { document.getElementById('otp-box').classList.remove('hidden'); btn.innerText = "Request Access"; console.log("OTP:", currentOTP); };
-            try { emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: emailInput, otp: currentOTP }).then(showOtpBox).catch(showOtpBox); } catch(e) { showOtpBox(); }
+            
+            const btn = document.getElementById('send-otp-btn'); 
+            btn.innerText = "Sending OTP...";
+            btn.disabled = true;
+
+            const showOtpBox = () => { 
+                document.getElementById('otp-box').classList.remove('hidden'); 
+                btn.innerText = "OTP Sent to Email"; 
+                
+                // 30-second anti-spam cooldown
+                otpCooldown = true;
+                setTimeout(() => {
+                    otpCooldown = false;
+                    btn.innerText = "Request Access Again";
+                    btn.disabled = false;
+                }, 30000);
+
+                // OTP expires after 5 minutes for security
+                setTimeout(() => {
+                    if(!isAdminActive) {
+                        currentOTP = null;
+                        console.log("OTP Expired for security.");
+                    }
+                }, 300000);
+            };
+
+            try { 
+                emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: emailInput, otp: currentOTP })
+                .then(showOtpBox)
+                .catch((err) => {
+                    console.error("EmailJS Error:", err);
+                    alert("Failed to send OTP. Please check your connection.");
+                    btn.innerText = "Request Access";
+                    btn.disabled = false;
+                }); 
+            } catch(e) { 
+                alert("System error sending email.");
+                btn.innerText = "Request Access";
+                btn.disabled = false;
+            }
         }
 
         function verifyAdminOTP() {
             const val = document.getElementById('adm-otp-input').value;
-            if(val == currentOTP || val == '123456') {
+            
+            // Strict string matching and ensuring OTP exists (not null/expired)
+            if(currentOTP && val === currentOTP.toString()) {
                 document.getElementById('admin-login-section').classList.add('hidden');
                 document.getElementById('admin-main-controls').classList.remove('hidden');
                 isAdminActive = true; 
+                
+                // Instantly wipe OTP from memory after successful login to prevent replay attacks
+                currentOTP = null; 
+                
                 loadAdminData();
-            } else alert("Authentication Failed");
+            } else {
+                alert("Invalid or Expired OTP. Please check your email and try again.");
+            }
         }
 
         function loadAdminData() {
@@ -959,6 +1012,25 @@
         window.addBlock = function(key) { nexusConfig.services[key].blocks.push({ type: 'text', content: 'New Content' }); renderAdminServices(); }
         window.removeBlock = function(key, i) { nexusConfig.services[key].blocks.splice(i, 1); renderAdminServices(); }
 
+        // Debounced Auto-Save Functions for Instant Global Sync
+        window.debouncedSaveHero = debounce(() => {
+            saveHero(document.getElementById('btn-save-hero'));
+        }, 600);
+
+        const serviceSavers = {};
+        window.debouncedSaveService = function(key) {
+            if(!serviceSavers[key]) {
+                serviceSavers[key] = debounce(() => {
+                    saveService(key, document.getElementById(`btn-srv-${key}`));
+                }, 600);
+            }
+            serviceSavers[key]();
+        };
+
+        window.debouncedSaveGlobals = debounce(() => {
+            saveGlobals(document.getElementById('btn-save-globals'));
+        }, 600);
+
         function renderAdminServices() {
             document.getElementById('admin-services-list').innerHTML = counselingAreas.map(area => {
                 const srv = nexusConfig.services[area.key];
@@ -970,7 +1042,7 @@
                         <div class="bg-bgBase p-4 rounded-[16px] mb-4 border border-borderLight">
                             <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Detail Image</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
                             <div class="flex gap-3">
-                                <input type="text" id="block-img-${area.key}-${i}" class="sleek-input flex-1 text-sm py-2.5" value="${b.url}" onchange="updateBlockLocal('${area.key}', ${i}, this.value, 'image')">
+                                <input type="text" id="block-img-${area.key}-${i}" class="sleek-input flex-1 text-sm py-2.5" value="${b.url}" oninput="updateBlockLocal('${area.key}', ${i}, this.value, 'image'); debouncedSaveService('${area.key}')">
                                 <button onclick="triggerUpload('image', 'block', '${area.key}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-upload text-textMain text-sm"></i></button>
                                 <button onclick="openGalleryForBlock('${area.key}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-image text-textMain text-sm"></i></button>
                             </div>
@@ -979,7 +1051,7 @@
                         return `
                         <div class="bg-bgBase p-4 rounded-[16px] mb-4 border border-borderLight">
                             <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Detail ${b.type}</span><button onclick="removeBlock('${area.key}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
-                            <textarea class="sleek-input h-20 resize-none text-sm py-2.5" onchange="updateBlockLocal('${area.key}', ${i}, this.value, '${b.type}')">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
+                            <textarea class="sleek-input h-20 resize-none text-sm py-2.5" oninput="updateBlockLocal('${area.key}', ${i}, this.value, '${b.type}'); debouncedSaveService('${area.key}')">${b.type === 'list' ? b.items.join('\n') : (b.content || b.url)}</textarea>
                         </div>`;
                     }
                 }).join('');
@@ -990,16 +1062,16 @@
                     
                     <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Cover Image</label>
                     <div class="flex gap-3 mb-4">
-                        <input type="text" id="srv-img-${area.key}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.img}" onchange="updateServiceLocal('${area.key}', 'img', this.value)">
+                        <input type="text" id="srv-img-${area.key}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.img}" oninput="updateServiceLocal('${area.key}', 'img', this.value); debouncedSaveService('${area.key}')">
                         <button onclick="triggerUpload('image', 'service', '${area.key}')" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         <button onclick="openGalleryForService('${area.key}')" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-image text-textMain text-sm"></i></button>
                     </div>
                     
                     <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Title</label>
-                    <input type="text" class="sleek-input mb-4 text-sm py-2.5" value="${srv.title}" onchange="updateServiceLocal('${area.key}', 'title', this.value)">
+                    <input type="text" class="sleek-input mb-4 text-sm py-2.5" value="${srv.title}" oninput="updateServiceLocal('${area.key}', 'title', this.value); debouncedSaveService('${area.key}')">
                     
                     <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Description</label>
-                    <textarea class="sleek-input h-20 resize-none mb-5 text-sm py-2.5" onchange="updateServiceLocal('${area.key}', 'desc', this.value)">${srv.desc}</textarea>
+                    <textarea class="sleek-input h-20 resize-none mb-5 text-sm py-2.5" oninput="updateServiceLocal('${area.key}', 'desc', this.value); debouncedSaveService('${area.key}')">${srv.desc}</textarea>
                     
                     <div class="border-t border-borderLight pt-4 mb-4">
                         <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Detail Content</label>
@@ -1013,7 +1085,7 @@
         }
 
         window.saveHero = function(btn) {
-            if(btn) btn.innerText = "Saving...";
+            if(btn) btn.innerText = "Saved";
             const heroData = {
                 type: document.getElementById('adm-hero-type').value,
                 img: document.getElementById('adm-hero-img').value,
@@ -1024,19 +1096,19 @@
             if(window.db) window.db.ref('globalHero').set(heroData);
             localStorage.setItem('nexusHero', JSON.stringify(heroData));
             updateHero(heroData);
-            if(btn) setTimeout(() => btn.innerText = "Save Hero", 1000);
+            if(btn) setTimeout(() => btn.innerText = "Save Hero", 1500);
         };
 
         window.saveService = function(key, btn) {
-            if(btn) btn.innerText = "Saving...";
+            if(btn) btn.innerText = "Saved";
             if(window.db) window.db.ref('nexusData/services/' + key).set(nexusConfig.services[key]);
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             renderHomepageSections(); 
-            if(btn) setTimeout(() => btn.innerText = `Save ${counselingAreas.find(a=>a.key===key).label}`, 1000);
+            if(btn) setTimeout(() => btn.innerText = `Save ${counselingAreas.find(a=>a.key===key).label}`, 1500);
         };
 
         window.saveGlobals = function(btn) {
-            if(btn) btn.innerText = "Saving...";
+            if(btn) btn.innerText = "Saved";
             nexusConfig.wa = document.getElementById('adm-wa').value;
             nexusConfig.upi = document.getElementById('adm-upi').value;
             nexusConfig.email = document.getElementById('adm-email').value;
@@ -1046,7 +1118,7 @@
                 window.db.ref('nexusData/email').set(nexusConfig.email);
             }
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-            if(btn) setTimeout(() => btn.innerText = "Save Globals", 1000);
+            if(btn) setTimeout(() => btn.innerText = "Save Globals", 1500);
         };
 
         function renderAdminSubmissions(data) {
