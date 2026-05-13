@@ -308,6 +308,8 @@
             </div>
             
             <div id="admin-main-controls" class="hidden space-y-6">
+                
+                <!-- HERO SECTION EDITOR -->
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Engine</h4>
                     <p class="text-[12px] text-textMuted mb-4 font-medium">Changes save instantly.</p>
@@ -335,9 +337,10 @@
                     <input id="adm-hero-subtitle" class="sleek-input mb-4" placeholder="Hero Subtitle" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
                 </div>
 
+                <!-- MENU & HOMEPAGE BLOCK BUILDER -->
                 <div class="admin-card">
-                    <h4 class="admin-label">Dynamic Categories & Services</h4>
-                    <p class="text-[12px] text-textMuted mb-4 font-medium">Edit text, photos, and blocks below. Everything saves instantly and globally.</p>
+                    <h4 class="admin-label">Menu & Homepage Sections</h4>
+                    <p class="text-[12px] text-textMuted mb-4 font-medium">Edit the 3-line menu names, homepage text, photos, and build detail blocks here. Everything saves instantly worldwide.</p>
                     <div id="admin-services-list" class="space-y-6"></div>
                 </div>
 
@@ -529,21 +532,17 @@
                 this.db.collection('config').doc('nexusData').onSnapshot((doc) => {
                     if(doc.exists) {
                         const data = doc.data();
-                        AppState.config = Utils.patchConfig(data); 
-                        localStorage.setItem('nexusData', JSON.stringify(AppState.config));
                         
-                        // Update UI globally for all users
-                        UI.renderMenu();
-                        UI.renderHomepageSections();
-                        UI.renderBookingOptions();
-                        
-                        // Prevent focus loss for the admin currently typing
-                        if(AppState.isAdminActive) {
-                            const activeEl = document.activeElement;
-                            const isTypingInAdmin = activeEl && document.getElementById('admin-panel').contains(activeEl);
-                            if (!isTypingInAdmin) {
-                                UI.renderAdminServices();
-                            }
+                        // If Admin is active, we ignore incoming syncs to prevent focus loss while typing.
+                        // Admin's own changes are handled instantly via local state updates.
+                        if (!AppState.isAdminActive) {
+                            AppState.config = Utils.patchConfig(data); 
+                            localStorage.setItem('nexusData', JSON.stringify(AppState.config));
+                            
+                            // Update UI globally for all users
+                            UI.renderMenu();
+                            UI.renderHomepageSections();
+                            UI.renderBookingOptions();
                         }
                     }
                 });
@@ -732,7 +731,7 @@
                         if(b.type === 'image') {
                             return `
                             <div class="bg-bgBase p-4 rounded-[16px] mb-4 border border-borderLight">
-                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Edit Photo Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
+                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Photo Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
                                 <div class="flex gap-3">
                                     <input type="text" id="block-img-${area.id}-${i}" class="sleek-input flex-1 text-sm py-2.5" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
                                     <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
@@ -742,7 +741,7 @@
                         } else {
                             return `
                             <div class="bg-bgBase p-4 rounded-[16px] mb-4 border border-borderLight">
-                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Edit ${b.type} Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
+                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">${b.type} Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
                                 <textarea class="sleek-input h-20 resize-none text-sm py-2.5" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, '${b.type}'); window.App.debouncedSaveAllServices()">${b.type === 'list' ? b.items.join('\n') : (b.content || '')}</textarea>
                             </div>`;
                         }
@@ -753,30 +752,30 @@
                     div.innerHTML = `
                         <button onclick="window.App.deleteCategory('${area.id}')" class="absolute top-4 right-4 text-red-400 hover:text-red-600 transition-colors" title="Delete Category"><i class="fas fa-trash text-sm"></i></button>
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Menu Name</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Menu Name (3-Lines)</label>
                         <input type="text" class="sleek-input mb-4 text-sm py-2.5 font-bold" value="${area.label}" oninput="window.App.updateAreaLabel('${area.id}', this.value)">
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Cover Photo</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Homepage Photo</label>
                         <div class="flex gap-3 mb-4">
                             <input type="text" id="srv-img-${area.id}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
                             <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
                             <button onclick="window.App.openGalleryForService('${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Choose from 10 Photos"><i class="fas fa-image text-textMain text-sm"></i></button>
                         </div>
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Title</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Homepage Title</label>
                         <input type="text" class="sleek-input mb-4 text-sm py-2.5" value="${srv.title}" oninput="window.App.updateServiceLocal('${area.id}', 'title', this.value); window.App.debouncedSaveAllServices()">
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Description</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Homepage Description</label>
                         <textarea class="sleek-input h-20 resize-none mb-5 text-sm py-2.5" oninput="window.App.updateServiceLocal('${area.id}', 'desc', this.value); window.App.debouncedSaveAllServices()">${srv.desc}</textarea>
                         
                         <div class="border-t border-borderLight pt-4 mb-2">
-                            <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Edit Detail Content Blocks</label>
+                            <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Detail Page Blocks Builder</label>
                             ${blocksHTML}
                             <div class="flex flex-wrap gap-2 mt-3">
-                                <button onclick="window.App.addBlock('${area.id}', 'text')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Text</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'image')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Photo</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'heading')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Heading</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'list')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add List</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'text')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Text Block</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'image')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Photo Block</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'heading')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Heading Block</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'list')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add List Block</button>
                             </div>
                         </div>
                     `;
@@ -785,7 +784,7 @@
                 
                 const addBtn = document.createElement('button');
                 addBtn.className = "btn-primary w-full py-3.5 text-[14px] mt-2 bg-white text-textMain border-borderLight hover:bg-bgSurface shadow-sm";
-                addBtn.innerHTML = `<i class="fas fa-plus mr-2"></i> Add New Category`;
+                addBtn.innerHTML = `<i class="fas fa-plus mr-2"></i> Add New Menu/Homepage Section`;
                 addBtn.onclick = () => window.App.addNewCategory();
                 frag.appendChild(addBtn);
 
@@ -956,12 +955,12 @@
                 UI.renderHomepageSections(); 
             },
 
-            // --- DYNAMIC CATEGORY MANAGEMENT ---
+            // --- DYNAMIC CATEGORY & BLOCK MANAGEMENT ---
             addNewCategory() {
                 const id = 'cat_' + Date.now();
-                AppState.config.areas.push({ id, label: "New Category" });
+                AppState.config.areas.push({ id, label: "New Menu Item" });
                 AppState.config.services[id] = {
-                    title: "New Category Title", desc: "Description goes here.", img: Constants.premiumImages[0], blocks: []
+                    title: "New Homepage Title", desc: "Description goes here.", img: Constants.premiumImages[0], blocks: []
                 };
                 UI.renderAdminServices(); UI.renderMenu(); UI.renderHomepageSections(); UI.renderBookingOptions();
                 this.saveAllServices();
