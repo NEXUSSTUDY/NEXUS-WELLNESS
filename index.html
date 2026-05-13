@@ -73,13 +73,16 @@
 
         h1, h2, h3, h4, h5, h6 { font-weight: 500; letter-spacing: -0.04em; }
 
+        /* Hardware Acceleration for ultra-smooth rendering */
+        .gpu-accelerate { transform: translate3d(0, 0, 0); will-change: transform, opacity; backface-visibility: hidden; }
+
         /* Luminous Glass Header */
         .glass-nav { 
-            background: rgba(252, 252, 250, 0.85); 
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            background: rgba(252, 252, 250, 0.9); 
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.03); 
             z-index: 1000; height: 80px; display: flex; align-items: center; position: fixed; top: 0; width: 100%;
-            transform: translateZ(0); transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         /* Cinematic Hero Engine */
@@ -88,8 +91,8 @@
             overflow: hidden; background-color: #FCFCFA; display: flex; 
             align-items: center; justify-content: center; z-index: 0; 
         }
-        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1.2s ease; z-index: 0; opacity: 0.5; filter: saturate(0.8) contrast(1.1); }
-        #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1.5s ease; opacity: 0; z-index: 1; pointer-events: none; filter: saturate(0.8) contrast(1.1); }
+        #hero-img-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 0.8s ease; z-index: 0; opacity: 0.5; filter: saturate(0.8) contrast(1.1); }
+        #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease; opacity: 0; z-index: 1; pointer-events: none; filter: saturate(0.8) contrast(1.1); }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(252,252,250,0.4) 0%, rgba(252,252,250,1) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; max-width: 800px; padding: 0 24px; color: #1D1D1F; }
 
@@ -97,27 +100,27 @@
         #homepage-sections { position: relative; z-index: 10; margin-top: 100vh; background-color: #FCFCFA; }
         #booking-section, footer { position: relative; z-index: 10; }
 
-        /* Buttons */
+        /* Buttons - touch-action manipulation removes 300ms mobile tap delay */
+        .btn-primary, button, a { touch-action: manipulation; }
         .btn-primary { 
             background: #1D1D1F; color: #FFFFFF; 
             border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); border: none;
+            transition: all 0.2s ease; border: none;
             display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08); touch-action: manipulation;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
         .btn-primary:hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
-        .btn-primary:active { transform: scale(0.98) translateY(0) !important; }
+        .btn-primary:active { transform: scale(0.96) translateY(0) !important; }
 
-        /* Glass Panels - Fast & Smooth Interaction */
-        .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        /* Glass Panels - Removed blur for zero lag on mobile */
+        .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
         .panel-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* Removed backdrop-filter from side-panel to fix mobile lag */
         .side-panel { 
             position: fixed; top: 0; height: 100vh; background: #FCFCFA; z-index: 3000; 
-            transition: transform 0.35s cubic-bezier(0.1, 0.9, 0.2, 1), visibility 0.35s; 
-            overflow-y: auto; visibility: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.08);
-            width: 85%; 
+            transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1), visibility 0.3s; 
+            overflow-y: auto; visibility: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.1);
+            width: 85%; -webkit-overflow-scrolling: touch;
         }
         #counseling-menu { left: 0; max-width: 360px; transform: translateX(-100%); border-right: 1px solid rgba(0,0,0,0.04); }
         #admin-panel { right: 0; max-width: 440px; transform: translateX(100%); border-left: 1px solid rgba(0,0,0,0.04); display: flex; flex-direction: column; }
@@ -126,14 +129,16 @@
         /* Menu Items */
         .menu-item {
             display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: 16px; margin-bottom: 6px;
-            transition: all 0.2s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #1D1D1F; touch-action: manipulation;
+            transition: background 0.2s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #1D1D1F;
         }
-        .menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 26px; }
+        .menu-item:active { background: rgba(0,0,0,0.08); }
+        @media (hover: hover) { .menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 26px; transition: all 0.2s ease; } }
 
         /* Smaller Sleek Inputs - Font size 16px prevents iOS auto-zoom lag */
         .sleek-input { 
             background: rgba(0,0,0,0.03); border: 1px solid transparent; border-radius: 14px; 
-            padding: 14px 20px; width: 100%; font-size: 16px; font-weight: 400; transition: all 0.3s ease; color: #1D1D1F; font-family: 'Inter', sans-serif;
+            padding: 14px 20px; width: 100%; font-size: 16px; font-weight: 400; transition: all 0.2s ease; color: #1D1D1F; font-family: 'Inter', sans-serif;
+            -webkit-appearance: none;
         }
         .sleek-input:focus { border-color: rgba(0,0,0,0.08); outline: none; background: #FFFFFF; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
         .sleek-input::placeholder { color: #86868B; }
@@ -143,30 +148,31 @@
         .admin-label { font-size: 12px; font-weight: 600; color: #86868B; text-transform: uppercase; margin-bottom: 14px; display: block; letter-spacing: 0.05em; }
 
         /* Modals */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(252,252,250,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(252,252,250,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.25s ease; }
         .modal-overlay.active { opacity: 1; display: flex; }
-        .modal-content { background: #FFFFFF; border-radius: 28px; width: 100%; max-width: 800px; max-height: 85vh; overflow-y: auto; padding: 32px; transform: scale(0.97) translateY(10px); transition: all 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); box-shadow: 0 24px 64px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.04); }
+        .modal-content { background: #FFFFFF; border-radius: 28px; width: 100%; max-width: 800px; max-height: 85vh; overflow-y: auto; padding: 32px; transform: scale(0.97) translateY(10px); transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1); box-shadow: 0 24px 64px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.04); -webkit-overflow-scrolling: touch; }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
 
         /* Gallery */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
-        .gallery-item { border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; transition: all 0.3s ease; background: #000; }
-        .gallery-item:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+        .gallery-item { border-radius: 16px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; transition: transform 0.2s ease; background: #000; }
+        .gallery-item:active { transform: scale(0.95); }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); transition: filter 0.3s ease; }
-        .gallery-item:hover img, .gallery-item:hover video { filter: saturate(1); }
+        @media (hover: hover) { .gallery-item:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 24px rgba(0,0,0,0.08); } .gallery-item:hover img, .gallery-item:hover video { filter: saturate(1); } }
 
-        /* Detail Panel */
+        /* Detail Panel - Ultra Fast Transition */
         #detail-panel { 
             position: fixed; inset: 0; z-index: 4000; background: #FCFCFA; overflow-y: auto; padding-bottom: 80px; 
-            opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.1, 0.9, 0.2, 1);
+            opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+            -webkit-overflow-scrolling: touch;
         }
         #detail-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
-        .reveal-block { opacity: 0; transform: translateY(15px); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal-block { opacity: 0; transform: translateY(15px); transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal-block.visible { opacity: 1; transform: translateY(0); }
 
         /* Upload Spinner */
         #upload-spinner {
-            position: fixed; inset: 0; background: rgba(252,252,250,0.9); backdrop-filter: blur(12px);
+            position: fixed; inset: 0; background: rgba(252,252,250,0.95);
             z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center;
         }
         #upload-spinner.active { display: flex; }
@@ -181,7 +187,7 @@
 <body>
 
     <!-- Global Upload Spinner -->
-    <div id="upload-spinner">
+    <div id="upload-spinner" class="gpu-accelerate">
         <i class="fas fa-circle-notch fa-spin text-3xl text-textMain mb-4"></i>
         <p class="text-base font-medium text-textMain">Syncing to Cloud...</p>
         <p class="text-xs text-textMuted mt-2">Please wait, large files may take a moment.</p>
@@ -192,7 +198,7 @@
     <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg" class="hidden">
 
     <!-- Luminous Glass Header -->
-    <nav class="glass-nav px-5 md:px-12 flex justify-between items-center">
+    <nav class="glass-nav px-5 md:px-12 flex justify-between items-center gpu-accelerate">
         <div class="flex items-center gap-4 md:gap-5">
             <button id="menu-btn" class="text-xl text-textMain hover:opacity-70 transition-opacity p-2">
                 <i class="fas fa-bars-staggered"></i>
@@ -211,10 +217,10 @@
     </nav>
 
     <!-- Panel Overlay -->
-    <div id="panel-overlay" class="panel-overlay"></div>
+    <div id="panel-overlay" class="panel-overlay gpu-accelerate"></div>
 
     <!-- Counseling Menu Sidebar -->
-    <div id="counseling-menu" class="side-panel">
+    <div id="counseling-menu" class="side-panel gpu-accelerate">
         <div class="p-6 pt-10 md:p-8">
             <div class="flex justify-between items-center mb-10">
                 <h3 class="text-2xl font-medium tracking-tightest text-textMain">Counseling</h3>
@@ -234,7 +240,7 @@
     </div>
 
     <!-- Admin Panel Sidebar -->
-    <div id="admin-panel" class="side-panel">
+    <div id="admin-panel" class="side-panel gpu-accelerate">
         <div class="sticky top-0 z-10 bg-[#FCFCFA] border-b border-borderLight px-6 py-5 flex justify-between items-center shrink-0">
             <h3 class="font-medium tracking-tightest text-xl text-textMain">System Access</h3>
             <button id="close-admin-btn" class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-colors text-lg">&times;</button>
@@ -343,7 +349,7 @@
         </script>
 
         <div class="hero-overlay"></div>
-        <div data-aos="fade-up" data-aos-duration="1200" class="hero-content">
+        <div data-aos="fade-up" data-aos-duration="1000" class="hero-content">
             <h1 id="hero-title" class="text-5xl md:text-[76px] font-medium tracking-tightest leading-[1.05] mb-5 text-textMain">Reclaim Your<br>Inner Peace</h1>
             <p id="hero-subtitle" class="text-lg md:text-[20px] text-textMuted mb-10 max-w-2xl mx-auto font-normal tracking-tight">Premium online counseling for mental excellence.</p>
             <a href="#booking-section" class="btn-primary px-10 py-4 text-[16px]">Begin Journey</a>
@@ -354,7 +360,7 @@
     <div id="homepage-sections"></div>
 
     <!-- Detail Panel -->
-    <div id="detail-panel">
+    <div id="detail-panel" class="gpu-accelerate">
         <div class="max-w-3xl mx-auto px-6 py-24 md:py-32">
             <div class="flex justify-between items-start mb-16">
                 <h1 id="det-title" class="text-4xl md:text-[56px] font-medium tracking-tightest text-textMain leading-[1.05]"></h1>
@@ -369,7 +375,7 @@
 
     <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-5 md:px-12 bg-bgSurface border-t border-borderLight">
-        <div class="max-w-xl mx-auto bg-white p-8 md:p-10 rounded-[2rem] shadow-float border border-borderLight" data-aos="fade-up" data-aos-duration="1000">
+        <div class="max-w-xl mx-auto bg-white p-8 md:p-10 rounded-[2rem] shadow-float border border-borderLight" data-aos="fade-up" data-aos-duration="800">
             <div id="booking-flow">
                 <form id="p-form" class="space-y-5">
                     <div class="text-center mb-8">
@@ -423,7 +429,7 @@
     </section>
 
     <!-- Media Gallery Modal -->
-    <div id="img-modal" class="modal-overlay">
+    <div id="img-modal" class="modal-overlay gpu-accelerate">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-8">
                 <h3 class="text-2xl font-medium text-textMain tracking-tightest" id="gallery-title">Media Library</h3>
@@ -434,7 +440,7 @@
     </div>
 
     <!-- Legal Modal -->
-    <div id="legal-modal" class="modal-overlay">
+    <div id="legal-modal" class="modal-overlay gpu-accelerate">
         <div class="modal-content bg-[#111111] border border-white/10 shadow-2xl">
             <div class="flex justify-between items-center mb-8">
                 <h3 id="legal-title" class="text-3xl font-medium text-white tracking-tightest"></h3>
@@ -451,10 +457,10 @@
         <p class="text-[#A1A1A6] text-[16px] mb-14 font-normal">Greater Noida, Uttar Pradesh, India</p>
         
         <div class="flex justify-center gap-5 mb-16">
-            <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-youtube"></i></a>
         </div>
 
         <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 mb-16 text-[14px] font-medium text-[#A1A1A6]">
@@ -571,8 +577,11 @@
         let currentOTP = null;
         let activeImageTarget = { type: null, key: null, index: null, mediaType: 'image' };
         let uploadContext = { type: null, target: null, key: null, index: null };
+        
+        // Admin Lock: Prevents Firebase from re-rendering the page while admin is typing
+        let isAdminActive = false;
 
-        // Global functions for robust mobile clicking
+        // Global functions for instant, zero-lag mobile clicking
         window.closeMenus = function() { 
             document.getElementById('counseling-menu').classList.remove('active'); 
             document.getElementById('admin-panel').classList.remove('active'); 
@@ -580,9 +589,10 @@
             document.body.style.overflow = 'auto'; 
         };
 
+        // Speed of light menu click - no timeouts
         window.openDetailFromMenu = function(key) {
             window.closeMenus();
-            setTimeout(() => window.openDetail(key), 350);
+            window.openDetail(key);
         };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -640,7 +650,7 @@
             renderHomepageSections();
 
             const initHeavyLibraries = () => {
-                try { if(window.AOS) AOS.init({ duration: 1000, once: true, easing: 'ease-out-cubic', offset: 100 }); } catch(e) {}
+                try { if(window.AOS) AOS.init({ duration: 800, once: true, easing: 'ease-out-cubic', offset: 50 }); } catch(e) {}
                 try { if(window.emailjs) emailjs.init("jH5TwO1sLcWFwHHzu"); } catch(e) {}
                 try {
                     if(window.firebase && !firebase.apps.length) {
@@ -662,10 +672,12 @@
                         window.db.ref('nexusData').on('value', (snap) => {
                             const data = snap.val();
                             if(data) {
-                                nexusConfig = patchConfig(data); 
-                                localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
-                                renderHomepageSections();
-                                // Note: We DO NOT call renderAdminHomepage() here to prevent stealing focus while admin is typing.
+                                // ONLY update if admin is NOT actively editing to prevent typing lag
+                                if (!isAdminActive) {
+                                    nexusConfig = patchConfig(data); 
+                                    localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
+                                    renderHomepageSections();
+                                }
                             }
                         });
                     }
@@ -677,13 +689,13 @@
 
             setTimeout(() => {
                 if (!window.AOS) document.querySelectorAll('[data-aos]').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
-            }, 2000);
+            }, 1500);
         });
 
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
             if(!container) return;
-            // Using direct onclick for bulletproof mobile interaction
+            // Direct onclick for instant mobile response
             container.innerHTML = counselingAreas.map(area => `
                 <div class="menu-item" onclick="window.openDetailFromMenu('${area.key}')">
                     <span>${area.label}</span>
@@ -709,12 +721,12 @@
                 const cardBg = isDark ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/5';
                 const lineClass = isDark ? 'bg-white/20' : 'bg-black/10';
                 
-                // Using direct onclick to ensure it works even after dynamic re-rendering
+                // Direct onclick for instant "Explore Approach" response
                 return `
                 <section class="py-24 md:py-32 px-6 md:px-12 ${bgClass} relative z-10 overflow-hidden transition-colors duration-500">
                     <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-10 md:gap-16" data-aos="fade-up">
                         <div class="w-full md:w-5/12 relative shrink-0">
-                            <div class="relative overflow-hidden rounded-[2rem] w-full aspect-[4/3] shadow-soft border ${cardBg} backdrop-blur-sm">
+                            <div class="relative overflow-hidden rounded-[2rem] w-full aspect-[4/3] shadow-soft border ${cardBg}">
                                 <img src="${sec.img}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-[1.5s] ease-out filter saturate-[0.9]">
                             </div>
                         </div>
@@ -786,6 +798,7 @@
                 document.getElementById('admin-login-section').classList.add('hidden');
                 document.getElementById('admin-main-controls').classList.remove('hidden');
                 document.getElementById('admin-save-bar').classList.remove('hidden');
+                isAdminActive = true; // Lock background updates to prevent typing lag
                 loadAdminData();
             } else alert("Authentication Failed");
         }
@@ -814,6 +827,7 @@
             renderAdminHomepage(); renderAdminCounseling();
         }
 
+        // Local updates only - NO re-rendering of the entire list to prevent focus stealing
         window.updateSectionLocal = function(key, field, val) { nexusConfig.sections[key][field] = val; }
         window.updateBlockLocal = function(key, i, val, type) { 
             const b = nexusConfig.details[key].blocks[i]; 
@@ -1072,6 +1086,7 @@
             input.value = ''; document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
+        // Highly optimized detail opening function
         window.openDetail = function(key) {
             const det = nexusConfig.details[key]; if(!det) return;
             const sec = nexusConfig.sections[key];
@@ -1092,14 +1107,15 @@
             const panel = document.getElementById('detail-panel');
             panel.classList.add('active'); document.body.style.overflow = 'hidden';
             
+            // Faster animation reveal
             document.querySelectorAll('.reveal-block').forEach(b => { b.classList.remove('visible'); b.style.transition = 'none'; });
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     document.querySelectorAll('.reveal-block').forEach((b, i) => {
-                        b.style.transition = `all 0.8s cubic-bezier(0.25, 1, 0.5, 1) ${i * 0.1}s`;
+                        b.style.transition = `all 0.4s cubic-bezier(0.25, 1, 0.5, 1) ${i * 0.05}s`;
                         b.classList.add('visible');
                     });
-                }, 50);
+                }, 20);
             });
         }
 
