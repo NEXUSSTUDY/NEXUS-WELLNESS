@@ -143,12 +143,7 @@
 </head>
 <body>
 
-    <!-- Non-Blocking Realtime Upload Toast -->
-    <div id="upload-toast" class="fixed bottom-6 right-6 bg-charcoal text-white px-6 py-4 rounded-2xl shadow-float transform translate-y-32 opacity-0 transition-all duration-500 z-[9999] flex items-center gap-4 font-medium text-[15px] border border-borderDark pointer-events-none">
-        <i id="toast-icon" class="fas fa-circle-notch fa-spin text-blue-400 text-lg"></i>
-        <span id="toast-msg">Uploading...</span>
-    </div>
-
+    <!-- Hidden File Inputs for Local Uploads -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg" class="hidden">
 
@@ -315,6 +310,7 @@
             <div id="admin-main-controls" class="hidden space-y-6">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Engine</h4>
+                    <p class="text-[12px] text-textMuted mb-4 font-medium">Changes save instantly.</p>
                     <select id="adm-hero-type" class="sleek-input mb-4" onchange="window.App.toggleHeroAdminUI(); window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
                         <option value="image">Static Image</option>
                         <option value="video">Cinematic Video</option>
@@ -323,27 +319,25 @@
                     <div id="adm-img-ui" class="hidden">
                         <div class="flex gap-3 mb-4">
                             <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                            <button onclick="window.App.triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                            <button onclick="window.App.triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
-                        <button onclick="window.App.openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Browse Library</button>
+                        <button onclick="window.App.openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Browse 10 Premium Photos</button>
                     </div>
 
                     <div id="adm-vid-ui">
                         <div class="flex gap-3 mb-4">
                             <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                            <button onclick="window.App.triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                            <button onclick="window.App.triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                     </div>
 
                     <textarea id="adm-hero-title" class="sleek-input h-24 mb-4 resize-none" placeholder="Hero Title" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()"></textarea>
                     <input id="adm-hero-subtitle" class="sleek-input mb-4" placeholder="Hero Subtitle" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                    
-                    <button id="btn-save-hero" onclick="window.App.saveHero(this)" class="btn-primary w-full py-3 text-[14px]">Save Hero</button>
                 </div>
 
                 <div class="admin-card">
                     <h4 class="admin-label">Dynamic Categories & Services</h4>
-                    <p class="text-[12px] text-textMuted mb-4 font-medium">Add, edit, or remove counseling categories. Changes sync instantly to all users globally.</p>
+                    <p class="text-[12px] text-textMuted mb-4 font-medium">Add text, photos, and blocks. Everything saves instantly and globally.</p>
                     <div id="admin-services-list" class="space-y-6"></div>
                 </div>
 
@@ -352,8 +346,6 @@
                     <input id="adm-wa" class="sleek-input mb-4" placeholder="WhatsApp (+91...)" oninput="window.App.debouncedSaveGlobals()">
                     <input id="adm-upi" class="sleek-input mb-4" placeholder="UPI ID" oninput="window.App.debouncedSaveGlobals()">
                     <input id="adm-email" class="sleek-input mb-4" placeholder="Admin Email" oninput="window.App.debouncedSaveGlobals()">
-                    
-                    <button id="btn-save-globals" onclick="window.App.saveGlobals(this)" class="btn-primary w-full py-3 text-[14px]">Save Globals</button>
                 </div>
 
                 <div class="admin-card">
@@ -393,7 +385,7 @@
     <div id="img-modal" class="modal-overlay" data-lenis-prevent>
         <div class="modal-content">
             <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-bold text-textMain tracking-tightest" id="gallery-title">Image Library</h3>
+                <h3 class="text-2xl font-bold text-textMain tracking-tightest" id="gallery-title">10 Premium Photos</h3>
                 <button id="close-img-modal" class="w-10 h-10 rounded-[14px] bg-bgSurface flex items-center justify-center text-textMain text-base border border-borderLight hover:bg-black/5 transition-colors">&times;</button>
             </div>
             <div class="gallery-grid" id="img-grid"></div>
@@ -419,19 +411,24 @@
             otpCooldown: false,
             uploadContext: { type: null, target: null, key: null, index: null },
             activeImageTarget: { type: null, key: null, index: null, mediaType: 'image' },
-            toastTimeout: null,
             lenis: null,
             isMobile: window.innerWidth < 768 || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i),
             oldBlobUrls: []
         };
 
         const Constants = {
+            // 10 Highly Relevant Premium Photos for Psychology/Counseling
             premiumImages:[
-                "https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg", "https://images.pexels.com/photos/4101156/pexels-photo-4101156.jpeg",
-                "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg", "https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg",
-                "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg", "https://images.pexels.com/photos/4098157/pexels-photo-4098157.jpeg",
-                "https://images.pexels.com/photos/6303604/pexels-photo-6303604.jpeg", "https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg",
-                "https://images.pexels.com/photos/3772622/pexels-photo-3772622.jpeg", "https://images.pexels.com/photos/5414000/pexels-photo-5414000.jpeg"
+                "https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg", // Therapy session
+                "https://images.pexels.com/photos/4101156/pexels-photo-4101156.jpeg", // Calm nature
+                "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg", // Journaling
+                "https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg",   // Meditation
+                "https://images.pexels.com/photos/4098157/pexels-photo-4098157.jpeg", // Support/Hands
+                "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg", // Peaceful mind
+                "https://images.pexels.com/photos/6303604/pexels-photo-6303604.jpeg", // Cozy safe space
+                "https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg", // Relief/Smile
+                "https://images.pexels.com/photos/5414000/pexels-photo-5414000.jpeg", // Couple therapy
+                "https://images.pexels.com/photos/4226921/pexels-photo-4226921.jpeg"  // Online therapy
             ],
             legalData: {
                 privacy: { title: "Privacy Policy", content: "<p>At Nexus Mind, your privacy is our absolute priority. All sessions, data, and personal information are encrypted and strictly confidential.</p>" },
@@ -453,7 +450,6 @@
             patchConfig(config) {
                 if (!config) config = { ...AppState.config };
                 
-                // Initialize default dynamic areas if empty
                 if (!config.areas || config.areas.length === 0) {
                     config.areas = [
                         { id: "Anxiety", label: "Anxiety & Stress" }, { id: "Relationship", label: "Relationship Issues" },
@@ -493,22 +489,6 @@
                     });
                 }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
                 document.querySelectorAll('.gpu-reveal:not(.revealed)').forEach(el => observer.observe(el));
-            },
-            showToast(msg, isFinal = false, isError = false) {
-                const toast = document.getElementById('upload-toast');
-                const icon = document.getElementById('toast-icon');
-                const text = document.getElementById('toast-msg');
-                
-                toast.classList.remove('translate-y-32', 'opacity-0');
-                text.textContent = msg;
-                
-                if(msg === 'Uploading...') icon.className = 'fas fa-arrow-up text-blue-400 animate-bounce text-lg';
-                else if(msg === 'Processing...') icon.className = 'fas fa-circle-notch fa-spin text-purple-400 text-lg';
-                else if(isFinal) {
-                    icon.className = isError ? 'fas fa-times-circle text-red-400 text-lg' : 'fas fa-check-circle text-green-400 text-lg';
-                    clearTimeout(AppState.toastTimeout);
-                    AppState.toastTimeout = setTimeout(() => toast.classList.add('translate-y-32', 'opacity-0'), 3500);
-                }
             },
             cleanupBlobUrls() {
                 AppState.oldBlobUrls.forEach(url => URL.revokeObjectURL(url));
@@ -754,8 +734,8 @@
                                 <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Detail Image</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
                                 <div class="flex gap-3">
                                     <input type="text" id="block-img-${area.id}-${i}" class="sleek-input flex-1 text-sm py-2.5" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
-                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-upload text-textMain text-sm"></i></button>
-                                    <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-image text-textMain text-sm"></i></button>
+                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                                    <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Choose from 10 Photos"><i class="fas fa-image text-textMain text-sm"></i></button>
                                 </div>
                             </div>`;
                         } else {
@@ -778,8 +758,8 @@
                         <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Cover Image</label>
                         <div class="flex gap-3 mb-4">
                             <input type="text" id="srv-img-${area.id}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-upload text-textMain text-sm"></i></button>
-                            <button onclick="window.App.openGalleryForService('${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight"><i class="fas fa-image text-textMain text-sm"></i></button>
+                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                            <button onclick="window.App.openGalleryForService('${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Choose from 10 Photos"><i class="fas fa-image text-textMain text-sm"></i></button>
                         </div>
                         
                         <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Title</label>
@@ -791,11 +771,11 @@
                         <div class="border-t border-borderLight pt-4 mb-2">
                             <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Detail Content Blocks</label>
                             ${blocksHTML}
-                            <div class="flex flex-wrap gap-3 mt-3">
-                                <button onclick="window.App.addBlock('${area.id}', 'text')" class="text-textMain text-[12px] font-semibold underline underline-offset-4">+ Text</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'image')" class="text-textMain text-[12px] font-semibold underline underline-offset-4">+ Image</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'heading')" class="text-textMain text-[12px] font-semibold underline underline-offset-4">+ Heading</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'list')" class="text-textMain text-[12px] font-semibold underline underline-offset-4">+ List</button>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <button onclick="window.App.addBlock('${area.id}', 'text')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Text</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'image')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Photo</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'heading')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Heading</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'list')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add List</button>
                             </div>
                         </div>
                     `;
@@ -1008,27 +988,24 @@
                 this.saveAllServices(); 
             },
 
-            // --- MANUAL SAVE BUTTONS & AUTO-SAVE ENGINE ---
-            saveHero(btn) {
-                if(btn) btn.innerText = "Saved";
+            // --- INSTANT AUTO-SAVE ENGINE ---
+            saveHero() {
                 const data = { type: document.getElementById('adm-hero-type').value, img: document.getElementById('adm-hero-img').value, vid: document.getElementById('adm-hero-vid').value, title: document.getElementById('adm-hero-title').value, subtitle: document.getElementById('adm-hero-subtitle').value };
                 FirebaseService.saveHero(data); localStorage.setItem('nexusHero', JSON.stringify(data)); UI.updateHero(data);
-                if(btn) setTimeout(() => btn.innerText = "Save Hero", 1500);
             },
             saveAllServices() {
                 FirebaseService.saveConfig({ areas: AppState.config.areas, services: AppState.config.services }); 
                 localStorage.setItem('nexusData', JSON.stringify(AppState.config)); 
             },
-            saveGlobals(btn) {
-                if(btn) btn.innerText = "Saved";
+            saveGlobals() {
                 AppState.config.wa = document.getElementById('adm-wa').value; AppState.config.upi = document.getElementById('adm-upi').value; AppState.config.email = document.getElementById('adm-email').value;
                 FirebaseService.saveConfig({ wa: AppState.config.wa, upi: AppState.config.upi, email: AppState.config.email }); localStorage.setItem('nexusData', JSON.stringify(AppState.config));
-                if(btn) setTimeout(() => btn.innerText = "Save Globals", 1500);
             },
 
-            debouncedSaveHero: Utils.debounce(() => { window.App.saveHero(); }, 600),
-            debouncedSaveAllServices: Utils.debounce(() => { window.App.saveAllServices(); }, 600),
-            debouncedSaveGlobals: Utils.debounce(() => { window.App.saveGlobals(); }, 600),
+            // 150ms debounce makes it feel completely instant while preventing database spam
+            debouncedSaveHero: Utils.debounce(() => { window.App.saveHero(); }, 150),
+            debouncedSaveAllServices: Utils.debounce(() => { window.App.saveAllServices(); }, 150),
+            debouncedSaveGlobals: Utils.debounce(() => { window.App.saveGlobals(); }, 150),
 
             openGalleryForHero() { AppState.activeImageTarget = { type: 'hero', mediaType: 'image' }; this.openMediaGallery(); },
             openGalleryForService(id) { AppState.activeImageTarget = { type: 'service', key: id, mediaType: 'image' }; this.openMediaGallery(); },
@@ -1048,12 +1025,14 @@
                 AppState.uploadContext = { type, target, key, index };
                 document.getElementById(type === 'image' ? 'local-img-upload' : 'local-vid-upload').click();
             },
+            
+            // --- SILENT BACKGROUND UPLOAD ENGINE ---
             async processFirebaseUpload(e) {
                 const file = e.target.files[0]; if(!file) return;
                 if(file.size > 50 * 1024 * 1024) { alert("File is too large. Maximum allowed size is 50MB."); e.target.value = ''; return; }
                 if(!FirebaseService.storage) { alert("Storage system initializing. Please try again."); return; }
 
-                // Optimistic UI Update
+                // 1. Optimistic UI Update (Instant for Admin)
                 const localBlobUrl = URL.createObjectURL(file);
                 AppState.oldBlobUrls.push(localBlobUrl); 
                 const ctx = AppState.uploadContext;
@@ -1072,14 +1051,13 @@
                 try {
                     let fileToUpload = file;
                     if(file.type.startsWith('image/')) {
-                        Utils.showToast('Processing...');
                         fileToUpload = await MediaService.compressImage(file);
                     }
 
-                    Utils.showToast('Uploading...');
+                    // 2. Silent Background Upload (No Toast/Popup)
                     const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
 
-                    // Upload Complete - Save Real URL to Global Database
+                    // 3. Upload Complete - Save Real URL to Global Database Silently
                     if(ctx.target === 'hero') {
                         document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = downloadURL;
                         window.App.saveHero();
@@ -1091,11 +1069,9 @@
                         window.App.updateBlockLocal(ctx.key, ctx.index, downloadURL, 'image'); window.App.saveAllServices();
                     }
 
-                    Utils.showToast('Live Successfully ✅', true);
                     Utils.cleanupBlobUrls(); 
                 } catch (error) {
                     console.error("Upload failed:", error);
-                    Utils.showToast('Upload Failed ❌', true, true);
                 } finally { e.target.value = ''; }
             },
             handleBooking() {
