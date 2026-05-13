@@ -320,14 +320,14 @@
             <div id="admin-main-controls" class="hidden space-y-6">
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Engine</h4>
-                    <select id="adm-hero-type" class="sleek-input mb-4" onchange="window.App.toggleHeroAdminUI(); window.App.debouncedSaveHero()">
+                    <select id="adm-hero-type" class="sleek-input mb-4" onchange="window.App.toggleHeroAdminUI(); window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
                         <option value="image">Static Image</option>
                         <option value="video">Cinematic Video</option>
                     </select>
                     
                     <div id="adm-img-ui" class="hidden">
                         <div class="flex gap-3 mb-4">
-                            <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" oninput="window.App.debouncedSaveHero()">
+                            <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
                             <button onclick="window.App.triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                         <button onclick="window.App.openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Browse Library</button>
@@ -335,13 +335,16 @@
 
                     <div id="adm-vid-ui">
                         <div class="flex gap-3 mb-4">
-                            <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)" oninput="window.App.debouncedSaveHero()">
+                            <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
                             <button onclick="window.App.triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                     </div>
 
-                    <textarea id="adm-hero-title" class="sleek-input h-24 mb-4 resize-none" placeholder="Hero Title" oninput="window.App.debouncedSaveHero()"></textarea>
-                    <input id="adm-hero-subtitle" class="sleek-input mb-4" placeholder="Hero Subtitle" oninput="window.App.debouncedSaveHero()"></textarea>
+                    <textarea id="adm-hero-title" class="sleek-input h-24 mb-4 resize-none" placeholder="Hero Title" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()"></textarea>
+                    <input id="adm-hero-subtitle" class="sleek-input mb-4" placeholder="Hero Subtitle" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
+                    
+                    <!-- Restored Save Button -->
+                    <button id="btn-save-hero" onclick="window.App.saveHero(this)" class="btn-primary w-full py-3 text-[14px]">Save Hero</button>
                 </div>
 
                 <div class="admin-card">
@@ -354,6 +357,9 @@
                     <input id="adm-wa" class="sleek-input mb-4" placeholder="WhatsApp (+91...)" oninput="window.App.debouncedSaveGlobals()">
                     <input id="adm-upi" class="sleek-input mb-4" placeholder="UPI ID" oninput="window.App.debouncedSaveGlobals()">
                     <input id="adm-email" class="sleek-input mb-4" placeholder="Admin Email" oninput="window.App.debouncedSaveGlobals()">
+                    
+                    <!-- Restored Save Button -->
+                    <button id="btn-save-globals" onclick="window.App.saveGlobals(this)" class="btn-primary w-full py-3 text-[14px]">Save Globals</button>
                 </div>
 
                 <div class="admin-card">
@@ -562,7 +568,6 @@
         const MediaService = {
             async compressImage(file) {
                 try {
-                    // Off-main-thread decoding for massive performance boost
                     const bitmap = await createImageBitmap(file);
                     const MAX_W = 1920, MAX_H = 1080;
                     let w = bitmap.width, h = bitmap.height;
@@ -580,7 +585,7 @@
                     });
                 } catch (e) {
                     console.warn("Compression fallback", e);
-                    return file; // Fallback to original if bitmap fails
+                    return file; 
                 }
             }
         };
@@ -762,7 +767,10 @@
                             <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Detail Content</label>
                             ${blocksHTML}
                             <button onclick="window.App.addBlock('${area.key}')" class="text-textMain text-[12px] font-semibold underline underline-offset-4 mt-2">+ Add Block</button>
-                        </div>`;
+                        </div>
+                        <!-- Restored Save Button -->
+                        <button id="btn-srv-${area.key}" onclick="window.App.saveService('${area.key}', this)" class="btn-primary w-full py-3 text-sm mt-2">Save ${area.label}</button>
+                    `;
                     frag.appendChild(div);
                 });
                 this.adminServicesList.innerHTML = '';
@@ -911,25 +919,50 @@
             },
             deleteSubmission(id) { if(confirm("Permanently delete this submission?") && FirebaseService.db) FirebaseService.db.collection('submissions').doc(id).delete(); },
             
-            // Auto-Save Engine
-            debouncedSaveHero: Utils.debounce(() => {
+            // --- INSTANT LOCAL UI UPDATES ---
+            updateHeroLocal() {
+                const data = { type: document.getElementById('adm-hero-type').value, img: document.getElementById('adm-hero-img').value, vid: document.getElementById('adm-hero-vid').value, title: document.getElementById('adm-hero-title').value, subtitle: document.getElementById('adm-hero-subtitle').value };
+                UI.updateHero(data);
+            },
+            updateServiceLocal(key, field, val) { 
+                AppState.config.services[key][field] = val; 
+                UI.renderHomepageSections(); // Instant local update
+            },
+            updateBlockLocal(key, i, val, type) { 
+                const b = AppState.config.services[key].blocks[i]; 
+                if(type === 'list') b.items = val.split('\n'); else if(type === 'image') b.url = val; else b.content = val; 
+                UI.renderHomepageSections(); // Instant local update
+            },
+
+            // --- MANUAL SAVE BUTTONS & AUTO-SAVE ENGINE ---
+            saveHero(btn) {
+                if(btn) btn.innerText = "Saved";
                 const data = { type: document.getElementById('adm-hero-type').value, img: document.getElementById('adm-hero-img').value, vid: document.getElementById('adm-hero-vid').value, title: document.getElementById('adm-hero-title').value, subtitle: document.getElementById('adm-hero-subtitle').value };
                 FirebaseService.saveHero(data); localStorage.setItem('nexusHero', JSON.stringify(data)); UI.updateHero(data);
-            }, 600),
-            serviceSavers: {},
-            debouncedSaveService(key) {
-                if(!this.serviceSavers[key]) this.serviceSavers[key] = Utils.debounce(() => { FirebaseService.saveConfig({ services: AppState.config.services }); localStorage.setItem('nexusData', JSON.stringify(AppState.config)); UI.renderHomepageSections(); }, 600);
-                this.serviceSavers[key]();
+                if(btn) setTimeout(() => btn.innerText = "Save Hero", 1500);
             },
-            debouncedSaveGlobals: Utils.debounce(() => {
+            saveService(key, btn) {
+                if(btn) btn.innerText = "Saved";
+                FirebaseService.saveConfig({ services: AppState.config.services }); localStorage.setItem('nexusData', JSON.stringify(AppState.config)); UI.renderHomepageSections();
+                if(btn) setTimeout(() => btn.innerText = `Save ${Constants.counselingAreas.find(a=>a.key===key).label}`, 1500);
+            },
+            saveGlobals(btn) {
+                if(btn) btn.innerText = "Saved";
                 AppState.config.wa = document.getElementById('adm-wa').value; AppState.config.upi = document.getElementById('adm-upi').value; AppState.config.email = document.getElementById('adm-email').value;
                 FirebaseService.saveConfig({ wa: AppState.config.wa, upi: AppState.config.upi, email: AppState.config.email }); localStorage.setItem('nexusData', JSON.stringify(AppState.config));
-            }, 600),
+                if(btn) setTimeout(() => btn.innerText = "Save Globals", 1500);
+            },
 
-            updateServiceLocal(key, field, val) { AppState.config.services[key][field] = val; },
-            updateBlockLocal(key, i, val, type) { const b = AppState.config.services[key].blocks[i]; if(type === 'list') b.items = val.split('\n'); else if(type === 'image') b.url = val; else b.content = val; },
-            addBlock(key) { AppState.config.services[key].blocks.push({ type: 'text', content: 'New Content' }); UI.renderAdminServices(); this.debouncedSaveService(key); },
-            removeBlock(key, i) { AppState.config.services[key].blocks.splice(i, 1); UI.renderAdminServices(); this.debouncedSaveService(key); },
+            debouncedSaveHero: Utils.debounce(() => { window.App.saveHero(); }, 600),
+            serviceSavers: {},
+            debouncedSaveService(key) {
+                if(!this.serviceSavers[key]) this.serviceSavers[key] = Utils.debounce(() => { window.App.saveService(key); }, 600);
+                this.serviceSavers[key]();
+            },
+            debouncedSaveGlobals: Utils.debounce(() => { window.App.saveGlobals(); }, 600),
+
+            addBlock(key) { AppState.config.services[key].blocks.push({ type: 'text', content: 'New Content' }); UI.renderAdminServices(); this.saveService(key); },
+            removeBlock(key, i) { AppState.config.services[key].blocks.splice(i, 1); UI.renderAdminServices(); this.saveService(key); },
 
             openGalleryForHero() { AppState.activeImageTarget = { type: 'hero', mediaType: 'image' }; this.openMediaGallery(); },
             openGalleryForService(key) { AppState.activeImageTarget = { type: 'service', key: key, mediaType: 'image' }; this.openMediaGallery(); },
@@ -940,9 +973,9 @@
             },
             selectMedia(url) { 
                 const t = AppState.activeImageTarget;
-                if (t.type === 'hero') { document.getElementById('adm-hero-img').value = url; this.debouncedSaveHero(); } 
-                else if (t.type === 'service') { document.getElementById(`srv-img-${t.key}`).value = url; this.updateServiceLocal(t.key, 'img', url); this.debouncedSaveService(t.key); } 
-                else if (t.type === 'block') { document.getElementById(`block-img-${t.key}-${t.index}`).value = url; this.updateBlockLocal(t.key, t.index, url, 'image'); this.debouncedSaveService(t.key); }
+                if (t.type === 'hero') { document.getElementById('adm-hero-img').value = url; this.saveHero(); } 
+                else if (t.type === 'service') { document.getElementById(`srv-img-${t.key}`).value = url; this.updateServiceLocal(t.key, 'img', url); this.saveService(t.key); } 
+                else if (t.type === 'block') { document.getElementById(`block-img-${t.key}-${t.index}`).value = url; this.updateBlockLocal(t.key, t.index, url, 'image'); this.saveService(t.key); }
                 document.getElementById('img-modal').classList.remove('active'); 
             },
             triggerUpload(type, target, key = null, index = null) {
@@ -954,20 +987,20 @@
                 if(file.size > 50 * 1024 * 1024) { alert("File is too large. Maximum allowed size is 50MB."); e.target.value = ''; return; }
                 if(!FirebaseService.storage) { alert("Storage system initializing. Please try again."); return; }
 
-                // Optimistic UI Update
+                // 1. Optimistic UI Update (Local Only - Prevents blob: URL leak to global database)
                 const localBlobUrl = URL.createObjectURL(file);
-                AppState.oldBlobUrls.push(localBlobUrl); // Track for memory cleanup
+                AppState.oldBlobUrls.push(localBlobUrl); 
                 const ctx = AppState.uploadContext;
 
                 if(ctx.target === 'hero') {
                     document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = localBlobUrl;
-                    window.App.debouncedSaveHero(); 
+                    window.App.updateHeroLocal(); 
                 } else if(ctx.target === 'service') {
                     document.getElementById(`srv-img-${ctx.key}`).value = localBlobUrl;
-                    window.App.updateServiceLocal(ctx.key, 'img', localBlobUrl); UI.renderHomepageSections(); 
+                    window.App.updateServiceLocal(ctx.key, 'img', localBlobUrl); 
                 } else if(ctx.target === 'block') {
                     document.getElementById(`block-img-${ctx.key}-${ctx.index}`).value = localBlobUrl;
-                    window.App.updateBlockLocal(ctx.key, ctx.index, localBlobUrl, 'image'); UI.renderHomepageSections(); 
+                    window.App.updateBlockLocal(ctx.key, ctx.index, localBlobUrl, 'image'); 
                 }
 
                 try {
@@ -980,19 +1013,20 @@
                     Utils.showToast('Uploading...');
                     const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
 
+                    // 2. Upload Complete - Save Real URL to Global Database
                     if(ctx.target === 'hero') {
                         document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = downloadURL;
-                        window.App.debouncedSaveHero();
+                        window.App.saveHero();
                     } else if(ctx.target === 'service') {
                         document.getElementById(`srv-img-${ctx.key}`).value = downloadURL;
-                        window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.debouncedSaveService(ctx.key);
+                        window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.saveService(ctx.key);
                     } else if(ctx.target === 'block') {
                         document.getElementById(`block-img-${ctx.key}-${ctx.index}`).value = downloadURL;
-                        window.App.updateBlockLocal(ctx.key, ctx.index, downloadURL, 'image'); window.App.debouncedSaveService(ctx.key);
+                        window.App.updateBlockLocal(ctx.key, ctx.index, downloadURL, 'image'); window.App.saveService(ctx.key);
                     }
 
                     Utils.showToast('Live Successfully ✅', true);
-                    Utils.cleanupBlobUrls(); // Free memory
+                    Utils.cleanupBlobUrls(); 
                 } catch (error) {
                     console.error("Upload failed:", error);
                     Utils.showToast('Upload Failed ❌', true, true);
