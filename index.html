@@ -12,7 +12,7 @@
     <!-- Dynamic Favicon -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231D1D1F'/%3E%3Ctext x='50' y='66' font-family='Inter, sans-serif' font-size='46' font-weight='500' fill='%23FCFCFA' text-anchor='middle' letter-spacing='-2'%3ENM%3C/text%3E%3C/svg%3E">
     
-    <!-- Inter Font (Apple-inspired typography) -->
+    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
@@ -103,7 +103,7 @@
             border-radius: 999px; font-weight: 500; font-size: 15px; padding: 14px 32px; 
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); border: none;
             display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); touch-action: manipulation;
         }
         .btn-primary:hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
         .btn-primary:active { transform: scale(0.98) translateY(0) !important; }
@@ -112,11 +112,11 @@
         .panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
         .panel-overlay.active { opacity: 1; pointer-events: auto; }
 
+        /* Removed backdrop-filter from side-panel to fix mobile lag */
         .side-panel { 
-            position: fixed; top: 0; height: 100vh; background: rgba(252,252,250,0.95); z-index: 3000; 
+            position: fixed; top: 0; height: 100vh; background: #FCFCFA; z-index: 3000; 
             transition: transform 0.35s cubic-bezier(0.1, 0.9, 0.2, 1), visibility 0.35s; 
-            overflow-y: auto; visibility: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.05);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            overflow-y: auto; visibility: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.08);
             width: 85%; 
         }
         #counseling-menu { left: 0; max-width: 360px; transform: translateX(-100%); border-right: 1px solid rgba(0,0,0,0.04); }
@@ -126,14 +126,14 @@
         /* Menu Items */
         .menu-item {
             display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: 16px; margin-bottom: 6px;
-            transition: all 0.2s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #1D1D1F;
+            transition: all 0.2s ease; cursor: pointer; font-weight: 500; font-size: 16px; color: #1D1D1F; touch-action: manipulation;
         }
         .menu-item:hover { background: rgba(0,0,0,0.04); padding-left: 26px; }
 
-        /* Smaller Sleek Inputs */
+        /* Smaller Sleek Inputs - Font size 16px prevents iOS auto-zoom lag */
         .sleek-input { 
             background: rgba(0,0,0,0.03); border: 1px solid transparent; border-radius: 14px; 
-            padding: 14px 20px; width: 100%; font-size: 15px; font-weight: 400; transition: all 0.3s ease; color: #1D1D1F; font-family: 'Inter', sans-serif;
+            padding: 14px 20px; width: 100%; font-size: 16px; font-weight: 400; transition: all 0.3s ease; color: #1D1D1F; font-family: 'Inter', sans-serif;
         }
         .sleek-input:focus { border-color: rgba(0,0,0,0.08); outline: none; background: #FFFFFF; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
         .sleek-input::placeholder { color: #86868B; }
@@ -194,11 +194,10 @@
     <!-- Luminous Glass Header -->
     <nav class="glass-nav px-5 md:px-12 flex justify-between items-center">
         <div class="flex items-center gap-4 md:gap-5">
-            <button id="menu-btn" class="text-xl text-textMain hover:opacity-70 transition-opacity">
+            <button id="menu-btn" class="text-xl text-textMain hover:opacity-70 transition-opacity p-2">
                 <i class="fas fa-bars-staggered"></i>
             </button>
             <div class="flex items-center gap-3 cursor-pointer group" id="logo-btn">
-                <!-- Increased logo size for premium balance -->
                 <div class="w-11 h-11 md:w-12 md:h-12 bg-textMain rounded-[14px] flex items-center justify-center font-semibold text-white text-base md:text-lg shadow-sm transition-transform group-hover:scale-105 shrink-0">NM</div>
                 <span class="text-xl md:text-2xl font-medium tracking-tightest text-textMain whitespace-nowrap">Nexus Mind</span>
             </div>
@@ -225,7 +224,6 @@
             <div class="mt-16 pt-8 border-t border-borderLight">
                 <p class="text-[11px] uppercase tracking-widest text-textMuted mb-5 font-semibold">Connect With Us</p>
                 <div class="flex gap-3">
-                    <!-- Monochrome Glassmorphism Social Icons -->
                     <a href="#" class="w-10 h-10 rounded-full bg-black/5 border border-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-all text-base"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="w-10 h-10 rounded-full bg-black/5 border border-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-all text-base"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#" class="w-10 h-10 rounded-full bg-black/5 border border-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-all text-base"><i class="fab fa-whatsapp"></i></a>
@@ -237,7 +235,7 @@
 
     <!-- Admin Panel Sidebar -->
     <div id="admin-panel" class="side-panel">
-        <div class="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-borderLight px-6 py-5 flex justify-between items-center shrink-0">
+        <div class="sticky top-0 z-10 bg-[#FCFCFA] border-b border-borderLight px-6 py-5 flex justify-between items-center shrink-0">
             <h3 class="font-medium tracking-tightest text-xl text-textMain">System Access</h3>
             <button id="close-admin-btn" class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-colors text-lg">&times;</button>
         </div>
@@ -317,7 +315,7 @@
         </div>
 
         <!-- Sticky Save Button for Admin -->
-        <div id="admin-save-bar" class="hidden absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-md p-5 border-t border-borderLight shadow-admin-bar z-20">
+        <div id="admin-save-bar" class="hidden absolute bottom-0 left-0 w-full bg-[#FCFCFA] p-5 border-t border-borderLight shadow-admin-bar z-20">
             <button onclick="publishAllChanges()" class="btn-primary w-full py-3.5 text-[16px] shadow-glow">Save & Publish Globally</button>
         </div>
     </div>
@@ -352,7 +350,7 @@
         </div>
     </section>
 
-    <!-- Dynamic Homepage Sections (Alternating Light/Dark Apple-Inspired Layout) -->
+    <!-- Dynamic Homepage Sections -->
     <div id="homepage-sections"></div>
 
     <!-- Detail Panel -->
@@ -369,7 +367,7 @@
         </div>
     </div>
 
-    <!-- Booking Section (Compact Form) -->
+    <!-- Booking Section -->
     <section id="booking-section" class="py-32 px-5 md:px-12 bg-bgSurface border-t border-borderLight">
         <div class="max-w-xl mx-auto bg-white p-8 md:p-10 rounded-[2rem] shadow-float border border-borderLight" data-aos="fade-up" data-aos-duration="1000">
             <div id="booking-flow">
@@ -435,7 +433,7 @@
         </div>
     </div>
 
-    <!-- Legal Modal (Dark Theme) -->
+    <!-- Legal Modal -->
     <div id="legal-modal" class="modal-overlay">
         <div class="modal-content bg-[#111111] border border-white/10 shadow-2xl">
             <div class="flex justify-between items-center mb-8">
@@ -446,21 +444,19 @@
         </div>
     </div>
 
-    <!-- Premium Dark Footer with Monochrome Glassmorphism Icons & Legal Links -->
+    <!-- Footer -->
     <footer class="py-28 text-center bg-[#000000] border-t border-white/10">
         <div class="w-16 h-16 bg-white rounded-[16px] flex items-center justify-center font-semibold text-black text-xl mx-auto mb-10 shadow-glow">NM</div>
         <h2 class="text-3xl font-medium tracking-tightest mb-4 text-white">Nexus Mind</h2>
         <p class="text-[#A1A1A6] text-[16px] mb-14 font-normal">Greater Noida, Uttar Pradesh, India</p>
         
         <div class="flex justify-center gap-5 mb-16">
-            <!-- Elegant White Monochrome Icons with Soft Glow -->
             <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-instagram"></i></a>
             <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-linkedin-in"></i></a>
             <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-whatsapp"></i></a>
             <a href="#" class="w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:shadow-glow-strong transition-all duration-300 text-lg"><i class="fab fa-youtube"></i></a>
         </div>
 
-        <!-- Legal Links Section -->
         <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 mb-16 text-[14px] font-medium text-[#A1A1A6]">
             <button onclick="openLegal('privacy')" class="hover:text-white transition-colors">Privacy Policy</button>
             <span class="w-[3px] h-[3px] rounded-full bg-white/20"></span>
@@ -477,37 +473,35 @@
     </footer>
 
     <script>
-        // Highly Relevant Premium Images Library for Mental Health & Wellness
         const premiumImages =[
-            { url: "https://images.unsplash.com/photo-1528715471531-084faa440062?auto=format&fit=crop&w=1080&q=80" }, // Anxiety/Calm
-            { url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1080&q=80" }, // Relationship
-            { url: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&w=1080&q=80" }, // Sleep
-            { url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80" }, // Trauma/Healing
-            { url: "https://images.unsplash.com/photo-1497032205916-ac5376d46f8a?auto=format&fit=crop&w=1080&q=80" }, // Career
-            { url: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=1080&q=80" }, // Gen Z
-            { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80" }, // Therapy session
-            { url: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=1080&q=80" }, // Depression/Sadness
-            { url: "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1080&q=80" }, // Support/Holding hands
-            { url: "https://images.unsplash.com/photo-1588196749561-c14a58915f21?auto=format&fit=crop&w=1080&q=80" }, // Mindfulness/Meditation
-            { url: "https://images.unsplash.com/photo-1523285367489-dca8a7f4c4a8?auto=format&fit=crop&w=1080&q=80" }, // Calm environment
-            { url: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1080&q=80" }, // Peaceful nature
-            { url: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&w=1080&q=80" }, // Journaling/Therapy homework
-            { url: "https://images.unsplash.com/photo-1551847677-dc82d762e1dc?auto=format&fit=crop&w=1080&q=80" }, // Online therapy/Laptop
-            { url: "https://images.unsplash.com/photo-1474418397713-71377c100250?auto=format&fit=crop&w=1080&q=80" }, // Solitude/Thinking
-            { url: "https://images.unsplash.com/photo-1510832842233-156f6d4f924b?auto=format&fit=crop&w=1080&q=80" }, // Healing/Wellness
-            { url: "https://images.unsplash.com/photo-1494587351196-bbf5f29cff42?auto=format&fit=crop&w=1080&q=80" }, // Abstract calm
-            { url: "https://images.unsplash.com/photo-1512436991641-dc74eb789fbd?auto=format&fit=crop&w=1080&q=80" }, // Group/Family therapy
-            { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1080&q=80" }, // Professional counselor
-            { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1080&q=80" }, // Team/Support
-            { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1080&q=80" }  // Student/Gen Z stress
+            { url: "https://images.unsplash.com/photo-1528715471531-084faa440062?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1520333789090-1afc82db536a?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1497032205916-ac5376d46f8a?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1588196749561-c14a58915f21?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1523285367489-dca8a7f4c4a8?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1551847677-dc82d762e1dc?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1474418397713-71377c100250?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1510832842233-156f6d4f924b?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1494587351196-bbf5f29cff42?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1512436991641-dc74eb789fbd?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1080&q=80" },
+            { url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1080&q=80" }
         ];
 
-        // Reliable Premium Video Placeholders for Hero Section
         const premiumVideos =[
-            { url: "https://cdn.pixabay.com/video/2020/05/25/40131-424923170_large.mp4" }, // Calm ocean waves
-            { url: "https://cdn.pixabay.com/video/2019/11/20/29366-374213797_large.mp4" }, // Forest sunlight
-            { url: "https://cdn.pixabay.com/video/2023/10/22/186005-876824335_large.mp4" }, // Abstract calm gradient
-            { url: "https://cdn.pixabay.com/video/2016/08/22/4344-178287106_large.mp4" }  // Rain/Relaxing
+            { url: "https://cdn.pixabay.com/video/2020/05/25/40131-424923170_large.mp4" },
+            { url: "https://cdn.pixabay.com/video/2019/11/20/29366-374213797_large.mp4" },
+            { url: "https://cdn.pixabay.com/video/2023/10/22/186005-876824335_large.mp4" },
+            { url: "https://cdn.pixabay.com/video/2016/08/22/4344-178287106_large.mp4" }
         ];
 
         const counselingAreas =[
@@ -519,7 +513,6 @@
             { key: "GenZ", label: "Gen Z Counseling" }
         ];
 
-        // Legal Content Data
         const legalData = {
             privacy: { title: "Privacy Policy", content: "<p>At Nexus Wellness, your privacy is our absolute priority. All sessions, data, and personal information are encrypted and strictly confidential. We adhere to global psychological data protection standards to ensure your mental health journey remains entirely private.</p><p>Information collected is solely used for therapeutic purposes and is never shared with third parties without explicit consent.</p>" },
             terms: { title: "Terms of Use", content: "<p>Welcome to Nexus Mind. By accessing our premium counseling services, you agree to our terms of engagement. Our platform provides professional psychological support, but is not a substitute for emergency medical services.</p><p>Users must be of legal age or have parental consent. We reserve the right to terminate services if terms are violated.</p>" },
@@ -540,7 +533,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Robust Config Patcher with Highly Relevant Default Images
         function patchConfig(config) {
             if (!config) config = { wa: "+917830232077", upi: "7830232077@ptsbi", email: "thenexusstudy3@gmail.com", sections: {}, details: {} };
             if (!config.sections) config.sections = {};
@@ -580,6 +572,19 @@
         let activeImageTarget = { type: null, key: null, index: null, mediaType: 'image' };
         let uploadContext = { type: null, target: null, key: null, index: null };
 
+        // Global functions for robust mobile clicking
+        window.closeMenus = function() { 
+            document.getElementById('counseling-menu').classList.remove('active'); 
+            document.getElementById('admin-panel').classList.remove('active'); 
+            document.getElementById('panel-overlay').classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        };
+
+        window.openDetailFromMenu = function(key) {
+            window.closeMenus();
+            setTimeout(() => window.openDetail(key), 350);
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
@@ -595,18 +600,12 @@
                 menu.classList.add('active'); 
                 document.body.style.overflow = 'hidden'; 
             };
-            const closeMenus = () => { 
-                counselingMenu.classList.remove('active'); 
-                adminPanel.classList.remove('active'); 
-                panelOverlay.classList.remove('active'); 
-                document.body.style.overflow = 'auto'; 
-            };
 
             if(menuBtn) menuBtn.addEventListener('click', () => openMenu(counselingMenu));
-            if(closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenus);
+            if(closeMenuBtn) closeMenuBtn.addEventListener('click', window.closeMenus);
             if(adminBtn) adminBtn.addEventListener('click', () => openMenu(adminPanel));
-            if(closeAdminBtn) closeAdminBtn.addEventListener('click', closeMenus);
-            if(panelOverlay) panelOverlay.addEventListener('click', closeMenus);
+            if(closeAdminBtn) closeAdminBtn.addEventListener('click', window.closeMenus);
+            if(panelOverlay) panelOverlay.addEventListener('click', window.closeMenus);
             if(logoBtn) logoBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 
             const sendOtpBtn = document.getElementById('send-otp-btn');
@@ -637,18 +636,6 @@
             const sendChatBtn = document.getElementById('send-chat-btn');
             if(sendChatBtn) sendChatBtn.addEventListener('click', sendChat);
 
-            const menuItemsContainer = document.getElementById('menu-items-container');
-            if(menuItemsContainer) {
-                menuItemsContainer.addEventListener('click', (e) => {
-                    const item = e.target.closest('.menu-item');
-                    if(item) {
-                        const key = item.getAttribute('data-key');
-                        closeMenus();
-                        setTimeout(() => openDetail(key), 350);
-                    }
-                });
-            }
-
             renderMenu();
             renderHomepageSections();
 
@@ -671,15 +658,14 @@
                             const data = snap.val();
                             if(data) { localStorage.setItem('nexusHero', JSON.stringify(data)); updateHero(data); }
                         });
+                        
                         window.db.ref('nexusData').on('value', (snap) => {
                             const data = snap.val();
                             if(data) {
                                 nexusConfig = patchConfig(data); 
                                 localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
                                 renderHomepageSections();
-                                if(!document.getElementById('admin-main-controls').classList.contains('hidden')) {
-                                    renderAdminHomepage(); renderAdminCounseling();
-                                }
+                                // Note: We DO NOT call renderAdminHomepage() here to prevent stealing focus while admin is typing.
                             }
                         });
                     }
@@ -697,15 +683,15 @@
         function renderMenu() {
             const container = document.getElementById('menu-items-container');
             if(!container) return;
+            // Using direct onclick for bulletproof mobile interaction
             container.innerHTML = counselingAreas.map(area => `
-                <div class="menu-item" data-key="${area.key}">
+                <div class="menu-item" onclick="window.openDetailFromMenu('${area.key}')">
                     <span>${area.label}</span>
                     <i class="fas fa-chevron-right text-textMuted text-sm"></i>
                 </div>
             `).join('');
         }
 
-        // Apple-Inspired Alternating Light/Dark Sections
         function renderHomepageSections() {
             const container = document.getElementById('homepage-sections');
             if(!container) return;
@@ -714,10 +700,7 @@
                 const sec = nexusConfig.sections[area.key];
                 if(!sec) return '';
                 
-                // Alternating Layout
                 const flexDir = index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse';
-                
-                // Alternating Colors (Light/Dark)
                 const isDark = index % 2 !== 0;
                 const bgClass = isDark ? 'bg-[#000000]' : 'bg-[#FFFFFF]';
                 const titleColor = isDark ? 'text-white' : 'text-[#1D1D1F]';
@@ -726,45 +709,33 @@
                 const cardBg = isDark ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/5';
                 const lineClass = isDark ? 'bg-white/20' : 'bg-black/10';
                 
+                // Using direct onclick to ensure it works even after dynamic re-rendering
                 return `
                 <section class="py-24 md:py-32 px-6 md:px-12 ${bgClass} relative z-10 overflow-hidden transition-colors duration-500">
                     <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-10 md:gap-16" data-aos="fade-up">
-                        
-                        <!-- Small-to-Medium Rounded Image Card -->
                         <div class="w-full md:w-5/12 relative shrink-0">
                             <div class="relative overflow-hidden rounded-[2rem] w-full aspect-[4/3] shadow-soft border ${cardBg} backdrop-blur-sm">
                                 <img src="${sec.img}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-[1.5s] ease-out filter saturate-[0.9]">
                             </div>
                         </div>
-                        
-                        <!-- Text Content (3 Lines Max Title) -->
                         <div class="w-full md:w-7/12 text-left relative z-10 flex flex-col justify-center">
                             <div class="inline-flex items-center gap-3 mb-6">
                                 <span class="text-[11px] font-semibold tracking-widest uppercase ${descColor}">0${index + 1}</span>
                                 <div class="h-[1px] w-8 ${lineClass}"></div>
                                 <span class="text-[11px] font-semibold tracking-widest uppercase ${descColor}">${area.label}</span>
                             </div>
-                            
-                            <!-- Title limited to 3 lines -->
                             <h2 class="text-3xl md:text-4xl lg:text-[44px] font-medium tracking-tightest mb-5 ${titleColor} leading-[1.15] line-clamp-3">${sec.title}</h2>
-                            
                             <p class="text-base md:text-[17px] ${descColor} leading-[1.6] mb-8 font-normal max-w-md">${sec.desc}</p>
-                            
                             <div>
-                                <button class="${btnClass} rounded-full font-medium text-[14px] py-3 px-6 transition-all inline-flex items-center gap-2 open-detail-btn group" data-key="${area.key}">
+                                <button onclick="window.openDetail('${area.key}')" class="${btnClass} rounded-full font-medium text-[14px] py-3 px-6 transition-all inline-flex items-center gap-2 group">
                                     Explore Approach <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
                                 </button>
                             </div>
                         </div>
-                        
                     </div>
                 </section>
                 `;
             }).join('');
-            
-            document.querySelectorAll('.open-detail-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => openDetail(e.target.closest('button').getAttribute('data-key')));
-            });
         }
 
         function updateHero(data) {
@@ -836,7 +807,6 @@
                     }
                 });
                 
-                // Fetch User Submissions
                 window.db.ref('submissions').on('value', s => {
                     renderAdminSubmissions(s.val());
                 });
@@ -844,7 +814,6 @@
             renderAdminHomepage(); renderAdminCounseling();
         }
 
-        // Local Updates (Does not push to Firebase until "Save & Publish" is clicked)
         window.updateSectionLocal = function(key, field, val) { nexusConfig.sections[key][field] = val; }
         window.updateBlockLocal = function(key, i, val, type) { 
             const b = nexusConfig.details[key].blocks[i]; 
@@ -906,7 +875,6 @@
             const btn = document.querySelector('#admin-save-bar button');
             btn.innerText = "Publishing...";
             
-            // Gather Hero Data
             const heroData = {
                 type: document.getElementById('adm-hero-type').value,
                 img: document.getElementById('adm-hero-img').value,
@@ -915,12 +883,10 @@
                 subtitle: document.getElementById('adm-hero-subtitle').value
             };
             
-            // Gather Global Variables
             nexusConfig.wa = document.getElementById('adm-wa').value;
             nexusConfig.upi = document.getElementById('adm-upi').value;
             nexusConfig.email = document.getElementById('adm-email').value;
 
-            // Save to Firebase
             if(window.db) {
                 window.db.ref('globalHero').set(heroData);
                 window.db.ref('nexusData').set(nexusConfig).then(() => {
@@ -932,9 +898,9 @@
                 });
             } else {
                 btn.innerText = "Save & Publish Globally";
+                alert("Database not connected. Changes saved locally.");
             }
             
-            // Save locally and update UI
             localStorage.setItem('nexusHero', JSON.stringify(heroData));
             localStorage.setItem('nexusData', JSON.stringify(nexusConfig));
             updateHero(heroData);
@@ -976,7 +942,6 @@
             }
         }
 
-        // Media Gallery Logic (Supports Images and Videos)
         window.openGalleryForHero = function() { 
             const type = document.getElementById('adm-hero-type').value;
             activeImageTarget = { type: 'hero', mediaType: type }; 
@@ -1026,7 +991,6 @@
             const file = e.target.files[0]; 
             if(!file) return;
             
-            // 20MB Limit Check
             if(file.size > 20 * 1024 * 1024) { 
                 alert("File is too large. Maximum allowed size is 20MB."); 
                 e.target.value = ''; 
@@ -1064,7 +1028,7 @@
                 alert("Upload failed. Please check your connection and try again.");
             } finally {
                 spinner.classList.remove('active');
-                e.target.value = ''; // Reset input so same file can be uploaded again if needed
+                e.target.value = ''; 
             }
         }
 
@@ -1083,7 +1047,6 @@
                 date: new Date().toLocaleString()
             };
 
-            // Save to Firebase
             if(window.db) {
                 window.db.ref('submissions/' + submissionId).set(submissionData);
             }
@@ -1109,13 +1072,12 @@
             input.value = ''; document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
         }
 
-        function openDetail(key) {
+        window.openDetail = function(key) {
             const det = nexusConfig.details[key]; if(!det) return;
             const sec = nexusConfig.sections[key];
             
             document.getElementById('det-title').textContent = sec.title;
             
-            // Prepend the section description to the detail content to ensure continuity
             let contentHTML = `<p class="reveal-block text-lg md:text-[20px] text-textMain leading-[1.6] font-medium mb-10">${sec.desc}</p>`;
             
             contentHTML += det.blocks.map(b => {
