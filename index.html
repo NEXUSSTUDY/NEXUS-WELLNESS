@@ -46,7 +46,10 @@
                         bgSurface: '#F5F5F2', // Subtle beige accent
                         textMain: '#111111', // Elegant dark grayscale
                         textMuted: '#555555', // Stronger readability muted text
+                        charcoal: '#161618', // Premium dark cinematic tone
+                        charcoalLight: '#1C1C1E',
                         borderLight: 'rgba(0, 0, 0, 0.06)', // Refined thin borders
+                        borderDark: 'rgba(255, 255, 255, 0.08)',
                     },
                     fontFamily: {
                         sans: ['"Geist Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
@@ -59,8 +62,8 @@
                         'soft': '0 12px 32px -8px rgba(0, 0, 0, 0.05)',
                         'float': '0 24px 48px -12px rgba(0, 0, 0, 0.08)',
                         'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.04)',
-                        'glow': '0 8px 24px -6px rgba(17, 17, 17, 0.3)', // Soft glow for CTA
-                        'admin': '0 4px 16px rgba(0, 0, 0, 0.08)',
+                        'glow': '0 8px 24px -6px rgba(17, 17, 17, 0.25)', // Soft glow for CTA
+                        'admin': '0 6px 20px rgba(0, 0, 0, 0.12)', // Bolder admin shadow
                     }
                 }
             }
@@ -169,13 +172,14 @@
             object-fit: cover; background-size: cover; background-position: center; 
             z-index: 0; will-change: transform; transform: translateZ(0);
         }
-        #hero-img-bg { transition: opacity 0.8s ease; opacity: 1; filter: brightness(1.02) contrast(1.02) saturate(1.05); }
-        #hero-video-bg { transition: opacity 1s ease; opacity: 0; z-index: 1; pointer-events: none; filter: brightness(1.05) contrast(1.05) saturate(1.05); }
+        /* Optimized brightness/contrast for warm cinematic feel */
+        #hero-img-bg { transition: opacity 0.8s ease; opacity: 1; filter: brightness(1.05) contrast(1.02) saturate(1.05); }
+        #hero-video-bg { transition: opacity 1s ease; opacity: 0; z-index: 1; pointer-events: none; filter: brightness(1.05) contrast(1.02) saturate(1.05); }
         
-        /* Subtle Light Gradient Overlay */
+        /* Soft Light Gradient Overlay (No heavy dark filters) */
         .hero-overlay { 
             position: absolute; inset: 0; 
-            background: linear-gradient(to bottom, rgba(252,252,250,0.15) 0%, rgba(252,252,250,0.5) 60%, rgba(252,252,250,1) 100%); 
+            background: linear-gradient(to bottom, rgba(252,252,250,0.1) 0%, rgba(252,252,250,0.4) 60%, rgba(252,252,250,1) 100%); 
             z-index: 2; 
         }
         .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; max-width: 800px; padding: 0 24px; color: #111111; }
@@ -191,13 +195,13 @@
             border-radius: 16px; font-weight: 600; font-size: 15px; padding: 14px 32px; 
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border: 1px solid rgba(255,255,255,0.1);
             display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-            box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.3); /* Soft glow */
+            box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.25); /* Soft glow */
             letter-spacing: -0.01em;
         }
         .btn-primary:active { transform: scale(0.97) translateZ(0) !important; }
         
         @media (hover: hover) {
-            .btn-primary:hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(17, 17, 17, 0.4); }
+            .btn-primary:hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(17, 17, 17, 0.35); }
             .menu-item:hover { background: rgba(0,0,0,0.03); padding-left: 24px; }
             .gallery-item:hover { transform: scale(1.02); z-index: 10; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
         }
@@ -278,7 +282,8 @@
             </div>
             <div class="flex items-center gap-4">
                 <a href="#booking-section" class="bg-bgSurface border border-borderLight text-textMain rounded-[12px] font-semibold text-[14px] py-2.5 px-6 transition-colors hover:bg-black/5 hidden md:inline-flex shadow-sm">Book Session</a>
-                <button id="admin-btn" class="w-11 h-11 rounded-[14px] bg-white border border-black/10 text-textMain shadow-admin transition-all flex items-center justify-center text-sm hover:shadow-lg hover:scale-105 font-bold">
+                <!-- Bolder, more premium admin button -->
+                <button id="admin-btn" class="w-11 h-11 rounded-[14px] bg-textMain text-white shadow-admin transition-all flex items-center justify-center text-sm hover:shadow-glow hover:scale-105 font-bold">
                     <i class="fas fa-fingerprint"></i>
                 </button>
             </div>
@@ -293,7 +298,7 @@
                     let savedHero;
                     try { savedHero = JSON.parse(localStorage.getItem('nexusHero')); } catch(e) {}
                     if (!savedHero || !savedHero.type) {
-                        savedHero = { type: 'image', img: 'https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg' };
+                        savedHero = { type: 'video', vid: 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_24fps.mp4', img: 'https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg' };
                     }
                     if(savedHero.type === 'image' && savedHero.img) {
                         document.getElementById('hero-img-bg').style.backgroundImage = `url('${savedHero.img}')`;
@@ -307,13 +312,25 @@
 
             <div class="hero-overlay"></div>
             <div class="hero-content hero-glide-up">
-                <h1 id="hero-title" class="text-5xl md:text-[72px] font-bold tracking-tightest leading-[1.05] mb-6 text-textMain">Reclaim Your<br>Inner Peace</h1>
+                <h1 id="hero-title" class="text-5xl md:text-[76px] font-bold tracking-tightest leading-[1.05] mb-6 text-textMain">Reclaim Your<br>Inner Peace</h1>
                 <p id="hero-subtitle" class="text-lg md:text-[20px] text-textMuted mb-10 max-w-xl mx-auto font-medium tracking-tighter">Premium online counseling for mental excellence.</p>
                 <a href="#booking-section" class="btn-primary px-10 py-4 text-[16px]">Begin Journey</a>
             </div>
         </section>
 
         <div id="homepage-sections"></div>
+
+        <!-- Premium Dark Cinematic Section -->
+        <section class="py-32 md:py-40 bg-charcoal text-bgBase relative overflow-hidden z-10">
+            <div class="absolute inset-0 bg-gradient-to-b from-charcoalLight to-charcoal z-0 opacity-50"></div>
+            <div class="max-w-4xl mx-auto px-6 relative z-10 text-center gpu-reveal">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-10 border border-borderDark">
+                    <i class="fas fa-quote-left text-2xl text-white/40"></i>
+                </div>
+                <h3 class="text-3xl md:text-[44px] font-medium tracking-tightest leading-[1.3] mb-10 text-white">"Healing is not linear, but every step forward is a return to your truest self. We provide the space for your mind to breathe."</h3>
+                <p class="text-[#A1A1A6] font-semibold tracking-widest uppercase text-[12px]">Nexus Mind Clinical Philosophy</p>
+            </div>
+        </section>
 
         <section id="booking-section" class="py-28 md:py-36 px-6 md:px-12 bg-bgBase border-t border-borderLight">
             <div class="max-w-xl mx-auto bg-white p-10 md:p-12 rounded-[32px] shadow-float border border-borderLight gpu-reveal">
@@ -442,7 +459,7 @@
                         <option value="video">Cinematic Video</option>
                     </select>
                     
-                    <div id="adm-img-ui">
+                    <div id="adm-img-ui" class="hidden">
                         <div class="flex gap-3 mb-4">
                             <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL">
                             <button onclick="triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
@@ -450,7 +467,7 @@
                         <button onclick="openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Browse Library</button>
                     </div>
 
-                    <div id="adm-vid-ui" class="hidden">
+                    <div id="adm-vid-ui">
                         <div class="flex gap-3 mb-4">
                             <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)">
                             <button onclick="triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload"><i class="fas fa-upload text-textMain text-sm"></i></button>
@@ -919,7 +936,7 @@
                 window.db.ref('globalHero').once('value', s => {
                     const d = s.val();
                     if(d) {
-                        document.getElementById('adm-hero-type').value = d.type || 'image';
+                        document.getElementById('adm-hero-type').value = d.type || 'video';
                         document.getElementById('adm-hero-img').value = d.img || '';
                         document.getElementById('adm-hero-vid').value = d.vid || '';
                         document.getElementById('adm-hero-title').value = d.title || '';
