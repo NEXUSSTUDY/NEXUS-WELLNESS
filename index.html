@@ -128,7 +128,7 @@
         .modal-overlay.active .modal-content { transform: scale(1) translate3d(0, 0, 0); }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
-        .gallery-item { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; position: relative; transition: transform 0.2s ease; background: #F5F5F2; border: 1px solid rgba(0,0,0,0.04); }
+        .gallery-item { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; position: relative; transition: transform 0.2s ease; background: #F5F5F2; border: 1px solid rgba(0,0,0,0.04); cursor: pointer; }
         .gallery-item:active { transform: scale(0.96); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
 
@@ -143,7 +143,7 @@
 </head>
 <body>
 
-    <!-- Hidden File Inputs for Local Uploads -->
+    <!-- Hidden File Inputs for Local Uploads from Phone/Laptop -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg" class="hidden">
 
@@ -319,15 +319,15 @@
                     <div id="adm-img-ui" class="hidden">
                         <div class="flex gap-3 mb-4">
                             <input id="adm-hero-img" class="sleek-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                            <button onclick="window.App.triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                            <button onclick="window.App.triggerUpload('image', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
-                        <button onclick="window.App.openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Browse 10 Premium Photos</button>
+                        <button onclick="window.App.openGalleryForHero()" class="text-textMain text-[13px] font-semibold mb-4 block underline underline-offset-4">Choose from 10 Photos</button>
                     </div>
 
                     <div id="adm-vid-ui">
                         <div class="flex gap-3 mb-4">
                             <input id="adm-hero-vid" class="sleek-input flex-1" placeholder="Video URL (or Upload)" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                            <button onclick="window.App.triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                            <button onclick="window.App.triggerUpload('video', 'hero')" class="bg-bgSurface px-4 rounded-[14px] border border-borderLight hover:bg-black/5 transition-colors" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                     </div>
 
@@ -337,7 +337,7 @@
 
                 <div class="admin-card">
                     <h4 class="admin-label">Dynamic Categories & Services</h4>
-                    <p class="text-[12px] text-textMuted mb-4 font-medium">Add text, photos, and blocks. Everything saves instantly and globally.</p>
+                    <p class="text-[12px] text-textMuted mb-4 font-medium">Edit text, photos, and blocks below. Everything saves instantly and globally.</p>
                     <div id="admin-services-list" class="space-y-6"></div>
                 </div>
 
@@ -388,6 +388,7 @@
                 <h3 class="text-2xl font-bold text-textMain tracking-tightest" id="gallery-title">10 Premium Photos</h3>
                 <button id="close-img-modal" class="w-10 h-10 rounded-[14px] bg-bgSurface flex items-center justify-center text-textMain text-base border border-borderLight hover:bg-black/5 transition-colors">&times;</button>
             </div>
+            <p class="text-[14px] text-textMuted mb-6 font-medium">Click any photo to instantly apply it globally.</p>
             <div class="gallery-grid" id="img-grid"></div>
         </div>
     </div>
@@ -731,17 +732,17 @@
                         if(b.type === 'image') {
                             return `
                             <div class="bg-bgBase p-4 rounded-[16px] mb-4 border border-borderLight">
-                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Detail Image</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
+                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Edit Photo Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
                                 <div class="flex gap-3">
                                     <input type="text" id="block-img-${area.id}-${i}" class="sleek-input flex-1 text-sm py-2.5" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
-                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
                                     <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Choose from 10 Photos"><i class="fas fa-image text-textMain text-sm"></i></button>
                                 </div>
                             </div>`;
                         } else {
                             return `
                             <div class="bg-bgBase p-4 rounded-[16px] mb-4 border border-borderLight">
-                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Detail ${b.type}</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
+                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Edit ${b.type} Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400"><i class="fas fa-times"></i></button></div>
                                 <textarea class="sleek-input h-20 resize-none text-sm py-2.5" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, '${b.type}'); window.App.debouncedSaveAllServices()">${b.type === 'list' ? b.items.join('\n') : (b.content || '')}</textarea>
                             </div>`;
                         }
@@ -752,24 +753,24 @@
                     div.innerHTML = `
                         <button onclick="window.App.deleteCategory('${area.id}')" class="absolute top-4 right-4 text-red-400 hover:text-red-600 transition-colors" title="Delete Category"><i class="fas fa-trash text-sm"></i></button>
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Menu / Category Name</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Menu Name</label>
                         <input type="text" class="sleek-input mb-4 text-sm py-2.5 font-bold" value="${area.label}" oninput="window.App.updateAreaLabel('${area.id}', this.value)">
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Cover Image</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Cover Photo</label>
                         <div class="flex gap-3 mb-4">
                             <input type="text" id="srv-img-${area.id}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Device"><i class="fas fa-upload text-textMain text-sm"></i></button>
+                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
                             <button onclick="window.App.openGalleryForService('${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Choose from 10 Photos"><i class="fas fa-image text-textMain text-sm"></i></button>
                         </div>
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Title</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Title</label>
                         <input type="text" class="sleek-input mb-4 text-sm py-2.5" value="${srv.title}" oninput="window.App.updateServiceLocal('${area.id}', 'title', this.value); window.App.debouncedSaveAllServices()">
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Description</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Description</label>
                         <textarea class="sleek-input h-20 resize-none mb-5 text-sm py-2.5" oninput="window.App.updateServiceLocal('${area.id}', 'desc', this.value); window.App.debouncedSaveAllServices()">${srv.desc}</textarea>
                         
                         <div class="border-t border-borderLight pt-4 mb-2">
-                            <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Detail Content Blocks</label>
+                            <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-3 block">Edit Detail Content Blocks</label>
                             ${blocksHTML}
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <button onclick="window.App.addBlock('${area.id}', 'text')" class="bg-white px-4 py-2 rounded-[12px] border border-borderLight text-[12px] font-bold text-textMain hover:bg-black/5 transition-colors">+ Add Text</button>
