@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -359,11 +359,11 @@
                     <button id="close-admin-btn" class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-colors"><i class="fas fa-times text-sm"></i></button>
                 </div>
                 <div class="admin-tab-bar">
-                    <button class="admin-tab active" onclick="window.App.switchAdminTab('hero')">Hero</button>
-                    <button class="admin-tab" onclick="window.App.switchAdminTab('categories')">Categories</button>
-                    <button class="admin-tab" onclick="window.App.switchAdminTab('globals')">Globals</button>
-                    <button class="admin-tab" onclick="window.App.switchAdminTab('submissions')">Inbox</button>
-                    <button class="admin-tab" onclick="window.App.switchAdminTab('feed')">Feed</button>
+                    <button class="admin-tab active" onclick="window.App.switchAdminTab(event, 'hero')">Hero</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab(event, 'categories')">Categories</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab(event, 'globals')">Globals</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab(event, 'submissions')">Inbox</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab(event, 'feed')">Feed</button>
                 </div>
             </div>
 
@@ -581,11 +581,13 @@
                     ];
                 }
                 
-                // CLEANUP: Automatically remove any accidental "New Menu Item" or "New Homepage Title"
+                // CLEANUP: Automatically remove any accidental "New Menu Item", "New Homepage Title", or "Custom Section"
                 if (config.areas && config.areas.length > 0) {
                     config.areas = config.areas.filter(a => {
                         const srv = config.services ? config.services[a.id] : null;
-                        const isDummy = a.label === "New Menu Item" || (srv && srv.title === "New Homepage Title");
+                        const isDummy = a.label === "New Menu Item" || 
+                                        a.label === "Custom Section" || 
+                                        (srv && (srv.title === "New Homepage Title" || srv.title === "Custom Section"));
                         if (isDummy) {
                             if(config.services && config.services[a.id]) delete config.services[a.id];
                             return false;
@@ -883,12 +885,21 @@
                         this.heroVidBg.muted = true; this.heroVidBg.defaultMuted = true; this.heroVidBg.setAttribute('muted', ''); 
                         this.heroVidBg.setAttribute('playsinline', ''); this.heroVidBg.setAttribute('webkit-playsinline', '');
                         this.heroVidBg.load();
-                        this.heroVidBg.oncanplaythrough = () => {
-                            this.heroVidBg.play().then(() => { this.heroVidBg.style.opacity = '1'; setTimeout(() => { this.heroImgBg.style.opacity = '0'; }, 600); }).catch(()=>{});
-                        };
+                        
+                        const playPromise = this.heroVidBg.play();
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                this.heroVidBg.style.opacity = '1'; 
+                                setTimeout(() => { this.heroImgBg.style.opacity = '0'; }, 600);
+                            }).catch(e => console.log("Video autoplay prevented", e));
+                        }
                     } else {
-                        this.heroVidBg.classList.remove('hidden'); if(data.vid.startsWith('blob:')) this.heroVidBg.src = data.vid;
-                        this.heroVidBg.play().catch(()=>{}); this.heroVidBg.style.opacity = '1'; this.heroImgBg.style.opacity = '0';
+                        this.heroVidBg.classList.remove('hidden'); 
+                        if(data.vid.startsWith('blob:')) this.heroVidBg.src = data.vid;
+                        const playPromise = this.heroVidBg.play();
+                        if (playPromise !== undefined) playPromise.catch(e => console.log(e));
+                        this.heroVidBg.style.opacity = '1'; 
+                        this.heroImgBg.style.opacity = '0';
                     }
                 } else {
                     this.heroVidBg.style.opacity = '0'; setTimeout(() => { this.heroVidBg.classList.add('hidden'); this.heroVidBg.pause(); }, 1000);
@@ -1068,12 +1079,12 @@
                 document.body.classList.remove('modal-open');
                 if(AppState.lenis) AppState.lenis.start();
             },
-            switchAdminTab(tabId) {
+            switchAdminTab(e, tabId) {
                 document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
                 document.querySelectorAll('.admin-tab').forEach(el => el.classList.remove('active'));
                 
                 document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-                event.currentTarget.classList.add('active');
+                if(e && e.currentTarget) e.currentTarget.classList.add('active');
                 document.getElementById('admin-content-scroll').scrollTop = 0;
             },
             setHeroType(type) {
@@ -1085,7 +1096,10 @@
                 this.updateHeroLocal();
                 this.debouncedSaveHero();
             },
-            openDetailFromMenu(id) { this.closeMenus(); this.openDetail(id); },
+            openDetailFromMenu(id) { 
+                this.closeMenus(); 
+                setTimeout(() => this.openDetail(id), 400); 
+            },
             openLegal(type) {
                 document.getElementById('legal-title').innerText = Constants.legalData[type].title;
                 document.getElementById('legal-content').innerHTML = Constants.legalData[type].content;
@@ -1231,9 +1245,9 @@
 
             addNewCategory() {
                 const id = 'cat_' + Date.now();
-                AppState.config.areas.push({ id, label: "Custom Section", isEnabled: true });
+                AppState.config.areas.push({ id, label: "New Service", isEnabled: true });
                 AppState.config.services[id] = {
-                    title: "Custom Section", desc: "Description goes here.", img: Constants.premiumImages[0], bgImg: '', blocks: []
+                    title: "New Service", desc: "Description goes here.", img: Constants.premiumImages[0], bgImg: '', blocks: []
                 };
                 UI.renderAdminServices(); UI.renderMenu(); UI.renderHomepageSections(); UI.renderBookingOptions();
                 this.saveAllServices();
@@ -1372,7 +1386,20 @@
                 } finally { e.target.value = ''; }
             },
             handleBooking() {
-                const data = { id: Date.now().toString(), name: document.getElementById('p_name').value, email: document.getElementById('p_email').value, wa: document.getElementById('p_wa').value, counseling: document.getElementById('p_counseling').options[document.getElementById('p_counseling').selectedIndex].text, fee: document.getElementById('p_type').value, concern: document.getElementById('p_concern').value, date: new Date().toLocaleString() };
+                const selectEl = document.getElementById('p_counseling');
+                const counselingText = selectEl.options.length > 0 ? selectEl.options[selectEl.selectedIndex].text : 'General Consultation';
+                
+                const data = { 
+                    id: Date.now().toString(), 
+                    name: document.getElementById('p_name').value, 
+                    email: document.getElementById('p_email').value, 
+                    wa: document.getElementById('p_wa').value, 
+                    counseling: counselingText, 
+                    fee: document.getElementById('p_type').value, 
+                    concern: document.getElementById('p_concern').value, 
+                    date: new Date().toLocaleString() 
+                };
+                
                 if(FirebaseService.db && window.FirebaseV10) {
                     const { doc, setDoc } = window.FirebaseV10;
                     setDoc(doc(FirebaseService.db, 'submissions', data.id), data);
@@ -1391,10 +1418,14 @@
                 document.getElementById('p-form').classList.add('hidden'); document.getElementById('p-payment').classList.remove('hidden');
             },
             verifyPayment() {
-                if(document.getElementById('p_utr').value.length === 12) {
-                    document.getElementById('p-payment').classList.add('hidden'); document.getElementById('p-success').classList.remove('hidden');
+                const utrVal = document.getElementById('p_utr').value.trim();
+                if(utrVal.length === 12) {
+                    document.getElementById('p-payment').classList.add('hidden'); 
+                    document.getElementById('p-success').classList.remove('hidden');
                     document.getElementById('chat-window').innerHTML = `<div class="bg-white p-4 rounded-[16px] text-[14px] text-textMain w-fit max-w-[85%] border border-borderLight shadow-sm font-medium">System verified. A specialist will connect shortly. How are you feeling today?</div>`;
-                } else alert("Invalid UTR. Please enter exactly 12 digits.");
+                } else {
+                    alert("Invalid UTR. Please enter exactly 12 digits.");
+                }
             },
             sendChat() {
                 const input = document.getElementById('chat-input'); if(!input.value.trim()) return;
@@ -1457,4 +1488,3 @@
     </script>
 </body>
 </html>
-```
