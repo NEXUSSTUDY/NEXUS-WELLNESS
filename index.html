@@ -307,7 +307,7 @@
             
             <div id="admin-main-controls" class="hidden space-y-6">
                 
-                <!-- MEDIA POST BUILDER (NEW FEATURE) -->
+                <!-- MEDIA POST BUILDER -->
                 <div class="admin-card">
                     <h4 class="admin-label">Global Feed Post</h4>
                     <p class="text-[12px] text-textMuted mb-4 font-medium">Upload a photo or video with a caption to the global feed.</p>
@@ -463,11 +463,19 @@
                 
                 if (!config.areas || config.areas.length === 0) {
                     config.areas = [
-                        { id: "Anxiety", label: "Anxiety & Stress" }, { id: "Relationship", label: "Relationship Issues" },
-                        { id: "Sleep", label: "Sleep Problems" }, { id: "Trauma", label: "Trauma Support" },
-                        { id: "Career", label: "Career Counseling" }, { id: "GenZ", label: "Gen Z Counseling" }
+                        { id: "Anxiety", label: "Anxiety & Stress", isEnabled: true }, 
+                        { id: "Relationship", label: "Relationship Issues", isEnabled: true },
+                        { id: "Sleep", label: "Sleep Problems", isEnabled: true }, 
+                        { id: "Trauma", label: "Trauma Support", isEnabled: true },
+                        { id: "Career", label: "Career Counseling", isEnabled: true }, 
+                        { id: "GenZ", label: "Gen Z Counseling", isEnabled: true }
                     ];
                 }
+                
+                // Ensure isEnabled exists on all areas
+                config.areas.forEach(area => {
+                    if (area.isEnabled === undefined) area.isEnabled = true;
+                });
                 
                 if (!config.services) config.services = {};
                 config.areas.forEach((area, index) => {
@@ -476,6 +484,7 @@
                             title: area.label, 
                             desc: area.id === 'GenZ' ? "Navigating identity, digital burnout, and modern anxiety with relatable therapeutic approaches." : "Premium counseling approach for mental excellence.", 
                             img: Constants.premiumImages[index % 10] || Constants.premiumImages[0],
+                            bgImg: '', // New Background Image Property
                             blocks:[
                                 { type: "text", content: "Modern problems require modern understanding and relatable guidance." },
                                 { type: "heading", content: "Clinical Approach" },
@@ -483,6 +492,8 @@
                             ]
                         };
                     }
+                    // Ensure bgImg exists
+                    if (config.services[area.id].bgImg === undefined) config.services[area.id].bgImg = '';
                 });
                 return config;
             },
@@ -660,7 +671,9 @@
             renderMenu() {
                 if(!this.menuContainer) return;
                 const frag = document.createDocumentFragment();
-                AppState.config.areas.forEach(area => {
+                // Only render enabled areas
+                const activeAreas = AppState.config.areas.filter(a => a.isEnabled !== false);
+                activeAreas.forEach(area => {
                     const div = document.createElement('div');
                     div.className = 'menu-item';
                     div.onclick = () => window.App.openDetailFromMenu(area.id);
@@ -673,25 +686,36 @@
             renderBookingOptions() {
                 if(!this.bookingSelect) return;
                 const currentVal = this.bookingSelect.value;
-                this.bookingSelect.innerHTML = AppState.config.areas.map(a => `<option value="${a.id}">${a.label}</option>`).join('');
-                if(AppState.config.areas.find(a => a.id === currentVal)) this.bookingSelect.value = currentVal;
+                const activeAreas = AppState.config.areas.filter(a => a.isEnabled !== false);
+                this.bookingSelect.innerHTML = activeAreas.map(a => `<option value="${a.id}">${a.label}</option>`).join('');
+                if(activeAreas.find(a => a.id === currentVal)) this.bookingSelect.value = currentVal;
             },
             renderHomepageSections() {
                 if(!this.homepageSections) return;
                 const revealClass = AppState.isAdminActive ? "gpu-reveal revealed" : "gpu-reveal";
                 const frag = document.createDocumentFragment();
                 
-                AppState.config.areas.forEach((area, index) => {
+                // Only render enabled areas
+                const activeAreas = AppState.config.areas.filter(a => a.isEnabled !== false);
+                
+                activeAreas.forEach((area, index) => {
                     const srv = AppState.config.services[area.id];
                     if(!srv) return;
                     
                     const flexDir = index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse';
                     const bgClass = index % 2 === 0 ? 'bg-bgBase' : 'bg-bgSurface';
                     
+                    // Background Image Logic
+                    const bgStyle = srv.bgImg ? `background-image: url('${srv.bgImg}'); background-size: cover; background-position: center;` : '';
+                    const overlay = srv.bgImg ? `<div class="absolute inset-0 bg-bgBase/90 z-0"></div>` : '';
+                    
                     const section = document.createElement('section');
                     section.className = `py-28 md:py-36 px-6 md:px-12 ${bgClass} relative z-10 overflow-hidden`;
+                    if (srv.bgImg) section.style.cssText = bgStyle;
+                    
                     section.innerHTML = `
-                        <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-14 md:gap-24 ${revealClass}">
+                        ${overlay}
+                        <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-14 md:gap-24 ${revealClass} relative z-10">
                             <div class="w-full md:w-5/12 max-w-[380px] relative shrink-0">
                                 <div class="img-wrapper w-full aspect-[4/5]"><img src="${srv.img}" loading="lazy" decoding="async"></div>
                             </div>
@@ -771,11 +795,18 @@
                     }).join('');
 
                     const div = document.createElement('div');
-                    div.className = "bg-bgSurface p-5 rounded-[20px] mb-5 border border-borderLight relative";
+                    // Dim the card if disabled
+                    div.className = `bg-bgSurface p-5 rounded-[20px] mb-5 border border-borderLight relative transition-opacity ${area.isEnabled === false ? 'opacity-50' : ''}`;
                     div.innerHTML = `
-                        <button onclick="window.App.deleteCategory('${area.id}')" class="absolute top-4 right-4 text-red-400 hover:text-red-600 transition-colors" title="Delete Category"><i class="fas fa-trash text-sm"></i></button>
+                        <!-- NEW: Reorder, Toggle, Delete Controls -->
+                        <div class="absolute top-4 right-4 flex gap-3">
+                            <button onclick="window.App.moveCategory(${index}, -1)" class="text-textMuted hover:text-textMain" title="Move Up"><i class="fas fa-arrow-up"></i></button>
+                            <button onclick="window.App.moveCategory(${index}, 1)" class="text-textMuted hover:text-textMain" title="Move Down"><i class="fas fa-arrow-down"></i></button>
+                            <button onclick="window.App.toggleCategory('${area.id}')" class="${area.isEnabled !== false ? 'text-green-500' : 'text-gray-400'} hover:opacity-70" title="Toggle Visibility"><i class="fas ${area.isEnabled !== false ? 'fa-eye' : 'fa-eye-slash'}"></i></button>
+                            <button onclick="window.App.deleteCategory('${area.id}')" class="text-red-400 hover:text-red-600 transition-colors" title="Delete Category"><i class="fas fa-trash"></i></button>
+                        </div>
                         
-                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Menu Name (3-Lines)</label>
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block mt-6">Edit Menu Name (3-Lines)</label>
                         <input type="text" class="sleek-input mb-4 text-sm py-2.5 font-bold" value="${area.label}" oninput="window.App.updateAreaLabel('${area.id}', this.value)">
                         
                         <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Homepage Photo</label>
@@ -783,6 +814,13 @@
                             <input type="text" id="srv-img-${area.id}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
                             <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload from Phone/Laptop"><i class="fas fa-upload text-textMain text-sm"></i></button>
                             <button onclick="window.App.openGalleryForService('${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Choose from 10 Photos"><i class="fas fa-image text-textMain text-sm"></i></button>
+                        </div>
+
+                        <!-- NEW: Background Image Upload -->
+                        <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Background Image (Optional)</label>
+                        <div class="flex gap-3 mb-4">
+                            <input type="text" id="srv-bg-${area.id}" class="sleek-input flex-1 text-sm py-2.5" value="${srv.bgImg || ''}" oninput="window.App.updateServiceLocal('${area.id}', 'bgImg', this.value); window.App.debouncedSaveAllServices()">
+                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}')" class="bg-white px-4 rounded-[12px] border border-borderLight" title="Upload Background"><i class="fas fa-upload text-textMain text-sm"></i></button>
                         </div>
                         
                         <label class="text-[10px] font-bold uppercase text-textMuted tracking-widest mb-2 block">Edit Homepage Title</label>
@@ -1015,11 +1053,36 @@
                 UI.renderHomepageSections(); 
             },
 
+            // NEW: Move Category Up/Down
+            moveCategory(index, direction) {
+                const areas = AppState.config.areas;
+                if (index + direction < 0 || index + direction >= areas.length) return;
+                const temp = areas[index];
+                areas[index] = areas[index + direction];
+                areas[index + direction] = temp;
+                UI.renderAdminServices();
+                UI.renderMenu();
+                UI.renderHomepageSections();
+                this.debouncedSaveAllServices();
+            },
+
+            // NEW: Toggle Category Visibility
+            toggleCategory(id) {
+                const area = AppState.config.areas.find(a => a.id === id);
+                if (area) {
+                    area.isEnabled = area.isEnabled === false ? true : false;
+                    UI.renderAdminServices();
+                    UI.renderMenu();
+                    UI.renderHomepageSections();
+                    this.debouncedSaveAllServices();
+                }
+            },
+
             addNewCategory() {
                 const id = 'cat_' + Date.now();
-                AppState.config.areas.push({ id, label: "New Menu Item" });
+                AppState.config.areas.push({ id, label: "New Menu Item", isEnabled: true });
                 AppState.config.services[id] = {
-                    title: "New Homepage Title", desc: "Description goes here.", img: Constants.premiumImages[0], blocks: []
+                    title: "New Homepage Title", desc: "Description goes here.", img: Constants.premiumImages[0], bgImg: '', blocks: []
                 };
                 UI.renderAdminServices(); UI.renderMenu(); UI.renderHomepageSections(); UI.renderBookingOptions();
                 this.saveAllServices();
@@ -1092,12 +1155,16 @@
                 AppState.oldBlobUrls.push(localBlobUrl); 
                 const ctx = AppState.uploadContext;
 
+                // Optimistic UI Update
                 if(ctx.target === 'hero') {
                     document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = localBlobUrl;
                     window.App.updateHeroLocal(); 
                 } else if(ctx.target === 'service') {
                     document.getElementById(`srv-img-${ctx.key}`).value = localBlobUrl;
                     window.App.updateServiceLocal(ctx.key, 'img', localBlobUrl); 
+                } else if(ctx.target === 'serviceBg') {
+                    document.getElementById(`srv-bg-${ctx.key}`).value = localBlobUrl;
+                    window.App.updateServiceLocal(ctx.key, 'bgImg', localBlobUrl); 
                 } else if(ctx.target === 'block') {
                     document.getElementById(`block-img-${ctx.key}-${ctx.index}`).value = localBlobUrl;
                     window.App.updateBlockLocal(ctx.key, ctx.index, localBlobUrl, 'image'); 
@@ -1111,12 +1178,16 @@
 
                     const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
 
+                    // Save Real URL
                     if(ctx.target === 'hero') {
                         document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = downloadURL;
                         window.App.saveHero();
                     } else if(ctx.target === 'service') {
                         document.getElementById(`srv-img-${ctx.key}`).value = downloadURL;
                         window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.saveAllServices();
+                    } else if(ctx.target === 'serviceBg') {
+                        document.getElementById(`srv-bg-${ctx.key}`).value = downloadURL;
+                        window.App.updateServiceLocal(ctx.key, 'bgImg', downloadURL); window.App.saveAllServices();
                     } else if(ctx.target === 'block') {
                         document.getElementById(`block-img-${ctx.key}-${ctx.index}`).value = downloadURL;
                         window.App.updateBlockLocal(ctx.key, ctx.index, downloadURL, 'image'); window.App.saveAllServices();
