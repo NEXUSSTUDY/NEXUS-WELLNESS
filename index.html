@@ -19,11 +19,8 @@
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Firebase v9 Compat -->
+    <!-- EmailJS for OTP -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
 
     <script>
         setTimeout(() => {
@@ -310,6 +307,17 @@
             
             <div id="admin-main-controls" class="hidden space-y-6">
                 
+                <!-- MEDIA POST BUILDER (NEW FEATURE) -->
+                <div class="admin-card">
+                    <h4 class="admin-label">Global Feed Post</h4>
+                    <p class="text-[12px] text-textMuted mb-4 font-medium">Upload a photo or video with a caption to the global feed.</p>
+                    <form id="media-upload-form" class="space-y-4">
+                        <input type="text" id="post-text" placeholder="Write a caption..." class="sleek-input" required>
+                        <input type="file" id="post-file" accept="image/*,video/*" class="sleek-input p-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-[10px] file:border-0 file:text-sm file:font-semibold file:bg-bgSurface file:text-textMain hover:file:bg-black/5 cursor-pointer" required>
+                        <button type="submit" id="post-submit-btn" class="btn-primary w-full py-3.5 text-[14px]">Publish Post</button>
+                    </form>
+                </div>
+
                 <!-- HERO SECTION EDITOR -->
                 <div class="admin-card">
                     <h4 class="admin-label">Hero Engine</h4>
@@ -422,18 +430,17 @@
         };
 
         const Constants = {
-            // 10 Highly Relevant Premium Photos for Psychology/Counseling
             premiumImages:[
-                "https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg", // Therapy session
-                "https://images.pexels.com/photos/4101156/pexels-photo-4101156.jpeg", // Calm nature
-                "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg", // Journaling
-                "https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg",   // Meditation
-                "https://images.pexels.com/photos/4098157/pexels-photo-4098157.jpeg", // Support/Hands
-                "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg", // Peaceful mind
-                "https://images.pexels.com/photos/6303604/pexels-photo-6303604.jpeg", // Cozy safe space
-                "https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg", // Relief/Smile
-                "https://images.pexels.com/photos/5414000/pexels-photo-5414000.jpeg", // Couple therapy
-                "https://images.pexels.com/photos/4226921/pexels-photo-4226921.jpeg"  // Online therapy
+                "https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg", 
+                "https://images.pexels.com/photos/4101156/pexels-photo-4101156.jpeg", 
+                "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg", 
+                "https://images.pexels.com/photos/317157/pexels-photo-317157.jpeg",   
+                "https://images.pexels.com/photos/4098157/pexels-photo-4098157.jpeg", 
+                "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg", 
+                "https://images.pexels.com/photos/6303604/pexels-photo-6303604.jpeg", 
+                "https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg", 
+                "https://images.pexels.com/photos/5414000/pexels-photo-5414000.jpeg", 
+                "https://images.pexels.com/photos/4226921/pexels-photo-4226921.jpeg"  
             ],
             legalData: {
                 privacy: { title: "Privacy Policy", content: "<p>At Nexus Mind, your privacy is our absolute priority. All sessions, data, and personal information are encrypted and strictly confidential.</p>" },
@@ -443,7 +450,6 @@
             }
         };
 
-        // --- UTILITIES ---
         const Utils = {
             debounce(func, wait) {
                 let timeout;
@@ -501,71 +507,80 @@
             }
         };
 
-        // --- FIREBASE SERVICE ---
+        // --- FIREBASE V10 SERVICE ---
         const FirebaseService = {
             init() {
                 try {
-                    if(window.firebase && !firebase.apps.length) {
-                        firebase.initializeApp({
-                            apiKey: "AIzaSyAenqNaKlLtv2hpBOdzSCqBLbxwSinA3zM",
-                            authDomain: "nexus-mind-41ffc.firebaseapp.com",
-                            projectId: "nexus-mind-41ffc",
-                            storageBucket: "nexus-mind-41ffc.firebasestorage.app",
-                            databaseURL: "https://nexus-mind-41ffc-default-rtdb.firebaseio.com/"
-                        });
-                        this.db = firebase.firestore();
-                        this.storage = firebase.storage();
+                    if(window.FirebaseV10) {
+                        this.db = window.FirebaseV10.db;
+                        this.storage = window.FirebaseV10.storage;
                         this.setupListeners();
                     }
                 } catch(e) { console.error("Firebase Init Error:", e); }
             },
             setupListeners() {
+                const { doc, onSnapshot } = window.FirebaseV10;
+                
                 // Instant Global Sync for Hero
-                this.db.collection('config').doc('globalHero').onSnapshot((doc) => {
-                    if(doc.exists) {
-                        const data = doc.data();
+                onSnapshot(doc(this.db, 'config', 'globalHero'), (docSnap) => {
+                    if(docSnap.exists()) {
+                        const data = docSnap.data();
                         localStorage.setItem('nexusHero', JSON.stringify(data)); 
                         UI.updateHero(data);
                     } else {
-                        // Seed default hero if empty
                         const defaultHero = { type: 'video', vid: 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_24fps.mp4', img: 'https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg', title: 'Reclaim Your\nInner Peace', subtitle: 'Premium online counseling for mental excellence.' };
                         this.saveHero(defaultHero);
                     }
                 });
                 
                 // Instant Global Sync for Categories, Text, Photos
-                this.db.collection('config').doc('nexusData').onSnapshot((doc) => {
-                    if(doc.exists) {
-                        const data = doc.data();
-                        
-                        // If Admin is active, we ignore incoming syncs to prevent focus loss while typing.
-                        // Admin's own changes are handled instantly via local state updates.
+                onSnapshot(doc(this.db, 'config', 'nexusData'), (docSnap) => {
+                    if(docSnap.exists()) {
+                        const data = docSnap.data();
                         if (!AppState.isAdminActive) {
                             AppState.config = Utils.patchConfig(data); 
                             localStorage.setItem('nexusData', JSON.stringify(AppState.config));
-                            
-                            // Update UI globally for all users
                             UI.renderMenu();
                             UI.renderHomepageSections();
                             UI.renderBookingOptions();
                         }
                     } else {
-                        // Seed default data if database is empty
                         const defaultConfig = Utils.patchConfig(null);
                         this.saveConfig(defaultConfig);
                     }
                 });
             },
-            saveHero(data) { if(this.db) this.db.collection('config').doc('globalHero').set(data, { merge: true }); },
-            saveConfig(data) { if(this.db) this.db.collection('config').doc('nexusData').set(data, { merge: true }); },
+            saveHero(data) { 
+                const { doc, setDoc } = window.FirebaseV10;
+                if(this.db) setDoc(doc(this.db, 'config', 'globalHero'), data, { merge: true }); 
+            },
+            saveConfig(data) { 
+                const { doc, setDoc } = window.FirebaseV10;
+                if(this.db) setDoc(doc(this.db, 'config', 'nexusData'), data, { merge: true }); 
+            },
             async uploadFile(file, folder) {
-                const storageRef = this.storage.ref(`nexus_uploads/${folder}${Date.now()}_${file.name}`);
-                const snapshot = await storageRef.put(file);
-                return await snapshot.ref.getDownloadURL();
+                const { ref, uploadBytes, getDownloadURL } = window.FirebaseV10;
+                const storageRef = ref(this.storage, `nexus_uploads/${folder}${Date.now()}_${file.name}`);
+                const snapshot = await uploadBytes(storageRef, file);
+                return await getDownloadURL(snapshot.ref);
+            },
+            // Media Upload Function for Global Feed
+            async uploadMedia(file, text) {
+                const { collection, addDoc, serverTimestamp, ref, uploadBytes, getDownloadURL } = window.FirebaseV10;
+                const storageRef = ref(this.storage, 'uploads/' + Date.now() + '_' + file.name);
+                await uploadBytes(storageRef, file);
+                const url = await getDownloadURL(storageRef);
+
+                await addDoc(collection(this.db, "posts"), {
+                    text: text,
+                    mediaUrl: url,
+                    type: (file.type && file.type.startsWith('video')) ? 'video' : 'image',
+                    timestamp: serverTimestamp()
+                });
+                alert("Live Globally!");
             }
         };
 
-        // --- MEDIA SERVICE ---
         const MediaService = {
             async compressImage(file) {
                 try {
@@ -588,7 +603,6 @@
             }
         };
 
-        // --- UI CONTROLLER ---
         const UI = {
             init() {
                 this.cacheDOM();
@@ -824,15 +838,44 @@
                 bind('p-form', 'submit', (e) => { e.preventDefault(); window.App.handleBooking(); });
                 bind('verify-payment-btn', 'click', window.App.verifyPayment);
                 bind('send-chat-btn', 'click', window.App.sendChat);
+
+                // Media Upload Form Binding
+                bind('media-upload-form', 'submit', async (e) => {
+                    e.preventDefault();
+                    const fileInput = document.getElementById('post-file');
+                    const textInput = document.getElementById('post-text');
+                    const btn = document.getElementById('post-submit-btn');
+                    
+                    const file = fileInput.files[0];
+                    const text = textInput.value.trim();
+                    
+                    if(!file || !text) return;
+                    
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading...';
+                    
+                    try {
+                        await FirebaseService.uploadMedia(file, text);
+                        fileInput.value = '';
+                        textInput.value = '';
+                    } catch(err) {
+                        console.error(err);
+                        alert("Upload failed! Please try again.");
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerText = "Publish Post";
+                    }
+                });
             }
         };
 
-        // --- GLOBAL APP CONTROLLER ---
         window.App = {
             init() {
                 UI.init();
-                if ('requestIdleCallback' in window) requestIdleCallback(() => FirebaseService.init());
-                else setTimeout(() => FirebaseService.init(), 200);
+                // Firebase initialization is deferred until the v10 module loads
+            },
+            initFirebase() {
+                FirebaseService.init();
             },
             openMenu(menu) {
                 document.getElementById('panel-overlay').classList.add('active'); 
@@ -910,10 +953,13 @@
                 document.getElementById('adm-wa').value = AppState.config.wa;
                 document.getElementById('adm-upi').value = AppState.config.upi;
                 document.getElementById('adm-email').value = AppState.config.email;
-                if(FirebaseService.db) {
-                    FirebaseService.db.collection('config').doc('globalHero').get().then(doc => {
-                        if(doc.exists) {
-                            const d = doc.data();
+                
+                if(FirebaseService.db && window.FirebaseV10) {
+                    const { doc, getDoc, collection, onSnapshot } = window.FirebaseV10;
+                    
+                    getDoc(doc(FirebaseService.db, 'config', 'globalHero')).then(docSnap => {
+                        if(docSnap.exists()) {
+                            const d = docSnap.data();
                             document.getElementById('adm-hero-type').value = d.type || 'video';
                             document.getElementById('adm-hero-img').value = d.img || '';
                             document.getElementById('adm-hero-vid').value = d.vid || '';
@@ -922,8 +968,9 @@
                             this.toggleHeroAdminUI();
                         }
                     });
-                    FirebaseService.db.collection('submissions').onSnapshot(snap => {
-                        const data = {}; snap.forEach(doc => data[doc.id] = doc.data());
+                    
+                    onSnapshot(collection(FirebaseService.db, 'submissions'), snap => {
+                        const data = {}; snap.forEach(docSnap => data[docSnap.id] = docSnap.data());
                         this.renderAdminSubmissions(data);
                     });
                 }
@@ -941,9 +988,13 @@
                         <div class="bg-white p-4 rounded-[12px] border border-borderLight text-[13px] text-textMain font-medium"><span class="font-bold text-[10px] uppercase tracking-widest text-textMuted block mb-1.5">Concern</span>${sub.concern}</div>
                     </div>`).join('');
             },
-            deleteSubmission(id) { if(confirm("Permanently delete this submission?") && FirebaseService.db) FirebaseService.db.collection('submissions').doc(id).delete(); },
+            deleteSubmission(id) { 
+                if(confirm("Permanently delete this submission?") && FirebaseService.db && window.FirebaseV10) {
+                    const { doc, deleteDoc } = window.FirebaseV10;
+                    deleteDoc(doc(FirebaseService.db, 'submissions', id));
+                }
+            },
             
-            // --- INSTANT LOCAL UI UPDATES ---
             updateHeroLocal() {
                 const data = { type: document.getElementById('adm-hero-type').value, img: document.getElementById('adm-hero-img').value, vid: document.getElementById('adm-hero-vid').value, title: document.getElementById('adm-hero-title').value, subtitle: document.getElementById('adm-hero-subtitle').value };
                 UI.updateHero(data);
@@ -964,7 +1015,6 @@
                 UI.renderHomepageSections(); 
             },
 
-            // --- DYNAMIC CATEGORY & BLOCK MANAGEMENT ---
             addNewCategory() {
                 const id = 'cat_' + Date.now();
                 AppState.config.areas.push({ id, label: "New Menu Item" });
@@ -997,7 +1047,6 @@
                 this.saveAllServices(); 
             },
 
-            // --- INSTANT AUTO-SAVE ENGINE ---
             saveHero() {
                 const data = { type: document.getElementById('adm-hero-type').value, img: document.getElementById('adm-hero-img').value, vid: document.getElementById('adm-hero-vid').value, title: document.getElementById('adm-hero-title').value, subtitle: document.getElementById('adm-hero-subtitle').value };
                 FirebaseService.saveHero(data); localStorage.setItem('nexusHero', JSON.stringify(data)); UI.updateHero(data);
@@ -1011,7 +1060,6 @@
                 FirebaseService.saveConfig({ wa: AppState.config.wa, upi: AppState.config.upi, email: AppState.config.email }); localStorage.setItem('nexusData', JSON.stringify(AppState.config));
             },
 
-            // 150ms debounce makes it feel completely instant while preventing database spam
             debouncedSaveHero: Utils.debounce(() => { window.App.saveHero(); }, 150),
             debouncedSaveAllServices: Utils.debounce(() => { window.App.saveAllServices(); }, 150),
             debouncedSaveGlobals: Utils.debounce(() => { window.App.saveGlobals(); }, 150),
@@ -1035,13 +1083,11 @@
                 document.getElementById(type === 'image' ? 'local-img-upload' : 'local-vid-upload').click();
             },
             
-            // --- SILENT BACKGROUND UPLOAD ENGINE ---
             async processFirebaseUpload(e) {
                 const file = e.target.files[0]; if(!file) return;
                 if(file.size > 50 * 1024 * 1024) { alert("File is too large. Maximum allowed size is 50MB."); e.target.value = ''; return; }
                 if(!FirebaseService.storage) { alert("Storage system initializing. Please try again."); return; }
 
-                // 1. Optimistic UI Update (Instant for Admin)
                 const localBlobUrl = URL.createObjectURL(file);
                 AppState.oldBlobUrls.push(localBlobUrl); 
                 const ctx = AppState.uploadContext;
@@ -1063,10 +1109,8 @@
                         fileToUpload = await MediaService.compressImage(file);
                     }
 
-                    // 2. Silent Background Upload (No Toast/Popup)
                     const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
 
-                    // 3. Upload Complete - Save Real URL to Global Database Silently
                     if(ctx.target === 'hero') {
                         document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = downloadURL;
                         window.App.saveHero();
@@ -1085,7 +1129,10 @@
             },
             handleBooking() {
                 const data = { id: Date.now().toString(), name: document.getElementById('p_name').value, email: document.getElementById('p_email').value, wa: document.getElementById('p_wa').value, counseling: document.getElementById('p_counseling').options[document.getElementById('p_counseling').selectedIndex].text, fee: document.getElementById('p_type').value, concern: document.getElementById('p_concern').value, date: new Date().toLocaleString() };
-                if(FirebaseService.db) FirebaseService.db.collection('submissions').doc(data.id).set(data);
+                if(FirebaseService.db && window.FirebaseV10) {
+                    const { doc, setDoc } = window.FirebaseV10;
+                    setDoc(doc(FirebaseService.db, 'submissions', data.id), data);
+                }
                 const upiUrl = `upi://pay?pa=${AppState.config.upi}&pn=NexusMind&am=${data.fee}&cu=INR`;
                 document.getElementById('p-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiUrl)}`;
                 document.getElementById('p-upi-text').textContent = AppState.config.upi;
@@ -1124,8 +1171,40 @@
             }
         };
 
-        // Initialize App
+        // Initialize App UI
         window.App.init();
+    </script>
+
+    <!-- FIREBASE V10 MODULAR SDK INTEGRATION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, onSnapshot, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        // EXACT CONFIGURATION PROVIDED BY YOU
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8FahQxzfs2D1Z-sLshNJ5Yh29wK-_30U",
+            authDomain: "nexa-mind-932ca.firebaseapp.com",
+            projectId: "nexa-mind-932ca",
+            storageBucket: "nexa-mind-932ca.firebasestorage.app",
+            messagingSenderId: "650100747575",
+            appId: "1:650100747575:web:95e661edaafcf9088cfeb2",
+            measurementId: "G-FKGVCJHKXV"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Expose Firebase V10 globally for the legacy architecture to consume
+        window.FirebaseV10 = {
+            db, storage, collection, addDoc, serverTimestamp, doc, setDoc, onSnapshot, getDoc, deleteDoc, ref, uploadBytes, getDownloadURL
+        };
+
+        // Trigger Firebase initialization in the main app
+        if (window.App && window.App.initFirebase) {
+            window.App.initFirebase();
+        }
     </script>
 </body>
 </html>
