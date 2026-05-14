@@ -78,7 +78,7 @@
 
         .admin-sidebar { width: 260px; background: rgba(245, 245, 247, 0.5); border-right: 1px solid rgba(0,0,0,0.05); padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
         .admin-tab-btn {
-            display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; color: #555; transition: all 0.2s ease; cursor: pointer; border: border: 1px solid transparent;
+            display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; color: #555; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent;
         }
         .admin-tab-btn:hover { background: rgba(0,0,0,0.03); color: #1D1D1F; }
         .admin-tab-btn.active { background: #FFFFFF; color: #0066CC; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02); }
@@ -103,7 +103,7 @@
 
         /* Frontend Styles */
         .glass-nav { background: rgba(252, 252, 250, 0.85); border-bottom: 1px solid rgba(0, 0, 0, 0.04); z-index: 1000; height: 76px; display: flex; align-items: center; position: fixed; top: 0; width: 100%; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-        .btn-primary { background: #111111; color: #FFFFFF; border-radius: 100px; font-weight: 600; font-size: 15px; padding: 14px 32px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.25); }
+        .btn-primary { background: #111111; color: #FFFFFF; border-radius: 100px; font-weight: 600; font-size: 15px; padding: 14px 32px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.25); cursor: pointer; }
         .btn-primary:hover { background: #000000; transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(17, 17, 17, 0.35); }
         
         .gpu-reveal { opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -111,10 +111,10 @@
 
         /* Media Library Grid */
         .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
-        .media-item { aspect-ratio: 1; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; }
+        .media-item { aspect-ratio: 1; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; background: #f0f0f0; }
         .media-item:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
         .media-item.selected { border-color: #0066CC; transform: scale(0.95); }
-        .media-item img { width: 100%; height: 100%; object-fit: cover; }
+        .media-item img, .media-item video { width: 100%; height: 100%; object-fit: cover; }
 
         /* Side Panel (Frontend Menu) */
         .side-panel { position: fixed; top: 0; bottom: 0; background: #FCFCFA; z-index: 3000; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); overflow-y: auto; box-shadow: -10px 0 40px rgba(0,0,0,0.1); width: 100%; max-width: 400px; transform: translate3d(-100%, 0, 0); }
@@ -185,7 +185,7 @@
                             <option value="500">Video Consultation - ₹500</option>
                         </select>
                         <textarea id="p_concern" placeholder="Briefly describe your concern..." class="apple-input h-28 resize-none" required></textarea>
-                        <button type="submit" class="btn-primary w-full py-4 text-[16px] mt-4">Proceed to Payment</button>
+                        <button type="submit" class="btn-primary w-full py-4 text-[16px] mt-4 border-none">Proceed to Payment</button>
                     </form>
 
                     <div id="p-payment" class="hidden text-center space-y-8 py-4">
@@ -195,7 +195,7 @@
                         </div>
                         <div class="max-w-sm mx-auto space-y-5">
                             <input type="text" id="p_utr" placeholder="12-DIGIT UTR" maxlength="12" class="apple-input text-center tracking-[0.2em] uppercase font-bold text-lg">
-                            <button id="verify-payment-btn" class="btn-primary w-full py-4 text-[16px]">Verify Transaction</button>
+                            <button id="verify-payment-btn" class="btn-primary w-full py-4 text-[16px] border-none">Verify Transaction</button>
                         </div>
                     </div>
                 </div>
@@ -222,10 +222,10 @@
             <h3 class="text-2xl font-bold tracking-tightest mb-2">System Access</h3>
             <p class="text-[14px] text-textMuted font-medium mb-8">Authenticate to access the control panel.</p>
             <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="apple-input text-center mb-4">
-            <button id="send-otp-btn" class="btn-primary w-full py-3.5">Request Access</button>
+            <button id="send-otp-btn" class="btn-primary w-full py-3.5 border-none">Request Access</button>
             <div id="otp-box" class="hidden space-y-5 pt-6 border-t border-black/5 mt-6">
                 <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="apple-input text-center tracking-[0.4em] font-mono text-xl font-bold">
-                <button id="verify-otp-btn" class="btn-primary w-full py-3.5">Verify Identity</button>
+                <button id="verify-otp-btn" class="btn-primary w-full py-3.5 border-none">Verify Identity</button>
             </div>
         </div>
     </div>
@@ -313,9 +313,9 @@
                         </div>
                         <button onclick="window.App.triggerUpload('library')" class="bg-appleBlue text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-105 transition-transform shadow-md"><i class="fas fa-cloud-upload-alt mr-2"></i> Upload Asset</button>
                     </div>
-                    <div class="apple-card bg-appleBg/50 border-dashed border-2 border-black/10 text-center py-12 mb-8" id="drop-zone">
+                    <div class="apple-card bg-appleBg/50 border-dashed border-2 border-black/10 text-center py-12 mb-8 cursor-pointer hover:bg-black/5 transition-colors" onclick="window.App.triggerUpload('library')">
                         <i class="fas fa-images text-4xl text-gray-300 mb-4"></i>
-                        <p class="text-sm font-medium text-gray-500">Drag and drop images/videos here</p>
+                        <p class="text-sm font-medium text-gray-500">Click here to upload images or videos</p>
                     </div>
                     <div id="media-library-grid" class="media-grid"></div>
                 </div>
@@ -495,6 +495,7 @@
                 // Frontend
                 document.getElementById('menu-btn').onclick = () => { document.getElementById('panel-overlay').classList.add('active'); document.getElementById('counseling-menu').classList.add('active'); document.body.classList.add('modal-open'); if(AppState.lenis) AppState.lenis.stop(); };
                 document.getElementById('admin-login-trigger').onclick = () => { document.getElementById('admin-login-modal').classList.add('active'); document.getElementById('login-box').style.transform = 'scale(1)'; };
+                document.getElementById('panel-overlay').onclick = window.App.closeMenu;
                 
                 // Admin Login
                 document.getElementById('send-otp-btn').onclick = window.App.sendOTP;
@@ -517,8 +518,8 @@
                 // Booking Form
                 document.getElementById('p-form').onsubmit = (e) => { e.preventDefault(); window.App.handleBooking(); };
                 document.getElementById('verify-payment-btn').onclick = () => {
-                    if(document.getElementById('p_utr').value.length === 12) { alert("Payment Verified. A specialist will contact you."); location.reload(); }
-                    else alert("Invalid UTR.");
+                    if(document.getElementById('p_utr').value.length === 12) { alert("Payment Verified. A specialist will contact you shortly."); location.reload(); }
+                    else alert("Invalid UTR. Please enter exactly 12 digits.");
                 };
             },
             updateFrontend() {
@@ -551,7 +552,7 @@
                 
                 // Menu
                 document.getElementById('menu-items-container').innerHTML = activeCats.map(c => `
-                    <div class="flex items-center justify-between padding-4 py-3 border-b border-black/5 cursor-pointer hover:pl-2 transition-all font-semibold text-textMain">
+                    <div class="flex items-center justify-between padding-4 py-3 border-b border-black/5 cursor-pointer hover:pl-2 transition-all font-semibold text-textMain" onclick="window.App.closeMenu(); window.location.href='#booking-section'">
                         <span>${c.label}</span><i class="fas fa-chevron-right text-xs text-gray-400"></i>
                     </div>`).join('');
                 
@@ -569,7 +570,7 @@
                                 <span class="text-[11px] font-bold tracking-widest uppercase text-textMuted mb-4 block">0${i+1} — ${c.label}</span>
                                 <h2 class="text-3xl md:text-[44px] font-bold tracking-tightest mb-6 leading-[1.15]">${c.title}</h2>
                                 <p class="text-[16px] text-textMuted leading-[1.6] mb-8 font-medium">${c.desc}</p>
-                                <a href="#booking-section" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm font-semibold shadow-sm hover:shadow-md transition-all">Explore Approach</a>
+                                <a href="#booking-section" class="bg-white border border-black/5 rounded-full px-6 py-3 text-sm font-semibold shadow-sm hover:shadow-md transition-all inline-block">Explore Approach</a>
                             </div>
                         </div>
                     </section>`).join('');
@@ -586,6 +587,7 @@
                 document.getElementById('adm-hero-subtitle').value = hero.subtitle;
                 document.getElementById('adm-hero-cta-text').value = hero.ctaText;
                 document.getElementById('adm-hero-cta-link').value = hero.ctaLink;
+                window.App.toggleHeroUI();
 
                 // Settings
                 document.getElementById('adm-set-wa').value = settings.wa;
@@ -675,7 +677,7 @@
             
             sendOTP() {
                 const email = document.getElementById('adm-email-input').value;
-                if(!email) return alert("Enter email");
+                if(!email) return alert("Please enter a valid email address.");
                 AppState.currentOTP = Math.floor(100000 + Math.random() * 900000);
                 document.getElementById('send-otp-btn').innerText = "Sending...";
                 
@@ -684,18 +686,32 @@
                     emailjs.send("service_w0vxgvf", "template_tt1b26p", { to_email: email, otp: AppState.currentOTP })
                     .then(() => {
                         document.getElementById('otp-box').classList.remove('hidden');
-                        document.getElementById('send-otp-btn').innerText = "OTP Sent";
+                        document.getElementById('send-otp-btn').innerText = "OTP Sent to Email";
+                    }).catch(() => {
+                        alert("Failed to send OTP. Please check your connection.");
+                        document.getElementById('send-otp-btn').innerText = "Request Access";
                     });
-                } catch(e) { alert("Error sending OTP"); }
+                } catch(e) { 
+                    alert("System error sending email."); 
+                    document.getElementById('send-otp-btn').innerText = "Request Access";
+                }
             },
             verifyOTP() {
-                if(document.getElementById('adm-otp-input').value === AppState.currentOTP?.toString() || document.getElementById('adm-otp-input').value === "000000") { // 000000 for testing
+                const inputVal = document.getElementById('adm-otp-input').value;
+                if(inputVal === AppState.currentOTP?.toString() || inputVal === "000000") { // 000000 is a fallback for testing
                     document.getElementById('admin-login-modal').classList.remove('active');
                     document.getElementById('admin-dashboard').classList.add('active');
                     AppState.isAdminActive = true;
                     UI.populateAdminForms();
                     if(AppState.lenis) AppState.lenis.stop();
-                } else alert("Invalid OTP");
+                } else {
+                    alert("Invalid or Expired OTP.");
+                }
+            },
+
+            toggleHeroUI() {
+                const type = document.getElementById('adm-hero-type').value;
+                document.getElementById('adm-hero-media').placeholder = type === 'video' ? 'Video URL (.mp4)' : 'Image URL (.jpg, .png)';
             },
 
             // Auto-Save Logic
@@ -734,7 +750,7 @@
                 UI.renderAdminCategories(); this.triggerAutoSave();
             },
             deleteCategory(id) {
-                if(confirm("Delete category?")) {
+                if(confirm("Are you sure you want to delete this category?")) {
                     AppState.config.categories = AppState.config.categories.filter(c => c.id !== id);
                     UI.renderAdminCategories(); this.triggerAutoSave();
                 }
@@ -777,7 +793,7 @@
                     
                     window.App.triggerAutoSave();
                     UI.renderMediaLibrary();
-                } catch(err) { alert("Upload failed."); }
+                } catch(err) { alert("Upload failed. Please try again."); }
                 e.target.value = '';
             },
             
@@ -809,8 +825,9 @@
                 this.closeMediaSelector();
             },
             copyToClipboard(text) {
-                navigator.clipboard.writeText(text);
-                alert("URL copied to clipboard!");
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("Media URL copied to clipboard!");
+                });
             },
 
             // Booking
