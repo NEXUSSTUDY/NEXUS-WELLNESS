@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,7 +88,7 @@
         #hero-img-bg, #hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background-size: cover; background-position: center; z-index: 0; will-change: transform; transform: translateZ(0); }
         #hero-img-bg { transition: opacity 0.8s ease; opacity: 1; filter: brightness(1.05) contrast(1.02) saturate(1.05); }
         #hero-video-bg { transition: opacity 1s ease; opacity: 0; z-index: 1; pointer-events: none; filter: brightness(1.05) contrast(1.02) saturate(1.05); }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(252,252,250,0.1) 0%, rgba(252,252,250,0.4) 60%, rgba(252,252,250,1) 100%); z-index: 2; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(252,252,250,0.3) 0%, rgba(252,252,250,0.7) 70%, rgba(252,252,250,1) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; max-width: 800px; padding: 0 24px; color: #111111; }
 
         #homepage-sections, #booking-section, footer { position: relative; z-index: 10; background-color: #FCFCFA; }
@@ -117,6 +117,7 @@
 
         .sleek-input { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 14px 18px; width: 100%; font-size: 15px; font-weight: 500; transition: all 0.2s ease; color: #111111; font-family: 'Geist Sans', sans-serif; -webkit-appearance: none; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .sleek-input:focus { border-color: rgba(0,0,0,0.2); outline: none; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .sleek-input:disabled { background: #F5F5F2; color: #888; cursor: not-allowed; }
         .sleek-input::placeholder { color: #888888; font-weight: 400; }
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(252,252,250,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s ease; transform: translateZ(0); }
@@ -200,13 +201,13 @@
 
         <section id="hero-section">
             <div id="hero-img-bg"></div>
-            <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline preload="auto"></video>
+            <video id="hero-video-bg" class="hidden" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
             
             <div class="hero-overlay"></div>
             <div class="hero-content hero-glide-up">
                 <h1 id="hero-title" class="text-5xl md:text-[76px] font-bold tracking-tightest leading-[1.05] mb-6 text-textMain">Reclaim Your<br>Inner Peace</h1>
                 <p id="hero-subtitle" class="text-lg md:text-[20px] text-textMuted mb-10 max-w-xl mx-auto font-medium tracking-tighter">Premium online counseling for mental excellence.</p>
-                <a href="#booking-section" class="btn-primary px-10 py-4 text-[16px]">Begin Journey</a>
+                <a id="hero-btn" href="#booking-section" class="btn-primary px-10 py-4 text-[16px]">Begin Journey</a>
             </div>
         </section>
 
@@ -255,6 +256,7 @@
                             <p id="p-upi-text" class="mt-4 text-textMain font-semibold text-[15px] tracking-wide"></p>
                         </div>
                         <div class="max-w-sm mx-auto space-y-5">
+                            <p id="p-payment-desc" class="text-sm text-textMuted font-medium mb-4">Scan the QR code to complete your payment.</p>
                             <input type="text" id="p_utr" placeholder="12-DIGIT UTR" maxlength="12" class="sleek-input text-center tracking-[0.2em] uppercase font-bold text-lg">
                             <button id="verify-payment-btn" class="btn-primary w-full py-4 text-[16px]">Verify Transaction</button>
                         </div>
@@ -373,8 +375,8 @@
                     <div class="apple-card">
                         <h4 class="apple-label">Media Type</h4>
                         <div class="segmented-control">
-                            <div class="segmented-btn active" id="seg-hero-img" onclick="window.App.setHeroType('image')">Image</div>
-                            <div class="segmented-btn" id="seg-hero-vid" onclick="window.App.setHeroType('video')">Video</div>
+                            <div class="segmented-btn" id="seg-hero-img" onclick="window.App.setHeroType('image')">Image</div>
+                            <div class="segmented-btn active" id="seg-hero-vid" onclick="window.App.setHeroType('video')">Video</div>
                         </div>
                         <input type="hidden" id="adm-hero-type" value="video">
 
@@ -579,6 +581,19 @@
                     ];
                 }
                 
+                // CLEANUP: Automatically remove any accidental "New Menu Item" or "New Homepage Title"
+                if (config.areas && config.areas.length > 0) {
+                    config.areas = config.areas.filter(a => {
+                        const srv = config.services ? config.services[a.id] : null;
+                        const isDummy = a.label === "New Menu Item" || (srv && srv.title === "New Homepage Title");
+                        if (isDummy) {
+                            if(config.services && config.services[a.id]) delete config.services[a.id];
+                            return false;
+                        }
+                        return true;
+                    });
+                }
+                
                 config.areas.forEach(area => { if (area.isEnabled === undefined) area.isEnabled = true; });
                 if (!config.services) config.services = {};
                 
@@ -641,13 +656,20 @@
                 // Instant Global Sync for Hero
                 onSnapshot(doc(this.db, 'config', 'globalHero'), (docSnap) => {
                     if(docSnap.exists()) {
-                        const data = docSnap.data();
+                        let data = docSnap.data();
+                        
+                        // Force update to nature video if it's the old waves video
+                        if(data.vid === 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4' || data.vid === 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_24fps.mp4') {
+                            data.vid = 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4';
+                            this.saveHero(data);
+                        }
+                        
                         localStorage.setItem('nexusHero', JSON.stringify(data)); 
                         UI.updateHero(data);
                     } else {
                         const defaultHero = { 
                             type: 'video', 
-                            vid: 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4', 
+                            vid: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', 
                             img: Constants.premiumImages[0], 
                             title: 'Reclaim Your\nInner Peace', 
                             subtitle: 'Premium online counseling for mental excellence.' 
@@ -777,7 +799,7 @@
                 try {
                     const savedHero = JSON.parse(localStorage.getItem('nexusHero')) || { 
                         type: 'video', 
-                        vid: 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4', 
+                        vid: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', 
                         img: Constants.premiumImages[0] 
                     };
                     this.updateHero(savedHero);
@@ -858,7 +880,8 @@
                 if(data.type === 'video' && data.vid) {
                     if(this.heroVidBg.src !== data.vid && !data.vid.startsWith('blob:')) {
                         this.heroVidBg.classList.remove('hidden'); this.heroVidBg.style.opacity = '0'; this.heroVidBg.src = data.vid;
-                        this.heroVidBg.muted = true; this.heroVidBg.defaultMuted = true; this.heroVidBg.setAttribute('muted', ''); this.heroVidBg.playsInline = true;
+                        this.heroVidBg.muted = true; this.heroVidBg.defaultMuted = true; this.heroVidBg.setAttribute('muted', ''); 
+                        this.heroVidBg.setAttribute('playsinline', ''); this.heroVidBg.setAttribute('webkit-playsinline', '');
                         this.heroVidBg.load();
                         this.heroVidBg.oncanplaythrough = () => {
                             this.heroVidBg.play().then(() => { this.heroVidBg.style.opacity = '1'; setTimeout(() => { this.heroImgBg.style.opacity = '0'; }, 600); }).catch(()=>{});
@@ -1208,9 +1231,9 @@
 
             addNewCategory() {
                 const id = 'cat_' + Date.now();
-                AppState.config.areas.push({ id, label: "New Menu Item", isEnabled: true });
+                AppState.config.areas.push({ id, label: "Custom Section", isEnabled: true });
                 AppState.config.services[id] = {
-                    title: "New Homepage Title", desc: "Description goes here.", img: Constants.premiumImages[0], bgImg: '', blocks: []
+                    title: "Custom Section", desc: "Description goes here.", img: Constants.premiumImages[0], bgImg: '', blocks: []
                 };
                 UI.renderAdminServices(); UI.renderMenu(); UI.renderHomepageSections(); UI.renderBookingOptions();
                 this.saveAllServices();
@@ -1434,3 +1457,4 @@
     </script>
 </body>
 </html>
+```
