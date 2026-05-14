@@ -36,14 +36,14 @@
                     colors: {
                         bgBase: '#FCFCFA', bgSurface: '#F5F5F2', textMain: '#111111', textMuted: '#555555',
                         charcoal: '#161618', charcoalLight: '#1C1C1E', borderLight: 'rgba(0, 0, 0, 0.06)', borderDark: 'rgba(255, 255, 255, 0.08)',
-                        appleGray: '#F5F5F7', appleDark: '#1D1D1F', appleBlue: '#0066CC'
+                        appleGray: '#F5F5F7', appleBlue: '#0071E3'
                     },
                     fontFamily: { sans: ['"Geist Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'] },
                     letterSpacing: { tightest: '-0.035em', tighter: '-0.02em' },
                     boxShadow: {
                         'soft': '0 12px 32px -8px rgba(0, 0, 0, 0.05)', 'float': '0 24px 48px -12px rgba(0, 0, 0, 0.08)',
                         'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.04)', 'glow': '0 8px 24px -6px rgba(17, 17, 17, 0.25)', 'admin': '0 6px 20px rgba(0, 0, 0, 0.12)',
-                        'apple': '0 20px 40px -10px rgba(0,0,0,0.15), 0 0 20px rgba(0,0,0,0.05)'
+                        'apple': '0 4px 24px rgba(0,0,0,0.04)'
                     }
                 }
             }
@@ -67,7 +67,7 @@
 
         #app-container {
             background-color: #FCFCFA; min-height: 100vh; width: 100%; position: relative; z-index: 1;
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
             will-change: transform, border-radius, filter; transform: translateZ(0);
         }
 
@@ -109,7 +109,8 @@
 
         .side-panel { position: fixed; top: 0; bottom: 0; background: #FCFCFA; z-index: 3000; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.5s; overflow-y: auto; visibility: hidden; box-shadow: -10px 0 40px rgba(0,0,0,0.1); width: 100%; max-width: 400px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; transform: translate3d(0,0,0); }
         #counseling-menu { left: 0; transform: translate3d(-100%, 0, 0); border-right: 1px solid rgba(0,0,0,0.05); }
-        #counseling-menu.active { transform: translate3d(0, 0, 0) !important; visibility: visible; }
+        #admin-panel { right: 0; transform: translate3d(100%, 0, 0); border-left: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; background: #F5F5F7; }
+        #counseling-menu.active, #admin-panel.active { transform: translate3d(0, 0, 0) !important; visibility: visible; }
 
         .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: 14px; margin-bottom: 4px; transition: all 0.2s ease; font-weight: 600; font-size: 16px; color: #111111; }
         .menu-item:active { background: rgba(0,0,0,0.05); }
@@ -136,50 +137,39 @@
         ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
 
-        /* Apple-Style Admin UI Specifics */
-        #admin-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 6000; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; align-items: center; justify-content: center; padding: 20px; }
-        #admin-modal-overlay.active { opacity: 1; visibility: visible; }
+        /* --- APPLE STYLE ADMIN UI --- */
+        .apple-card { background: #FFFFFF; border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 4px 24px rgba(0,0,0,0.04); transition: all 0.3s ease; }
+        .apple-label { font-size: 11px; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; }
         
-        #admin-window { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border-radius: 24px; width: 100%; max-width: 1100px; height: 85vh; box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.5) inset; transform: scale(0.95) translateY(20px); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; overflow: hidden; position: relative; }
-        #admin-modal-overlay.active #admin-window { transform: scale(1) translateY(0); }
-
-        .admin-sidebar { width: 260px; background: rgba(245, 245, 247, 0.6); border-right: 1px solid rgba(0,0,0,0.06); padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
-        .admin-content-area { flex: 1; overflow-y: auto; padding: 40px; background: transparent; position: relative; scroll-behavior: smooth; }
+        .apple-input { background: #F5F5F7; border: 1px solid transparent; border-radius: 12px; padding: 12px 16px; width: 100%; font-size: 14px; font-weight: 500; transition: all 0.2s ease; color: #111111; font-family: 'Geist Sans', sans-serif; }
+        .apple-input:focus { background: #FFFFFF; border-color: #0071E3; outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15); }
+        .apple-input:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .admin-nav-item { padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; }
-        .admin-nav-item:hover { background: rgba(0,0,0,0.04); color: #111; }
-        .admin-nav-item.active { background: #0066CC; color: #FFF; box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3); }
-
-        .apple-input { background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 12px 16px; width: 100%; font-size: 14px; font-weight: 500; transition: all 0.2s ease; color: #111; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
-        .apple-input:focus { background: #FFF; border-color: #0066CC; outline: none; box-shadow: 0 0 0 3px rgba(0,102,204,0.15); }
+        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+        .apple-btn:hover { background: #000000; transform: scale(0.98); }
+        .apple-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
-        .apple-card { background: rgba(255,255,255,0.7); border-radius: 20px; padding: 24px; margin-bottom: 24px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 16px rgba(0,0,0,0.03); }
-        .apple-label { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 0.05em; }
+        .apple-btn-secondary { background: #E8E8ED; color: #111111; }
+        .apple-btn-secondary:hover { background: #D1D1D6; }
 
-        .apple-btn { background: #0066CC; color: #FFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 20px; transition: all 0.2s ease; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-        .apple-btn:hover { background: #0055B3; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2); }
-        .apple-btn-secondary { background: rgba(0,0,0,0.05); color: #111; }
-        .apple-btn-secondary:hover { background: rgba(0,0,0,0.08); box-shadow: none; }
+        .admin-glass-header { background: rgba(245, 245, 247, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 20; padding: 16px 24px; }
+        
+        .admin-tab-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .admin-tab-bar::-webkit-scrollbar { display: none; }
+        .admin-tab { padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #555; background: transparent; transition: all 0.2s; white-space: nowrap; cursor: pointer; }
+        .admin-tab.active { background: #111111; color: #FFFFFF; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        .segmented-control { display: flex; background: #E8E8ED; border-radius: 10px; padding: 3px; margin-bottom: 16px; }
+        .segmented-btn { flex: 1; text-align: center; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #555; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+        .segmented-btn.active { background: #FFFFFF; color: #111; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
         /* iOS Toggle Switch */
-        .ios-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .ios-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
-        .ios-slider { position: absolute; cursor: pointer; inset: 0; background-color: #E5E5EA; transition: .3s; border-radius: 24px; }
-        .ios-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .ios-slider { position: absolute; cursor: pointer; inset: 0; background-color: #E5E5EA; transition: .3s; border-radius: 22px; }
+        .ios-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 2px; bottom: 2px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         input:checked + .ios-slider { background-color: #34C759; }
-        input:checked + .ios-slider:before { transform: translateX(20px); }
-
-        /* Segmented Control */
-        .segmented-control { display: flex; background: rgba(118, 118, 128, 0.12); border-radius: 8px; padding: 2px; }
-        .segmented-btn { flex: 1; text-align: center; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #111; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
-        .segmented-btn.active { background: #FFF; box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 3px 1px rgba(0,0,0,0.04); }
-
-        @media (max-width: 768px) {
-            #admin-window { flex-direction: column; height: 95vh; border-radius: 20px; }
-            .admin-sidebar { width: 100%; flex-direction: row; overflow-x: auto; padding: 16px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
-            .admin-nav-item { white-space: nowrap; }
-            .admin-content-area { padding: 20px; }
-        }
+        input:checked + .ios-slider:before { transform: translateX(18px); }
     </style>
 </head>
 <body>
@@ -216,7 +206,7 @@
             <div class="hero-content hero-glide-up">
                 <h1 id="hero-title" class="text-5xl md:text-[76px] font-bold tracking-tightest leading-[1.05] mb-6 text-textMain">Reclaim Your<br>Inner Peace</h1>
                 <p id="hero-subtitle" class="text-lg md:text-[20px] text-textMuted mb-10 max-w-xl mx-auto font-medium tracking-tighter">Premium online counseling for mental excellence.</p>
-                <a id="hero-btn" href="#booking-section" class="btn-primary px-10 py-4 text-[16px]">Begin Journey</a>
+                <a href="#booking-section" class="btn-primary px-10 py-4 text-[16px]">Begin Journey</a>
             </div>
         </section>
 
@@ -265,7 +255,6 @@
                             <p id="p-upi-text" class="mt-4 text-textMain font-semibold text-[15px] tracking-wide"></p>
                         </div>
                         <div class="max-w-sm mx-auto space-y-5">
-                            <p id="p-payment-desc" class="text-sm text-textMuted font-medium mb-4">Scan the QR code to complete your payment.</p>
                             <input type="text" id="p_utr" placeholder="12-DIGIT UTR" maxlength="12" class="sleek-input text-center tracking-[0.2em] uppercase font-bold text-lg">
                             <button id="verify-payment-btn" class="btn-primary w-full py-4 text-[16px]">Verify Transaction</button>
                         </div>
@@ -312,6 +301,7 @@
 
     <div id="panel-overlay" class="panel-overlay"></div>
 
+    <!-- COUNSELING MENU -->
     <div id="counseling-menu" class="side-panel" data-lenis-prevent>
         <div class="p-8 pt-10 pb-32 flex flex-col min-h-full">
             <div class="flex justify-between items-center mb-10">
@@ -331,191 +321,159 @@
         </div>
     </div>
 
-    <!-- APPLE-STYLE ADMIN MODAL -->
-    <div id="admin-modal-overlay" data-lenis-prevent>
-        <div id="admin-window">
-            
-            <!-- Login Section -->
-            <div id="admin-login-section" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#F5F5F7]/95 backdrop-blur-3xl transition-opacity duration-500">
-                <div class="w-full max-w-sm p-8 text-center">
-                    <div class="w-20 h-20 bg-white rounded-[24px] mx-auto flex items-center justify-center text-3xl border border-black/5 shadow-apple mb-8 text-appleBlue">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold tracking-tightest text-textMain mb-2">System Access</h2>
-                    <p class="text-[14px] text-textMuted font-medium mb-8">Authenticate to access configuration.</p>
-                    
-                    <div class="space-y-4">
-                        <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="apple-input text-center">
-                        <button id="send-otp-btn" class="apple-btn w-full py-3.5 text-[15px]">Request Access</button>
-                    </div>
+    <!-- APPLE STYLE ADMIN PANEL -->
+    <div id="admin-panel" class="side-panel" data-lenis-prevent>
+        
+        <!-- Login Section -->
+        <div id="admin-login-section" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#F5F5F7] transition-opacity duration-500 p-8">
+            <div class="w-full text-center">
+                <div class="w-20 h-20 bg-white rounded-[24px] mx-auto flex items-center justify-center text-3xl shadow-apple mb-8 text-textMain">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <h2 class="text-2xl font-bold tracking-tightest text-textMain mb-2">System Access</h2>
+                <p class="text-[14px] text-textMuted font-medium mb-8">Authenticate to access configuration.</p>
+                
+                <div class="space-y-4">
+                    <input type="email" id="adm-email-input" placeholder="admin@nexusmind.com" class="apple-input text-center">
+                    <button id="send-otp-btn" class="apple-btn w-full py-3.5 text-[15px]">Request Access</button>
+                </div>
 
-                    <div id="otp-box" class="hidden space-y-4 pt-8 mt-8 border-t border-black/5">
-                        <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="apple-input text-center tracking-[0.4em] font-mono text-xl font-bold">
-                        <button id="verify-otp-btn" class="apple-btn w-full py-3.5 text-[15px]">Verify Identity</button>
-                    </div>
-                    
-                    <button id="close-admin-login-btn" class="mt-8 text-[13px] text-textMuted hover:text-textMain font-medium">Cancel</button>
+                <div id="otp-box" class="hidden space-y-4 pt-8 mt-8 border-t border-black/5">
+                    <input type="text" id="adm-otp-input" maxlength="6" placeholder="000000" class="apple-input text-center tracking-[0.4em] font-mono text-xl font-bold">
+                    <button id="verify-otp-btn" class="apple-btn w-full py-3.5 text-[15px]">Verify Identity</button>
+                </div>
+                
+                <button id="close-admin-login-btn" class="mt-8 text-[13px] text-textMuted hover:text-textMain font-medium">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Main Admin Interface -->
+        <div id="admin-main-controls" class="hidden flex-col h-full">
+            
+            <!-- Glass Header & Tabs -->
+            <div class="admin-glass-header shrink-0">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold tracking-tightest text-xl text-textMain">Admin Control</h3>
+                    <button id="close-admin-btn" class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-colors"><i class="fas fa-times text-sm"></i></button>
+                </div>
+                <div class="admin-tab-bar">
+                    <button class="admin-tab active" onclick="window.App.switchAdminTab('hero')">Hero</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab('categories')">Categories</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab('globals')">Globals</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab('submissions')">Inbox</button>
+                    <button class="admin-tab" onclick="window.App.switchAdminTab('feed')">Feed</button>
                 </div>
             </div>
 
-            <!-- Main Admin Interface -->
-            <div id="admin-main-controls" class="hidden w-full h-full flex flex-col md:flex-row">
+            <!-- Scrollable Content Area -->
+            <div class="flex-1 overflow-y-auto p-6 pb-32" id="admin-content-scroll">
                 
-                <!-- Sidebar -->
-                <div class="admin-sidebar">
-                    <div class="flex items-center justify-between mb-6 px-2">
-                        <h3 class="font-bold tracking-tightest text-lg text-textMain">Settings</h3>
-                        <button id="close-admin-btn" class="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center text-textMain hover:bg-black/10 transition-colors"><i class="fas fa-times text-sm"></i></button>
+                <!-- TAB: HERO SECTION -->
+                <div id="tab-hero" class="admin-tab-content block">
+                    <div class="apple-card">
+                        <h4 class="apple-label">Media Type</h4>
+                        <div class="segmented-control">
+                            <div class="segmented-btn active" id="seg-hero-img" onclick="window.App.setHeroType('image')">Image</div>
+                            <div class="segmented-btn" id="seg-hero-vid" onclick="window.App.setHeroType('video')">Video</div>
+                        </div>
+                        <input type="hidden" id="adm-hero-type" value="video">
+
+                        <div id="adm-img-ui" class="hidden">
+                            <h4 class="apple-label mt-4">Hero Image</h4>
+                            <div class="flex gap-2 mb-3">
+                                <input id="adm-hero-img" class="apple-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
+                                <button onclick="window.App.triggerUpload('image', 'hero')" class="apple-btn apple-btn-secondary px-4" title="Upload from Device"><i class="fas fa-upload"></i></button>
+                            </div>
+                            <button onclick="window.App.openGalleryForHero()" class="text-appleBlue text-[12px] font-semibold hover:underline">Choose from Premium Gallery</button>
+                        </div>
+
+                        <div id="adm-vid-ui">
+                            <h4 class="apple-label mt-4">Hero Video</h4>
+                            <div class="flex gap-2 mb-3">
+                                <input id="adm-hero-vid" class="apple-input flex-1" placeholder="Video URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
+                                <button onclick="window.App.triggerUpload('video', 'hero')" class="apple-btn apple-btn-secondary px-4" title="Upload from Device"><i class="fas fa-upload"></i></button>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="admin-nav-item active" onclick="window.App.switchAdminTab('hero')">
-                        <i class="fas fa-image w-5 text-center"></i> Hero Section
-                    </div>
-                    <div class="admin-nav-item" onclick="window.App.switchAdminTab('categories')">
-                        <i class="fas fa-layer-group w-5 text-center"></i> Categories & Pages
-                    </div>
-                    <div class="admin-nav-item" onclick="window.App.switchAdminTab('globals')">
-                        <i class="fas fa-cog w-5 text-center"></i> Global Settings
-                    </div>
-                    <div class="admin-nav-item" onclick="window.App.switchAdminTab('submissions')">
-                        <i class="fas fa-inbox w-5 text-center"></i> Submissions
-                    </div>
-                    <div class="admin-nav-item" onclick="window.App.switchAdminTab('feed')">
-                        <i class="fas fa-broadcast-tower w-5 text-center"></i> Global Feed
-                    </div>
-                    
-                    <div class="mt-auto pt-4">
-                        <button id="lock-admin-btn" class="admin-nav-item text-red-500 hover:bg-red-50 w-full">
-                            <i class="fas fa-lock w-5 text-center"></i> Lock Session
-                        </button>
+
+                    <div class="apple-card">
+                        <h4 class="apple-label">Typography</h4>
+                        <textarea id="adm-hero-title" class="apple-input h-24 mb-4 resize-none font-bold" placeholder="Hero Title" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()"></textarea>
+                        <input id="adm-hero-subtitle" class="apple-input" placeholder="Hero Subtitle" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
                     </div>
                 </div>
 
-                <!-- Content Area -->
-                <div class="admin-content-area" id="admin-content-scroll">
+                <!-- TAB: CATEGORIES -->
+                <div id="tab-categories" class="admin-tab-content hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold tracking-tightest">Categories & Pages</h2>
+                        <button onclick="window.App.addNewCategory()" class="apple-btn text-xs py-1.5 px-3"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                    <p class="text-[12px] text-textMuted mb-6 font-medium">Changes instantly sync to the menu and homepage.</p>
                     
-                    <!-- TAB: HERO SECTION -->
-                    <div id="tab-hero" class="admin-tab-content block">
-                        <h2 class="text-2xl font-bold tracking-tightest mb-6">Hero Section</h2>
-                        
-                        <div class="apple-card">
-                            <h4 class="apple-label">Media Type</h4>
-                            <div class="segmented-control mb-6 max-w-xs">
-                                <div class="segmented-btn active" id="seg-hero-img" onclick="window.App.setHeroType('image')">Image</div>
-                                <div class="segmented-btn" id="seg-hero-vid" onclick="window.App.setHeroType('video')">Video</div>
-                            </div>
-                            <input type="hidden" id="adm-hero-type" value="image">
-
-                            <div id="adm-img-ui">
-                                <h4 class="apple-label">Hero Image</h4>
-                                <div class="flex gap-3 mb-4">
-                                    <input id="adm-hero-img" class="apple-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                    <button onclick="window.App.triggerUpload('image', 'hero')" class="apple-btn apple-btn-secondary px-4" title="Upload from Device"><i class="fas fa-upload"></i></button>
-                                </div>
-                                <button onclick="window.App.openGalleryForHero()" class="text-appleBlue text-[13px] font-semibold mb-2 hover:underline">Choose from Premium Gallery</button>
-                            </div>
-
-                            <div id="adm-vid-ui" class="hidden">
-                                <h4 class="apple-label">Hero Video</h4>
-                                <div class="flex gap-3 mb-4">
-                                    <input id="adm-hero-vid" class="apple-input flex-1" placeholder="Video URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                    <button onclick="window.App.triggerUpload('video', 'hero')" class="apple-btn apple-btn-secondary px-4" title="Upload from Device"><i class="fas fa-upload"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="apple-card">
-                            <h4 class="apple-label">Typography & Action</h4>
-                            <textarea id="adm-hero-title" class="apple-input h-24 mb-4 resize-none text-lg font-bold" placeholder="Hero Title" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()"></textarea>
-                            <input id="adm-hero-subtitle" class="apple-input mb-6" placeholder="Hero Subtitle" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                            
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">Button Text</label>
-                                    <input id="adm-hero-btn-text" class="apple-input" placeholder="Begin Journey" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                </div>
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">Button Link</label>
-                                    <input id="adm-hero-btn-link" class="apple-input" placeholder="#booking-section" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB: CATEGORIES -->
-                    <div id="tab-categories" class="admin-tab-content hidden">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold tracking-tightest">Categories & Pages</h2>
-                            <button onclick="window.App.addNewCategory()" class="apple-btn text-sm py-2"><i class="fas fa-plus"></i> Add Category</button>
-                        </div>
-                        <p class="text-[14px] text-textMuted mb-6 font-medium">Changes here instantly sync to the 3-line menu and homepage sections.</p>
-                        
-                        <div id="admin-services-list" class="space-y-6"></div>
-                    </div>
-
-                    <!-- TAB: GLOBALS -->
-                    <div id="tab-globals" class="admin-tab-content hidden">
-                        <h2 class="text-2xl font-bold tracking-tightest mb-6">Global Settings</h2>
-                        
-                        <div class="apple-card">
-                            <h4 class="apple-label">Contact Information</h4>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">WhatsApp Number</label>
-                                    <input id="adm-wa" class="apple-input" placeholder="+91..." oninput="window.App.debouncedSaveGlobals()">
-                                </div>
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">Admin Email</label>
-                                    <input id="adm-email" class="apple-input" placeholder="admin@nexusmind.com" oninput="window.App.debouncedSaveGlobals()">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="apple-card">
-                            <h4 class="apple-label">Payment Configuration</h4>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">UPI ID</label>
-                                    <input id="adm-upi" class="apple-input" placeholder="yourname@upi" oninput="window.App.debouncedSaveGlobals()">
-                                </div>
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">Payment Instructions Text</label>
-                                    <input id="adm-payment-text" class="apple-input" placeholder="Scan the QR code to complete your payment." oninput="window.App.debouncedSaveGlobals()">
-                                </div>
-                                <div>
-                                    <label class="text-[11px] font-bold text-textMuted uppercase tracking-wider mb-2 block">Custom QR Code Image (Optional)</label>
-                                    <div class="flex gap-3">
-                                        <input id="adm-qr-img" class="apple-input flex-1" placeholder="Leave blank to auto-generate" oninput="window.App.debouncedSaveGlobals()">
-                                        <button onclick="window.App.triggerUpload('image', 'qr')" class="apple-btn apple-btn-secondary px-4" title="Upload Custom QR"><i class="fas fa-upload"></i></button>
-                                    </div>
-                                    <p class="text-[11px] text-textMuted mt-2">If uploaded, this image will override the auto-generated UPI QR code.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB: SUBMISSIONS -->
-                    <div id="tab-submissions" class="admin-tab-content hidden">
-                        <h2 class="text-2xl font-bold tracking-tightest mb-6">Submissions</h2>
-                        <div id="admin-submissions-list" class="space-y-4">
-                            <p class="text-[13px] text-textMuted font-medium">Loading...</p>
-                        </div>
-                    </div>
-
-                    <!-- TAB: FEED -->
-                    <div id="tab-feed" class="admin-tab-content hidden">
-                        <h2 class="text-2xl font-bold tracking-tightest mb-6">Global Feed Post</h2>
-                        <div class="apple-card">
-                            <p class="text-[13px] text-textMuted mb-6 font-medium">Publish a photo or video with a caption to the global feed.</p>
-                            <form id="media-upload-form" class="space-y-4">
-                                <textarea id="post-text" placeholder="Write a caption..." class="apple-input h-24 resize-none" required></textarea>
-                                <input type="file" id="post-file" accept="image/*,video/*" class="apple-input p-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-black/5 file:text-textMain hover:file:bg-black/10 cursor-pointer" required>
-                                <button type="submit" id="post-submit-btn" class="apple-btn w-full py-3.5 text-[15px]">Publish Post</button>
-                            </form>
-                        </div>
-                    </div>
-
+                    <div id="admin-services-list" class="space-y-4"></div>
                 </div>
+
+                <!-- TAB: GLOBALS -->
+                <div id="tab-globals" class="admin-tab-content hidden">
+                    <div class="apple-card">
+                        <h4 class="apple-label">Contact Information</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">WhatsApp Number</label>
+                                <input id="adm-wa" class="apple-input" placeholder="+91..." oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">Admin Email</label>
+                                <input id="adm-email" class="apple-input" placeholder="admin@nexusmind.com" oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="apple-card">
+                        <h4 class="apple-label">Payment Configuration</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">UPI ID</label>
+                                <input id="adm-upi" class="apple-input" placeholder="yourname@upi" oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">Custom QR Code Image (Optional)</label>
+                                <div class="flex gap-2">
+                                    <input id="adm-qr-img" class="apple-input flex-1" placeholder="Leave blank to auto-generate" oninput="window.App.debouncedSaveGlobals()">
+                                    <button onclick="window.App.triggerUpload('image', 'qr')" class="apple-btn apple-btn-secondary px-4" title="Upload Custom QR"><i class="fas fa-upload"></i></button>
+                                </div>
+                                <p class="text-[10px] text-textMuted mt-1.5">If uploaded, this image overrides the auto-generated UPI QR code.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: SUBMISSIONS -->
+                <div id="tab-submissions" class="admin-tab-content hidden">
+                    <div id="admin-submissions-list" class="space-y-4">
+                        <p class="text-[13px] text-textMuted font-medium">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- TAB: FEED -->
+                <div id="tab-feed" class="admin-tab-content hidden">
+                    <div class="apple-card">
+                        <p class="text-[12px] text-textMuted mb-4 font-medium">Publish a photo or video with a caption to the global feed.</p>
+                        <form id="media-upload-form" class="space-y-4">
+                            <textarea id="post-text" placeholder="Write a caption..." class="apple-input h-24 resize-none" required></textarea>
+                            <input type="file" id="post-file" accept="image/*,video/*" class="apple-input p-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-black/5 file:text-textMain hover:file:bg-black/10 cursor-pointer" required>
+                            <button type="submit" id="post-submit-btn" class="apple-btn w-full py-3.5">Publish Post</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-black/5">
+                    <button id="lock-admin-btn" class="w-full text-red-500 font-bold text-[14px] py-3 rounded-[12px] hover:bg-red-50 transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-lock"></i> Lock Session
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -566,7 +524,7 @@
     <script>
         // --- MODULAR ARCHITECTURE & STATE MANAGEMENT ---
         const AppState = {
-            config: { wa: "+917830232077", upi: "7830232077@ptsbi", email: "thenexusstudy3@gmail.com", qrCode: "", paymentText: "Scan the QR code to complete your payment.", areas: [], services: {} },
+            config: { wa: "+917830232077", upi: "7830232077@ptsbi", email: "thenexusstudy3@gmail.com", qrCode: "", areas: [], services: {} },
             isAdminActive: false,
             currentOTP: null,
             otpCooldown: false,
@@ -642,7 +600,6 @@
                 });
                 
                 if(config.qrCode === undefined) config.qrCode = "";
-                if(config.paymentText === undefined) config.paymentText = "Scan the QR code to complete your payment.";
                 
                 return config;
             },
@@ -688,7 +645,13 @@
                         localStorage.setItem('nexusHero', JSON.stringify(data)); 
                         UI.updateHero(data);
                     } else {
-                        const defaultHero = { type: 'video', vid: 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_24fps.mp4', img: Constants.premiumImages[0], title: 'Reclaim Your\nInner Peace', subtitle: 'Premium online counseling for mental excellence.', btnText: 'Begin Journey', btnLink: '#booking-section' };
+                        const defaultHero = { 
+                            type: 'video', 
+                            vid: 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4', 
+                            img: Constants.premiumImages[0], 
+                            title: 'Reclaim Your\nInner Peace', 
+                            subtitle: 'Premium online counseling for mental excellence.' 
+                        };
                         this.saveHero(defaultHero);
                     }
                 });
@@ -712,11 +675,11 @@
             },
             saveHero(data) { 
                 const { doc, setDoc } = window.FirebaseV10;
-                if(this.db) setDoc(doc(this.db, 'config', 'globalHero'), data, { merge: true }); 
+                if(this.db) setDoc(doc(this.db, 'config', 'globalHero'), data, { merge: true }).catch(e => console.error("Firestore save error:", e)); 
             },
             saveConfig(data) { 
                 const { doc, setDoc } = window.FirebaseV10;
-                if(this.db) setDoc(doc(this.db, 'config', 'nexusData'), data, { merge: true }); 
+                if(this.db) setDoc(doc(this.db, 'config', 'nexusData'), data, { merge: true }).catch(e => console.error("Firestore save error:", e)); 
             },
             async uploadFile(file, folder) {
                 const { ref, uploadBytes, getDownloadURL } = window.FirebaseV10;
@@ -812,7 +775,11 @@
                 } catch(e) { AppState.config = Utils.patchConfig(null); }
                 
                 try {
-                    const savedHero = JSON.parse(localStorage.getItem('nexusHero')) || { type: 'video', vid: 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_24fps.mp4', img: Constants.premiumImages[0], btnText: 'Begin Journey', btnLink: '#booking-section' };
+                    const savedHero = JSON.parse(localStorage.getItem('nexusHero')) || { 
+                        type: 'video', 
+                        vid: 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4', 
+                        img: Constants.premiumImages[0] 
+                    };
                     this.updateHero(savedHero);
                 } catch(e) {}
             },
@@ -910,12 +877,6 @@
                 }
                 if(data.title) document.getElementById('hero-title').innerHTML = data.title.replace(/\n/g, '<br>');
                 if(data.subtitle) document.getElementById('hero-subtitle').textContent = data.subtitle;
-                
-                const heroBtn = document.getElementById('hero-btn');
-                if(heroBtn) {
-                    heroBtn.textContent = data.btnText || 'Begin Journey';
-                    heroBtn.href = data.btnLink || '#booking-section';
-                }
             },
             renderAdminServices() {
                 if(!this.adminServicesList) return;
@@ -928,19 +889,19 @@
                     const blocksHTML = srv.blocks.map((b, i) => {
                         if(b.type === 'image') {
                             return `
-                            <div class="bg-white/50 p-4 rounded-[16px] mb-4 border border-black/5">
-                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Photo Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button></div>
-                                <div class="flex gap-3">
-                                    <input type="text" id="block-img-${area.id}-${i}" class="apple-input flex-1 text-sm py-2.5" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
-                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="apple-btn apple-btn-secondary px-4" title="Upload"><i class="fas fa-upload"></i></button>
-                                    <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="apple-btn apple-btn-secondary px-4" title="Gallery"><i class="fas fa-image"></i></button>
+                            <div class="bg-white/50 p-3 rounded-[12px] mb-3 border border-black/5">
+                                <div class="flex justify-between mb-2"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Photo Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button></div>
+                                <div class="flex gap-2">
+                                    <input type="text" id="block-img-${area.id}-${i}" class="apple-input flex-1 text-sm py-2" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
+                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3" title="Upload"><i class="fas fa-upload"></i></button>
+                                    <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3" title="Gallery"><i class="fas fa-image"></i></button>
                                 </div>
                             </div>`;
                         } else {
                             return `
-                            <div class="bg-white/50 p-4 rounded-[16px] mb-4 border border-black/5">
-                                <div class="flex justify-between mb-3"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">${b.type} Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button></div>
-                                <textarea class="apple-input h-20 resize-none text-sm py-2.5" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, '${b.type}'); window.App.debouncedSaveAllServices()">${b.type === 'list' ? b.items.join('\n') : (b.content || '')}</textarea>
+                            <div class="bg-white/50 p-3 rounded-[12px] mb-3 border border-black/5">
+                                <div class="flex justify-between mb-2"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">${b.type} Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button></div>
+                                <textarea class="apple-input h-16 resize-none text-sm py-2" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, '${b.type}'); window.App.debouncedSaveAllServices()">${b.type === 'list' ? b.items.join('\n') : (b.content || '')}</textarea>
                             </div>`;
                         }
                     }).join('');
@@ -948,7 +909,7 @@
                     const div = document.createElement('div');
                     div.className = `apple-card relative transition-opacity ${area.isEnabled === false ? 'opacity-50' : ''}`;
                     div.innerHTML = `
-                        <div class="absolute top-4 right-4 flex items-center gap-3">
+                        <div class="absolute top-4 right-4 flex items-center gap-2">
                             <button onclick="window.App.moveCategory(${index}, -1)" class="text-textMuted hover:text-textMain" title="Move Up"><i class="fas fa-arrow-up"></i></button>
                             <button onclick="window.App.moveCategory(${index}, 1)" class="text-textMuted hover:text-textMain" title="Move Down"><i class="fas fa-arrow-down"></i></button>
                             <label class="ios-switch ml-2" title="Toggle Visibility">
@@ -959,35 +920,35 @@
                         </div>
                         
                         <label class="apple-label mt-2">Menu Name (3-Lines)</label>
-                        <input type="text" class="apple-input mb-4 text-sm py-2.5 font-bold" value="${area.label}" oninput="window.App.updateAreaLabel('${area.id}', this.value)">
+                        <input type="text" class="apple-input mb-4 text-sm font-bold" value="${area.label}" oninput="window.App.updateAreaLabel('${area.id}', this.value)">
                         
                         <label class="apple-label">Homepage Photo</label>
-                        <div class="flex gap-3 mb-4">
-                            <input type="text" id="srv-img-${area.id}" class="apple-input flex-1 text-sm py-2.5" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="apple-btn apple-btn-secondary px-4" title="Upload"><i class="fas fa-upload"></i></button>
-                            <button onclick="window.App.openGalleryForService('${area.id}')" class="apple-btn apple-btn-secondary px-4" title="Gallery"><i class="fas fa-image"></i></button>
+                        <div class="flex gap-2 mb-4">
+                            <input type="text" id="srv-img-${area.id}" class="apple-input flex-1 text-sm" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
+                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="apple-btn apple-btn-secondary px-3" title="Upload"><i class="fas fa-upload"></i></button>
+                            <button onclick="window.App.openGalleryForService('${area.id}')" class="apple-btn apple-btn-secondary px-3" title="Gallery"><i class="fas fa-image"></i></button>
                         </div>
 
                         <label class="apple-label">Background Image (Optional)</label>
-                        <div class="flex gap-3 mb-4">
-                            <input type="text" id="srv-bg-${area.id}" class="apple-input flex-1 text-sm py-2.5" value="${srv.bgImg || ''}" oninput="window.App.updateServiceLocal('${area.id}', 'bgImg', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}')" class="apple-btn apple-btn-secondary px-4" title="Upload Background"><i class="fas fa-upload"></i></button>
+                        <div class="flex gap-2 mb-4">
+                            <input type="text" id="srv-bg-${area.id}" class="apple-input flex-1 text-sm" value="${srv.bgImg || ''}" oninput="window.App.updateServiceLocal('${area.id}', 'bgImg', this.value); window.App.debouncedSaveAllServices()">
+                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}')" class="apple-btn apple-btn-secondary px-3" title="Upload Background"><i class="fas fa-upload"></i></button>
                         </div>
                         
                         <label class="apple-label">Homepage Title</label>
-                        <input type="text" class="apple-input mb-4 text-sm py-2.5" value="${srv.title}" oninput="window.App.updateServiceLocal('${area.id}', 'title', this.value); window.App.debouncedSaveAllServices()">
+                        <input type="text" class="apple-input mb-4 text-sm" value="${srv.title}" oninput="window.App.updateServiceLocal('${area.id}', 'title', this.value); window.App.debouncedSaveAllServices()">
                         
                         <label class="apple-label">Homepage Description</label>
-                        <textarea class="apple-input h-20 resize-none mb-5 text-sm py-2.5" oninput="window.App.updateServiceLocal('${area.id}', 'desc', this.value); window.App.debouncedSaveAllServices()">${srv.desc}</textarea>
+                        <textarea class="apple-input h-16 resize-none mb-4 text-sm" oninput="window.App.updateServiceLocal('${area.id}', 'desc', this.value); window.App.debouncedSaveAllServices()">${srv.desc}</textarea>
                         
-                        <div class="border-t border-black/5 pt-4 mb-2">
-                            <label class="apple-label mb-3">Detail Page Blocks Builder</label>
+                        <div class="border-t border-black/5 pt-3 mb-1">
+                            <label class="apple-label mb-2">Detail Page Blocks Builder</label>
                             ${blocksHTML}
-                            <div class="flex flex-wrap gap-2 mt-3">
-                                <button onclick="window.App.addBlock('${area.id}', 'text')" class="apple-btn apple-btn-secondary text-[12px] py-1.5 px-3">+ Text</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'image')" class="apple-btn apple-btn-secondary text-[12px] py-1.5 px-3">+ Photo</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'heading')" class="apple-btn apple-btn-secondary text-[12px] py-1.5 px-3">+ Heading</button>
-                                <button onclick="window.App.addBlock('${area.id}', 'list')" class="apple-btn apple-btn-secondary text-[12px] py-1.5 px-3">+ List</button>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <button onclick="window.App.addBlock('${area.id}', 'text')" class="apple-btn apple-btn-secondary text-[11px] py-1.5 px-3">+ Text</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'image')" class="apple-btn apple-btn-secondary text-[11px] py-1.5 px-3">+ Photo</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'heading')" class="apple-btn apple-btn-secondary text-[11px] py-1.5 px-3">+ Heading</button>
+                                <button onclick="window.App.addBlock('${area.id}', 'list')" class="apple-btn apple-btn-secondary text-[11px] py-1.5 px-3">+ List</button>
                             </div>
                         </div>
                     `;
@@ -1004,9 +965,9 @@
                 bind('close-menu-btn', 'click', window.App.closeMenus);
                 
                 // Admin Panel Triggers
-                bind('admin-btn', 'click', window.App.openAdminPanel);
-                bind('close-admin-btn', 'click', window.App.closeAdminPanel);
-                bind('close-admin-login-btn', 'click', window.App.closeAdminPanel);
+                bind('admin-btn', 'click', () => window.App.openMenu(document.getElementById('admin-panel')));
+                bind('close-admin-btn', 'click', window.App.closeMenus);
+                bind('close-admin-login-btn', 'click', window.App.closeMenus);
                 
                 bind('panel-overlay', 'click', window.App.closeMenus);
                 bind('logo-btn', 'click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
@@ -1066,36 +1027,27 @@
                 document.getElementById('panel-overlay').classList.add('active'); 
                 menu.classList.add('active'); 
                 document.body.classList.add('modal-open');
-                if(menu.id === 'counseling-menu') {
-                    const appContainer = document.getElementById('app-container');
-                    appContainer.style.transformOrigin = `center ${window.scrollY + window.innerHeight / 2}px`;
-                    appContainer.style.transform = 'scale(0.96) translateZ(0)';
-                    appContainer.style.borderRadius = '32px';
-                    appContainer.style.filter = 'brightness(0.95)';
-                }
+                
+                const appContainer = document.getElementById('app-container');
+                appContainer.style.transformOrigin = `center ${window.scrollY + window.innerHeight / 2}px`;
+                appContainer.style.transform = 'scale(0.96) translateZ(0)';
+                appContainer.style.borderRadius = '32px';
+                appContainer.style.filter = 'brightness(0.95)';
+                
                 if(AppState.lenis) AppState.lenis.stop();
             },
             closeMenus() {
                 document.getElementById('counseling-menu').classList.remove('active'); 
+                document.getElementById('admin-panel').classList.remove('active'); 
                 document.getElementById('panel-overlay').classList.remove('active'); 
                 const appContainer = document.getElementById('app-container');
                 appContainer.style.transform = 'translateZ(0)'; appContainer.style.borderRadius = '0'; appContainer.style.filter = 'none';
                 document.body.classList.remove('modal-open');
                 if(AppState.lenis) AppState.lenis.start();
             },
-            openAdminPanel() {
-                document.getElementById('admin-modal-overlay').classList.add('active');
-                document.body.classList.add('modal-open');
-                if(AppState.lenis) AppState.lenis.stop();
-            },
-            closeAdminPanel() {
-                document.getElementById('admin-modal-overlay').classList.remove('active');
-                document.body.classList.remove('modal-open');
-                if(AppState.lenis) AppState.lenis.start();
-            },
             switchAdminTab(tabId) {
                 document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
-                document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.admin-tab').forEach(el => el.classList.remove('active'));
                 
                 document.getElementById(`tab-${tabId}`).classList.remove('hidden');
                 event.currentTarget.classList.add('active');
@@ -1153,6 +1105,7 @@
                     setTimeout(() => {
                         document.getElementById('admin-login-section').classList.add('hidden');
                         document.getElementById('admin-main-controls').classList.remove('hidden');
+                        document.getElementById('admin-main-controls').classList.add('flex');
                     }, 500);
                     AppState.isAdminActive = true; AppState.currentOTP = null; 
                     this.loadAdminData();
@@ -1163,7 +1116,6 @@
                 document.getElementById('adm-upi').value = AppState.config.upi;
                 document.getElementById('adm-email').value = AppState.config.email;
                 document.getElementById('adm-qr-img').value = AppState.config.qrCode || "";
-                document.getElementById('adm-payment-text').value = AppState.config.paymentText || "Scan the QR code to complete your payment.";
                 
                 if(FirebaseService.db && window.FirebaseV10) {
                     const { doc, getDoc, collection, onSnapshot } = window.FirebaseV10;
@@ -1171,13 +1123,11 @@
                     getDoc(doc(FirebaseService.db, 'config', 'globalHero')).then(docSnap => {
                         if(docSnap.exists()) {
                             const d = docSnap.data();
-                            this.setHeroType(d.type || 'image');
+                            this.setHeroType(d.type || 'video');
                             document.getElementById('adm-hero-img').value = d.img || '';
                             document.getElementById('adm-hero-vid').value = d.vid || '';
                             document.getElementById('adm-hero-title').value = d.title || '';
                             document.getElementById('adm-hero-subtitle').value = d.subtitle || '';
-                            document.getElementById('adm-hero-btn-text').value = d.btnText || 'Begin Journey';
-                            document.getElementById('adm-hero-btn-link').value = d.btnLink || '#booking-section';
                         }
                     });
                     
@@ -1193,11 +1143,11 @@
                 if(!data || Object.keys(data).length === 0) { container.innerHTML = `<p class="text-[13px] text-textMuted font-medium">No submissions yet.</p>`; return; }
                 const submissions = Object.values(data).sort((a, b) => b.id - a.id);
                 container.innerHTML = submissions.map(sub => `
-                    <div class="apple-card relative group !p-5 !mb-4">
+                    <div class="apple-card relative group !p-4 !mb-4">
                         <button onclick="window.App.deleteSubmission('${sub.id}')" class="absolute top-4 right-4 text-red-400 hover:text-red-600 transition-colors"><i class="fas fa-trash text-sm"></i></button>
                         <div class="flex justify-between items-start mb-3 pr-6"><h5 class="font-bold text-[14px] text-textMain">${sub.name}</h5><span class="text-[11px] text-textMuted font-medium">${sub.date}</span></div>
                         <div class="text-[13px] text-textMuted space-y-1.5 mb-4 font-medium"><p><i class="fas fa-envelope w-5 text-center"></i> ${sub.email}</p><p><i class="fab fa-whatsapp w-5 text-center"></i> ${sub.wa}</p><p><i class="fas fa-brain w-5 text-center"></i> ${sub.counseling} (₹${sub.fee})</p></div>
-                        <div class="bg-white/50 p-4 rounded-[12px] border border-black/5 text-[13px] text-textMain font-medium"><span class="font-bold text-[10px] uppercase tracking-widest text-textMuted block mb-1.5">Concern</span>${sub.concern}</div>
+                        <div class="bg-white/50 p-3 rounded-[12px] border border-black/5 text-[13px] text-textMain font-medium"><span class="font-bold text-[10px] uppercase tracking-widest text-textMuted block mb-1.5">Concern</span>${sub.concern}</div>
                     </div>`).join('');
             },
             deleteSubmission(id) { 
@@ -1213,9 +1163,7 @@
                     img: document.getElementById('adm-hero-img').value, 
                     vid: document.getElementById('adm-hero-vid').value, 
                     title: document.getElementById('adm-hero-title').value, 
-                    subtitle: document.getElementById('adm-hero-subtitle').value,
-                    btnText: document.getElementById('adm-hero-btn-text').value,
-                    btnLink: document.getElementById('adm-hero-btn-link').value
+                    subtitle: document.getElementById('adm-hero-subtitle').value
                 };
                 UI.updateHero(data);
             },
@@ -1296,9 +1244,7 @@
                     img: document.getElementById('adm-hero-img').value, 
                     vid: document.getElementById('adm-hero-vid').value, 
                     title: document.getElementById('adm-hero-title').value, 
-                    subtitle: document.getElementById('adm-hero-subtitle').value,
-                    btnText: document.getElementById('adm-hero-btn-text').value,
-                    btnLink: document.getElementById('adm-hero-btn-link').value
+                    subtitle: document.getElementById('adm-hero-subtitle').value
                 };
                 FirebaseService.saveHero(data); localStorage.setItem('nexusHero', JSON.stringify(data)); UI.updateHero(data);
             },
@@ -1311,14 +1257,12 @@
                 AppState.config.upi = document.getElementById('adm-upi').value; 
                 AppState.config.email = document.getElementById('adm-email').value;
                 AppState.config.qrCode = document.getElementById('adm-qr-img').value;
-                AppState.config.paymentText = document.getElementById('adm-payment-text').value;
                 
                 FirebaseService.saveConfig({ 
                     wa: AppState.config.wa, 
                     upi: AppState.config.upi, 
                     email: AppState.config.email,
-                    qrCode: AppState.config.qrCode,
-                    paymentText: AppState.config.paymentText
+                    qrCode: AppState.config.qrCode
                 }); 
                 localStorage.setItem('nexusData', JSON.stringify(AppState.config));
             },
@@ -1351,26 +1295,20 @@
                 if(file.size > 50 * 1024 * 1024) { alert("File is too large. Maximum allowed size is 50MB."); e.target.value = ''; return; }
                 if(!FirebaseService.storage) { alert("Storage system initializing. Please try again."); return; }
 
-                const localBlobUrl = URL.createObjectURL(file);
-                AppState.oldBlobUrls.push(localBlobUrl); 
                 const ctx = AppState.uploadContext;
+                
+                // Find the input field to show loading state
+                let inputEl;
+                if(ctx.target === 'hero') inputEl = document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid');
+                else if(ctx.target === 'service') inputEl = document.getElementById(`srv-img-${ctx.key}`);
+                else if(ctx.target === 'serviceBg') inputEl = document.getElementById(`srv-bg-${ctx.key}`);
+                else if(ctx.target === 'block') inputEl = document.getElementById(`block-img-${ctx.key}-${ctx.index}`);
+                else if(ctx.target === 'qr') inputEl = document.getElementById('adm-qr-img');
 
-                // Optimistic UI Update
-                if(ctx.target === 'hero') {
-                    document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = localBlobUrl;
-                    window.App.updateHeroLocal(); 
-                } else if(ctx.target === 'service') {
-                    document.getElementById(`srv-img-${ctx.key}`).value = localBlobUrl;
-                    window.App.updateServiceLocal(ctx.key, 'img', localBlobUrl); 
-                } else if(ctx.target === 'serviceBg') {
-                    document.getElementById(`srv-bg-${ctx.key}`).value = localBlobUrl;
-                    window.App.updateServiceLocal(ctx.key, 'bgImg', localBlobUrl); 
-                } else if(ctx.target === 'block') {
-                    document.getElementById(`block-img-${ctx.key}-${ctx.index}`).value = localBlobUrl;
-                    window.App.updateBlockLocal(ctx.key, ctx.index, localBlobUrl, 'image'); 
-                } else if(ctx.target === 'qr') {
-                    document.getElementById('adm-qr-img').value = localBlobUrl;
-                    window.App.saveGlobals();
+                if(inputEl) {
+                    inputEl.dataset.originalValue = inputEl.value;
+                    inputEl.value = "Uploading... Please wait";
+                    inputEl.disabled = true;
                 }
 
                 try {
@@ -1382,26 +1320,32 @@
                     const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
 
                     // Save Real URL
-                    if(ctx.target === 'hero') {
-                        document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid').value = downloadURL;
-                        window.App.saveHero();
-                    } else if(ctx.target === 'service') {
-                        document.getElementById(`srv-img-${ctx.key}`).value = downloadURL;
-                        window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.saveAllServices();
-                    } else if(ctx.target === 'serviceBg') {
-                        document.getElementById(`srv-bg-${ctx.key}`).value = downloadURL;
-                        window.App.updateServiceLocal(ctx.key, 'bgImg', downloadURL); window.App.saveAllServices();
-                    } else if(ctx.target === 'block') {
-                        document.getElementById(`block-img-${ctx.key}-${ctx.index}`).value = downloadURL;
-                        window.App.updateBlockLocal(ctx.key, ctx.index, downloadURL, 'image'); window.App.saveAllServices();
-                    } else if(ctx.target === 'qr') {
-                        document.getElementById('adm-qr-img').value = downloadURL;
-                        window.App.saveGlobals();
+                    if(inputEl) {
+                        inputEl.value = downloadURL;
+                        inputEl.disabled = false;
                     }
 
-                    Utils.cleanupBlobUrls(); 
+                    if(ctx.target === 'hero') {
+                        window.App.saveHero();
+                    } else if(ctx.target === 'service') {
+                        window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.saveAllServices();
+                    } else if(ctx.target === 'serviceBg') {
+                        window.App.updateServiceLocal(ctx.key, 'bgImg', downloadURL); window.App.saveAllServices();
+                    } else if(ctx.target === 'block') {
+                        window.App.updateBlockLocal(ctx.key, ctx.index, downloadURL, 'image'); window.App.saveAllServices();
+                    } else if(ctx.target === 'qr') {
+                        window.App.saveGlobals();
+                    }
+                    
+                    alert("Upload successful and synced globally!");
+
                 } catch (error) {
                     console.error("Upload failed:", error);
+                    alert("Upload failed! Please check your Firebase Storage Rules. They must allow read/write.");
+                    if(inputEl) {
+                        inputEl.value = inputEl.dataset.originalValue || "";
+                        inputEl.disabled = false;
+                    }
                 } finally { e.target.value = ''; }
             },
             handleBooking() {
@@ -1420,7 +1364,6 @@
                 }
                 
                 document.getElementById('p-upi-text').textContent = AppState.config.upi;
-                document.getElementById('p-payment-desc').textContent = AppState.config.paymentText || "Scan the QR code to complete your payment.";
                 
                 document.getElementById('p-form').classList.add('hidden'); document.getElementById('p-payment').classList.remove('hidden');
             },
@@ -1491,4 +1434,3 @@
     </script>
 </body>
 </html>
-```
