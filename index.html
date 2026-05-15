@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+।<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -146,7 +146,7 @@
         .apple-input:focus { background: #FFFFFF; border-color: #0071E3; outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15); }
         .apple-input:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: gap: 8px; cursor: pointer; }
         .apple-btn:hover { background: #000000; transform: scale(0.98); }
         .apple-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -213,17 +213,7 @@
 
         <div id="homepage-sections"></div>
 
-        <section class="py-32 md:py-40 bg-charcoal text-bgBase relative overflow-hidden z-10">
-            <div class="absolute inset-0 bg-gradient-to-b from-charcoalLight to-charcoal z-0 opacity-50"></div>
-            <div class="max-w-4xl mx-auto px-6 relative z-10 text-center gpu-reveal">
-                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-10 border border-borderDark">
-                    <i class="fas fa-quote-left text-2xl text-white/40"></i>
-                </div>
-                <h3 class="text-3xl md:text-[44px] font-medium tracking-tightest leading-[1.3] mb-10 text-white">"Healing is not linear, but every step forward is a return to your truest self. We provide the space for your mind to breathe."</h3>
-                <p class="text-[#A1A1A6] font-semibold tracking-widest uppercase text-[12px]">Nexus Mind Clinical Philosophy</p>
-            </div>
-        </section>
-
+        <!-- Booking Section Moved Above -->
         <section id="booking-section" class="py-28 md:py-36 px-6 md:px-12 bg-bgBase border-t border-borderLight">
             <div class="max-w-xl mx-auto bg-white p-10 md:p-12 rounded-[32px] shadow-float border border-borderLight gpu-reveal">
                 <div id="booking-flow">
@@ -271,6 +261,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Healing Quote Section Moved Below -->
+        <section class="py-32 md:py-40 bg-charcoal text-bgBase relative overflow-hidden z-10">
+            <div class="absolute inset-0 bg-gradient-to-b from-charcoalLight to-charcoal z-0 opacity-50"></div>
+            <div class="max-w-4xl mx-auto px-6 relative z-10 text-center gpu-reveal">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-10 border border-borderDark">
+                    <i class="fas fa-quote-left text-2xl text-white/40"></i>
+                </div>
+                <h3 class="text-3xl md:text-[44px] font-medium tracking-tightest leading-[1.3] mb-10 text-white">"Healing is not linear, but every step forward is a return to your truest self. We provide the space for your mind to breathe."</h3>
+                <p class="text-[#A1A1A6] font-semibold tracking-widest uppercase text-[12px]">Nexus Mind Clinical Philosophy</p>
             </div>
         </section>
 
@@ -538,18 +540,17 @@
         };
 
         const Constants = {
-            // 10 Premium Default Images mapped to categories
             premiumImages:[
-                "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop", // Nature/Peace
-                "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2070&auto=format&fit=crop", // Anxiety
-                "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2069&auto=format&fit=crop", // Relationship
-                "https://images.unsplash.com/photo-1511295742362-92c96b124e52?q=80&w=2071&auto=format&fit=crop", // Sleep
-                "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2069&auto=format&fit=crop", // Trauma
-                "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop", // Career
-                "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop", // Gen Z
-                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop", // Abstract Calm
-                "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop", // Therapy
-                "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop"  // Forest Peace
+                "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2070&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2069&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1511295742362-92c96b124e52?q=80&w=2071&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2069&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop", 
+                "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop"  
             ],
             legalData: {
                 privacy: { title: "Privacy Policy", content: "<p>At Nexus Mind, your privacy is our absolute priority. All sessions, data, and personal information are encrypted and strictly confidential.</p>" },
@@ -581,7 +582,6 @@
                     ];
                 }
                 
-                // CLEANUP: Automatically remove any accidental "New Menu Item", "New Homepage Title", or "Custom Section"
                 if (config.areas && config.areas.length > 0) {
                     config.areas = config.areas.filter(a => {
                         const srv = config.services ? config.services[a.id] : null;
@@ -634,14 +634,9 @@
                     });
                 }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
                 document.querySelectorAll('.gpu-reveal:not(.revealed)').forEach(el => observer.observe(el));
-            },
-            cleanupBlobUrls() {
-                AppState.oldBlobUrls.forEach(url => URL.revokeObjectURL(url));
-                AppState.oldBlobUrls = [];
             }
         };
 
-        // --- FIREBASE V10 SERVICE ---
         const FirebaseService = {
             init() {
                 try {
@@ -659,13 +654,6 @@
                 onSnapshot(doc(this.db, 'config', 'globalHero'), (docSnap) => {
                     if(docSnap.exists()) {
                         let data = docSnap.data();
-                        
-                        // Force update to nature video if it's the old waves video
-                        if(data.vid === 'https://assets.mixkit.co/videos/preview/mixkit-waves-coming-to-the-beach-5016-large.mp4' || data.vid === 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_24fps.mp4') {
-                            data.vid = 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4';
-                            this.saveHero(data);
-                        }
-                        
                         localStorage.setItem('nexusHero', JSON.stringify(data)); 
                         UI.updateHero(data);
                     } else {
@@ -879,11 +867,20 @@
             },
             updateHero(data) {
                 if(!this.heroImgBg || !this.heroVidBg) return;
+                
                 if(data.type === 'video' && data.vid) {
-                    if(this.heroVidBg.src !== data.vid && !data.vid.startsWith('blob:')) {
-                        this.heroVidBg.classList.remove('hidden'); this.heroVidBg.style.opacity = '0'; this.heroVidBg.src = data.vid;
-                        this.heroVidBg.muted = true; this.heroVidBg.defaultMuted = true; this.heroVidBg.setAttribute('muted', ''); 
-                        this.heroVidBg.setAttribute('playsinline', ''); this.heroVidBg.setAttribute('webkit-playsinline', '');
+                    // Fix: Use getAttribute to prevent browser absolute URL conversion mismatch
+                    const currentVidSrc = this.heroVidBg.getAttribute('src');
+                    
+                    if(currentVidSrc !== data.vid && !data.vid.startsWith('blob:')) {
+                        this.heroVidBg.classList.remove('hidden'); 
+                        this.heroVidBg.style.opacity = '0'; 
+                        this.heroVidBg.setAttribute('src', data.vid);
+                        this.heroVidBg.muted = true; 
+                        this.heroVidBg.defaultMuted = true; 
+                        this.heroVidBg.setAttribute('muted', ''); 
+                        this.heroVidBg.setAttribute('playsinline', ''); 
+                        this.heroVidBg.setAttribute('webkit-playsinline', '');
                         this.heroVidBg.load();
                         
                         const playPromise = this.heroVidBg.play();
@@ -895,20 +892,31 @@
                         }
                     } else {
                         this.heroVidBg.classList.remove('hidden'); 
-                        if(data.vid.startsWith('blob:')) this.heroVidBg.src = data.vid;
+                        if(data.vid.startsWith('blob:')) this.heroVidBg.setAttribute('src', data.vid);
                         const playPromise = this.heroVidBg.play();
                         if (playPromise !== undefined) playPromise.catch(e => console.log(e));
                         this.heroVidBg.style.opacity = '1'; 
                         this.heroImgBg.style.opacity = '0';
                     }
                 } else {
-                    this.heroVidBg.style.opacity = '0'; setTimeout(() => { this.heroVidBg.classList.add('hidden'); this.heroVidBg.pause(); }, 1000);
+                    this.heroVidBg.style.opacity = '0'; 
+                    setTimeout(() => { this.heroVidBg.classList.add('hidden'); this.heroVidBg.pause(); }, 1000);
+                    
                     const currentBg = this.heroImgBg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
                     if(data.img && currentBg !== data.img) {
                         const tempImg = new Image(); tempImg.src = data.img;
-                        tempImg.onload = () => { this.heroImgBg.style.opacity = '0.1'; setTimeout(() => { this.heroImgBg.style.backgroundImage = `url('${data.img}')`; this.heroImgBg.style.opacity = '1'; }, 150); };
-                    } else { this.heroImgBg.style.opacity = '1'; }
+                        tempImg.onload = () => { 
+                            this.heroImgBg.style.opacity = '0.1'; 
+                            setTimeout(() => { 
+                                this.heroImgBg.style.backgroundImage = `url('${data.img}')`; 
+                                this.heroImgBg.style.opacity = '1'; 
+                            }, 150); 
+                        };
+                    } else { 
+                        this.heroImgBg.style.opacity = '1'; 
+                    }
                 }
+                
                 if(data.title) document.getElementById('hero-title').innerHTML = data.title.replace(/\n/g, '<br>');
                 if(data.subtitle) document.getElementById('hero-subtitle').textContent = data.subtitle;
             },
@@ -1317,7 +1325,11 @@
             },
             selectMedia(url) { 
                 const t = AppState.activeImageTarget;
-                if (t.type === 'hero') { document.getElementById('adm-hero-img').value = url; this.saveHero(); } 
+                if (t.type === 'hero') { 
+                    document.getElementById('adm-hero-img').value = url; 
+                    this.setHeroType('image'); // Auto switch to image
+                    this.saveHero(); 
+                } 
                 else if (t.type === 'service') { document.getElementById(`srv-img-${t.key}`).value = url; this.updateServiceLocal(t.key, 'img', url); this.saveAllServices(); } 
                 else if (t.type === 'block') { document.getElementById(`block-img-${t.key}-${t.index}`).value = url; this.updateBlockLocal(t.key, t.index, url, 'image'); this.saveAllServices(); }
                 document.getElementById('img-modal').classList.remove('active'); 
@@ -1334,7 +1346,6 @@
 
                 const ctx = AppState.uploadContext;
                 
-                // Find the input field to show loading state
                 let inputEl;
                 if(ctx.target === 'hero') inputEl = document.getElementById(ctx.type === 'image' ? 'adm-hero-img' : 'adm-hero-vid');
                 else if(ctx.target === 'service') inputEl = document.getElementById(`srv-img-${ctx.key}`);
@@ -1356,13 +1367,18 @@
 
                     const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
 
-                    // Save Real URL
                     if(inputEl) {
                         inputEl.value = downloadURL;
                         inputEl.disabled = false;
                     }
 
                     if(ctx.target === 'hero') {
+                        // Auto switch media type based on upload
+                        if (ctx.type === 'image') {
+                            window.App.setHeroType('image');
+                        } else if (ctx.type === 'video') {
+                            window.App.setHeroType('video');
+                        }
                         window.App.saveHero();
                     } else if(ctx.target === 'service') {
                         window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.saveAllServices();
@@ -1405,7 +1421,6 @@
                     setDoc(doc(FirebaseService.db, 'submissions', data.id), data);
                 }
                 
-                // Use custom QR if available, else generate UPI QR
                 if(AppState.config.qrCode && AppState.config.qrCode.trim() !== "") {
                     document.getElementById('p-qr').src = AppState.config.qrCode;
                 } else {
@@ -1488,3 +1503,4 @@
     </script>
 </body>
 </html>
+```
