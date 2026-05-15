@@ -764,13 +764,24 @@
             },
 
             async saveFullConfig(data) {
-                try {
-                    const current = await GitHubDB.getFile('config.json');
-                    const merged = { ...(current.data || {}), ...data };
-                    this.shas.config = await GitHubDB.saveFile('config.json', merged, current.sha, "Update config.json");
-                } catch (e) {
-                    console.error("Save Config Error:", e);
-                    alert("Failed to save configuration to GitHub: " + e.message);
+                let success = false;
+                let retries = 3;
+                while (!success && retries > 0) {
+                    try {
+                        const current = await GitHubDB.getFile('config.json');
+                        const merged = { ...(current.data || {}), ...data };
+                        this.shas.config = await GitHubDB.saveFile('config.json', merged, current.sha, "Update config.json");
+                        success = true;
+                    } catch (e) {
+                        if (e.message.includes('409') && retries > 1) {
+                            retries--;
+                            console.warn("409 Conflict on config.json. Retrying...");
+                        } else {
+                            console.error("Save Config Error:", e);
+                            alert("Failed to save configuration to GitHub: " + e.message);
+                            break;
+                        }
+                    }
                 }
             },
 
@@ -785,12 +796,10 @@
             async uploadMediaAndPost(file, text) {
                 try {
                     const url = await GitHubService.uploadFile(file, 'uploads');
-                    const resourceType = (file.type && file.type.startsWith('video')) ? 'video' : 'image';
+                    const resourceType = (file.type && file.type.match(/(video|mp4|webm|mov|ogg)/i)) ? 'video' : 'image';
                     
-                    const current = await GitHubDB.getFile('posts.json');
-                    const posts = current.data || {};
                     const newId = `post_${Date.now()}`;
-                    posts[newId] = {
+                    const newPost = {
                         id: newId,
                         text: text,
                         mediaUrl: url,
@@ -798,8 +807,29 @@
                         timestamp: Date.now()
                     };
                     
-                    this.shas.posts = await GitHubDB.saveFile('posts.json', posts, current.sha, "Add new post");
-                    UI.renderFeed(posts);
+                    let success = false;
+                    let retries = 3;
+                    let finalPosts = {};
+
+                    while (!success && retries > 0) {
+                        try {
+                            const current = await GitHubDB.getFile('posts.json');
+                            finalPosts = current.data || {};
+                            finalPosts[newId] = newPost;
+                            
+                            this.shas.posts = await GitHubDB.saveFile('posts.json', finalPosts, current.sha, "Add new post");
+                            success = true;
+                        } catch (e) {
+                            if (e.message.includes('409') && retries > 1) {
+                                retries--;
+                                console.warn("409 Conflict on posts.json. Re-fetching and retrying...");
+                            } else {
+                                throw e;
+                            }
+                        }
+                    }
+                    
+                    UI.renderFeed(finalPosts);
                     alert("Live Globally!");
                 } catch (e) {
                     console.error("Post Upload Error:", e);
@@ -808,14 +838,25 @@
             },
 
             async addSubmission(data) {
-                try {
-                    const current = await GitHubDB.getFile('submissions.json');
-                    const subs = current.data || {};
-                    subs[data.id] = data;
-                    this.shas.submissions = await GitHubDB.saveFile('submissions.json', subs, current.sha, "New booking submission");
-                } catch (e) {
-                    console.error("Booking Error:", e);
-                    alert("Failed to submit booking: " + e.message);
+                let success = false;
+                let retries = 3;
+                while (!success && retries > 0) {
+                    try {
+                        const current = await GitHubDB.getFile('submissions.json');
+                        const subs = current.data || {};
+                        subs[data.id] = data;
+                        this.shas.submissions = await GitHubDB.saveFile('submissions.json', subs, current.sha, "New booking submission");
+                        success = true;
+                    } catch (e) {
+                        if (e.message.includes('409') && retries > 1) {
+                            retries--;
+                            console.warn("409 Conflict on submissions.json. Retrying...");
+                        } else {
+                            console.error("Booking Error:", e);
+                            alert("Failed to submit booking: " + e.message);
+                            break;
+                        }
+                    }
                 }
             },
 
@@ -830,17 +871,28 @@
             },
 
             async deleteSubmission(id) {
-                try {
-                    const current = await GitHubDB.getFile('submissions.json');
-                    const subs = current.data || {};
-                    if (subs[id]) {
-                        delete subs[id];
-                        this.shas.submissions = await GitHubDB.saveFile('submissions.json', subs, current.sha, `Delete submission ${id}`);
-                        App.renderAdminSubmissions(subs);
+                let success = false;
+                let retries = 3;
+                while (!success && retries > 0) {
+                    try {
+                        const current = await GitHubDB.getFile('submissions.json');
+                        const subs = current.data || {};
+                        if (subs[id]) {
+                            delete subs[id];
+                            this.shas.submissions = await GitHubDB.saveFile('submissions.json', subs, current.sha, `Delete submission ${id}`);
+                            App.renderAdminSubmissions(subs);
+                        }
+                        success = true;
+                    } catch (e) {
+                        if (e.message.includes('409') && retries > 1) {
+                            retries--;
+                            console.warn("409 Conflict on submissions.json. Retrying...");
+                        } else {
+                            console.error("Delete Submission Error:", e);
+                            alert("Failed to delete submission: " + e.message);
+                            break;
+                        }
                     }
-                } catch (e) {
-                    console.error("Delete Submission Error:", e);
-                    alert("Failed to delete submission: " + e.message);
                 }
             }
         };
@@ -1008,7 +1060,8 @@
                 const posts = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
                 
                 container.innerHTML = posts.map(post => {
-                    const mediaHtml = post.type === 'video' 
+                    const isVideo = post.type === 'video' || (post.mediaUrl && post.mediaUrl.match(/\.(mp4|webm|mov|ogg)$/i));
+                    const mediaHtml = isVideo 
                         ? `<video src="${post.mediaUrl}" class="w-full aspect-square object-cover" autoplay muted loop playsinline></video>`
                         : `<img src="${post.mediaUrl}" class="w-full aspect-square object-cover" loading="lazy">`;
                     
