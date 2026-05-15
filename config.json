@@ -1,0 +1,193 @@
+{
+  "hero": {
+    "type": "video",
+    "vid": "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4",
+    "img": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop",
+    "title": "Reclaim Your\nInner Peace",
+    "subtitle": "Premium online counseling for mental excellence."
+  },
+  "nexusData": {
+    "wa": "+917830232077",
+    "upi": "7830232077@ptsbi",
+    "email": "thenexusstudy3@gmail.com",
+    "qrCode": "",
+    "areas": [
+      {
+        "id": "Anxiety",
+        "label": "Anxiety & Stress",
+        "isEnabled": true
+      },
+      {
+        "id": "Relationship",
+        "label": "Relationship Issues",
+        "isEnabled": true
+      },
+      {
+        "id": "Sleep",
+        "label": "Sleep Problems",
+        "isEnabled": true
+      },
+      {
+        "id": "Trauma",
+        "label": "Trauma Support",
+        "isEnabled": true
+      },
+      {
+        "id": "Career",
+        "label": "Career Counseling",
+        "isEnabled": true
+      },
+      {
+        "id": "GenZ",
+        "label": "Gen Z Counseling",
+        "isEnabled": true
+      }
+    ],
+    "services": {
+      "Anxiety": {
+        "title": "Anxiety & Stress",
+        "desc": "Premium counseling approach for mental excellence.",
+        "img": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop",
+        "bgImg": "",
+        "blocks": [
+          {
+            "type": "text",
+            "content": "Modern problems require modern understanding and relatable guidance."
+          },
+          {
+            "type": "heading",
+            "content": "Clinical Approach"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Evidence-based therapy",
+              "Confidential sessions",
+              "Personalized care"
+            ]
+          }
+        ]
+      },
+      "Relationship": {
+        "title": "Relationship Issues",
+        "desc": "Premium counseling approach for mental excellence.",
+        "img": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2070&auto=format&fit=crop",
+        "bgImg": "",
+        "blocks": [
+          {
+            "type": "text",
+            "content": "Modern problems require modern understanding and relatable guidance."
+          },
+          {
+            "type": "heading",
+            "content": "Clinical Approach"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Evidence-based therapy",
+              "Confidential sessions",
+              "Personalized care"
+            ]
+          }
+        ]
+      },
+      "Sleep": {
+        "title": "Sleep Problems",
+        "desc": "Premium counseling approach for mental excellence.",
+        "img": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2069&auto=format&fit=crop",
+        "bgImg": "",
+        "blocks": [
+          {
+            "type": "text",
+            "content": "Modern problems require modern understanding and relatable guidance."
+          },
+          {
+            "type": "heading",
+            "content": "Clinical Approach"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Evidence-based therapy",
+              "Confidential sessions",
+              "Personalized care"
+            ]
+          }
+        ]
+      },
+      "Trauma": {
+        "title": "Trauma Support",
+        "desc": "Premium counseling approach for mental excellence.",
+        "img": "https://images.unsplash.com/photo-1511295742362-92c96b124e52?q=80&w=2071&auto=format&fit=crop",
+        "bgImg": "",
+        "blocks": [
+          {
+            "type": "text",
+            "content": "Modern problems require modern understanding and relatable guidance."
+          },
+          {
+            "type": "heading",
+            "content": "Clinical Approach"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Evidence-based therapy",
+              "Confidential sessions",
+              "Personalized care"
+            ]
+          }
+        ]
+      },
+      "Career": {
+        "title": "Career Counseling",
+        "desc": "Premium counseling approach for mental excellence.",
+        "img": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=2069&auto=format&fit=crop",
+        "bgImg": "",
+        "blocks": [
+          {
+            "type": "text",
+            "content": "Modern problems require modern understanding and relatable guidance."
+          },
+          {
+            "type": "heading",
+            "content": "Clinical Approach"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Evidence-based therapy",
+              "Confidential sessions",
+              "Personalized care"
+            ]
+          }
+        ]
+      },
+      "GenZ": {
+        "title": "Gen Z Counseling",
+        "desc": "Navigating identity, digital burnout, and modern anxiety with relatable therapeutic approaches.",
+        "img": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop",
+        "bgImg": "",
+        "blocks": [
+          {
+            "type": "text",
+            "content": "Modern problems require modern understanding and relatable guidance."
+          },
+          {
+            "type": "heading",
+            "content": "Clinical Approach"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Evidence-based therapy",
+              "Confidential sessions",
+              "Personalized care"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
