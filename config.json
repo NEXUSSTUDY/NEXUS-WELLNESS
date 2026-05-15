@@ -52,7 +52,7 @@
         "blocks": [
           {
             "type": "text",
-            "content": "."
+            "content": ""
           },
           {
             "type": "heading",
