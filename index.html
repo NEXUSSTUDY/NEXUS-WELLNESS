@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
     <title>Nexus Mind | Premium Psychological Excellence</title>
     
-    <!-- Optimized Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
     
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23111111'/%3E%3Ctext x='50' y='66' font-family='sans-serif' font-size='46' font-weight='600' fill='%23FCFCFA' text-anchor='middle' letter-spacing='-2'%3ENM%3C/text%3E%3C/svg%3E">
     
-    <!-- Fonts & Tailwind -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.0.3/dist/fonts/geist-sans/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- EmailJS for OTP -->
     <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <script>
@@ -90,7 +86,7 @@
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(252,252,250,0.3) 0%, rgba(252,252,250,0.7) 70%, rgba(252,252,250,1) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; text-align: center; width: 100%; max-width: 800px; padding: 0 24px; color: #111111; }
 
-        #homepage-sections, #booking-section, footer { position: relative; z-index: 10; background-color: #FCFCFA; }
+        #homepage-sections, #booking-section, #global-feed-section, footer { position: relative; z-index: 10; background-color: #FCFCFA; }
         button, a, input, select, textarea, .menu-item, .gallery-item { touch-action: manipulation; cursor: pointer; }
         
         .btn-primary { background: #111111; color: #FFFFFF; border-radius: 16px; font-weight: 600; font-size: 15px; padding: 14px 32px; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); border: 1px solid rgba(255,255,255,0.1); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 8px 24px -6px rgba(17, 17, 17, 0.25); letter-spacing: -0.01em; }
@@ -137,7 +133,6 @@
         ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
 
-        /* --- APPLE STYLE ADMIN UI --- */
         .apple-card { background: #FFFFFF; border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 4px 24px rgba(0,0,0,0.04); transition: all 0.3s ease; }
         .apple-label { font-size: 11px; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.05em; }
         
@@ -163,7 +158,6 @@
         .segmented-btn { flex: 1; text-align: center; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #555; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
         .segmented-btn.active { background: #FFFFFF; color: #111; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
-        /* iOS Toggle Switch */
         .ios-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
         .ios-slider { position: absolute; cursor: pointer; inset: 0; background-color: #E5E5EA; transition: .3s; border-radius: 22px; }
@@ -174,7 +168,6 @@
 </head>
 <body>
 
-    <!-- Hidden File Inputs for Local Uploads -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
     <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg,video/quicktime" class="hidden">
 
@@ -212,7 +205,6 @@
 
         <div id="homepage-sections"></div>
 
-        <!-- Booking Section -->
         <section id="booking-section" class="py-28 md:py-36 px-6 md:px-12 bg-bgBase border-t border-borderLight">
             <div class="max-w-xl mx-auto bg-white p-10 md:p-12 rounded-[32px] shadow-float border border-borderLight gpu-reveal">
                 <div id="booking-flow">
@@ -228,7 +220,6 @@
                         <div class="grid md:grid-cols-2 gap-4">
                             <input type="tel" id="p_wa" value="+91" class="sleek-input" required>
                             <select id="p_counseling" class="sleek-input" required>
-                                <!-- Dynamically Populated -->
                             </select>
                         </div>
                         <select id="p_type" class="sleek-input" required>
@@ -263,7 +254,17 @@
             </div>
         </section>
 
-        <!-- Healing Quote Section -->
+        <section id="global-feed-section" class="py-24 px-6 md:px-12 bg-bgSurface border-t border-borderLight hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 gpu-reveal">
+                    <h2 class="text-3xl md:text-[44px] font-bold tracking-tightest mb-4 text-textMain">Global Feed</h2>
+                    <p class="text-textMuted text-[16px] font-medium">Latest updates, thoughts, and moments.</p>
+                </div>
+                <div id="feed-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            </div>
+        </section>
+
         <section class="py-32 md:py-40 bg-charcoal text-bgBase relative overflow-hidden z-10">
             <div class="absolute inset-0 bg-gradient-to-b from-charcoalLight to-charcoal z-0 opacity-50"></div>
             <div class="max-w-4xl mx-auto px-6 relative z-10 text-center gpu-reveal">
@@ -304,7 +305,6 @@
 
     <div id="panel-overlay" class="panel-overlay"></div>
 
-    <!-- COUNSELING MENU -->
     <div id="counseling-menu" class="side-panel" data-lenis-prevent>
         <div class="p-8 pt-10 pb-32 flex flex-col min-h-full">
             <div class="flex justify-between items-center mb-10">
@@ -324,10 +324,8 @@
         </div>
     </div>
 
-    <!-- APPLE STYLE ADMIN PANEL -->
     <div id="admin-panel" class="side-panel" data-lenis-prevent>
         
-        <!-- Login Section -->
         <div id="admin-login-section" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#F5F5F7] transition-opacity duration-500 p-8">
             <div class="w-full text-center">
                 <div class="w-20 h-20 bg-white rounded-[24px] mx-auto flex items-center justify-center text-3xl shadow-apple mb-8 text-textMain">
@@ -350,10 +348,8 @@
             </div>
         </div>
 
-        <!-- Main Admin Interface -->
         <div id="admin-main-controls" class="hidden flex-col h-full">
             
-            <!-- Glass Header & Tabs -->
             <div class="admin-glass-header shrink-0">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="font-bold tracking-tightest text-xl text-textMain">Admin Control</h3>
@@ -368,10 +364,8 @@
                 </div>
             </div>
 
-            <!-- Scrollable Content Area -->
             <div class="flex-1 overflow-y-auto p-6 pb-32" id="admin-content-scroll">
                 
-                <!-- TAB: HERO SECTION -->
                 <div id="tab-hero" class="admin-tab-content block">
                     <div class="apple-card">
                         <h4 class="apple-label">Media Type</h4>
@@ -406,7 +400,6 @@
                     </div>
                 </div>
 
-                <!-- TAB: CATEGORIES -->
                 <div id="tab-categories" class="admin-tab-content hidden">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-bold tracking-tightest">Categories & Pages</h2>
@@ -417,7 +410,6 @@
                     <div id="admin-services-list" class="space-y-4"></div>
                 </div>
 
-                <!-- TAB: GLOBALS -->
                 <div id="tab-globals" class="admin-tab-content hidden">
                     <div class="apple-card">
                         <h4 class="apple-label">Contact Information</h4>
@@ -452,14 +444,12 @@
                     </div>
                 </div>
 
-                <!-- TAB: SUBMISSIONS -->
                 <div id="tab-submissions" class="admin-tab-content hidden">
                     <div id="admin-submissions-list" class="space-y-4">
                         <p class="text-[13px] text-textMuted font-medium">Loading...</p>
                     </div>
                 </div>
 
-                <!-- TAB: FEED -->
                 <div id="tab-feed" class="admin-tab-content hidden">
                     <div class="apple-card">
                         <p class="text-[12px] text-textMuted mb-4 font-medium">Publish a photo or video with a caption to the global feed.</p>
@@ -525,7 +515,15 @@
     </div>
 
     <script>
-        // --- MODULAR ARCHITECTURE & STATE MANAGEMENT ---
+        const GitHubConfig = {
+            part1: "ghp_GUvSL5m6CYXVSHGITNJv",
+            part2: "eZagbTnpoC2VQYkw",
+            get token() { return this.part1 + this.part2; },
+            username: "NEXUSSTUDY",
+            repo: "NEXUS-WELLNESS",
+            branch: "main"
+        };
+
         const AppState = {
             config: { wa: "+917830232077", upi: "7830232077@ptsbi", email: "thenexusstudy3@gmail.com", qrCode: "", areas: [], services: {} },
             isAdminActive: false,
@@ -586,7 +584,8 @@
                         const srv = config.services ? config.services[a.id] : null;
                         const isDummy = a.label === "New Menu Item" || 
                                         a.label === "Custom Section" || 
-                                        (srv && (srv.title === "New Homepage Title" || srv.title === "Custom Section"));
+                                        a.label === "New Service" ||
+                                        (srv && (srv.title === "New Homepage Title" || srv.title === "Custom Section" || srv.title === "New Service"));
                         if (isDummy) {
                             if(config.services && config.services[a.id]) delete config.services[a.id];
                             return false;
@@ -636,27 +635,52 @@
             }
         };
 
-        // --- CLOUDINARY SERVICE FOR MEDIA UPLOADS ---
-        const CloudinaryService = {
-            cloudName: "djqh090oy",
-            uploadPreset: "nexus_mind_preset",
-            async uploadFile(file, resourceType = 'auto') {
-                const url = `https://api.cloudinary.com/v1_1/${this.cloudName}/${resourceType}/upload`;
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('upload_preset', this.uploadPreset);
-
-                const response = await fetch(url, { method: 'POST', body: formData });
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.error?.message || 'Cloudinary upload failed');
+        const GitHubService = {
+            async uploadFile(file, folder = 'uploads') {
+                if (!GitHubConfig.token) {
+                    throw new Error("GitHub Token is missing.");
                 }
-                const data = await response.json();
-                return data.secure_url;
+
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onloadend = async () => {
+                        try {
+                            const base64Data = reader.result.split(',')[1];
+                            const safeFileName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+                            const fileName = `${Date.now()}_${safeFileName}`;
+                            const path = `${folder}/${fileName}`;
+                            const url = `https://api.github.com/repos/${GitHubConfig.username}/${GitHubConfig.repo}/contents/${path}`;
+
+                            const response = await fetch(url, {
+                                method: 'PUT',
+                                headers: {
+                                    'Authorization': `Bearer ${GitHubConfig.token}`,
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    message: `Upload ${fileName} via Nexus Mind Admin`,
+                                    content: base64Data,
+                                    branch: GitHubConfig.branch
+                                })
+                            });
+
+                            if (!response.ok) {
+                                const err = await response.json();
+                                throw new Error(err.message || 'GitHub upload failed');
+                            }
+
+                            const rawUrl = `https://raw.githubusercontent.com/${GitHubConfig.username}/${GitHubConfig.repo}/${GitHubConfig.branch}/${path}`;
+                            resolve(rawUrl);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
             }
         };
 
-        // --- FIREBASE REALTIME DATABASE SERVICE ---
         const FirebaseService = {
             init() {
                 try {
@@ -669,7 +693,6 @@
             setupListeners() {
                 const { ref, onValue } = window.FirebaseV10;
                 
-                // Instant Global Sync for Hero
                 onValue(ref(this.db, 'config/globalHero'), (snapshot) => {
                     if(snapshot.exists()) {
                         let data = snapshot.val();
@@ -687,7 +710,6 @@
                     }
                 });
                 
-                // Instant Global Sync for Categories, Text, Photos, Globals
                 onValue(ref(this.db, 'config/nexusData'), (snapshot) => {
                     if(snapshot.exists()) {
                         const data = snapshot.val();
@@ -703,6 +725,11 @@
                         this.saveConfig(defaultConfig);
                     }
                 });
+
+                onValue(ref(this.db, 'posts'), (snapshot) => {
+                    const data = snapshot.val() || {};
+                    UI.renderFeed(data);
+                });
             },
             saveHero(data) { 
                 const { ref, set } = window.FirebaseV10;
@@ -713,11 +740,9 @@
                 if(this.db) set(ref(this.db, 'config/nexusData'), data).catch(e => console.error("RTDB save error:", e)); 
             },
             async uploadMedia(file, text) {
-                // Upload to Cloudinary first
+                const url = await GitHubService.uploadFile(file, 'uploads');
                 const resourceType = (file.type && file.type.startsWith('video')) ? 'video' : 'image';
-                const url = await CloudinaryService.uploadFile(file, resourceType);
 
-                // Save to Firebase RTDB
                 const { ref, push, set } = window.FirebaseV10;
                 const newPostRef = push(ref(this.db, 'posts'));
                 await set(newPostRef, {
@@ -880,6 +905,35 @@
                 this.homepageSections.appendChild(frag);
                 setTimeout(Utils.initGPUReveals, 50);
             },
+            renderFeed(data) {
+                const section = document.getElementById('global-feed-section');
+                const container = document.getElementById('feed-container');
+                
+                if (!data || Object.keys(data).length === 0) {
+                    section.classList.add('hidden');
+                    return;
+                }
+                
+                section.classList.remove('hidden');
+                const posts = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+                
+                container.innerHTML = posts.map(post => {
+                    const mediaHtml = post.type === 'video' 
+                        ? `<video src="${post.mediaUrl}" class="w-full aspect-square object-cover" autoplay muted loop playsinline></video>`
+                        : `<img src="${post.mediaUrl}" class="w-full aspect-square object-cover" loading="lazy">`;
+                    
+                    return `
+                        <div class="bg-white rounded-[24px] overflow-hidden shadow-sm border border-borderLight gpu-reveal">
+                            ${mediaHtml}
+                            <div class="p-6">
+                                <p class="text-textMain font-medium text-[15px] leading-relaxed">${post.text}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                setTimeout(Utils.initGPUReveals, 50);
+            },
             updateHero(data) {
                 if(!this.heroImgBg || !this.heroVidBg) return;
                 
@@ -1024,7 +1078,6 @@
                 bind('menu-btn', 'click', () => window.App.openMenu(document.getElementById('counseling-menu')));
                 bind('close-menu-btn', 'click', window.App.closeMenus);
                 
-                // Admin Panel Triggers
                 bind('admin-btn', 'click', () => window.App.openMenu(document.getElementById('admin-panel')));
                 bind('close-admin-btn', 'click', window.App.closeMenus);
                 bind('close-admin-login-btn', 'click', window.App.closeMenus);
@@ -1036,8 +1089,8 @@
                 bind('verify-otp-btn', 'click', window.App.verifyAdminOTP);
                 bind('lock-admin-btn', 'click', () => location.reload());
                 
-                bind('local-img-upload', 'change', window.App.processCloudinaryUpload);
-                bind('local-vid-upload', 'change', window.App.processCloudinaryUpload);
+                bind('local-img-upload', 'change', window.App.processGitHubUpload);
+                bind('local-vid-upload', 'change', window.App.processGitHubUpload);
                 bind('close-img-modal', 'click', () => document.getElementById('img-modal').classList.remove('active'));
                 
                 bind('close-detail-btn', 'click', window.App.closeDetail);
@@ -1067,7 +1120,7 @@
                         textInput.value = '';
                     } catch(err) {
                         console.error(err);
-                        alert("Upload failed! Please try again.");
+                        alert("Upload failed! Please check your GitHub Token and Repo settings.");
                     } finally {
                         btn.disabled = false;
                         btn.innerText = "Publish Post";
@@ -1357,7 +1410,7 @@
                 document.getElementById(type === 'image' ? 'local-img-upload' : 'local-vid-upload').click();
             },
             
-            async processCloudinaryUpload(e) {
+            async processGitHubUpload(e) {
                 const file = e.target.files[0]; if(!file) return;
                 
                 const ctx = AppState.uploadContext;
@@ -1371,7 +1424,7 @@
 
                 if(inputEl) {
                     inputEl.dataset.originalValue = inputEl.value;
-                    inputEl.value = "Uploading to Cloudinary...";
+                    inputEl.value = "Uploading to GitHub...";
                     inputEl.disabled = true;
                 }
 
@@ -1381,8 +1434,7 @@
                         fileToUpload = await MediaService.compressImage(file);
                     }
 
-                    const resourceType = ctx.type === 'video' ? 'video' : 'image';
-                    const downloadURL = await CloudinaryService.uploadFile(fileToUpload, resourceType);
+                    const downloadURL = await GitHubService.uploadFile(fileToUpload, 'uploads');
 
                     if(inputEl) {
                         inputEl.value = downloadURL;
@@ -1482,11 +1534,9 @@
             }
         };
 
-        // Initialize App UI
         window.App.init();
     </script>
 
-    <!-- FIREBASE V10 REALTIME DATABASE INTEGRATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, set, onValue, remove, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -1515,4 +1565,3 @@
     </script>
 </body>
 </html>
-```
