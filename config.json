@@ -1,10 +1,10 @@
 {
   "hero": {
-    "type": "video",
-    "vid": "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4",
-    "img": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop",
-    "title": "Reclaim Your\nInner Peace",
-    "subtitle": "Premium online counseling for mental excellence."
+    "type": "image",
+    "img": "",
+    "vid": "",
+    "title": "",
+    "subtitle": ""
   },
   "nexusData": {
     "wa": "+917830232077",
