@@ -140,7 +140,7 @@
         .apple-input:focus { background: #FFFFFF; border-color: #0071E3; outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15); }
         .apple-input:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: gap: 8px; cursor: pointer; white-space: nowrap; }
+        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; white-space: nowrap; }
         .apple-btn:hover { background: #000000; transform: scale(0.98); }
         .apple-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -379,7 +379,7 @@
                             <h4 class="apple-label mt-4">Hero Image</h4>
                             <div class="flex flex-col md:flex-row gap-2 mb-3">
                                 <input id="adm-hero-img" class="apple-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                <button onclick="window.App.triggerUpload('image', 'hero')" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload from Device"><i class="fas fa-upload"></i> Upload</button>
+                                <button onclick="window.App.triggerUpload('image', 'hero', null, null, this)" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload from Device"><i class="fas fa-upload"></i> Upload</button>
                             </div>
                             <button onclick="window.App.openGalleryForHero()" class="text-appleBlue text-[12px] font-semibold hover:underline">Choose from Premium Gallery</button>
                         </div>
@@ -388,7 +388,7 @@
                             <h4 class="apple-label mt-4">Hero Video</h4>
                             <div class="flex flex-col md:flex-row gap-2 mb-3">
                                 <input id="adm-hero-vid" class="apple-input flex-1" placeholder="Video URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                <button onclick="window.App.triggerUpload('video', 'hero')" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload from Device"><i class="fas fa-upload"></i> Upload</button>
+                                <button onclick="window.App.triggerUpload('video', 'hero', null, null, this)" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload from Device"><i class="fas fa-upload"></i> Upload</button>
                             </div>
                         </div>
                     </div>
@@ -436,7 +436,7 @@
                                 <label class="text-[11px] font-bold text-textMuted mb-1 block">Custom QR Code Image (Optional)</label>
                                 <div class="flex flex-col md:flex-row gap-2">
                                     <input id="adm-qr-img" class="apple-input flex-1" placeholder="Leave blank to auto-generate" oninput="window.App.debouncedSaveGlobals()">
-                                    <button onclick="window.App.triggerUpload('image', 'qr')" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload Custom QR"><i class="fas fa-upload"></i> Upload</button>
+                                    <button onclick="window.App.triggerUpload('image', 'qr', null, null, this)" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload Custom QR"><i class="fas fa-upload"></i> Upload</button>
                                 </div>
                                 <p class="text-[10px] text-textMuted mt-1.5">If uploaded, this image overrides the auto-generated UPI QR code.</p>
                             </div>
@@ -529,7 +529,7 @@
             isAdminActive: false,
             currentOTP: null,
             otpCooldown: false,
-            uploadContext: { type: null, target: null, key: null, index: null },
+            uploadContext: { type: null, target: null, key: null, index: null, btnEl: null, originalBtnText: '' },
             activeImageTarget: { type: null, key: null, index: null, mediaType: 'image' },
             lenis: null,
             isMobile: window.innerWidth < 768 || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i),
@@ -665,8 +665,12 @@
                             });
 
                             if (!response.ok) {
-                                const err = await response.json();
-                                throw new Error(err.message || 'GitHub upload failed');
+                                let errMsg = response.statusText;
+                                try {
+                                    const err = await response.json();
+                                    if (err.message) errMsg = err.message;
+                                } catch(e) {}
+                                throw new Error(`GitHub API Error ${response.status}: ${errMsg}`);
                             }
 
                             const rawUrl = `https://raw.githubusercontent.com/${GitHubConfig.username}/${GitHubConfig.repo}/${GitHubConfig.branch}/${path}`;
@@ -675,7 +679,7 @@
                             reject(error);
                         }
                     };
-                    reader.onerror = reject;
+                    reader.onerror = () => reject(new Error("Failed to read file"));
                     reader.readAsDataURL(file);
                 });
             }
@@ -1004,7 +1008,7 @@
                                 <div class="flex flex-col md:flex-row gap-2">
                                     <input type="text" id="block-img-${area.id}-${i}" class="apple-input flex-1 text-sm py-2" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
                                     <div class="flex gap-2 w-full md:w-auto">
-                                        <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Upload"><i class="fas fa-upload"></i></button>
+                                        <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i}, this)" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Upload"><i class="fas fa-upload"></i></button>
                                         <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Gallery"><i class="fas fa-image"></i></button>
                                     </div>
                                 </div>
@@ -1038,7 +1042,7 @@
                         <div class="flex flex-col md:flex-row gap-2 mb-4">
                             <input type="text" id="srv-img-${area.id}" class="apple-input flex-1 text-sm" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
                             <div class="flex gap-2 w-full md:w-auto">
-                                <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Upload"><i class="fas fa-upload"></i></button>
+                                <button onclick="window.App.triggerUpload('image', 'service', '${area.id}', null, this)" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Upload"><i class="fas fa-upload"></i></button>
                                 <button onclick="window.App.openGalleryForService('${area.id}')" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Gallery"><i class="fas fa-image"></i></button>
                             </div>
                         </div>
@@ -1046,7 +1050,7 @@
                         <label class="apple-label">Background Image (Optional)</label>
                         <div class="flex flex-col md:flex-row gap-2 mb-4">
                             <input type="text" id="srv-bg-${area.id}" class="apple-input flex-1 text-sm" value="${srv.bgImg || ''}" oninput="window.App.updateServiceLocal('${area.id}', 'bgImg', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}')" class="apple-btn apple-btn-secondary px-3 w-full md:w-auto" title="Upload Background"><i class="fas fa-upload"></i> Upload</button>
+                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}', null, this)" class="apple-btn apple-btn-secondary px-3 w-full md:w-auto" title="Upload Background"><i class="fas fa-upload"></i> Upload</button>
                         </div>
                         
                         <label class="apple-label">Homepage Title</label>
@@ -1111,19 +1115,20 @@
                     
                     if(!file || !text) return;
                     
+                    const originalBtnText = btn.innerHTML;
                     btn.disabled = true;
-                    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading...';
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading to GitHub...';
                     
                     try {
                         await FirebaseService.uploadMedia(file, text);
                         fileInput.value = '';
                         textInput.value = '';
                     } catch(err) {
-                        console.error(err);
-                        alert("Upload failed! Please check your GitHub Token and Repo settings.");
+                        console.error("Feed Upload Error:", err);
+                        alert("Upload failed! Error: " + err.message);
                     } finally {
                         btn.disabled = false;
-                        btn.innerText = "Publish Post";
+                        btn.innerHTML = originalBtnText;
                     }
                 });
             }
@@ -1405,8 +1410,8 @@
                 else if (t.type === 'block') { document.getElementById(`block-img-${t.key}-${t.index}`).value = url; this.updateBlockLocal(t.key, t.index, url, 'image'); this.saveAllServices(); }
                 document.getElementById('img-modal').classList.remove('active'); 
             },
-            triggerUpload(type, target, key = null, index = null) {
-                AppState.uploadContext = { type, target, key, index };
+            triggerUpload(type, target, key = null, index = null, btnEl = null) {
+                AppState.uploadContext = { type, target, key, index, btnEl, originalBtnText: btnEl ? btnEl.innerHTML : '' };
                 document.getElementById(type === 'image' ? 'local-img-upload' : 'local-vid-upload').click();
             },
             
@@ -1424,8 +1429,13 @@
 
                 if(inputEl) {
                     inputEl.dataset.originalValue = inputEl.value;
-                    inputEl.value = "Uploading to GitHub...";
+                    inputEl.value = "Uploading...";
                     inputEl.disabled = true;
+                }
+
+                if(ctx.btnEl) {
+                    ctx.btnEl.disabled = true;
+                    ctx.btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading to GitHub...';
                 }
 
                 try {
@@ -1458,13 +1468,19 @@
                     alert("Upload successful and synced globally!");
 
                 } catch (error) {
-                    console.error("Upload failed:", error);
-                    alert("Upload failed! " + error.message);
+                    console.error("GitHub Upload Error:", error);
+                    alert("Upload failed! Error: " + error.message);
                     if(inputEl) {
                         inputEl.value = inputEl.dataset.originalValue || "";
                         inputEl.disabled = false;
                     }
-                } finally { e.target.value = ''; }
+                } finally { 
+                    e.target.value = ''; 
+                    if(ctx.btnEl) {
+                        ctx.btnEl.disabled = false;
+                        ctx.btnEl.innerHTML = ctx.originalBtnText || '<i class="fas fa-upload"></i> Upload';
+                    }
+                }
             },
             handleBooking() {
                 const selectEl = document.getElementById('p_counseling');
@@ -1565,4 +1581,3 @@
     </script>
 </body>
 </html>
-```
