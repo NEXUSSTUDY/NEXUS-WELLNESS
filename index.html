@@ -140,7 +140,7 @@
         .apple-input:focus { background: #FFFFFF; border-color: #0071E3; outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15); }
         .apple-input:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; white-space: nowrap; }
+        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: gap: 8px; cursor: pointer; white-space: nowrap; }
         .apple-btn:hover { background: #000000; transform: scale(0.98); }
         .apple-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -1086,7 +1086,7 @@
                 bind('logo-btn', 'click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
                 
                 bind('send-otp-btn', 'click', window.App.sendAdminOTP);
-                bind('verify-otp-btn', 'click', window.App.verifyAdminOTP);
+                bind('verify-otp-btn', 'click', () => window.App.verifyAdminOTP());
                 bind('lock-admin-btn', 'click', () => location.reload());
                 
                 bind('local-img-upload', 'change', window.App.processGitHubUpload);
@@ -1224,7 +1224,7 @@
                         document.getElementById('admin-main-controls').classList.add('flex');
                     }, 500);
                     AppState.isAdminActive = true; AppState.currentOTP = null; 
-                    this.loadAdminData();
+                    window.App.loadAdminData();
                 } else { alert("Invalid or Expired OTP."); }
             },
             loadAdminData() {
@@ -1544,7 +1544,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyB8FahQxzfs2D1Z-sLshNJ5Yh29wK-_30U",
             authDomain: "nexa-mind-932ca.firebaseapp.com",
-            databaseURL: "https://nexa-mind-983ea-default-rtdb.firebaseio.com/",
+            databaseURL: "https://nexa-mind-983ea-default-rtdb.firebaseio.com",
             projectId: "nexa-mind-932ca",
             storageBucket: "nexa-mind-932ca.firebasestorage.app",
             messagingSenderId: "650100747575",
