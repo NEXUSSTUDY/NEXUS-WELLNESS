@@ -1,4 +1,4 @@
-।<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,7 @@
     <!-- Optimized Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://firebasestorage.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
     
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23111111'/%3E%3Ctext x='50' y='66' font-family='sans-serif' font-size='46' font-weight='600' fill='%23FCFCFA' text-anchor='middle' letter-spacing='-2'%3ENM%3C/text%3E%3C/svg%3E">
     
@@ -146,7 +145,7 @@
         .apple-input:focus { background: #FFFFFF; border-color: #0071E3; outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15); }
         .apple-input:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: gap: 8px; cursor: pointer; }
+        .apple-btn { background: #111111; color: #FFFFFF; border-radius: 12px; font-weight: 600; font-size: 14px; padding: 10px 16px; transition: all 0.2s ease; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; white-space: nowrap; }
         .apple-btn:hover { background: #000000; transform: scale(0.98); }
         .apple-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -177,7 +176,7 @@
 
     <!-- Hidden File Inputs for Local Uploads -->
     <input type="file" id="local-img-upload" accept="image/*" class="hidden">
-    <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg" class="hidden">
+    <input type="file" id="local-vid-upload" accept="video/mp4,video/webm,video/ogg,video/quicktime" class="hidden">
 
     <div id="app-container">
 
@@ -213,7 +212,7 @@
 
         <div id="homepage-sections"></div>
 
-        <!-- Booking Section Moved Above -->
+        <!-- Booking Section -->
         <section id="booking-section" class="py-28 md:py-36 px-6 md:px-12 bg-bgBase border-t border-borderLight">
             <div class="max-w-xl mx-auto bg-white p-10 md:p-12 rounded-[32px] shadow-float border border-borderLight gpu-reveal">
                 <div id="booking-flow">
@@ -264,7 +263,7 @@
             </div>
         </section>
 
-        <!-- Healing Quote Section Moved Below -->
+        <!-- Healing Quote Section -->
         <section class="py-32 md:py-40 bg-charcoal text-bgBase relative overflow-hidden z-10">
             <div class="absolute inset-0 bg-gradient-to-b from-charcoalLight to-charcoal z-0 opacity-50"></div>
             <div class="max-w-4xl mx-auto px-6 relative z-10 text-center gpu-reveal">
@@ -384,18 +383,18 @@
 
                         <div id="adm-img-ui" class="hidden">
                             <h4 class="apple-label mt-4">Hero Image</h4>
-                            <div class="flex gap-2 mb-3">
+                            <div class="flex flex-col md:flex-row gap-2 mb-3">
                                 <input id="adm-hero-img" class="apple-input flex-1" placeholder="Image URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                <button onclick="window.App.triggerUpload('image', 'hero')" class="apple-btn apple-btn-secondary px-4" title="Upload from Device"><i class="fas fa-upload"></i></button>
+                                <button onclick="window.App.triggerUpload('image', 'hero')" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload from Device"><i class="fas fa-upload"></i> Upload</button>
                             </div>
                             <button onclick="window.App.openGalleryForHero()" class="text-appleBlue text-[12px] font-semibold hover:underline">Choose from Premium Gallery</button>
                         </div>
 
                         <div id="adm-vid-ui">
                             <h4 class="apple-label mt-4">Hero Video</h4>
-                            <div class="flex gap-2 mb-3">
+                            <div class="flex flex-col md:flex-row gap-2 mb-3">
                                 <input id="adm-hero-vid" class="apple-input flex-1" placeholder="Video URL" oninput="window.App.updateHeroLocal(); window.App.debouncedSaveHero()">
-                                <button onclick="window.App.triggerUpload('video', 'hero')" class="apple-btn apple-btn-secondary px-4" title="Upload from Device"><i class="fas fa-upload"></i></button>
+                                <button onclick="window.App.triggerUpload('video', 'hero')" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload from Device"><i class="fas fa-upload"></i> Upload</button>
                             </div>
                         </div>
                     </div>
@@ -443,9 +442,9 @@
                             </div>
                             <div>
                                 <label class="text-[11px] font-bold text-textMuted mb-1 block">Custom QR Code Image (Optional)</label>
-                                <div class="flex gap-2">
+                                <div class="flex flex-col md:flex-row gap-2">
                                     <input id="adm-qr-img" class="apple-input flex-1" placeholder="Leave blank to auto-generate" oninput="window.App.debouncedSaveGlobals()">
-                                    <button onclick="window.App.triggerUpload('image', 'qr')" class="apple-btn apple-btn-secondary px-4" title="Upload Custom QR"><i class="fas fa-upload"></i></button>
+                                    <button onclick="window.App.triggerUpload('image', 'qr')" class="apple-btn apple-btn-secondary px-4 w-full md:w-auto" title="Upload Custom QR"><i class="fas fa-upload"></i> Upload</button>
                                 </div>
                                 <p class="text-[10px] text-textMuted mt-1.5">If uploaded, this image overrides the auto-generated UPI QR code.</p>
                             </div>
@@ -637,23 +636,43 @@
             }
         };
 
+        // --- CLOUDINARY SERVICE FOR MEDIA UPLOADS ---
+        const CloudinaryService = {
+            cloudName: "djqh090oy",
+            uploadPreset: "nexus_mind_preset",
+            async uploadFile(file, resourceType = 'auto') {
+                const url = `https://api.cloudinary.com/v1_1/${this.cloudName}/${resourceType}/upload`;
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', this.uploadPreset);
+
+                const response = await fetch(url, { method: 'POST', body: formData });
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error?.message || 'Cloudinary upload failed');
+                }
+                const data = await response.json();
+                return data.secure_url;
+            }
+        };
+
+        // --- FIREBASE REALTIME DATABASE SERVICE ---
         const FirebaseService = {
             init() {
                 try {
                     if(window.FirebaseV10) {
                         this.db = window.FirebaseV10.db;
-                        this.storage = window.FirebaseV10.storage;
                         this.setupListeners();
                     }
                 } catch(e) { console.error("Firebase Init Error:", e); }
             },
             setupListeners() {
-                const { doc, onSnapshot } = window.FirebaseV10;
+                const { ref, onValue } = window.FirebaseV10;
                 
                 // Instant Global Sync for Hero
-                onSnapshot(doc(this.db, 'config', 'globalHero'), (docSnap) => {
-                    if(docSnap.exists()) {
-                        let data = docSnap.data();
+                onValue(ref(this.db, 'config/globalHero'), (snapshot) => {
+                    if(snapshot.exists()) {
+                        let data = snapshot.val();
                         localStorage.setItem('nexusHero', JSON.stringify(data)); 
                         UI.updateHero(data);
                     } else {
@@ -669,9 +688,9 @@
                 });
                 
                 // Instant Global Sync for Categories, Text, Photos, Globals
-                onSnapshot(doc(this.db, 'config', 'nexusData'), (docSnap) => {
-                    if(docSnap.exists()) {
-                        const data = docSnap.data();
+                onValue(ref(this.db, 'config/nexusData'), (snapshot) => {
+                    if(snapshot.exists()) {
+                        const data = snapshot.val();
                         if (!AppState.isAdminActive) {
                             AppState.config = Utils.patchConfig(data); 
                             localStorage.setItem('nexusData', JSON.stringify(AppState.config));
@@ -686,30 +705,26 @@
                 });
             },
             saveHero(data) { 
-                const { doc, setDoc } = window.FirebaseV10;
-                if(this.db) setDoc(doc(this.db, 'config', 'globalHero'), data, { merge: true }).catch(e => console.error("Firestore save error:", e)); 
+                const { ref, set } = window.FirebaseV10;
+                if(this.db) set(ref(this.db, 'config/globalHero'), data).catch(e => console.error("RTDB save error:", e)); 
             },
             saveConfig(data) { 
-                const { doc, setDoc } = window.FirebaseV10;
-                if(this.db) setDoc(doc(this.db, 'config', 'nexusData'), data, { merge: true }).catch(e => console.error("Firestore save error:", e)); 
-            },
-            async uploadFile(file, folder) {
-                const { ref, uploadBytes, getDownloadURL } = window.FirebaseV10;
-                const storageRef = ref(this.storage, `nexus_uploads/${folder}${Date.now()}_${file.name}`);
-                const snapshot = await uploadBytes(storageRef, file);
-                return await getDownloadURL(snapshot.ref);
+                const { ref, set } = window.FirebaseV10;
+                if(this.db) set(ref(this.db, 'config/nexusData'), data).catch(e => console.error("RTDB save error:", e)); 
             },
             async uploadMedia(file, text) {
-                const { collection, addDoc, serverTimestamp, ref, uploadBytes, getDownloadURL } = window.FirebaseV10;
-                const storageRef = ref(this.storage, 'uploads/' + Date.now() + '_' + file.name);
-                await uploadBytes(storageRef, file);
-                const url = await getDownloadURL(storageRef);
+                // Upload to Cloudinary first
+                const resourceType = (file.type && file.type.startsWith('video')) ? 'video' : 'image';
+                const url = await CloudinaryService.uploadFile(file, resourceType);
 
-                await addDoc(collection(this.db, "posts"), {
+                // Save to Firebase RTDB
+                const { ref, push, set } = window.FirebaseV10;
+                const newPostRef = push(ref(this.db, 'posts'));
+                await set(newPostRef, {
                     text: text,
                     mediaUrl: url,
-                    type: (file.type && file.type.startsWith('video')) ? 'video' : 'image',
-                    timestamp: serverTimestamp()
+                    type: resourceType,
+                    timestamp: Date.now()
                 });
                 alert("Live Globally!");
             }
@@ -869,7 +884,6 @@
                 if(!this.heroImgBg || !this.heroVidBg) return;
                 
                 if(data.type === 'video' && data.vid) {
-                    // Fix: Use getAttribute to prevent browser absolute URL conversion mismatch
                     const currentVidSrc = this.heroVidBg.getAttribute('src');
                     
                     if(currentVidSrc !== data.vid && !data.vid.startsWith('blob:')) {
@@ -933,10 +947,12 @@
                             return `
                             <div class="bg-white/50 p-3 rounded-[12px] mb-3 border border-black/5">
                                 <div class="flex justify-between mb-2"><span class="text-[10px] font-bold uppercase text-textMuted tracking-widest">Photo Block</span><button onclick="window.App.removeBlock('${area.id}', ${i})" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button></div>
-                                <div class="flex gap-2">
+                                <div class="flex flex-col md:flex-row gap-2">
                                     <input type="text" id="block-img-${area.id}-${i}" class="apple-input flex-1 text-sm py-2" value="${b.url || ''}" oninput="window.App.updateBlockLocal('${area.id}', ${i}, this.value, 'image'); window.App.debouncedSaveAllServices()">
-                                    <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3" title="Upload"><i class="fas fa-upload"></i></button>
-                                    <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3" title="Gallery"><i class="fas fa-image"></i></button>
+                                    <div class="flex gap-2 w-full md:w-auto">
+                                        <button onclick="window.App.triggerUpload('image', 'block', '${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Upload"><i class="fas fa-upload"></i></button>
+                                        <button onclick="window.App.openGalleryForBlock('${area.id}', ${i})" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Gallery"><i class="fas fa-image"></i></button>
+                                    </div>
                                 </div>
                             </div>`;
                         } else {
@@ -965,16 +981,18 @@
                         <input type="text" class="apple-input mb-4 text-sm font-bold" value="${area.label}" oninput="window.App.updateAreaLabel('${area.id}', this.value)">
                         
                         <label class="apple-label">Homepage Photo</label>
-                        <div class="flex gap-2 mb-4">
+                        <div class="flex flex-col md:flex-row gap-2 mb-4">
                             <input type="text" id="srv-img-${area.id}" class="apple-input flex-1 text-sm" value="${srv.img}" oninput="window.App.updateServiceLocal('${area.id}', 'img', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="apple-btn apple-btn-secondary px-3" title="Upload"><i class="fas fa-upload"></i></button>
-                            <button onclick="window.App.openGalleryForService('${area.id}')" class="apple-btn apple-btn-secondary px-3" title="Gallery"><i class="fas fa-image"></i></button>
+                            <div class="flex gap-2 w-full md:w-auto">
+                                <button onclick="window.App.triggerUpload('image', 'service', '${area.id}')" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Upload"><i class="fas fa-upload"></i></button>
+                                <button onclick="window.App.openGalleryForService('${area.id}')" class="apple-btn apple-btn-secondary px-3 flex-1 md:flex-none" title="Gallery"><i class="fas fa-image"></i></button>
+                            </div>
                         </div>
 
                         <label class="apple-label">Background Image (Optional)</label>
-                        <div class="flex gap-2 mb-4">
+                        <div class="flex flex-col md:flex-row gap-2 mb-4">
                             <input type="text" id="srv-bg-${area.id}" class="apple-input flex-1 text-sm" value="${srv.bgImg || ''}" oninput="window.App.updateServiceLocal('${area.id}', 'bgImg', this.value); window.App.debouncedSaveAllServices()">
-                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}')" class="apple-btn apple-btn-secondary px-3" title="Upload Background"><i class="fas fa-upload"></i></button>
+                            <button onclick="window.App.triggerUpload('image', 'serviceBg', '${area.id}')" class="apple-btn apple-btn-secondary px-3 w-full md:w-auto" title="Upload Background"><i class="fas fa-upload"></i> Upload</button>
                         </div>
                         
                         <label class="apple-label">Homepage Title</label>
@@ -1018,8 +1036,8 @@
                 bind('verify-otp-btn', 'click', window.App.verifyAdminOTP);
                 bind('lock-admin-btn', 'click', () => location.reload());
                 
-                bind('local-img-upload', 'change', window.App.processFirebaseUpload);
-                bind('local-vid-upload', 'change', window.App.processFirebaseUpload);
+                bind('local-img-upload', 'change', window.App.processCloudinaryUpload);
+                bind('local-vid-upload', 'change', window.App.processCloudinaryUpload);
                 bind('close-img-modal', 'click', () => document.getElementById('img-modal').classList.remove('active'));
                 
                 bind('close-detail-btn', 'click', window.App.closeDetail);
@@ -1163,21 +1181,21 @@
                 document.getElementById('adm-qr-img').value = AppState.config.qrCode || "";
                 
                 if(FirebaseService.db && window.FirebaseV10) {
-                    const { doc, getDoc, collection, onSnapshot } = window.FirebaseV10;
+                    const { ref, onValue } = window.FirebaseV10;
                     
-                    getDoc(doc(FirebaseService.db, 'config', 'globalHero')).then(docSnap => {
-                        if(docSnap.exists()) {
-                            const d = docSnap.data();
+                    onValue(ref(FirebaseService.db, 'config/globalHero'), (snapshot) => {
+                        if(snapshot.exists()) {
+                            const d = snapshot.val();
                             this.setHeroType(d.type || 'video');
                             document.getElementById('adm-hero-img').value = d.img || '';
                             document.getElementById('adm-hero-vid').value = d.vid || '';
                             document.getElementById('adm-hero-title').value = d.title || '';
                             document.getElementById('adm-hero-subtitle').value = d.subtitle || '';
                         }
-                    });
+                    }, { onlyOnce: true });
                     
-                    onSnapshot(collection(FirebaseService.db, 'submissions'), snap => {
-                        const data = {}; snap.forEach(docSnap => data[docSnap.id] = docSnap.data());
+                    onValue(ref(FirebaseService.db, 'submissions'), (snapshot) => {
+                        const data = snapshot.val() || {};
                         this.renderAdminSubmissions(data);
                     });
                 }
@@ -1197,8 +1215,8 @@
             },
             deleteSubmission(id) { 
                 if(confirm("Permanently delete this submission?") && FirebaseService.db && window.FirebaseV10) {
-                    const { doc, deleteDoc } = window.FirebaseV10;
-                    deleteDoc(doc(FirebaseService.db, 'submissions', id));
+                    const { ref, remove } = window.FirebaseV10;
+                    remove(ref(FirebaseService.db, `submissions/${id}`));
                 }
             },
             
@@ -1327,7 +1345,7 @@
                 const t = AppState.activeImageTarget;
                 if (t.type === 'hero') { 
                     document.getElementById('adm-hero-img').value = url; 
-                    this.setHeroType('image'); // Auto switch to image
+                    this.setHeroType('image'); 
                     this.saveHero(); 
                 } 
                 else if (t.type === 'service') { document.getElementById(`srv-img-${t.key}`).value = url; this.updateServiceLocal(t.key, 'img', url); this.saveAllServices(); } 
@@ -1339,11 +1357,9 @@
                 document.getElementById(type === 'image' ? 'local-img-upload' : 'local-vid-upload').click();
             },
             
-            async processFirebaseUpload(e) {
+            async processCloudinaryUpload(e) {
                 const file = e.target.files[0]; if(!file) return;
-                if(file.size > 50 * 1024 * 1024) { alert("File is too large. Maximum allowed size is 50MB."); e.target.value = ''; return; }
-                if(!FirebaseService.storage) { alert("Storage system initializing. Please try again."); return; }
-
+                
                 const ctx = AppState.uploadContext;
                 
                 let inputEl;
@@ -1355,7 +1371,7 @@
 
                 if(inputEl) {
                     inputEl.dataset.originalValue = inputEl.value;
-                    inputEl.value = "Uploading... Please wait";
+                    inputEl.value = "Uploading to Cloudinary...";
                     inputEl.disabled = true;
                 }
 
@@ -1365,7 +1381,8 @@
                         fileToUpload = await MediaService.compressImage(file);
                     }
 
-                    const downloadURL = await FirebaseService.uploadFile(fileToUpload, ctx.type === 'video' ? 'videos/' : 'images/');
+                    const resourceType = ctx.type === 'video' ? 'video' : 'image';
+                    const downloadURL = await CloudinaryService.uploadFile(fileToUpload, resourceType);
 
                     if(inputEl) {
                         inputEl.value = downloadURL;
@@ -1373,12 +1390,8 @@
                     }
 
                     if(ctx.target === 'hero') {
-                        // Auto switch media type based on upload
-                        if (ctx.type === 'image') {
-                            window.App.setHeroType('image');
-                        } else if (ctx.type === 'video') {
-                            window.App.setHeroType('video');
-                        }
+                        if (ctx.type === 'image') window.App.setHeroType('image');
+                        else if (ctx.type === 'video') window.App.setHeroType('video');
                         window.App.saveHero();
                     } else if(ctx.target === 'service') {
                         window.App.updateServiceLocal(ctx.key, 'img', downloadURL); window.App.saveAllServices();
@@ -1394,7 +1407,7 @@
 
                 } catch (error) {
                     console.error("Upload failed:", error);
-                    alert("Upload failed! Please check your Firebase Storage Rules. They must allow read/write.");
+                    alert("Upload failed! " + error.message);
                     if(inputEl) {
                         inputEl.value = inputEl.dataset.originalValue || "";
                         inputEl.disabled = false;
@@ -1417,8 +1430,8 @@
                 };
                 
                 if(FirebaseService.db && window.FirebaseV10) {
-                    const { doc, setDoc } = window.FirebaseV10;
-                    setDoc(doc(FirebaseService.db, 'submissions', data.id), data);
+                    const { ref, set } = window.FirebaseV10;
+                    set(ref(FirebaseService.db, `submissions/${data.id}`), data);
                 }
                 
                 if(AppState.config.qrCode && AppState.config.qrCode.trim() !== "") {
@@ -1473,15 +1486,15 @@
         window.App.init();
     </script>
 
-    <!-- FIREBASE V10 MODULAR SDK INTEGRATION -->
+    <!-- FIREBASE V10 REALTIME DATABASE INTEGRATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, onSnapshot, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+        import { getDatabase, ref, set, onValue, remove, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB8FahQxzfs2D1Z-sLshNJ5Yh29wK-_30U",
             authDomain: "nexa-mind-932ca.firebaseapp.com",
+            databaseURL: "https://nexa-mind-983ea-default-rtdb.firebaseio.com/",
             projectId: "nexa-mind-932ca",
             storageBucket: "nexa-mind-932ca.firebasestorage.app",
             messagingSenderId: "650100747575",
@@ -1490,11 +1503,10 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
+        const db = getDatabase(app);
 
         window.FirebaseV10 = {
-            db, storage, collection, addDoc, serverTimestamp, doc, setDoc, onSnapshot, getDoc, deleteDoc, ref, uploadBytes, getDownloadURL
+            db, ref, set, onValue, remove, push
         };
 
         if (window.App && window.App.initFirebase) {
