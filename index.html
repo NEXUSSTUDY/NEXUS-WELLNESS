@@ -688,7 +688,6 @@
                 }
 
                 if (!config.areas || config.areas.length === 0) {
-                    // Reordered: Career at the top, Anxiety at the bottom
                     config.areas = [
                         { id: "Career", label: "Career Counseling", isEnabled: true },
                         { id: "Relationship", label: "Relationship Issues", isEnabled: true },
@@ -697,6 +696,20 @@
                         { id: "GenZ", label: "Gen Z Counseling", isEnabled: true },
                         { id: "Anxiety", label: "Anxiety & Stress", isEnabled: true }
                     ];
+                }
+                
+                // STRICTLY ENFORCE: Career at the top, Anxiety at the bottom
+                if (config.areas && config.areas.length > 0) {
+                    const careerIdx = config.areas.findIndex(a => a.id === 'Career');
+                    if (careerIdx > 0) {
+                        const careerItem = config.areas.splice(careerIdx, 1)[0];
+                        config.areas.unshift(careerItem);
+                    }
+                    const anxietyIdx = config.areas.findIndex(a => a.id === 'Anxiety');
+                    if (anxietyIdx !== -1 && anxietyIdx !== config.areas.length - 1) {
+                        const anxietyItem = config.areas.splice(anxietyIdx, 1)[0];
+                        config.areas.push(anxietyItem);
+                    }
                 }
                 
                 if (config.areas && config.areas.length > 0) {
