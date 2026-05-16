@@ -75,38 +75,42 @@
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08) translateZ(0); transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
         .gpu-reveal.revealed .img-wrapper img { transform: scale(1) translateZ(0); }
 
-        /* Premium Horizontal Image Wrapper */
+        /* Premium Image Wrapper - Refined for Organic Blend & Zero Cropping */
         .premium-img-wrapper {
-            overflow: hidden;
             border-radius: 24px;
             transform: translateZ(0);
-            box-shadow: 0 32px 64px -16px rgba(0,0,0,0.15), 0 16px 32px -8px rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.03);
-            background: #F5F5F2;
+            /* Layered soft shadows for a floating, organic feel */
+            box-shadow: 
+                0 40px 80px -16px rgba(0,0,0,0.08), 
+                0 16px 32px -8px rgba(0,0,0,0.04), 
+                0 4px 12px -2px rgba(0,0,0,0.02);
             position: relative;
             width: 100%;
+            background: transparent; /* Seamless integration with section background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .premium-img-wrapper::after {
             content: '';
             position: absolute;
             inset: 0;
             border-radius: 24px;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), inset 0 4px 24px rgba(255,255,255,0.1);
+            /* Very subtle inner border to blend smoothly with the background */
+            box-shadow: inset 0 0 0 1px rgba(17,17,17,0.03);
             pointer-events: none;
             z-index: 2;
         }
         .premium-img-wrapper img {
             width: 100%;
-            height: 100%;
+            height: auto; /* Maintains natural aspect ratio */
+            max-height: 85vh; /* Prevents overly tall images from breaking layout */
+            object-fit: contain; /* Guarantees zero cropping */
             display: block;
-            object-fit: cover;
-            transform: scale(1.05) translateZ(0);
-            transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: transform;
-            filter: contrast(1.06) saturate(1.08) brightness(1.03) drop-shadow(0 4px 12px rgba(0,0,0,0.05));
-        }
-        .gpu-reveal.revealed .premium-img-wrapper img {
-            transform: scale(1) translateZ(0);
+            border-radius: 24px;
+            /* Cinematic color grading effect */
+            filter: contrast(1.03) saturate(1.05) brightness(1.01);
+            transform: translateZ(0);
         }
 
         .glass-nav { background: rgba(252, 252, 250, 0.85); border-bottom: 1px solid rgba(0, 0, 0, 0.04); z-index: 1000; height: 76px; display: flex; align-items: center; position: fixed; top: 0; width: 100%; transition: all 0.3s ease; transform: translateZ(0); }
@@ -534,8 +538,8 @@
             </div>
             
             <div class="gpu-reveal mb-12">
-                <div class="premium-img-wrapper mb-10 aspect-[4/3] md:aspect-[16/9]">
-                    <img id="det-img" src="" class="w-full h-full object-cover">
+                <div class="premium-img-wrapper mb-10">
+                    <img id="det-img" src="" alt="Detail Image">
                 </div>
                 <p id="det-desc" class="text-xl md:text-[22px] text-textMain leading-[1.6] font-semibold"></p>
             </div>
@@ -1094,7 +1098,7 @@
                         ${overlay}
                         <div class="max-w-6xl mx-auto flex flex-col ${flexDir} items-center gap-12 md:gap-16 ${revealClass} relative z-10">
                             <div class="w-full md:w-1/2 max-w-[600px] relative shrink-0">
-                                <div class="premium-img-wrapper aspect-[4/3] md:aspect-[3/2]">
+                                <div class="premium-img-wrapper">
                                     <img src="${srv.img}" loading="lazy" decoding="async" alt="${srv.title}">
                                 </div>
                             </div>
@@ -1740,7 +1744,7 @@
                 
                 document.getElementById('det-content').innerHTML = srv.blocks.map(b => {
                     if(b.type === 'text') return `<p class="gpu-reveal text-[16px] md:text-[18px] text-textMuted leading-[1.6] font-medium">${b.content}</p>`;
-                    if(b.type === 'image') return `<div class="gpu-reveal flex justify-center my-10"><div class="premium-img-wrapper w-full max-w-4xl aspect-[4/3] md:aspect-[16/9]"><img src="${b.url}" loading="lazy" decoding="async" class="w-full h-full object-cover"></div></div>`;
+                    if(b.type === 'image') return `<div class="gpu-reveal flex justify-center my-10"><div class="premium-img-wrapper w-full max-w-4xl"><img src="${b.url}" loading="lazy" decoding="async"></div></div>`;
                     if(b.type === 'heading') return `<h3 class="gpu-reveal text-2xl md:text-3xl font-bold tracking-tightest text-textMain mt-12 mb-6">${b.content}</h3>`;
                     if(b.type === 'list') return `<ul class="gpu-reveal space-y-4 bg-bgSurface p-8 md:p-10 rounded-[24px] border border-borderLight">${b.items.map(i => `<li class="text-[15px] md:text-[16px] flex gap-4 font-medium text-textMain items-center"><div class="w-2 h-2 rounded-full bg-textMain opacity-40"></div> ${i}</li>`).join('')}</ul>`;
                 }).join('');
