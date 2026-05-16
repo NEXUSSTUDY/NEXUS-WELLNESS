@@ -75,42 +75,34 @@
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08) translateZ(0); transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
         .gpu-reveal.revealed .img-wrapper img { transform: scale(1) translateZ(0); }
 
-        /* Premium Image Wrapper - Refined for Organic Blend & Zero Cropping */
+        /* Ultra-Premium Apple-Style Image Wrapper */
         .premium-img-wrapper {
-            border-radius: 24px;
-            transform: translateZ(0);
-            /* Layered soft shadows for a floating, organic feel */
-            box-shadow: 
-                0 40px 80px -16px rgba(0,0,0,0.08), 
-                0 16px 32px -8px rgba(0,0,0,0.04), 
-                0 4px 12px -2px rgba(0,0,0,0.02);
             position: relative;
             width: 100%;
-            background: transparent; /* Seamless integration with section background */
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .premium-img-wrapper::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            /* Very subtle inner border to blend smoothly with the background */
-            box-shadow: inset 0 0 0 1px rgba(17,17,17,0.03);
-            pointer-events: none;
-            z-index: 2;
+            transform: translateZ(0);
+            /* Removed background and overflow to let the image blend naturally with the UI */
         }
         .premium-img-wrapper img {
-            width: 100%;
-            height: auto; /* Maintains natural aspect ratio */
-            max-height: 85vh; /* Prevents overly tall images from breaking layout */
-            object-fit: contain; /* Guarantees zero cropping */
+            max-width: 100%;
+            max-height: 75vh; /* Prevents extreme vertical heights */
+            width: auto;
+            height: auto; /* Maintains exact natural aspect ratio without cropping */
             display: block;
-            border-radius: 24px;
-            /* Cinematic color grading effect */
-            filter: contrast(1.03) saturate(1.05) brightness(1.01);
+            border-radius: 24px; /* Smooth, modern Apple-like corners */
+            /* Ultra-soft, layered natural shadow for depth without looking like a pasted card */
+            box-shadow: 
+                0 32px 64px -12px rgba(0, 0, 0, 0.08), 
+                0 16px 32px -8px rgba(0, 0, 0, 0.04),
+                0 4px 12px -2px rgba(0, 0, 0, 0.02);
+            /* Very subtle edge definition to separate from background elegantly */
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            /* Cinematic polish for premium feel */
+            filter: contrast(1.02) saturate(1.04) brightness(1.01);
             transform: translateZ(0);
+            will-change: transform;
         }
 
         .glass-nav { background: rgba(252, 252, 250, 0.85); border-bottom: 1px solid rgba(0, 0, 0, 0.04); z-index: 1000; height: 76px; display: flex; align-items: center; position: fixed; top: 0; width: 100%; transition: all 0.3s ease; transform: translateZ(0); }
