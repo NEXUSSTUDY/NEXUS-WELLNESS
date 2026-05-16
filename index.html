@@ -75,6 +75,40 @@
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08) translateZ(0); transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
         .gpu-reveal.revealed .img-wrapper img { transform: scale(1) translateZ(0); }
 
+        /* Premium Image Wrapper for Homepage Sections */
+        .premium-img-wrapper {
+            overflow: hidden;
+            border-radius: 28px;
+            transform: translateZ(0);
+            box-shadow: 0 32px 64px -16px rgba(0,0,0,0.15), 0 16px 32px -8px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.03);
+            background: #F5F5F2;
+            position: relative;
+            width: 100%;
+        }
+        .premium-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), inset 0 4px 24px rgba(255,255,255,0.1);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .premium-img-wrapper img {
+            width: 100%;
+            height: auto; /* Maintains natural aspect ratio */
+            display: block;
+            object-fit: cover;
+            transform: scale(1.08) translateZ(0);
+            transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform;
+            filter: contrast(1.06) saturate(1.08) brightness(1.03) drop-shadow(0 4px 12px rgba(0,0,0,0.05));
+        }
+        .gpu-reveal.revealed .premium-img-wrapper img {
+            transform: scale(1) translateZ(0);
+        }
+
         .glass-nav { background: rgba(252, 252, 250, 0.85); border-bottom: 1px solid rgba(0, 0, 0, 0.04); z-index: 1000; height: 76px; display: flex; align-items: center; position: fixed; top: 0; width: 100%; transition: all 0.3s ease; transform: translateZ(0); }
         @supports (backdrop-filter: blur(16px)) { .glass-nav { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); } }
 
@@ -281,10 +315,10 @@
             <p class="text-textMuted text-[15px] mb-12 font-medium">Greater Noida, Uttar Pradesh, India</p>
             
             <div class="flex justify-center gap-5 mb-14">
-                <a href="#" class="w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-x-twitter"></i></a>
-                <a href="#" class="w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-youtube"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-ig w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-li w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-tw w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-yt w-12 h-12 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 hover:scale-105 transition-all shadow-sm"><i class="fab fa-youtube"></i></a>
             </div>
 
             <div class="flex flex-wrap justify-center items-center gap-5 md:gap-8 mb-14 text-[14px] font-semibold text-textMuted">
@@ -314,10 +348,10 @@
             <div class="mt-10 pt-8 border-t border-borderLight">
                 <p class="text-[11px] uppercase tracking-widest text-textMuted mb-5 font-bold">Connect</p>
                 <div class="flex gap-3">
-                    <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#" class="w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-youtube"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-ig w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-li w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-tw w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="social-link-yt w-11 h-11 rounded-[14px] bg-bgSurface border border-borderLight flex items-center justify-center text-textMain text-base hover:bg-black/5 transition-colors"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -425,6 +459,28 @@
                     </div>
 
                     <div class="apple-card">
+                        <h4 class="apple-label">Social Media Links</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">Instagram URL</label>
+                                <input id="adm-social-ig" class="apple-input" placeholder="https://instagram.com/..." oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">LinkedIn URL</label>
+                                <input id="adm-social-li" class="apple-input" placeholder="https://linkedin.com/..." oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">X (Twitter) URL</label>
+                                <input id="adm-social-tw" class="apple-input" placeholder="https://x.com/..." oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-bold text-textMuted mb-1 block">YouTube URL</label>
+                                <input id="adm-social-yt" class="apple-input" placeholder="https://youtube.com/..." oninput="window.App.debouncedSaveGlobals()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="apple-card">
                         <h4 class="apple-label">Payment Configuration</h4>
                         <div class="space-y-4">
                             <div>
@@ -524,7 +580,7 @@
         };
 
         const AppState = {
-            config: { wa: "+917830232077", upi: "7830232077@ptsbi", email: "thenexusstudy3@gmail.com", qrCode: "", areas: [], services: {} },
+            config: { wa: "+917830232077", upi: "7830232077@ptsbi", email: "thenexusstudy3@gmail.com", qrCode: "", socialLinks: { instagram: '#', linkedin: '#', twitter: '#', youtube: '#' }, areas: [], services: {} },
             isAdminActive: false,
             currentOTP: null,
             otpCooldown: false,
@@ -566,6 +622,10 @@
             patchConfig(config) {
                 if (!config) config = { ...AppState.config };
                 
+                if (!config.socialLinks) {
+                    config.socialLinks = { instagram: '#', linkedin: '#', twitter: '#', youtube: '#' };
+                }
+
                 if (!config.areas || config.areas.length === 0) {
                     config.areas = [
                         { id: "Anxiety", label: "Anxiety & Stress", isEnabled: true }, 
@@ -746,12 +806,14 @@
                             UI.renderMenu();
                             UI.renderHomepageSections();
                             UI.renderBookingOptions();
+                            UI.updateSocialLinks();
                         }
                     } else {
                         const defaultHero = { type: 'video', vid: 'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4', img: Constants.premiumImages[0], title: 'Reclaim Your\nInner Peace', subtitle: 'Premium online counseling for mental excellence.' };
                         const defaultConfig = Utils.patchConfig(null);
                         await this.saveFullConfig({ hero: defaultHero, nexusData: defaultConfig });
                         UI.updateHero(defaultHero);
+                        UI.updateSocialLinks();
                     }
 
                     const postsRes = await GitHubDB.getFile('posts.json');
@@ -927,6 +989,7 @@
                 this.renderMenu();
                 this.renderHomepageSections();
                 this.renderBookingOptions();
+                this.updateSocialLinks();
                 Utils.initGPUReveals();
                 this.bindEvents();
             },
@@ -977,6 +1040,13 @@
                     this.updateHero(savedHero);
                 } catch(e) {}
             },
+            updateSocialLinks() {
+                const links = AppState.config.socialLinks || { instagram: '#', linkedin: '#', twitter: '#', youtube: '#' };
+                document.querySelectorAll('.social-link-ig').forEach(el => el.href = links.instagram || '#');
+                document.querySelectorAll('.social-link-li').forEach(el => el.href = links.linkedin || '#');
+                document.querySelectorAll('.social-link-tw').forEach(el => el.href = links.twitter || '#');
+                document.querySelectorAll('.social-link-yt').forEach(el => el.href = links.youtube || '#');
+            },
             renderMenu() {
                 if(!this.menuContainer) return;
                 const frag = document.createDocumentFragment();
@@ -1010,6 +1080,7 @@
                     if(!srv) return;
                     
                     const flexDir = index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse';
+                    const textPadding = index % 2 === 0 ? 'md:pl-10 lg:pl-16' : 'md:pr-10 lg:pr-16';
                     const bgClass = index % 2 === 0 ? 'bg-bgBase' : 'bg-bgSurface';
                     
                     const bgStyle = srv.bgImg ? `background-image: url('${srv.bgImg}'); background-size: cover; background-position: center;` : '';
@@ -1021,11 +1092,13 @@
                     
                     section.innerHTML = `
                         ${overlay}
-                        <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-14 md:gap-24 ${revealClass} relative z-10">
-                            <div class="w-full md:w-5/12 max-w-[380px] relative shrink-0">
-                                <div class="img-wrapper w-full aspect-[4/5]"><img src="${srv.img}" loading="lazy" decoding="async"></div>
+                        <div class="max-w-5xl mx-auto flex flex-col ${flexDir} items-center gap-14 md:gap-20 ${revealClass} relative z-10">
+                            <div class="w-full md:w-5/12 max-w-[420px] relative shrink-0">
+                                <div class="premium-img-wrapper">
+                                    <img src="${srv.img}" loading="lazy" decoding="async" alt="${srv.title}">
+                                </div>
                             </div>
-                            <div class="w-full md:w-7/12 text-left relative z-10 flex flex-col justify-center">
+                            <div class="w-full md:w-7/12 text-left relative z-10 flex flex-col justify-center ${textPadding}">
                                 <div class="inline-flex items-center gap-4 mb-6">
                                     <span class="text-[11px] font-bold tracking-widest uppercase text-textMuted">0${index + 1}</span>
                                     <div class="h-[1px] w-8 bg-borderLight"></div>
@@ -1391,6 +1464,11 @@
                 document.getElementById('adm-email').value = AppState.config.email;
                 document.getElementById('adm-qr-img').value = AppState.config.qrCode || "";
                 
+                document.getElementById('adm-social-ig').value = AppState.config.socialLinks?.instagram || '';
+                document.getElementById('adm-social-li').value = AppState.config.socialLinks?.linkedin || '';
+                document.getElementById('adm-social-tw').value = AppState.config.socialLinks?.twitter || '';
+                document.getElementById('adm-social-yt').value = AppState.config.socialLinks?.youtube || '';
+                
                 DatabaseService.loadAdminSubmissions();
                 UI.renderAdminServices();
             },
@@ -1510,8 +1588,16 @@
                 AppState.config.email = document.getElementById('adm-email').value;
                 AppState.config.qrCode = document.getElementById('adm-qr-img').value;
                 
+                AppState.config.socialLinks = {
+                    instagram: document.getElementById('adm-social-ig').value,
+                    linkedin: document.getElementById('adm-social-li').value,
+                    twitter: document.getElementById('adm-social-tw').value,
+                    youtube: document.getElementById('adm-social-yt').value
+                };
+                
                 DatabaseService.saveNexusData(AppState.config); 
                 localStorage.setItem('nexusData', JSON.stringify(AppState.config));
+                UI.updateSocialLinks();
             },
             debouncedSaveHero: Utils.debounce(() => { App.saveHero(); }, 150),
             debouncedSaveAllServices: Utils.debounce(() => { App.saveAllServices(); }, 150),
