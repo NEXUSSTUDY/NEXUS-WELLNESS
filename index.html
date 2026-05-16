@@ -551,7 +551,7 @@
                 <h3 id="legal-title" class="text-3xl font-bold text-textMain tracking-tightest"></h3>
                 <button onclick="window.App.closeLegal()" class="w-10 h-10 rounded-[14px] bg-bgSurface flex items-center justify-center text-textMain text-base border border-borderLight hover:bg-black/5 transition-colors">&times;</button>
             </div>
-            <div id="legal-content" class="space-y-5 text-textMuted text-[16px] leading-relaxed font-medium"></div>
+            <div id="legal-content" class="space-y-5 text-textMuted text-[13px] leading-relaxed font-medium text-justify"></div>
         </div>
     </div>
 
@@ -609,10 +609,66 @@
                 "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070&auto=format&fit=crop"  
             ],
             legalData: {
-                privacy: { title: "Privacy Policy", content: "<p>At Nexus Mind, your privacy is our absolute priority. All sessions, data, and personal information are encrypted and strictly confidential.</p>" },
-                terms: { title: "Terms of Use", content: "<p>Welcome to Nexus Mind. By accessing our premium counseling services, you agree to our terms of engagement.</p>" },
-                policy: { title: "Policy", content: "<p>Our operational policies at Nexus Mind ensure the highest standard of psychological care.</p>" },
-                legal: { title: "Legal", content: "<p>Nexus Mind operates under strict clinical guidelines and legal frameworks governing mental health practices.</p>" }
+                privacy: { 
+                    title: "Privacy Policy", 
+                    content: `
+                        <p><strong>1. Introduction and Scope</strong><br>At Nexus Mind, we recognize that absolute confidentiality is the cornerstone of effective psychological care. This Privacy Policy delineates our uncompromising approach to safeguarding your personal, psychological, and financial data. By engaging with our premium counseling services, you entrust us with your most sensitive information, and we honor that trust through military-grade encryption and stringent data governance protocols.</p>
+                        <p><strong>2. Data Collection Architecture</strong><br>We collect only the data strictly necessary to facilitate your therapeutic journey. This includes basic identity markers (name, contact information), transactional data (UPI references, payment timestamps), and clinical notes generated during sessions. We do not employ third-party tracking cookies, nor do we harvest behavioral data for marketing purposes. Your digital footprint within our ecosystem is minimized by design.</p>
+                        <p><strong>3. End-to-End Encryption and Storage</strong><br>All communications—whether text, audio, or video—are secured using advanced end-to-end encryption (E2EE). Clinical notes and psychological assessments are stored on isolated, HIPAA-compliant servers with zero-knowledge architecture, meaning even our system administrators cannot access the contents of your therapeutic records without your explicit cryptographic authorization.</p>
+                        <p><strong>4. Confidentiality Exceptions</strong><br>In accordance with global psychological and legal standards, your data remains strictly confidential with three specific exceptions: (a) imminent risk of severe harm to yourself or others, (b) suspected abuse of a minor or vulnerable adult, or (c) a direct, unavoidable court order from a recognized legal authority. In all other circumstances, your data is an impenetrable vault.</p>
+                        <p><strong>5. Third-Party Integrations</strong><br>Nexus Mind utilizes select third-party infrastructure (such as secure payment gateways and encrypted video routing). These partners are bound by rigorous Data Processing Agreements (DPAs) that prohibit them from accessing, analyzing, or monetizing your data. We audit our partners bi-annually to ensure compliance with our premium privacy standards.</p>
+                        <p><strong>6. Data Retention and Erasure</strong><br>We retain clinical records only for the duration mandated by psychological governing bodies (typically 7 years post-termination of therapy). However, you possess the "Right to be Forgotten" regarding non-clinical data. Upon written request, we will permanently purge your contact and transactional history from our active databases within 72 hours, leaving only anonymized statistical artifacts.</p>
+                        <p><strong>7. Breach Notification Protocol</strong><br>While our systems are fortified against intrusion, we maintain a transparent breach notification protocol. In the highly unlikely event of a data compromise, you will be notified within 24 hours, provided with a detailed forensic analysis of the breach, and offered complimentary identity protection services.</p>
+                        <p><strong>8. User Consent and Modifications</strong><br>Your continued use of Nexus Mind constitutes explicit consent to this Privacy Policy. We reserve the right to refine these protocols to outpace emerging digital threats. Any substantive modifications will be communicated directly to your registered email address prior to implementation.</p>
+                        <p><strong>9. Contacting the Privacy Officer</strong><br>For inquiries regarding your data sovereignty, please contact our dedicated Privacy Officer at legal@nexusmind.com. We guarantee a personalized, human response within 24 business hours.</p>
+                        <p><em>Last Updated: May 2026. Nexus Mind operates under the jurisdiction of Uttar Pradesh, India.</em></p>
+                    ` 
+                },
+                terms: { 
+                    title: "Terms of Use", 
+                    content: `
+                        <p><strong>1. Acceptance of Terms</strong><br>Welcome to Nexus Mind. By accessing our platform, scheduling a session, or utilizing our premium psychological resources, you enter into a legally binding agreement governed by these Terms of Use. If you do not agree with any provision herein, you must immediately cease use of our services.</p>
+                        <p><strong>2. Nature of Premium Services</strong><br>Nexus Mind provides elite, evidence-based psychological counseling and therapeutic guidance. Our services are designed to foster mental excellence, emotional resilience, and cognitive clarity. However, our platform is not a substitute for emergency psychiatric intervention, acute crisis management, or inpatient medical care.</p>
+                        <p><strong>3. User Conduct and Etiquette</strong><br>We maintain a zero-tolerance policy for abusive, threatening, or inappropriate behavior toward our specialists. Sessions must be conducted in a private, quiet environment to ensure maximum therapeutic efficacy. Any violation of professional boundaries will result in immediate termination of services without refund.</p>
+                        <p><strong>4. Intellectual Property Rights</strong><br>All content, methodologies, clinical frameworks, and digital assets provided by Nexus Mind are the exclusive intellectual property of our organization. You are granted a limited, non-transferable license to utilize these materials for personal therapeutic growth. Reproduction, distribution, or commercialization of our proprietary content is strictly prohibited.</p>
+                        <p><strong>5. Financial Obligations</strong><br>Premium services require upfront payment via our secure UPI gateway. By initiating a transaction, you confirm that you are the authorized user of the payment method. Chargebacks or fraudulent payment disputes will be met with immediate account suspension and potential legal recourse to recover lost fees and administrative costs.</p>
+                        <p><strong>6. Session Recording Prohibition</strong><br>To protect the sanctity and confidentiality of the therapeutic environment, unauthorized recording (audio or video) of any session by the user is strictly forbidden. Violation of this clause constitutes a breach of trust and will lead to permanent expulsion from the Nexus Mind ecosystem.</p>
+                        <p><strong>7. Platform Availability and Maintenance</strong><br>While we strive for 99.9% uptime, Nexus Mind reserves the right to temporarily suspend access for critical system upgrades or security patches. We are not liable for any disruption in service caused by external telecommunication failures, force majeure events, or localized internet outages.</p>
+                        <p><strong>8. Limitation of Liability</strong><br>To the maximum extent permitted by law, Nexus Mind and its affiliates shall not be liable for any indirect, incidental, or consequential damages arising from your use of our services. Our total liability in any matter related to your engagement with us shall not exceed the total fees paid by you in the three months preceding the claim.</p>
+                        <p><strong>9. Governing Law and Jurisdiction</strong><br>These Terms of Use shall be governed by and construed in accordance with the laws of India. Any disputes arising under or in connection with these terms shall be subject to the exclusive jurisdiction of the courts located in Greater Noida, Uttar Pradesh.</p>
+                        <p><em>Last Updated: May 2026. Nexus Mind operates under the jurisdiction of Uttar Pradesh, India.</em></p>
+                    ` 
+                },
+                policy: { 
+                    title: "Operational Policy", 
+                    content: `
+                        <p><strong>1. Booking and Scheduling Framework</strong><br>Nexus Mind operates on a strict, pre-scheduled appointment basis to ensure our specialists can dedicate their undivided attention to your care. All bookings must be finalized at least 12 hours in advance through our secure digital portal. Same-day emergency appointments are subject to availability and may incur a premium surcharge.</p>
+                        <p><strong>2. The 24-Hour Cancellation Rule</strong><br>We respect your time, and we require the same respect for our specialists. Cancellations or rescheduling requests must be submitted at least 24 hours prior to the scheduled session. Failure to provide adequate notice will result in the forfeiture of the session fee, as that time was exclusively reserved for you.</p>
+                        <p><strong>3. No-Show Protocol</strong><br>A "No-Show" is defined as failing to join the secure session link within 15 minutes of the scheduled start time. In such instances, the session is automatically marked as completed, and no refunds or complimentary rescheduling will be offered. Consistent no-shows may result in a review of your eligibility for our premium services.</p>
+                        <p><strong>4. Refund Mechanics</strong><br>Refunds are only processed under exceptional circumstances, such as a technical failure on the part of Nexus Mind that prevents the session from occurring, or if a specialist is unexpectedly unavailable and a suitable alternative cannot be arranged. Approved refunds will be credited back to the original UPI source within 5-7 business days.</p>
+                        <p><strong>5. Specialist Matching and Reassignment</strong><br>Therapeutic alliance is critical to success. If you feel your assigned specialist is not the optimal fit for your psychological profile, you may request a reassignment after your initial session. Our clinical directors will review your case and pair you with a professional better aligned with your specific cognitive and emotional requirements.</p>
+                        <p><strong>6. Technological Requirements</strong><br>To experience the full premium quality of our video consultations, clients are required to have a stable broadband connection (minimum 10 Mbps), a functional webcam, and a high-fidelity microphone. Nexus Mind is not responsible for session degradation caused by inadequate client-side hardware or network instability.</p>
+                        <p><strong>7. Emergency and Crisis Protocols</strong><br>Nexus Mind is an elective counseling service, not an emergency response unit. If you are experiencing a life-threatening psychological crisis, severe suicidal ideation, or a medical emergency, you must immediately contact local emergency services or proceed to the nearest hospital emergency department.</p>
+                        <p><strong>8. Communication Boundaries</strong><br>Between-session communication is strictly limited to administrative matters (scheduling, billing) via our official support channels. Specialists do not provide therapeutic advice via email, WhatsApp, or social media outside of your dedicated, secure session time.</p>
+                        <p><strong>9. Policy Amendments</strong><br>Nexus Mind reserves the right to update these operational policies to reflect advancements in clinical practice or administrative efficiency. Clients will be bound by the policies active at the time of their session booking.</p>
+                        <p><em>Last Updated: May 2026. Nexus Mind operates under the jurisdiction of Uttar Pradesh, India.</em></p>
+                    ` 
+                },
+                legal: { 
+                    title: "Legal Disclaimer", 
+                    content: `
+                        <p><strong>1. Medical and Psychiatric Disclaimer</strong><br>The services provided by Nexus Mind, including all consultations, digital content, and therapeutic frameworks, are strictly for psychological counseling and personal development. They do not constitute medical advice, psychiatric diagnosis, or a prescription for medication. Always seek the advice of a qualified physician or psychiatrist regarding any medical condition.</p>
+                        <p><strong>2. No Guarantee of Outcomes</strong><br>Psychological healing and cognitive optimization are highly individualized processes dependent on numerous variables, including client engagement, neurobiology, and environmental factors. While Nexus Mind employs elite, evidence-based methodologies, we make no legal guarantees, warranties, or representations regarding specific emotional, psychological, or behavioral outcomes.</p>
+                        <p><strong>3. Indemnification</strong><br>By utilizing our platform, you agree to indemnify, defend, and hold harmless Nexus Mind, its founders, clinical specialists, and administrative staff from any claims, liabilities, damages, judgments, awards, losses, costs, or expenses (including reasonable attorneys' fees) arising out of or relating to your violation of our Terms of Use or your use of the platform.</p>
+                        <p><strong>4. Severability Clause</strong><br>If any provision of these legal terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal, or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of the terms will continue in full force and effect.</p>
+                        <p><strong>5. Dispute Resolution and Arbitration</strong><br>Any controversy or claim arising out of or relating to your engagement with Nexus Mind shall be settled by binding arbitration administered in Greater Noida, Uttar Pradesh, in accordance with the Arbitration and Conciliation Act, 1996. The language of the arbitration shall be English, and the decision of the arbitrator shall be final and legally binding.</p>
+                        <p><strong>6. Force Majeure</strong><br>Nexus Mind shall not be held liable for any failure or delay in performance under these terms resulting directly or indirectly from acts of nature, forces, or causes beyond our reasonable control, including, without limitation, internet failures, computer equipment failures, telecommunication equipment failures, electrical power failures, strikes, labor disputes, riots, insurrections, civil disturbances, shortages of labor or materials, fires, floods, storms, explosions, acts of God, war, governmental actions, or orders of domestic or foreign courts or tribunals.</p>
+                        <p><strong>7. Copyright and Trademark Notice</strong><br>The "Nexus Mind" name, logo, clinical frameworks, and all related product and service names, design marks, and slogans are trademarks or service marks of Nexus Mind. You may not use such marks without our prior written permission. All other names, logos, product and service names, designs, and slogans on this platform are the trademarks of their respective owners.</p>
+                        <p><strong>8. Regulatory Compliance</strong><br>Nexus Mind operates in strict adherence to the ethical guidelines set forth by relevant psychological associations and governing bodies within India. Our specialists maintain active credentials and engage in continuous professional development to ensure the highest standard of legal and clinical compliance.</p>
+                        <p><strong>9. Entire Agreement</strong><br>These Legal Disclaimers, combined with our Privacy Policy, Terms of Use, and Operational Policy, constitute the sole and entire agreement between you and Nexus Mind regarding the platform and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral.</p>
+                        <p><em>Last Updated: May 2026. Nexus Mind operates under the jurisdiction of Uttar Pradesh, India.</em></p>
+                    ` 
+                }
             }
         };
 
@@ -632,13 +688,14 @@
                 }
 
                 if (!config.areas || config.areas.length === 0) {
+                    // Reordered: Career at the top, Anxiety at the bottom
                     config.areas = [
                         { id: "Career", label: "Career Counseling", isEnabled: true },
-                        { id: "Anxiety", label: "Anxiety & Stress", isEnabled: true }, 
                         { id: "Relationship", label: "Relationship Issues", isEnabled: true },
                         { id: "Sleep", label: "Sleep Problems", isEnabled: true }, 
                         { id: "Trauma", label: "Trauma Support", isEnabled: true },
-                        { id: "GenZ", label: "Gen Z Counseling", isEnabled: true }
+                        { id: "GenZ", label: "Gen Z Counseling", isEnabled: true },
+                        { id: "Anxiety", label: "Anxiety & Stress", isEnabled: true }
                     ];
                 }
                 
